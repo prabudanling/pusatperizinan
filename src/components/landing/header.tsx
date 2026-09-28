@@ -20,9 +20,9 @@ export function Header() {
   }, []);
 
   const NAV_ITEMS = [
-    { label: t("navServices"), href: "#layanan" },
-    { label: t("navTax"), href: "#pajak" },
-    { label: t("navWorkAbroad"), href: "#kerja-luar-negeri" },
+    { label: t("navServices"), href: "/layanan" },
+    { label: t("navTax"), href: "/layanan/kategori/pajak" },
+    { label: t("navWorkAbroad"), href: "/layanan/kategori/kerja-luar-negeri" },
     { label: t("navCheckAI"), href: "#cek-izin" },
     { label: t("navCalculator"), href: "#kalkulator" },
     { label: t("navGuides"), href: "#panduan" },

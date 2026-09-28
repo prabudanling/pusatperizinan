@@ -6,22 +6,43 @@ import { useLanguage } from "@/lib/i18n/language-provider";
 import { LanguageSwitcher } from "@/components/landing/language-switcher";
 
 const SERVICE_LINKS = [
-  { label: "NIB & OSS-RBA", href: "#layanan-nib" },
-  { label: "Pendirian PT & PMA", href: "#layanan-pt" },
-  { label: "Jasa Pajak Pribadi & Badan", href: "#pajak" },
-  { label: "NPWP & SPT Tahunan", href: "#pajak-tax-npwp-op" },
-  { label: "Kerja Luar Negeri (PMI)", href: "#kerja-luar-negeri" },
-  { label: "Izin PPTKIS / P3MI", href: "#pmi-pptkis" },
-  { label: "Izin Umroh (PPIU)", href: "#layanan-ppi-umroh" },
-  { label: "Izin Haji (PPIH)", href: "#layanan-ppi-haji" },
-  { label: "Pendaftaran Merek (DJKI)", href: "#layanan-merek" },
-  { label: "API Ekspor Impor & COO", href: "#layanan-api-impex" },
-  { label: "ISO & SMK3", href: "#layanan-iso" },
-  { label: "RPTKA, KITAS Expatriat", href: "#layanan-rptka-kitas" },
-  { label: "Registrasi IATA", href: "#layanan-iata" },
-  { label: "Izin Usaha Arab Saudi (MISA)", href: "#layanan-saudi-arabia" },
-  { label: "RKAB & Kepatuhan Tambang", href: "#layanan-rkab-tambang" },
-  { label: "Sertifikasi Halal", href: "#layanan-halal" },
+  { label: "NIB & OSS-RBA", href: "/layanan/nib" },
+  { label: "Pendirian PT & PMA", href: "/layanan/pt" },
+  { label: "Jasa Pajak Pribadi & Badan", href: "/layanan/kategori/pajak" },
+  { label: "NPWP & SPT Tahunan", href: "/layanan/tax-npwp-op" },
+  { label: "Kerja Luar Negeri (PMI)", href: "/layanan/kategori/kerja-luar-negeri" },
+  { label: "Kerja di Jepang (SSW)", href: "/layanan/kerja-di-jp" },
+  { label: "Izin PPTKIS / P3MI", href: "/layanan/pptkis" },
+  { label: "Izin Umroh (PPIU)", href: "/layanan/ppi-umroh" },
+  { label: "Izin Haji (PPIH)", href: "/layanan/ppi-haji" },
+  { label: "Pendaftaran Merek (DJKI)", href: "/layanan/merek" },
+  { label: "API Ekspor Impor & COO", href: "/layanan/api-impex" },
+  { label: "ISO & SMK3", href: "/layanan/iso" },
+  { label: "RPTKA, KITAS Expatriat", href: "/layanan/rptka-kitas" },
+  { label: "Registrasi IATA", href: "/layanan/iata" },
+  { label: "Izin Usaha Arab Saudi (MISA)", href: "/layanan/saudi-arabia" },
+  { label: "RKAB & Kepatuhan Tambang", href: "/layanan/rkab-tambang" },
+  { label: "Sertifikasi Halal", href: "/layanan/halal" },
+];
+
+const POPULAR_REGIONS = [
+  { label: "Layanan di DKI Jakarta", href: "/layanan/wilayah/dki-jakarta" },
+  { label: "Layanan di Jawa Barat", href: "/layanan/wilayah/jawa-barat" },
+  { label: "Layanan di Jawa Tengah", href: "/layanan/wilayah/jawa-tengah" },
+  { label: "Layanan di Jawa Timur", href: "/layanan/wilayah/jawa-timur" },
+  { label: "Layanan di Bali", href: "/layanan/wilayah/bali" },
+  { label: "Layanan di Sumatera Utara", href: "/layanan/wilayah/sumatera-utara" },
+];
+
+const COUNTRY_LINKS = [
+  { label: "🇯🇵 Jepang (SSW)", href: "/layanan/kerja-di-jp" },
+  { label: "🇰🇷 Korea Selatan (EPS)", href: "/layanan/kerja-di-kr" },
+  { label: "🇹🇼 Taiwan", href: "/layanan/kerja-di-tw" },
+  { label: "🇲🇾 Malaysia", href: "/layanan/kerja-di-my" },
+  { label: "🇸🇬 Singapura", href: "/layanan/kerja-di-sg" },
+  { label: "🇸🇦 Arab Saudi", href: "/layanan/kerja-di-sa" },
+  { label: "🇭🇰 Hong Kong", href: "/layanan/kerja-di-hk" },
+  { label: "🇩🇪 Jerman (Triple Win)", href: "/layanan/kerja-di-de" },
 ];
 
 const COMPANY_LINKS = [
@@ -43,7 +64,74 @@ export function Footer() {
   return (
     <footer className="mt-auto bg-[oklch(0.23_0.03_165)] text-emerald-50/90">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+        {/* Baris katalog SEO */}
+        <div className="grid gap-10 md:grid-cols-3 lg:grid-cols-6 pb-10 border-b border-white/10">
+          <nav aria-label="Layanan" className="md:col-span-1">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-white">Layanan Populer</h3>
+            <ul className="mt-4 space-y-2.5">
+              {SERVICE_LINKS.slice(0, 8).map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href="/layanan" className="text-sm font-semibold text-emerald-300 hover:text-white transition-colors">
+                  → Semua {1000}+ Halaman Layanan
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <nav aria-label="Layanan lanjutan">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-white">Sertifikasi & Korporasi</h3>
+            <ul className="mt-4 space-y-2.5">
+              {SERVICE_LINKS.slice(8).map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <nav aria-label="Wilayah">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-white">Layanan per Wilayah</h3>
+            <ul className="mt-4 space-y-2.5">
+              {POPULAR_REGIONS.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href="/layanan#wilayah" className="text-sm font-semibold text-emerald-300 hover:text-white transition-colors">
+                  → 38 Provinsi Lainnya
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <nav aria-label="Negara tujuan PMI">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-white">Kerja Luar Negeri</h3>
+            <ul className="mt-4 space-y-2.5">
+              {COUNTRY_LINKS.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href="/layanan#negara" className="text-sm font-semibold text-emerald-300 hover:text-white transition-colors">
+                  → 17 Negara Tujuan
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 mt-10">
           {/* Brand */}
           <div className="lg:pr-6">
             <a href="#beranda" className="flex items-center gap-2.5">

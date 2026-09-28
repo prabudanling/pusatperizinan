@@ -87,10 +87,10 @@ export function Services() {
                   </ul>
 
                   <a
-                    href="#konsultasi"
+                    href={`/layanan/${service.id}`}
                     className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:gap-2.5 transition-all"
                   >
-                    Urus sekarang
+                    Lihat detail layanan
                     <ArrowRight className="h-4 w-4" />
                   </a>
                 </CardContent>
@@ -100,7 +100,7 @@ export function Services() {
         </div>
 
         {/* Show more toggle */}
-        {!showAll && (
+        {!showAll ? (
           <div className="mt-10 text-center">
             <button
               onClick={() => setShowAll(true)}
@@ -110,6 +110,16 @@ export function Services() {
               Tampilkan semua {SERVICES.length} layanan
               <ChevronDown className="h-4 w-4" aria-hidden="true" />
             </button>
+          </div>
+        ) : (
+          <div className="mt-10 text-center">
+            <a
+              href="/layanan"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-md hover:shadow-lg transition-all"
+            >
+              Buka Katalog Lengkap: Perizinan × Wilayah, Pajak & Kerja LN
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
           </div>
         )}
 

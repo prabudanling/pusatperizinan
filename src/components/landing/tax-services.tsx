@@ -64,7 +64,7 @@ function TaxCard({ service, index }: { service: TaxServiceItem; index: number })
           </ul>
 
           <a
-            href="#konsultasi"
+            href={`/layanan/${service.id}`}
             className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:gap-2.5 transition-all"
           >
             Urus sekarang

@@ -6,6 +6,9 @@ import { SERVICES } from "@/lib/landing-data";
 import { PERMIT_GUIDES } from "@/lib/seo-content";
 import { BLOG_ARTICLES } from "@/lib/blog-content";
 import { ISLANDS, PROVINCES } from "@/lib/coverage-data";
+import { TAX_ALL } from "@/lib/tax-services";
+import { PMI_B2B_SERVICES, PMI_B2C_SERVICES, PMI_COUNTRIES } from "@/lib/pmi-services";
+import { slugify } from "@/lib/catalog";
 import { useLanguage } from "@/lib/i18n/language-provider";
 
 // ============================================================
@@ -58,11 +61,12 @@ export function HtmlSitemap() {
         {/* Stat strip */}
         <div className="mt-7 flex flex-wrap justify-center gap-2.5">
           {[
-            { n: `${SERVICES.length}`, l: "Layanan" },
+            { n: `${SERVICES.length + TAX_ALL.length + PMI_B2B_SERVICES.length + PMI_B2C_SERVICES.length}`, l: "Layanan" },
             { n: `${PERMIT_GUIDES.length}`, l: "Panduan" },
             { n: `${BLOG_ARTICLES.length}`, l: "Artikel" },
+            { n: `${PMI_COUNTRIES.length}`, l: "Negara Tujuan" },
             { n: "38", l: "Provinsi" },
-            { n: "514", l: "Kab/Kota" },
+            { n: "1.000+", l: "Halaman SEO" },
           ].map((s) => (
             <Badge
               key={s.l}
@@ -77,7 +81,7 @@ export function HtmlSitemap() {
 
         {/* Grid direktori */}
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Kolom 1: Layanan */}
+          {/* Kolom 1: Layanan Perizinan */}
           <nav aria-label="Direktori layanan" className="rounded-2xl border border-border/60 bg-card p-5">
             <h3 className="flex items-center gap-2 text-sm font-extrabold">
               <Landmark className="h-4 w-4 text-primary" aria-hidden />
@@ -87,7 +91,29 @@ export function HtmlSitemap() {
               {SERVICES.map((s) => (
                 <li key={s.id}>
                   <a
-                    href="#layanan"
+                    href={`/layanan/${s.id}`}
+                    title={s.desc}
+                    className="text-[13px] text-foreground/75 hover:text-primary transition-colors"
+                  >
+                    {s.title}
+                  </a>
+                </li>
+              ))}
+              {TAX_ALL.map((s) => (
+                <li key={s.id}>
+                  <a
+                    href={`/layanan/${s.id}`}
+                    title={s.desc}
+                    className="text-[13px] text-foreground/75 hover:text-primary transition-colors"
+                  >
+                    {s.title}
+                  </a>
+                </li>
+              ))}
+              {[...PMI_B2B_SERVICES, ...PMI_B2C_SERVICES].map((s) => (
+                <li key={s.id}>
+                  <a
+                    href={`/layanan/${s.id}`}
                     title={s.desc}
                     className="text-[13px] text-foreground/75 hover:text-primary transition-colors"
                   >
@@ -158,8 +184,8 @@ export function HtmlSitemap() {
                     {PROVINCES.filter((p) => p.island === island).map((p) => (
                       <li key={p.name}>
                         <a
-                          href="#jangkauan"
-                          title={`Perizinan ${p.name}: ${p.note}`}
+                          href={`/layanan/wilayah/${slugify(p.name)}`}
+                          title={`Layanan perizinan, pajak & PMI di ${p.name}: ${p.note}`}
                           className="text-xs text-foreground/70 hover:text-primary transition-colors"
                         >
                           {p.name}

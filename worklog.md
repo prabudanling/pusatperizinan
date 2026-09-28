@@ -170,3 +170,30 @@ Stage Summary:
 - Section baru: #pajak (tab Pribadi/Perusahaan-UMKM) dan #kerja-luar-negeri (17 negara: Saudi, UAE, Qatar, Kuwait, Oman, Bahrain, Yordania, Malaysia, Singapura, Hong Kong, Taiwan, Jepang, Korea, Brunei, Jerman, UK, Canada)
 - SEO: offer catalog 59 layanan terstruktur schema.org, target "konsultan pajak", "PPTKIS", "kerja luar negeri"
 - Kesesuaian regulasi 2025: Coretax DJP, NPWP 16 digit/NITKU, PP 55/2022, PMK 164/2023, UU 18/2017 PPMI, SISKOP2MI, G2G (SSW Jepang, EPS Korea, Triple Win Jerman)
+
+---
+Task ID: 3
+Agent: Z.ai Code (main orchestrator)
+Task: Programmatic SEO — setiap layanan punya halaman sendiri (1.000+ halaman) untuk dominasi Google: perizinan × 38 provinsi, pajak × 15 kota, PMI × 17 negara × sektor
+
+Work Log:
+- Riset internet via agent (27 query web-search): 13 kategori layanan, data biaya/waktu riil, gaji PMI per negara (Malaysia 46,3% penempatan, Taiwan BPJS terbesar, dst) — laporan tersimpan di riset/LAPORAN_KATALOG_LAYANAN.md
+- Eksplorasi codebase: single-page app, 61 layanan (SERVICES/TAX_ALL/PMI), 38 provinsi, PERMIT_GUIDES 16, static export compatible
+- Buat arsitektur katalog baru di src/lib/catalog/: types.ts (ServicePage, CatalogKind, CATEGORY_META), detail-licenses.ts (19 detail kaya + mapping 13 dari PERMIT_GUIDES), detail-tax-pmi.ts (16 pajak + 13 PMI + 17 negara detail kaya: gaji/sektor/visa/dokumen/proses/FAQ), generators.ts (mesin kombinasi deterministik), index.ts (API)
+- Generator menghasilkan: 61 halaman induk + 532 perizinan×38 provinsi + 144 perizinan×8 provinsi + 60 perizinan×10 kota + 105 pajak×15 kota + 17 negara PMI + 46 negara×sektor + 41 hub (3 kategori + 38 wilayah) = 1.008 URL
+- Buat halaman dinamis src/app/layanan/[...slug]/page.tsx (catch-all): generateStaticParams + dynamicParams=false + generateMetadata per halaman (title/desc/keywords/canonical/OG) + JSON-LD triple schema (Service + FAQPage + BreadcrumbList) + breadcrumb + hero info bar + fitur + syarat + timeline proses + FAQ accordion + region links + related links + sidebar CTA WhatsApp sticky
+- Buat halaman katalog src/app/layanan/page.tsx + catalog-browser.tsx (client: search real-time + tab filter kategori) + hub-page.tsx (server, untuk kategori/wilayah)
+- Sitemap dinamis: hapus public/sitemap.xml lama (10 URL), buat src/app/sitemap.ts → 1.008 URL terverifikasi via curl
+- Update internal linking: header.tsx (nav Layanan/Pajak/Kerja LN → /layanan), footer.tsx (4 kolom katalog SEO baru: Layanan Populer, Sertifikasi & Korporasi, Layanan per Wilayah, Kerja Luar Negeri), services.tsx + tax-services.tsx + work-abroad.tsx (CTA kartu → /layanan/{id}), html-sitemap.tsx (61 layanan + 38 provinsi → URL dinamis, stat "1.000+ Halaman SEO")
+- Fix bug: field desc undefined pada ServicePage (crash client saat search) → tambahkan field desc ke interface + 7 builder; hub wilayah tidak set region → 0 link (fix: set region: prov.name); refactor [slug] → [...slug] untuk URL nested kategori/wilayah
+- Bersihkan typo keyword SEO: "kblu 78202" → kbli, "bsrе" cyrillic → bsre
+- Verifikasi curl: semua tipe halaman 200 (base/region/city/country/sector/hub), 404 untuk slug tidak dikenal, title unik per halaman terverifikasi
+- Verifikasi Agent Browser: katalog (116 link internal, search "jepang" → 3 hasil relevan, tab Pajak → 16 layanan), klik kartu → detail NPWP (breadcrumb, JSON-LD 9 script, FAQ accordion terbuka, Layanan Terkait 5 kartu, sidebar Info Cepat), hub Jawa Barat (32 link), kaigo Jepang (related cross-link), homepage (178 link katalog, nav baru), mobile 390px (tanpa overflow-x), footer katalog SEO tampil
+- ESLint: 0 error 0 warning. Catatan: dev server sempat crash 2x (restart manual, memori aman 3GB)
+
+Stage Summary:
+- Website kini memiliki 1.008 halaman SEO terindeks (sitemap.xml dinamis) — setiap layanan punya halaman sendiri + kombinasi wilayah/kota/negara/sektor
+- Struktur URL: /layanan (katalog), /layanan/{layanan}, /layanan/{layanan}-{provinsi}, /layanan/{layanan}-{kota}, /layanan/kerja-di-{negara}, /layanan/kerja-di-{negara}-{sektor}, /layanan/kategori/{cat}, /layanan/wilayah/{provinsi}
+- Setiap halaman: metadata unik + JSON-LD Service/FAQPage/BreadcrumbList + internal linking 5-6 related + CTA WhatsApp
+- File kunci: src/lib/catalog/* (generator), src/app/layanan/* (routes), src/app/sitemap.ts, header/footer/services/html-sitemap (linking)
+- Menambah 2 file panduan data besar: detail-licenses.ts (~490 baris), detail-tax-pmi.ts (~700 baris) berisi konten E-E-A-T riil dari riset

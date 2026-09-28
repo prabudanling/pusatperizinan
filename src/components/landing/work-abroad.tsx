@@ -66,7 +66,7 @@ function PmiServiceCard({ service, index, t }: { service: PmiServiceItem; index:
           </ul>
 
           <a
-            href="#konsultasi"
+            href={`/layanan/${service.id}`}
             className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:gap-2.5 transition-all"
           >
             {t("pmiCardCta")}
