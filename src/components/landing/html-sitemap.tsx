@@ -30,6 +30,9 @@ const TOOLS = [
   { label: "AI Roadmap 12 Bulan", href: "/roadmap" },
   { label: "Kalkulator Pajak", href: "/kalkulator-pajak" },
   { label: "Database KBLI", href: "/kbli" },
+  { label: "AI Cek Dokumen (Foto)", href: "/cek-dokumen" },
+  { label: "Perbandingan Badan Usaha", href: "/bandingkan" },
+  { label: "Lowongan Kerja", href: "/lowongan-kerja" },
   { label: "Cek Izin AI", href: "#cek-izin" },
   { label: "Kursus Email 7 Hari", href: "#kursus" },
   { label: "Konsultasi Gratis", href: "#konsultasi" },
@@ -70,7 +73,7 @@ export function HtmlSitemap() {
             { n: `${BLOG_ARTICLES.length}`, l: "Artikel" },
             { n: `${PMI_COUNTRIES.length}`, l: "Negara Tujuan" },
             { n: "38", l: "Provinsi" },
-            { n: "1.150+", l: "Halaman SEO" },
+            { n: "1.170+", l: "Halaman SEO" },
           ].map((s) => (
             <Badge
               key={s.l}

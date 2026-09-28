@@ -151,6 +151,21 @@ export function Footer() {
                 </a>
               </li>
               <li>
+                <a href="/cek-dokumen" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                  📷 AI Cek Dokumen (Upload Foto)
+                </a>
+              </li>
+              <li>
+                <a href="/bandingkan" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                  ⚖️ Perbandingan Badan Usaha (PT vs CV)
+                </a>
+              </li>
+              <li>
+                <a href="/lowongan-kerja" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                  💼 Lowongan Kerja Terbaru
+                </a>
+              </li>
+              <li>
                 <a href="#cek-izin" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
                   ✨ Cek Izin AI
                 </a>

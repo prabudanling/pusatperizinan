@@ -100,6 +100,22 @@ model Testimonial {
   createdAt DateTime @default(now())
 }
 
+// DocumentCheck: log AI Cek Dokumen via upload foto (lead magnet Tier 2)
+model DocumentCheck {
+  id          String   @id @default(cuid())
+  fileName    String   // nama file asli yang diupload
+  docCategory String   // konteks yang dipilih user: npwp, nib, ktp, paspor, sertifikat-standar, izin-edar, kontrak, auto
+  fileType    String   // image/jpeg, image/png, image/webp
+  fileSize    Int      // ukuran file dalam bytes
+  result      String?  // JSON hasil analisis AI (tanpa data pribadi mentah)
+  whatsapp    String?  // WA yang ditinggalkan saat ambil laporan lengkap
+  status      String   @default("NEW") // NEW, FOLLOWED_UP, CONVERTED
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([status])
+}
+
 // RoadmapRequest: pengguna AI Roadmap Generator 12 bulan (lead premium)
 model RoadmapRequest {
   id           String   @id @default(cuid())
