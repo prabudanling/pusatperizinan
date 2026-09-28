@@ -1,0 +1,10 @@
+{
+  "file": "pusatperizinan-static-hosting.tar.gz",
+  "sizeBytes": 1373863,
+  "sizeLabel": "1.31 MB",
+  "md5": "c99a92472d5a685f27973a7069b513ce",
+  "fileCount": 50,
+  "builtAt": "2026-09-21T04:30:59.869Z",
+  "target": "idwebhost shared hosting (cPanel) — tanpa Node.js",
+  "note": "Upload & extract ke public_html. Lihat DEPLOY-IDWEBHOST.md."
+}

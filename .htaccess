@@ -1,0 +1,69 @@
+# ============================================================
+# PUSATPERIZINAN.COM — Konfigurasi Shared Hosting (Apache/LiteSpeed)
+# Situs 100% STATIS: HTML + CSS + JavaScript — TANPA Node.js/PHP
+# Kompatibel: cPanel idwebhost, LiteSpeed, Apache 2.4+
+# ============================================================
+
+DirectoryIndex index.html
+
+# ---------- Halaman 404 branded ----------
+ErrorDocument 404 /404.html
+
+# ---------- Kompresi GZIP (hemat bandwidth, halaman lebih cepat) ----------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml application/xml
+  AddOutputFilterByType DEFLATE font/ttf font/otf application/vnd.ms-fontobject
+</IfModule>
+
+# ---------- Cache browser ----------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Aset Next.js ber-hash (nama file berubah tiap build) → cache permanen
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  # HTML selalu segar
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|woff2?|ttf|otf|png|jpe?g|webp|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always unset X-Powered-By
+</IfModule>
+
+# ---------- MIME tambahan ----------
+<IfModule mod_mime.c>
+  AddType application/x-gzip .gz .tgz
+  AddType font/woff2 .woff2
+</IfModule>
+
+# ---------- Rewrite: file nyata disajikan langsung ----------
+# (situs ini ekspor statis — semua URL sudah berupa file fisik)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+</IfModule>
+
+# ---------- HTTPS otomatis (opsional) ----------
+# Aktifkan SSL gratis dulu di cPanel (AutoSSL/Let's Encrypt),
+# lalu HAPUS tanda # pada 3 baris di bawah ini:
+# RewriteCond %{HTTPS} off
+# RewriteCond %{REQUEST_URI} !^/\.well-known/
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]

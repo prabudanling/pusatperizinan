@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// PUSATPERIZINAN.COM — Database Schema
+// Lead Generation Engine untuk Konsultan Perizinan
+// ============================================================
+
+// Lead: calon klien yang submit form (ASET BISNIS TERBAIK)
+model Lead {
+  id           String   @id @default(cuid())
+  name         String
+  whatsapp     String
+  email        String?
+  businessType String   // jenis usaha: kuliner, konstruksi, retail, dll
+  businessDesc String?  // deskripsi singkat usaha
+  package      String?  // paket yang diminati: UMKM, Bisnis, Enterprise
+  source       String   @default("landing") // landing, chat, checker, popup
+  status       String   @default("NEW") // NEW, CONTACTED, CONSULTED, CLOSED_WON, CLOSED_LOST
+  estimatedValue Int    @default(0) // estimasi nilai kontrak (Rupiah)
+  notes        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+// Consultation: jadwal konsultasi yang dibooking
+model Consultation {
+  id         String   @id @default(cuid())
+  leadId     String?
+  name       String
+  whatsapp   String
+  topic      String   // topik konsultasi
+  preferredDate String? // tanggal yang diinginkan
+  preferredTime String? // pagi/siang/sore/malam
+  method     String   @default("WA") // WA, Zoom, Meet, Kantor
+  status     String   @default("PENDING") // PENDING, CONFIRMED, DONE, CANCELLED
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([status])
+}
+
+// ChatMessage: log percakapan dengan AI Consultant
+model ChatMessage {
+  id        String   @id @default(cuid())
+  sessionId String
+  role      String   // user / assistant
+  content   String
+  leadCaptured Boolean @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([sessionId])
+}
+
+// LicenseCheck: log penggunaan fitur Cek Izin AI
+model LicenseCheck {
+  id         String   @id @default(cuid())
+  businessInput String  // deskripsi usaha yang diketik user
+  sector     String?  // sektor usaha
+  location   String?  // lokasi
+  scale      String?  // skala: mikro, kecil, menengah, besar
+  result     String?  // JSON hasil rekomendasi izin
+  whatsapp   String?  // WA yang ditinggalkan saat ambil hasil
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// Subscriber: pendaftar kursus email 7 hari (lead nurturing engine)
+model Subscriber {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  whatsapp  String?
+  source    String   @default("email-course")
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// Testimonial: testimoni klien (bisa dikelola)
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  company   String?
+  role      String?
+  content   String
+  rating    Int      @default(5)
+  avatarSeed String?
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
