@@ -21,6 +21,8 @@ export type LangCode =
 export interface Translation {
   // ===== Header =====
   navServices: string;
+  navTax: string;
+  navWorkAbroad: string;
   navCheckAI: string;
   navCalculator: string;
   navGuides: string;
@@ -77,6 +79,36 @@ export interface Translation {
   servicesT1: string;
   servicesTHigh: string;
   servicesT2: string;
+  taxBadge: string;
+  taxT1: string;
+  taxTHigh: string;
+  taxT2: string;
+  taxSub: string;
+  taxTabPersonal: string;
+  taxTabCorp: string;
+  taxNote: string;
+  taxNoteCta: string;
+  pmiBadge: string;
+  pmiT1: string;
+  pmiTHigh: string;
+  pmiT2: string;
+  pmiSub: string;
+  pmiStatCountries: string;
+  pmiStatTarget: string;
+  pmiStatJobs: string;
+  pmiStatLegal: string;
+  pmiCountriesTitle: string;
+  pmiCountriesSub: string;
+  pmiShowAllCountries: string;
+  pmiShowLess: string;
+  pmiProcessTitle: string;
+  pmiProcessSub: string;
+  pmiServicesTitle: string;
+  pmiServicesSub: string;
+  pmiTabIndividu: string;
+  pmiTabPerusahaan: string;
+  pmiCardCta: string;
+  pmiLegalNote: string;
   checkerT1: string;
   checkerTHigh: string;
   checkerT2: string;

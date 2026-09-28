@@ -2,6 +2,8 @@ import { Header } from "@/components/landing/header";
 import { Hero } from "@/components/landing/hero";
 import { StatsBar } from "@/components/landing/stats-bar";
 import { Services } from "@/components/landing/services";
+import { TaxServices } from "@/components/landing/tax-services";
+import { WorkAbroad } from "@/components/landing/work-abroad";
 import { LicenseChecker } from "@/components/landing/license-checker";
 import { KnowledgeHub } from "@/components/landing/knowledge-hub";
 import { BlogHub } from "@/components/landing/blog-hub";
@@ -23,8 +25,9 @@ import { AdminDeploy } from "@/components/landing/admin-deploy";
 
 // ============================================================
 // PUSATPERIZINAN.COM — Landing Page Utama
-// Konsultan Perizinan Usaha #1 Indonesia
-// SEO Architecture: Layanan + Knowledge Hub + Blog Content Hub + Kursus Email
+// Konsultan Perizinan, Perpajakan & Penempatan PMI #1 Indonesia
+// SEO Architecture: Layanan Hulu-Hilir + Jasa Pajak + Kerja Luar Negeri
+//   + Knowledge Hub + Blog Content Hub + Kursus Email
 //   + Jangkauan Nasional + Kalkulator Biaya + Perbandingan + Peta Situs HTML
 // Lead Generation Engine + AI Consultant 24/7
 // ============================================================
@@ -37,6 +40,8 @@ export default function Home() {
         <Hero />
         <StatsBar />
         <Services />
+        <TaxServices />
+        <WorkAbroad />
         <LicenseChecker />
         <CostCalculator />
         <KnowledgeHub />

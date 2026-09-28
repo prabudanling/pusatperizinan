@@ -9,6 +9,8 @@ import type { LangCode, Translation } from "./types";
 const id: Translation = {
   // Header
   navServices: "Layanan",
+  navTax: "Pajak",
+  navWorkAbroad: "Kerja Luar Negeri",
   navCheckAI: "Cek Izin AI",
   navCalculator: "Kalkulator",
   navGuides: "Panduan",
@@ -67,6 +69,45 @@ const id: Translation = {
   servicesT1: "Satu Pintu untuk",
   servicesTHigh: "Semua Kebutuhan Legal",
   servicesT2: "Usaha Anda",
+  // Tax section
+  taxBadge: "Jasa Perpajakan — Siap Coretax 2025",
+  taxT1: "Pajak Pribadi & Perusahaan,",
+  taxTHigh: "Dari NPWP sampai Banding",
+  taxT2: "— Tuntas",
+  taxSub:
+    "NPWP 16 digit, SPT Tahunan & Masa, PKP, Pajak UMKM 0,5%, Transfer Pricing, sampai pendampingan pemeriksaan — semua siap sistem Coretax DJP 2025.",
+  taxTabPersonal: "Pajak Pribadi",
+  taxTabCorp: "Perusahaan & UMKM",
+  taxNote:
+    "Semua berbasis sistem Coretax DJP terbaru, NPWP 16 digit & regulasi 2025 — klien kami terhindar dari sanksi bunga 2%/bulan.",
+  taxNoteCta: "Konsultasikan kondisi pajak Anda gratis",
+  // PMI section
+  pmiBadge: "Penempatan Pekerja Migran Indonesia",
+  pmiT1: "Kirim Pekerja Indonesia ke",
+  pmiTHigh: "17 Negara Besar Dunia",
+  pmiT2: "— Legal & Terlindungi",
+  pmiSub:
+    "Jepang, Korea, Saudi, Hong Kong, Jerman, Canada — hulu ke hilir: dokumen, pelatihan bahasa, sertifikasi BNSP, kontrak & visa, sampai keberangkatan. Untuk individu maupun perusahaan PPTKIS.",
+  pmiStatCountries: "Negara tujuan resmi",
+  pmiStatTarget: "Target penempatan PMI 2025",
+  pmiStatJobs: "Job order tercatat SISKOP2MI",
+  pmiStatLegal: "Dasar hukum perlindungan",
+  pmiCountriesTitle: "17 Negara Tujuan — Gaji & Skema Transparan",
+  pmiCountriesSub:
+    "Dari Timur Tengah sampai Barat: sektor populer, skema kerja resmi (G2G/agen berizin), dan estimasi gaji bulanan di setiap negara.",
+  pmiShowAllCountries: "Tampilkan semua 17 negara",
+  pmiShowLess: "Tampilkan lebih sedikit",
+  pmiProcessTitle: "6 Langkah Hulu ke Hilir Sampai Terbang",
+  pmiProcessSub:
+    "Kami dampingi dari nol: dokumen, pelatihan bahasa, sertifikasi BNSP, kontrak & visa, tiket BI, sampai perlindungan purna sesuai UU 18/2017.",
+  pmiServicesTitle: "Layanan Penempatan PMI",
+  pmiServicesSub:
+    "Untuk individu yang ingin berangkat kerja, maupun perusahaan (PPTKIS/LPK) yang ingin membuka jasa penempatan.",
+  pmiTabIndividu: "Individu (Cari Kerja)",
+  pmiTabPerusahaan: "Perusahaan (Izin)",
+  pmiCardCta: "Ajukan sekarang",
+  pmiLegalNote:
+    "Komitmen legal kami: sesuai UU No. 18/2017 tentang Pelindungan Pekerja Migran Indonesia, PMI TIDAK dibebani biaya penempatan ilegal. Semua penempatan melalui jalur resmi SISKOP2MI, PPTKIS berizin, atau skema pemerintah G2G (Jepang, Korea, Jerman, Taiwan). Hindari calo — kalau ada yang minta bayar mahal dengan janji gaji tidak wajar, itu red flag.",
   checkerT1: "Cek Izin yang",
   checkerTHigh: "Anda Butuhkan",
   checkerT2: "dalam 30 Detik",
@@ -193,6 +234,8 @@ const id: Translation = {
 const en: Translation = {
   // Header
   navServices: "Services",
+  navTax: "Taxes",
+  navWorkAbroad: "Work Abroad",
   navCheckAI: "AI License Check",
   navCalculator: "Calculator",
   navGuides: "Guides",
@@ -251,6 +294,45 @@ const en: Translation = {
   servicesT1: "One Door for",
   servicesTHigh: "All Your Legal Needs",
   servicesT2: "as a Business",
+  // Tax section
+  taxBadge: "Tax Services — Coretax 2025 Ready",
+  taxT1: "Personal & Corporate Taxes,",
+  taxTHigh: "From NPWP to Tax Appeals",
+  taxT2: "— Fully Handled",
+  taxSub:
+    "16-digit NPWP, annual & monthly returns, VAT registration, SME 0.5% final tax, transfer pricing, to audit assistance — fully Coretax DJP 2025 ready.",
+  taxTabPersonal: "Personal Tax",
+  taxTabCorp: "Corporate & SME",
+  taxNote:
+    "Built on the latest Coretax DJP system, 16-digit NPWP & 2025 regulations — our clients avoid the 2%/month late penalties.",
+  taxNoteCta: "Discuss your tax situation for free",
+  // PMI section
+  pmiBadge: "Indonesian Migrant Worker Placement",
+  pmiT1: "Place Indonesian Workers in",
+  pmiTHigh: "17 Major Countries",
+  pmiT2: "— Legal & Protected",
+  pmiSub:
+    "Japan, Korea, Saudi Arabia, Hong Kong, Germany, Canada — end to end: documents, language training, BNSP certification, contract & visa, to takeoff. For individuals and PPTKIS companies.",
+  pmiStatCountries: "Official destination countries",
+  pmiStatTarget: "2025 national PMI target",
+  pmiStatJobs: "Registered job orders (SISKOP2MI)",
+  pmiStatLegal: "Legal protection basis",
+  pmiCountriesTitle: "17 Destination Countries — Transparent Salaries & Schemes",
+  pmiCountriesSub:
+    "From the Middle East to the West: popular sectors, official work schemes (G2G/licensed agencies), and monthly salary estimates per country.",
+  pmiShowAllCountries: "Show all 17 countries",
+  pmiShowLess: "Show fewer",
+  pmiProcessTitle: "6 End-to-End Steps Until Takeoff",
+  pmiProcessSub:
+    "We guide you from zero: documents, language training, BNSP certification, contract & visa, BI tickets, to post-placement protection under Law 18/2017.",
+  pmiServicesTitle: "Migrant Worker Placement Services",
+  pmiServicesSub:
+    "For individuals who want to work abroad, and for companies (PPTKIS/LPK) entering the placement business.",
+  pmiTabIndividu: "Individuals (Job Seekers)",
+  pmiTabPerusahaan: "Companies (Licensing)",
+  pmiCardCta: "Apply now",
+  pmiLegalNote:
+    "Our legal commitment: under Law No. 18/2017 on the Protection of Indonesian Migrant Workers, PMI are NOT charged illegal placement fees. All placements go through official channels — SISKOP2MI, licensed PPTKIS agencies, or government-to-government schemes (Japan, Korea, Germany, Taiwan). Avoid illegal brokers — anyone demanding large fees with unrealistic salary promises is a red flag.",
   checkerT1: "Find the Licenses",
   checkerTHigh: "You Need",
   checkerT2: "in 30 Seconds",

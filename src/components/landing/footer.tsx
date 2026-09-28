@@ -8,8 +8,16 @@ import { LanguageSwitcher } from "@/components/landing/language-switcher";
 const SERVICE_LINKS = [
   { label: "NIB & OSS-RBA", href: "#layanan-nib" },
   { label: "Pendirian PT & PMA", href: "#layanan-pt" },
+  { label: "Jasa Pajak Pribadi & Badan", href: "#pajak" },
+  { label: "NPWP & SPT Tahunan", href: "#pajak-tax-npwp-op" },
+  { label: "Kerja Luar Negeri (PMI)", href: "#kerja-luar-negeri" },
+  { label: "Izin PPTKIS / P3MI", href: "#pmi-pptkis" },
   { label: "Izin Umroh (PPIU)", href: "#layanan-ppi-umroh" },
   { label: "Izin Haji (PPIH)", href: "#layanan-ppi-haji" },
+  { label: "Pendaftaran Merek (DJKI)", href: "#layanan-merek" },
+  { label: "API Ekspor Impor & COO", href: "#layanan-api-impex" },
+  { label: "ISO & SMK3", href: "#layanan-iso" },
+  { label: "RPTKA, KITAS Expatriat", href: "#layanan-rptka-kitas" },
   { label: "Registrasi IATA", href: "#layanan-iata" },
   { label: "Izin Usaha Arab Saudi (MISA)", href: "#layanan-saudi-arabia" },
   { label: "RKAB & Kepatuhan Tambang", href: "#layanan-rkab-tambang" },
@@ -63,7 +71,7 @@ export function Footer() {
           {/* Services */}
           <nav aria-label="Layanan">
             <h3 className="text-sm font-bold uppercase tracking-wider text-white">{t("footerColServices")}</h3>
-            <ul className="mt-4 space-y-2.5">
+            <ul className="mt-4 space-y-2.5 max-h-96 overflow-y-auto scrollbar-thin pr-2">
               {SERVICE_LINKS.map((link) => (
                 <li key={link.href}>
                   <a href={link.href} className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">

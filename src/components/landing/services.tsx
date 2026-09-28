@@ -1,14 +1,19 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Clock, ArrowRight, Flame } from "lucide-react";
+import { Clock, ArrowRight, Flame, ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { SERVICES } from "@/lib/landing-data";
 import { useLanguage } from "@/lib/i18n/language-provider";
 
+const INITIAL_VISIBLE = 9;
+
 export function Services() {
   const { t } = useLanguage();
+  const [showAll, setShowAll] = useState(false);
+  const visibleServices = showAll ? SERVICES : SERVICES.slice(0, INITIAL_VISIBLE);
   return (
     <section id="layanan" className="py-20 md:py-28 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,7 +32,7 @@ export function Services() {
 
         {/* Services grid */}
         <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {SERVICES.map((service, i) => (
+          {visibleServices.map((service, i) => (
             <motion.div
               key={service.id}
               initial={{ opacity: 0, y: 20 }}
@@ -94,6 +99,20 @@ export function Services() {
           ))}
         </div>
 
+        {/* Show more toggle */}
+        {!showAll && (
+          <div className="mt-10 text-center">
+            <button
+              onClick={() => setShowAll(true)}
+              className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-6 py-3 text-sm font-semibold text-primary hover:bg-primary/10 transition-colors"
+              aria-expanded={showAll}
+            >
+              Tampilkan semua {SERVICES.length} layanan
+              <ChevronDown className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
+        )}
+
         {/* Bottom note */}
         <div className="mt-10 text-center">
           <p className="text-sm text-muted-foreground">
@@ -101,7 +120,7 @@ export function Services() {
             <a href="#konsultasi" className="font-semibold text-primary hover:underline">
               Konsultasikan gratis
             </a>{" "}
-            — kami menangani 40+ jenis perizinan lainnya.
+            — kami menangani 60+ jenis perizinan lainnya.
           </p>
         </div>
       </div>

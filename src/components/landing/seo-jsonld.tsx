@@ -4,6 +4,8 @@
 // ============================================================
 
 import { SERVICES, FAQS, TESTIMONIALS } from "@/lib/landing-data";
+import { TAX_ALL } from "@/lib/tax-services";
+import { PMI_B2B_SERVICES, PMI_B2C_SERVICES, PMI_COUNTRIES } from "@/lib/pmi-services";
 import { FOUNDER, TEAM } from "@/lib/team-data";
 import { PERMIT_GUIDES, SECTOR_GUIDES } from "@/lib/seo-content";
 import { BLOG_ARTICLES } from "@/lib/blog-content";
@@ -32,7 +34,7 @@ export function SeoJsonLd() {
     logo: `${SITE_URL}/logo.png`,
     image: `${SITE_URL}/logo.png`,
     description:
-      "Konsultan perizinan usaha #1 Indonesia. Jasa pengurusan NIB, pendirian PT/CV/PMA, OSS-RBA, sertifikasi halal, izin BPOM, PBG/SLF, AMDAL, izin umroh (PPIU) & haji (PPIH), registrasi IATA, izin usaha Arab Saudi (MISA), RKAB & perizinan tambang — melayani 38 provinsi & 514 kabupaten/kota dengan garansi 100% uang kembali.",
+      "Konsultan perizinan usaha, perpajakan & penempatan pekerja migran #1 Indonesia. Jasa pengurusan NIB, pendirian PT/CV/PMA, OSS-RBA, sertifikasi halal, izin BPOM, PBG/SLF, AMDAL, pajak pribadi & badan (NPWP, SPT, PKP, Coretax), penempatan PMI ke 17 negara (Jepang, Korea, Saudi, dsb), izin PPTKIS/P3MI, izin umroh (PPIU) & haji (PPIH), registrasi IATA, izin usaha Arab Saudi (MISA), RKAB & perizinan tambang — melayani 38 provinsi & 514 kabupaten/kota dengan garansi 100% uang kembali.",
     telephone: "+62-812-6999-9910",
     email: "halo@pusatperizinan.com",
     foundingDate: "2024",
@@ -58,11 +60,11 @@ export function SeoJsonLd() {
         closes: "20:00",
       },
     ],
-    areaServed: {
-      "@type": "Country",
-      name: "Indonesia",
-    },
-    priceRange: "Rp 350.000 - Rp 45.000.000",
+    areaServed: [
+      { "@type": "Country", name: "Indonesia" },
+      ...PMI_COUNTRIES.map((c) => ({ "@type": "Country", name: c.name })),
+    ],
+    priceRange: "Rp 150.000 - Rp 45.000.000",
     currenciesAccepted: "IDR",
     paymentAccepted: "Bank Transfer",
     // Founder + tim konsultan (branding Task 19)
@@ -95,19 +97,45 @@ export function SeoJsonLd() {
     },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Layanan Perizinan Usaha",
-      itemListElement: SERVICES.map((s, i) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: s.title,
-          description: s.desc,
-          serviceType: s.title,
-        },
-        priceCurrency: "IDR",
-        price: s.price.replace(/[^\d]/g, "") || "0",
-        position: i + 1,
-      })),
+      name: "Layanan Perizinan, Perpajakan & Penempatan PMI",
+      itemListElement: [
+        ...SERVICES.map((s, i) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: s.title,
+            description: s.desc,
+            serviceType: "Perizinan Usaha",
+          },
+          priceCurrency: "IDR",
+          price: s.price.replace(/[^\d]/g, "") || "0",
+          position: i + 1,
+        })),
+        ...TAX_ALL.map((s, i) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: s.title,
+            description: s.desc,
+            serviceType: "Jasa Perpajakan",
+          },
+          priceCurrency: "IDR",
+          price: s.price.replace(/[^\d]/g, "") || "0",
+          position: SERVICES.length + i + 1,
+        })),
+        ...[...PMI_B2B_SERVICES, ...PMI_B2C_SERVICES].map((s, i) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: s.title,
+            description: s.desc,
+            serviceType: "Penempatan Pekerja Migran Indonesia",
+          },
+          priceCurrency: "IDR",
+          price: s.price.replace(/[^\d]/g, "") || "0",
+          position: SERVICES.length + TAX_ALL.length + i + 1,
+        })),
+      ],
     },
   };
 
@@ -257,24 +285,36 @@ export function SeoJsonLd() {
       {
         "@type": "ListItem",
         position: 3,
+        name: "Jasa Pajak Pribadi & Perusahaan",
+        item: `${SITE_URL}/#pajak`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: "Kirim Pekerja Indonesia ke Luar Negeri",
+        item: `${SITE_URL}/#kerja-luar-negeri`,
+      },
+      {
+        "@type": "ListItem",
+        position: 5,
         name: "Kalkulator Biaya Perizinan",
         item: `${SITE_URL}/#kalkulator`,
       },
       {
         "@type": "ListItem",
-        position: 4,
+        position: 6,
         name: "Panduan Perizinan",
         item: `${SITE_URL}/#panduan`,
       },
       {
         "@type": "ListItem",
-        position: 5,
+        position: 7,
         name: "Blog & Artikel Perizinan",
         item: `${SITE_URL}/#blog`,
       },
       {
         "@type": "ListItem",
-        position: 6,
+        position: 8,
         name: "Jangkauan 38 Provinsi & 514 Kabupaten/Kota",
         item: `${SITE_URL}/#jangkauan`,
       },

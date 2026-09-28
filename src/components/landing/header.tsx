@@ -21,11 +21,12 @@ export function Header() {
 
   const NAV_ITEMS = [
     { label: t("navServices"), href: "#layanan" },
+    { label: t("navTax"), href: "#pajak" },
+    { label: t("navWorkAbroad"), href: "#kerja-luar-negeri" },
     { label: t("navCheckAI"), href: "#cek-izin" },
     { label: t("navCalculator"), href: "#kalkulator" },
     { label: t("navGuides"), href: "#panduan" },
     { label: t("navBlog"), href: "#blog" },
-    { label: t("navCoverage"), href: "#jangkauan" },
     { label: t("navPricing"), href: "#harga" },
     { label: t("navFaq"), href: "#faq" },
   ];
@@ -56,12 +57,12 @@ export function Header() {
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden xl:flex items-center gap-1" aria-label="Navigasi utama">
+          <nav className="hidden xl:flex items-center gap-0.5" aria-label="Navigasi utama">
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="px-2 py-2 text-[13px] xl:text-sm font-medium text-foreground/75 hover:text-primary rounded-md hover:bg-accent transition-colors whitespace-nowrap"
+                className="px-1.5 py-2 text-[13px] font-medium text-foreground/75 hover:text-primary rounded-md hover:bg-accent transition-colors whitespace-nowrap"
               >
                 {item.label}
               </a>
