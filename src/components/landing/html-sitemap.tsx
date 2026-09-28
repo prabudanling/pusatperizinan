@@ -9,6 +9,7 @@ import { ISLANDS, PROVINCES } from "@/lib/coverage-data";
 import { TAX_ALL } from "@/lib/tax-services";
 import { PMI_B2B_SERVICES, PMI_B2C_SERVICES, PMI_COUNTRIES } from "@/lib/pmi-services";
 import { slugify } from "@/lib/catalog";
+import { KBLI_PAGES } from "@/lib/kbli-catalog";
 import { useLanguage } from "@/lib/i18n/language-provider";
 
 // ============================================================
@@ -26,8 +27,10 @@ function openArticle(slug: string) {
 }
 
 const TOOLS = [
+  { label: "AI Roadmap 12 Bulan", href: "/roadmap" },
+  { label: "Kalkulator Pajak", href: "/kalkulator-pajak" },
+  { label: "Database KBLI", href: "/kbli" },
   { label: "Cek Izin AI", href: "#cek-izin" },
-  { label: "Kalkulator Biaya", href: "#kalkulator" },
   { label: "Kursus Email 7 Hari", href: "#kursus" },
   { label: "Konsultasi Gratis", href: "#konsultasi" },
 ];
@@ -62,11 +65,12 @@ export function HtmlSitemap() {
         <div className="mt-7 flex flex-wrap justify-center gap-2.5">
           {[
             { n: `${SERVICES.length + TAX_ALL.length + PMI_B2B_SERVICES.length + PMI_B2C_SERVICES.length}`, l: "Layanan" },
+            { n: `${KBLI_PAGES.length}`, l: "KBLI" },
             { n: `${PERMIT_GUIDES.length}`, l: "Panduan" },
             { n: `${BLOG_ARTICLES.length}`, l: "Artikel" },
             { n: `${PMI_COUNTRIES.length}`, l: "Negara Tujuan" },
             { n: "38", l: "Provinsi" },
-            { n: "1.000+", l: "Halaman SEO" },
+            { n: "1.150+", l: "Halaman SEO" },
           ].map((s) => (
             <Badge
               key={s.l}

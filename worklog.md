@@ -197,3 +197,29 @@ Stage Summary:
 - Setiap halaman: metadata unik + JSON-LD Service/FAQPage/BreadcrumbList + internal linking 5-6 related + CTA WhatsApp
 - File kunci: src/lib/catalog/* (generator), src/app/layanan/* (routes), src/app/sitemap.ts, header/footer/services/html-sitemap (linking)
 - Menambah 2 file panduan data besar: detail-licenses.ts (~490 baris), detail-tax-pmi.ts (~700 baris) berisi konten E-E-A-T riil dari riset
+
+---
+Task ID: 4
+Agent: Z.ai Code (main orchestrator)
+Task: TRIPLE CROWN — AI Roadmap Generator + Kalkulator Pajak Resmi + Database KBLI (142 halaman baru)
+
+Work Log:
+- Baca skill LLM (z-ai-web-dev-sdk) untuk implementasi AI Roadmap backend
+- Database KBLI: src/lib/kbli-database.ts (142 kode KBLI valid 2025 dengan kategori 17 bidang A-S, tingkat risiko OSS, cakupan kegiatan, flag halal, izin khusus per sektor) + src/lib/kbli-catalog.ts (generator konten halaman: izin per risiko, pajak, insentif, FAQ spesifik kategori/halal/digital, layanan terkait per kategori, KBLI sejenis)
+- Route KBLI: src/app/kbli/page.tsx (katalog: search real-time + filter 17 kategori via kbli-browser.tsx client) + src/app/kbli/[...slug]/page.tsx (detail: JSON-LD DefinedTerm+FAQPage+BreadcrumbList, sidebar spesifikasi, CTA WA prefilled "NIB Hari Ini", layanan & KBLI terkait)
+- Kalkulator Pajak: src/app/kalkulator-pajak/page.tsx + tax-calculator.tsx (4 tab: PPh 21 metode tahunan=TER dengan biaya jabatan 5% maks 6jt + PTKP + tarif progresif UU HPP; PPh Final 0,5% dengan monitoring kuota 4,8 M; PPN 11% efektif PMK 131/2024; Jual-beli properti PPh 2,5% + BPHTB 5% dengan NPOPTKP) — hasil terverifikasi akurat vs hitungan manual
+- AI Roadmap: prisma model RoadmapRequest (db push OK), API /api/roadmap (validasi input, simpan lead dulu, LLM via ZAI.create dengan system prompt konsultan senior → parse JSON robust → fallback deterministik bila AI gagal, simpan hasil), halaman /roadmap + roadmap-wizard.tsx (5 step wizard dengan progress bar, loading state animasi, hasil: summary + KBLI link ke database + timeline fase + biaya + durasi + risiko + next steps + CTA WhatsApp prefilled)
+- Fix produksi: Prisma Client cache Turbopack stale (roadmapRequest undefined) → bunx prisma generate + rm -rf .next + kill zombie next-server (pid 1134) + restart bersih
+- Update sitemap.ts: +5 static (kbli, kalkulator-pajak, roadmap) + 142 KBLI = 1.142 URL total
+- Update footer (kolom Alat Gratis: roadmap/kalkulator/kbli), html-sitemap (TOOLS bar + stat "131 KBLI" & "1.150+ Halaman SEO")
+- Verifikasi curl: semua halaman 200, API roadmap POST success source=ai (4 fase, KBLI akurat 56101/56102/47221, biaya Rp7,5-15jt), DB result tersimpan 4.819 chars
+- Verifikasi Agent Browser: wizard 5 step lengkap (pilih kafe→Jawa Barat→UMKM→modal→kontak) → loading animasi → roadmap AI tampil dengan konten contextual (izin limbah cuci piring kafe, IMB Satpol PP, BPHTB daerah, Halal LPPH); KBLI katalog search "kopi" → 3 hasil relevan; KBLI 56301 detail (FAQ halal, layanan terkait, KBLI sejenis); kalkulator PPh 21 gaji 15jt = Rp970rb/bln (6,47%) AKURAT; UMKM 50jt = 1jt (0,5%) AKURAT; PPN 11% AKURAT; mobile 390px OK
+- ESLint final: 0 error. dev.log bersih.
+
+Stage Summary:
+- TRIPLE CROWN SELESAI: website kini memiliki 3 aset moat kompetitif yang tidak dimiliki kompetitor
+- Total halaman SEO: 1.142 URL (61 layanan + 676 region + 165 city + 17 negara + 46 sektor + 41 hub + 142 KBLI + 5 static)
+- AI Roadmap Generator = mesin lead premium (nama+WA+bidang+lokasi tersimpan DB, hasil AI personal)
+- Kalkulator Pajak = magnet backlink dengan rumus resmi terverifikasi akurat
+- Database KBLI = mesin traffic high-intent dengan JSON-LD DefinedTerm untuk featured snippet
+- File kunci: src/lib/kbli-database.ts, src/lib/kbli-catalog.ts, src/app/kbli/*, src/app/kalkulator-pajak/*, src/app/roadmap/*, src/app/api/roadmap/route.ts

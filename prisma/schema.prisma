@@ -99,3 +99,21 @@ model Testimonial {
   published Boolean  @default(true)
   createdAt DateTime @default(now())
 }
+
+// RoadmapRequest: pengguna AI Roadmap Generator 12 bulan (lead premium)
+model RoadmapRequest {
+  id           String   @id @default(cuid())
+  name         String
+  whatsapp     String
+  businessField String  // bidang usaha yang diketik user
+  province     String   // provinsi usaha
+  scale        String   // individu / umkm / perusahaan
+  capital      String   // range modal: <10jt, 10-50jt, 50-500jt, >500jt
+  plan         String?  // rencana tambahan: online/offline/ekspor
+  result       String?  // JSON roadmap dari AI
+  status       String   @default("NEW") // NEW, FOLLOWED_UP, CONVERTED
+  createdAt    DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([status])
+}

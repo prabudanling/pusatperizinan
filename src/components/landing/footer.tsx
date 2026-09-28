@@ -46,6 +46,9 @@ const COUNTRY_LINKS = [
 ];
 
 const COMPANY_LINKS = [
+  { label: "Alat Gratis: AI Roadmap", href: "/roadmap" },
+  { label: "Kalkulator Pajak", href: "/kalkulator-pajak" },
+  { label: "Database KBLI", href: "/kbli" },
   { label: "Kenapa Kami", href: "#keunggulan" },
   { label: "Cara Kerja", href: "#cara-kerja" },
   { label: "Blog Perizinan", href: "#blog" },
@@ -125,6 +128,36 @@ export function Footer() {
               <li>
                 <a href="/layanan#negara" className="text-sm font-semibold text-emerald-300 hover:text-white transition-colors">
                   → 17 Negara Tujuan
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <nav aria-label="Alat gratis">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-white">Alat Gratis</h3>
+            <ul className="mt-4 space-y-2.5">
+              <li>
+                <a href="/roadmap" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                  🤖 AI Roadmap Perizinan 12 Bulan
+                </a>
+              </li>
+              <li>
+                <a href="/kalkulator-pajak" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                  🧮 Kalkulator Pajak (PPh 21, UMKM, PPN)
+                </a>
+              </li>
+              <li>
+                <a href="/kbli" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                  📚 Database KBLI 2025
+                </a>
+              </li>
+              <li>
+                <a href="#cek-izin" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                  ✨ Cek Izin AI
+                </a>
+              </li>
+              <li>
+                <a href="#kalkulator" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                  💰 Kalkulator Biaya Layanan
                 </a>
               </li>
             </ul>

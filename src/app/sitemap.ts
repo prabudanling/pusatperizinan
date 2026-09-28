@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
 import { ALL_SERVICE_PAGES, getHubSlugs } from "@/lib/catalog";
+import { KBLI_PAGES } from "@/lib/kbli-catalog";
 
 /**
- * Sitemap dinamis — digenerate otomatis dari katalog layanan.
+ * Sitemap dinamis — digenerate otomatis dari katalog layanan + KBLI.
  * Static export compatible: Next menuliskan out/sitemap.xml saat build.
- * Menggantikan public/sitemap.xml lama (hanya 10 URL anchor).
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const BASE = "https://pusatperizinan.com";
@@ -13,6 +13,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: `${BASE}/`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
     { url: `${BASE}/layanan`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${BASE}/kbli`, lastModified: now, changeFrequency: "daily", priority: 0.95 },
+    { url: `${BASE}/kalkulator-pajak`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE}/roadmap`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
   ];
 
   const servicePages: MetadataRoute.Sitemap = ALL_SERVICE_PAGES.map((p) => ({
@@ -21,6 +24,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly",
     priority:
       p.kind === "base" ? 0.9 : p.kind === "country" ? 0.85 : p.kind === "hub" ? 0.8 : 0.7,
+  }));
+
+  const kbliPages: MetadataRoute.Sitemap = KBLI_PAGES.map((p) => ({
+    url: `${BASE}/kbli/${p.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.85,
   }));
 
   const hubPages: MetadataRoute.Sitemap = getHubSlugs()
@@ -32,5 +42,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     }));
 
-  return [...staticPages, ...servicePages, ...hubPages];
+  return [...staticPages, ...servicePages, ...kbliPages, ...hubPages];
 }
