@@ -156,12 +156,12 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/bandingkan" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                <a href="/perbandingan" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
                   ⚖️ Perbandingan Badan Usaha (PT vs CV)
                 </a>
               </li>
               <li>
-                <a href="/lowongan-kerja" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                <a href="/lowongan" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
                   💼 Lowongan Kerja Terbaru
                 </a>
               </li>
