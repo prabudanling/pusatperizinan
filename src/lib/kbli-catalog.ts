@@ -225,6 +225,14 @@ function buildKbliPages(): KbliPage[] {
     const riskMeta = RISK_META[raw.risk];
     const slug = `${raw.c}-${slugify(raw.t)}`;
 
+    // metaDesc kaya konten spesifik kode (bukan boilerplate) — membedakan
+    // kode-kode sekembar (mis. 41011 vs 41012) bagi mesin pencari & pembaca.
+    const dTrim = raw.d.length > 150 ? raw.d.slice(0, 150).replace(/[,;\s]+\S*$/, "") + "…" : raw.d;
+    const metaDesc =
+      `KBLI ${raw.c} ${raw.t} — ${dTrim} ` +
+      `Risiko ${riskMeta.label.toLowerCase()}; izin utama: ${raw.lic?.[0] ?? "NIB via OSS-RBA"}. ` +
+      `Arti, syarat, pajak & cara pengurusan KBLI ${raw.c} di sini.`.slice(0, 310);
+
     const extraLicenses = (raw.lic ?? []).map((name) => ({
       name,
       note: "Izin khusus sektor ini — tim kami berpengalaman mengurusnya di seluruh Indonesia.",
@@ -242,7 +250,7 @@ function buildKbliPages(): KbliPage[] {
       slug,
       title: `KBLI ${raw.c} ${raw.t} — Izin, Risiko & Cara Pengurusan`,
       h1: `KBLI ${raw.c} — ${raw.t}`,
-      metaDesc: `KBLI ${raw.c} (${raw.t}): arti, tingkat risiko ${riskMeta.label.toLowerCase()}, izin yang dibutuhkan (${licenses.map((l) => l.name.split("(")[0].trim()).slice(0, 2).join(", ")}), kewajiban pajak & cara pengurusan via OSS-RBA. Panduan lengkap.`,
+      metaDesc,
       category,
       risk: raw.risk,
       riskLabel: riskMeta.label,

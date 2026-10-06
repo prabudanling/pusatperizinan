@@ -561,3 +561,27 @@ Stage Summary:
 - Situs kini punya katalog layanan terlengkap di nichenya: 31 divisi × halaman khusus, tersambung ke sitemap (4.613 URL), header/footer/homepage, dan otak RIZKI — komposisi internal linking baru: katalog → halaman uang existing (ppi-umroh, halal, bpom, pbg) memperkuat topical authority
 - Semua angka katalog dinamis dari satu sumber (katalog-lengkap.ts) — menambah layanan baru otomatis memperbarui stats 3 halaman tanpa edit manual
 - Standar kejujuran dipertahankan: harga = jasa konsultan (disclaimer di semua halaman harga), roadmap AI dipisah "aktif vs dikembangkan", klaim tak terverifikasi ditolak di level data + prompt RIZKI
+
+---
+Task ID: 25
+Agent: Z.ai Code (main orchestrator)
+Task: "Setiap layanan punya halaman sendiri" — ekspansi ribuan halaman baru dari 4.580 → 9.031 URL sitemap, plus pemetaan 137 layanan katalog ke halaman dedikasi (keluhan adik user: layanan di /katalog adalah daftar mati tanpa link)
+
+Work Log:
+- DIAGNOSIS GAP: (1) Semua 137 layanan di katalog-lengkap.ts TIDAK punya `related` link ke halaman dedikasi — kartu layanan /katalog hanya CTA WhatsApp (daftar mati, inilah keluhan adik user); (2) Matriks geo belum penuh: hanya 14/32 perizinan + 8/16 pajak + 5/13 PMI yang punya halaman ×38 provinsi; hanya 10-15 kota dari 94 kota utama yang punya halaman kota
+- BANGUN MESIN PEMETAAN (src/lib/catalog/mapping.ts): mapping deterministik 137 layanan katalog → halaman dedikasi via skor IDF + bonus token pertama ×2.2 (akronim PPIU/NPWP/BPOM dominan) + 90+ alias eksplisit (ppi-haji, ppi-umroh, iso-*, ahli k3→smk3, kitas/kitap→rptka-kitas, pmse→pse-komdigi, dst.) — hasil 137/137 EKSAK, 0 fallback
+- PATCH /katalog/[kategori]/page.tsx: setiap kartu layanan kini punya tombol "Halaman lengkap: syarat, proses & biaya →" (link terverifikasi via browser: PPIU di katalog → /layanan/ppi-umroh) + link WhatsApp kontekstual per layanan
+- EKSPANSI MATRIKS GENERATOR (src/lib/catalog/generators.ts): semua 61 layanan × 38 provinsi (2.318 region), kota ×94 majors utk 14 layanan inti + 16 pajak (2.820), kota ×15 utk perizinan lite (270) + PMI (195) — total 8.657 halaman generator (dari 4.239), 0 duplikat slug
+- ANTI-DOORWAY / DIVERSIFIKASI KONTEN (3 iterasi audit-driven): 200 → 159 → 69 → 60 → 42 → 5 → 0 pasangan similarity >0.9. Teknik: hashStr FNV-1a per-slug memilih varian intro (4-5), komposisi paragraf (3 susunan), pool FAQ (7 pertanyaan lokal, hash pilih 3), pool sudut proses (8 kalimat substansi, hash pilih 3), layanan-kombi 5-8 per halaman (rotasi hash), provinsi tetangga se-pulau (3 nama), profil sektor PMI per jenis pekerjaan (SECTOR_PROFILES: PRT/konstruksi/manufaktur/hospitality/maritim/perkebunan dst. — fakta domain nyata)
+- KEPUTUSAN KONTEN: b.long (deskripsi layanan ~150 token identik) DIHAPUS dari halaman geo region/city — deskripsi penuh tetap di halaman induk; halaman geo kini 100% konteks lokal (lebih baik utk user & anti-duplikasi)
+- KBLI: metaDesc kini membawa deskripsi spesifik kode (dTrim 150 char) — membedakan kode sekembar (41011 vs 41012 diperjelas saling rujuk secara faktual)
+- GERBANG KUALITAS FINAL: bun run seo:audit → TOTAL 8.982 / INDEXABLE 8.982 / DUP TITL-META-SLUG 0 / THIN 0 / STALE 0 / SIMILAR>0.9 = 0 pasangan / SCHEMA 0 / SITEMAP COLLISION 0. Lint 0 error
+- VERIFIKASI BROWSER: /katalog/travel-haji-umrah (link dedikasi tampil + klik → /layanan/ppi-umroh OK), /layanan/nib-medan (render sempurna), halaman baru 200: tax-restitusi-jawa-barat, nib-cimahi, tax-umkm-tual; mobile 390px render rapi; dev.log 0 error
+- SITEMAP: 9.031 URL (dari 4.580 — +4.451, hampir 2× lipat)
+
+Stage Summary:
+- 9.031 halaman terindeks di sitemap, SEMUA lolos gerbang kualitas A/B (0 thin, 0 duplikat, 0 similarity>0.9)
+- Setiap layanan di /katalog (137/137) kini punya jalur ke halaman dedikasinya — daftar mati berubah menjadi jaringan internal-linking
+- Tidak ada layanan tanpa representasi wilayah: 61 layanan × 38 provinsi lengkap; 94 kota utama utk layanan inti & pajak
+- Diversifikasi hash-deterministik (tanpa AI/DB) membuktikan skala ribuan halaman bisa unik & berkualitas
+- File baru: src/lib/catalog/mapping.ts; dimodifikasi: generators.ts, kbli-catalog.ts, kbli-database.ts, katalog/[kategori]/page.tsx

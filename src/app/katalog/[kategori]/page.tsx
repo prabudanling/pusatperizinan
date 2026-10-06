@@ -8,6 +8,7 @@ import {
   fmtIdr,
   waLink,
 } from "@/lib/katalog-lengkap";
+import { getCatalogServiceLink } from "@/lib/catalog/mapping";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 
 interface PageProps {
@@ -163,7 +164,9 @@ export default async function KategoriPage({ params }: PageProps) {
           Daftar Layanan ({cat.services.length})
         </h2>
         <div className="mt-6 space-y-5">
-          {cat.services.map((s) => (
+          {cat.services.map((s) => {
+            const svcLink = getCatalogServiceLink(s.name, cat.related[0]?.href ?? "/layanan");
+            return (
             <article key={s.code} className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
@@ -220,8 +223,29 @@ export default async function KategoriPage({ params }: PageProps) {
                   </table>
                 </div>
               )}
+
+              {/* Tautan ke halaman dedikasi layanan (pemetaan otomatis, 137/137) */}
+              <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-stone-100 pt-4">
+                <Link
+                  href={svcLink.href}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-50 px-3.5 py-2 text-sm font-semibold text-emerald-800 transition hover:bg-emerald-100"
+                  aria-label={`Buka halaman lengkap ${s.name}: syarat, proses & biaya`}
+                >
+                  Halaman lengkap: syarat, proses &amp; biaya
+                  <span aria-hidden>→</span>
+                </Link>
+                <a
+                  href={waLink(`Halo PusatPerizinan, saya tertarik dengan layanan ${s.name} (${s.code}). Bisa dijelaskan prosesnya?`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-stone-500 transition hover:text-emerald-700"
+                >
+                  Tanya via WhatsApp
+                </a>
+              </div>
             </article>
-          ))}
+            );
+          })}
         </div>
         <p className="mt-5 text-xs leading-relaxed text-stone-500">
           * Kisaran harga adalah jasa konsultan PusatPerizinan dan dapat menyesuaikan kompleksitas
