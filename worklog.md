@@ -523,3 +523,21 @@ Stage Summary:
 - File baru: src/lib/{site,seo-policy,format}.ts, src/app/{blog,blog/[slug],panduan/[id],tentang-kami,kontak,kebijakan-privasi,syarat-ketentuan}/, scripts/seo-audit.ts, src/components/landing/analytics.tsx, docs/SEARCH-CONSOLE-ANALYTICS.md, .env.example
 - File diubah: layout, sitemap, seo-jsonld, blog-hub, knowledge-hub, html-sitemap, header, footer, generators, kbli-catalog, blog-content (slug), [...slug]×3 (robots/policy), .htaccess, package.json, .gitignore(cek), 13 file SITE_URL
 - File dihapus: src/lib/site-config.ts (sisa Task 1)
+
+---
+Task ID: 24
+Agent: Z.ai Code (main — Master Polymath + Dewan Pakar 46)
+Task: Tulis ulang README.md sebagai "mahakarya" — akurat 100% dari angka terukur, struktur naratif hulu→tengah→hilir, matriks akuntabilitas dewan pakar
+
+Work Log:
+- DIAGNOSA: README lama STALE — masih klaim "1.603 halaman / skor 100/100" padahal pasca Task 23 sitemap live = 4.580 URL, ada blog/panduan/halaman trust/seo-policy/seo:audit/admin dashboard
+- KUMPUL FAKTA (semua diukur, bukan dikarang): curl sitemap → 4.580 URL; komposisi presisi /layanan 4.377 (generator 4.239 + hub wilayah 132 = 38 prov + 94 kota + hub kategori&indeks 6), kbli 132, panduan 16, blog 14 (13+index), lowongan 13, testimoni 9, bandingkan 9, tunggal 10 — total 4.580 persis; seo:audit → TOTAL 4.564/INDEX 4.564/DUP 0/STALE 0/SCHEMA 0, klasifikasi B 4.239 (base 110, region 2.654, city 165, country 17, sector 46, vo 1.209, hub 38); 17 API route.ts (7 publik + 9 admin + 1 root); 91 komponen; 46.825 LOC; 32 bahasa i18n; 10 model Prisma; export blog = BLOG_ARTICLES 13; seo-content = 16 PERMIT_GUIDES + 10 SECTOR + 9 REGION
+- TULIS README BARU (541 baris): hero + badge dengan angka terverifikasi; TL;DR; "Apa Ini & Mengapa Berbeda" (3 diferensiator: quality gate A–E, single source of truth, hulu-hilir tersambung); Peta Sistem mermaid 3 subgraph HULU/TENGAH/HILIR; tabel Statistik Terverifikasi dengan kolom "Reproduksi" per baris; LAPISAN 1 HULU (stack, struktur proyek anotasi, 10 model DB + ER mermaid, API reference publik 8 + admin 9); LAPISAN 2 TENGAH (komposisi sitemap aritmetika persis 4.580, anatomi generator, filosofi anti-penalti 5 poin, gerbang kualitas A–E tabel, seo:audit output, editorial E-E-A-T blog/panduan/trust/kanal-resmi + narasi "31 konten tadinya tersembunyi di use client"); LAPISAN 3 HILIR (RIZKI mermaid + fallback, alur lead 4 langkah sampai Mission Control, tabel tools, GSC+GA4); Matriks Akuntabilitas Dewan Pakar (20 baris perspektif→keputusan→lokasi kode + 26 lainnya dipetakan ke data master sektor); SEO Playbook BOLEH/DILARANG/protokol-60-hari; Quickstart; Konfigurasi; Keandalan & Keamanan (10 baris mitigasi berbasis kode); Metodologi Verifikasi; Roadmap update (Fase 6-7 dicentang karena sudah dibangun, tambah Fase 8 monitoring GSC); footer
+- KEJUJURAN DITEGAKKAN: angka bisnis (1.247 klien dll.) diberi label eksplisit "klaim bisnis terpusat di TRUST_METRICS, wajib verifikasi owner"; klaim lama "skor 100/100" diganti hasil audit nyata "0 temuan"; similar >0.9 (1.337 pasangan region) didokumentasikan terbuka + protokol monitoring GSC
+- PATCH presisi: badge anchor A–E (GitHub menghapus en-dash → #-gerbang-kualitas-klasifikasi-ae); tabel komposisi dihitung ulang persis (hapus tebakan "+138" → 132 terverifikasi); mermaid RIZKI kolon dihapus dari label node
+- Verifikasi: faktual — semua angka di README direproduksi via perintah di bagian Metodologi; lint tidak berlaku (markdown); tidak ada perubahan kode aplikasi
+
+Stage Summary:
+- README.md kini cermin 1:1 kondisi sistem 2026-10-06: 4.580 URL, quality gate A–E di kode, audit otomatis, blog/panduan/trust pages, admin, notifikasi — setiap klaim punya perintah reproduksi
+- Struktur naratif hulu→tengah→hilir menjadikan README onboarding dokumentasi arsitektur sekaligus jualan kapabilitas
+- Klaim bisnis dipisahkan dari angka terukur — standar kejujuran E-E-A-T diterapkan pada dokumen itu sendiri
