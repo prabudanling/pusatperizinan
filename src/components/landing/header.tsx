@@ -21,6 +21,8 @@ export function Header() {
 
   const NAV_ITEMS = [
     { label: t("navServices"), href: "/layanan" },
+    { label: "Katalog", href: "/katalog" },
+    { label: "Paket", href: "/paket" },
     { label: t("navTax"), href: "/layanan/kategori/pajak" },
     { label: t("navWorkAbroad"), href: "/layanan/kategori/kerja-luar-negeri" },
     { label: t("navCheckAI"), href: "#cek-izin" },

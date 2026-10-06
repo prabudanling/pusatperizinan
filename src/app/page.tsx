@@ -25,6 +25,7 @@ import { FinalCta } from "@/components/landing/final-cta";
 import { Footer } from "@/components/landing/footer";
 import { ChatWidget } from "@/components/landing/chat-widget";
 import { AdminDeploy } from "@/components/landing/admin-deploy";
+import { CatalogTeaser } from "@/components/landing/catalog-teaser";
 
 // ============================================================
 // PUSATPERIZINAN.COM — Landing Page Utama
@@ -48,6 +49,7 @@ export default function Home() {
         <WorkAbroad />
         <VirtualOfficeSection />
         <CertificationsSection />
+        <CatalogTeaser />
         <LicenseChecker />
         <CostCalculator />
         <KnowledgeHub />

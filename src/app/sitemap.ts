@@ -6,6 +6,7 @@ import { COMPARISONS } from "@/lib/comparisons";
 import { TESTIMONIAL_CATEGORIES } from "@/lib/testimonials-data";
 import { PERMIT_GUIDES } from "@/lib/seo-content";
 import { BLOG_ARTICLES } from "@/lib/blog-content";
+import { CATEGORIES } from "@/lib/katalog-lengkap";
 import { SITE_URL } from "@/lib/site";
 import { classifyPage } from "@/lib/seo-policy";
 
@@ -31,6 +32,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/kanal-resmi`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     // P0-02: blog kini URL nyata & crawlable
     { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    // Katalog lengkap (31 divisi layanan) + paket bundel
+    { url: `${SITE_URL}/katalog`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${SITE_URL}/paket`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     // Trust & legal pages (E-E-A-T)
     { url: `${SITE_URL}/tentang-kami`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/kontak`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
@@ -101,5 +105,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     }));
 
-  return [...staticPages, ...panduanPages, ...blogPages, ...testimoniPages, ...servicePages, ...kbliPages, ...hubPages, ...jobPages, ...comparisonPages];
+  // Divisi katalog lengkap (31) — satu halaman per divisi layanan
+  const katalogPages: MetadataRoute.Sitemap = CATEGORIES.map((c) => ({
+    url: `${SITE_URL}/katalog/${c.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: c.flagship ? 0.9 : 0.8,
+  }));
+
+  return [...staticPages, ...panduanPages, ...blogPages, ...testimoniPages, ...servicePages, ...kbliPages, ...hubPages, ...jobPages, ...comparisonPages, ...katalogPages];
 }

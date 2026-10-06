@@ -541,3 +541,23 @@ Stage Summary:
 - README.md kini cermin 1:1 kondisi sistem 2026-10-06: 4.580 URL, quality gate A–E di kode, audit otomatis, blog/panduan/trust pages, admin, notifikasi — setiap klaim punya perintah reproduksi
 - Struktur naratif hulu→tengah→hilir menjadikan README onboarding dokumentasi arsitektur sekaligus jualan kapabilitas
 - Klaim bisnis dipisahkan dari angka terukur — standar kejujuran E-E-A-T diterapkan pada dokumen itu sendiri
+
+---
+Task ID: 25
+Agent: Z.ai Code (main — Master Polymath + Dewan Pakar 46)
+Task: Integrasi katalog lengkap dari berkas PDF user (31 divisi, 137 jenis layanan, 143+ varian, 6 paket bundel) dengan branding pusatperizinan.com + keputusan integritas soal klaim "terbesar di Indonesia"/"mitra McKinsey"
+
+Work Log:
+- INPUT: PDF "SERTIFIKASI-AROFAHAJJ-KATALOG-LENGKAP" (24 hal) — diekstrak penuh: 31 kelompok A–AE, 137 jenis layanan, 6 paket bundel, roadmap 10 fitur AI, target market 4 segmen, user journey 6 langkah
+- KEPUTUSAN INTEGRITAS (dewan pakar hukum + E-E-A-T + anti-spam): klaim "firma hukum/konsultan terbesar di Indonesia" & "pernah bermitra dengan McKinsey" TIDAK ditulis sebagai fakta (belum ada bukti; risiko UU Perlindungan Konsumen 8/1999, penalti trust Google, kontradiksi dengan Task 23). Sistem prompt RIZKI diberi aturan eksplisit menolak klaim tak terverifikasi & memakai kekuatan nyata (38 provinsi, 31 divisi, garansi tertulis). Jalur jujur untuk klaim tsb didokumentasikan ke owner (case study verifiable + izin trademark)
+- DATA: src/lib/katalog-lengkap.ts BARU (~1.500 baris) — 31 kategori (slug, icon, tier primer/sekunder, flagship R), 137 services dengan priceFrom/priceTo/desc/timeline/badge/includes/variants, 3 FAQ per kategori (93 FAQ), related links ke halaman existing (ppi-umroh, ppi-haji, panduan, blog travel umroh, halal, bpom, pbg, sertifikasi-provinsi), BUNDLES 6 paket (GO UMRAH 45jt/GO HAJI PLUS 80jt/UPGRADE PPIU→PIHK 30jt/ISO LENGKAP 30jt/HOTEL COMPLETE 55jt/LEGALITAS STARTUP 25jt), helper fmtIdr/fmtRange/waLink + COUNT_SERVICES/COUNT_VARIANTS/PRICE_FLOOR/CEIL DIHITUNG DINAMIS (anti-stale — angka 143 dsb. tak pernah hardcode di halaman)
+- HALAMAN BARU: /katalog (hero stats dinamis, 3 primer cards, teaser 3 paket, grid 28 sekunder, ROADMAP AI JUJUR 2 kolom "Sudah Aktif" vs "Sedang Dikembangkan" — fitur tak dibangun tidak diklaim, FAQ 5, JSON-LD CollectionPage+OfferCatalog+Breadcrumb+FAQPage) · /katalog/[kategori] ×31 (generateStaticParams, breadcrumb 3 level, daftar layanan + checklist + tabel varian, related links, FAQ, JSON-LD OfferCatalog per layanan) · /paket (6 kartu bundel + hemat, FAQ 4, JSON-LD ItemList Service+Offer)
+- INTEGRASI: sitemap.ts +33 URL (4613 total); header nav +Katalog +Paket; footer Alat Gratis +2 link; homepage +CatalogTeaser (server component) setelah CertificationsSection; SYSTEM_PROMPT RIZKI +keahlian 7-9 (flagship PPIU/PIHK, 6 paket, arah ke /katalog & /paket) +aturan JUJUR
+- FIX during verification: (1) title dobel suffix "| PusatPerizinan.com | ..." pada /katalog/[kategori] & /paket — suffix manual dihapus, template layout yang menambahkan; (2) hardcode "150+" di footer/teaser vs realita 143 — footer dibuat "140+" (statis aman, client component tak boleh impor data 60KB), teaser pakai COUNT_VARIANTS dinamis; (3) mermaid/kolon dsb. n/a
+- VERIFIKASI: lint 0/0; sitemap 4.613 URL (+33); HTTP 200 semua rute baru (katalog, paket, travel-haji-umrah, pendirian-badan-usaha, keuangan-asuransi, penerbangan); browser: title benar, 31 tautan divisi, 9 kartu layanan flagship + 55 checklist, /paket 6 kartu + 7 CTA WA, homepage teaser render dinamis "143+ Layanan dalam 31 Divisi", iPhone 14 no h-overflow, 0 error console; seo:audit DUP 0/STALE 0/SCHEMA 0/COLLID 0; dev.log bersih
+- TEMUAN P1 (pra-eksisting, tak disentuh demi anti-regresi): FAQPage layout global muncul di semua halaman (termasuk /katalog) → duplikasi FAQPage 2x/halaman; rekomendasi: render SeoJsonLd FAQPage hanya di homepage via pengecekan route
+
+Stage Summary:
+- Situs kini punya katalog layanan terlengkap di nichenya: 31 divisi × halaman khusus, tersambung ke sitemap (4.613 URL), header/footer/homepage, dan otak RIZKI — komposisi internal linking baru: katalog → halaman uang existing (ppi-umroh, halal, bpom, pbg) memperkuat topical authority
+- Semua angka katalog dinamis dari satu sumber (katalog-lengkap.ts) — menambah layanan baru otomatis memperbarui stats 3 halaman tanpa edit manual
+- Standar kejujuran dipertahankan: harga = jasa konsultan (disclaimer di semua halaman harga), roadmap AI dipisah "aktif vs dikembangkan", klaim tak terverifikasi ditolak di level data + prompt RIZKI

@@ -144,6 +144,16 @@ export function Footer() {
             <h3 className="text-sm font-bold uppercase tracking-wider text-white">Alat Gratis</h3>
             <ul className="mt-4 space-y-2.5">
               <li>
+                <a href="/katalog" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                  🗂️ Katalog Lengkap 140+ Layanan (31 Divisi)
+                </a>
+              </li>
+              <li>
+                <a href="/paket" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                  🎁 Paket Bundel Hemat (GO UMRAH, dll.)
+                </a>
+              </li>
+              <li>
                 <a href="/roadmap" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
                   🤖 AI Roadmap Perizinan 12 Bulan
                 </a>
