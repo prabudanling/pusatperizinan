@@ -1,55 +1,73 @@
-import { JsonLd } from '@/components/json-ld'
-import { Navbar } from '@/components/pusatperizinan/navbar'
-import { Hero } from '@/components/pusatperizinan/hero'
-import { Services } from '@/components/pusatperizinan/services'
-import { WhyUs } from '@/components/pusatperizinan/why-us'
-import { Process } from '@/components/pusatperizinan/process'
-import { Pricing } from '@/components/pusatperizinan/pricing'
-import { Testimonials } from '@/components/pusatperizinan/testimonials'
-import { Faq } from '@/components/pusatperizinan/faq'
-import { ConsultationForm } from '@/components/pusatperizinan/consultation-form'
-import { Footer } from '@/components/pusatperizinan/footer'
-import { FloatingActions } from '@/components/pusatperizinan/floating-actions'
-import { SITE } from '@/lib/site-config'
+import { Header } from "@/components/landing/header";
+import { Hero } from "@/components/landing/hero";
+import { StatsBar } from "@/components/landing/stats-bar";
+import { GovernmentChannels } from "@/components/landing/government-channels";
+import { Services } from "@/components/landing/services";
+import { TaxServices } from "@/components/landing/tax-services";
+import { WorkAbroad } from "@/components/landing/work-abroad";
+import { VirtualOfficeSection } from "@/components/landing/virtual-office";
+import { CertificationsSection } from "@/components/landing/certifications";
+import { LicenseChecker } from "@/components/landing/license-checker";
+import { KnowledgeHub } from "@/components/landing/knowledge-hub";
+import { BlogHub } from "@/components/landing/blog-hub";
+import { EmailCourse } from "@/components/landing/email-course";
+import { HtmlSitemap } from "@/components/landing/html-sitemap";
+import { CoverageSection } from "@/components/landing/coverage";
+import { CostCalculator } from "@/components/landing/cost-calculator";
+import { WhyUs } from "@/components/landing/why-us";
+import { Process } from "@/components/landing/process";
+import { Pricing } from "@/components/landing/pricing";
+import { Testimonials } from "@/components/landing/testimonials";
+import { TeamSection } from "@/components/landing/team";
+import { Comparison } from "@/components/landing/comparison";
+import { Faq } from "@/components/landing/faq";
+import { FinalCta } from "@/components/landing/final-cta";
+import { Footer } from "@/components/landing/footer";
+import { ChatWidget } from "@/components/landing/chat-widget";
+import { AdminDeploy } from "@/components/landing/admin-deploy";
 
-/**
- * PUSATPERIZINAN.COM — Landing Page Utama
- *
- * God-Mode SEO Checklist yang terpasang di halaman ini:
- * ✅ Semantic HTML5 (header, nav, main, section, footer, address)
- * ✅ Satu H1 + hierarki heading yang benar
- * ✅ JSON-LD: Organization, ProfessionalService, WebSite + SearchAction,
- *    WebPage, FAQPage, Service ItemList, BreadcrumbList → kualifikasi Rich Results
- * ✅ Metadata lengkap (OG, Twitter, canonical, hreflang) di layout.tsx
- * ✅ sitemap.xml + robots.txt + manifest otomatis
- * ✅ Gambar dengan alt deskriptif + next/image (Core Web Vitals)
- * ✅ Aksesibilitas: skip-link, aria-label, aria-live, kontras WCAG
- * ✅ Mobile-first responsive + footer sticky + safe-area
- */
+// ============================================================
+// PUSATPERIZINAN.COM — Landing Page Utama
+// Konsultan Perizinan, Perpajakan & Penempatan PMI #1 Indonesia
+// SEO Architecture: Layanan Hulu-Hilir + Jasa Pajak + Kerja Luar Negeri
+//   + Virtual Office (1.200+ halaman) + Knowledge Hub + Blog Content Hub + Kursus Email
+//   + Jangkauan Nasional + Kalkulator Biaya + Perbandingan + Peta Situs HTML
+// Lead Generation Engine + AI Consultant 24/7
+// ============================================================
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
-      {/* Structured data untuk mesin pencari */}
-      <JsonLd />
-
-      <Navbar />
-
-      <main id="konten-utama" className="flex-1">
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="flex-1">
         <Hero />
+        <StatsBar />
+        <GovernmentChannels />
         <Services />
+        <TaxServices />
+        <WorkAbroad />
+        <VirtualOfficeSection />
+        <CertificationsSection />
+        <LicenseChecker />
+        <CostCalculator />
+        <KnowledgeHub />
+        <BlogHub />
+        <EmailCourse />
+        <CoverageSection />
         <WhyUs />
         <Process />
         <Pricing />
         <Testimonials />
+        <TeamSection />
+        <Comparison />
         <Faq />
-        <ConsultationForm />
+        <FinalCta />
+        <HtmlSitemap />
       </main>
-
       <Footer />
-      <FloatingActions />
-
-      {/* Data situs untuk validasi & branding mesin pencari */}
-      <meta name="organization" content={SITE.legalName} />
+      <ChatWidget />
+      {/* Panel deploy privat — hanya aktif via /?admin=1, tidak tampil di publik */}
+      <AdminDeploy />
     </div>
-  )
+  );
 }

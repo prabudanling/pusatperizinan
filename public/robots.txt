@@ -1,0 +1,46 @@
+# ============================================================
+# PUSATPERIZINAN.COM — robots.txt
+# Selamat datang, robot mesin pencari! 🤖💚
+# ============================================================
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: *
+# Endpoint API tidak punya nilai indeks — hemat crawl budget
+Disallow: /api/
+Allow: /
+
+# Tidak ada halaman konten yang dilarang — seluruh konten panduan & layanan
+# dibuka penuh untuk diindeks
+
+# Sitemap
+Sitemap: https://pusatperizinan.com/sitemap.xml
+
+# Host principal
+Host: https://pusatperizinan.com

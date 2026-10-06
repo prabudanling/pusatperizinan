@@ -1,0 +1,319 @@
+     1→===== bisnis/q1_legalitas.json (10 hasil) =====
+     2→- [mitralegal.co.id | ] Konsultan Legalitas Usaha
+     3→  MitraLegal.co.id membantu pengurusan legalitas usaha: NIB, pendirian PT/CV, PKKPR, P-IRT, PBG-SLF, sertifikat standar OSS, dan pendaftaran merek dagang.
+     4→- [www.dokterlegal.co.id | ] Dokter Legal - Solusi dan Mitra Perizinan Usaha Anda
+     5→  Dokter Legal adalah layanan konsultan perizinan usaha yang berada di Cibubur. Kami untuk bangunan usaha, izin lingkungan, hingga perizinan tenaga kerja asing ( ...
+     6→- [jasalegalid.com | ] Jasa Pengurusan Legalitas dan Perizinan Usaha di Bali
+     7→  Jasa pengurusan legalitas dan perizinan usaha di Bali untuk pendirian CV, PT, PT Perorangan, PT PMA, NIB, PBG, SLF, dan SBU. Konsultasi gratis.
+     8→- [infiniti.id | ] Jasa Legalitas Usaha: PT, CV, Izin & Merek | Infiniti Legal
+     9→  Satu tim legal untuk seluruh siklus bisnis kamu. Dari mendirikan, mengurus izin, melindungi merek, mengubah akta, sampai menutup perusahaan. Pilih Layanan Legal.
+    10→- [mitrajasalegalitas.co.id | ] Layanan | CV. Mitra Jasa Legalitas
+    11→  33 layanan tersedia di 6 kategori. Dari pendirian badan usaha, perizinan, kekayaan intelektual, hingga konsultasi hukum - semuanya bisa diurus bersama kami.
+    12→- [www.instagram.com | ] OSS & SBU | Mitra Jasa Legalitas (@mitrajasalegalitas)
+    13→  Konsultan Legalitas & Perizinan Usaha OSS•NIB • SBU/SKK • PBG/SLF • Izin Sektoral Pendampingan perusahaan seluruh Indonesia Cek layanan & konsultasi ↓.
+    14→- [fastwork.id | ] Jasa Perizinan Usaha, Mulai Rp100.000
+    15→  Dapatkan jasa perizinan usaha untuk mengurus perizinan atau legalitas perusahaan seperti NIB, PKP, dan lain sebagainya dari konsultan perizinan profesional.
+    16→- [izinesia.id | ] Konsultan legalitas, perizinan & perpajakan Indonesia
+    17→  Membantu mengurus kelangkapan dokumen perizinan usaha sampai perpajakan seperti NIB, SIUP, SKDU, Pendaftaran Merek, NPWP, Faktur Pajak, pengajuan PKP dan ...
+    18→- [lhs-lawfirm.com | ] Legalitas dan Perizinan Perusahaan
+    19→  kantor lawyer advokat penagcara yang memberikan layanan jasa hukum dalam bidang pengurusan legalitas dan perizinan perusahaan di indonesia.
+    20→- [legali.id | ] Layanan - Legali
+    21→  Layanan Kami · Konsultasi Hukum · Tindakan Hukum · Saran Hukum Efektif · Korporasi · Pembuatan Perjanjian Sesuai Kebutuhan Anda · Legalitas Kegiatan Usaha · Investor ...
+    22→
+    23→===== bisnis/q2_iso.json (2 hasil) =====
+    24→- [robere.co.id | ] Konsultan dan Sertifikasi ISO 37001 untuk Berantas
+    25→  Konsultan dan Sertifikasi ISO 37001 adalah solusi untuk mencegah dan memberantas penyuapan dalam lanskap bisnis . Cari tahu selengkapnya di sini.
+    26→- [www.alfaindotama.co.id | ] Jasa Konsultan ISO Indonesia Terbaik #1
+    27→  Layanan konsultasi ISO juga bikin proses sertifikasi terasa lebih jelas karena setiap tahap dijalankan dengan target dan evaluasi yang tepat.
+    28→
+    29→===== bisnis/q3_customs.json (8 hasil) =====
+    30→- [imporekspor.com | ] Jasa Import Eksport – Jasa Impor Ekspor | Telp (021) 3885-2759
+    31→  Jasa Custom Clearance ・ ekspor yang merujuk pada Peraturan ・ ekspor adalah kegiatan mengeluarkan barang dari daerah pabean. wajib memiliki izin atau ...
+    32→- [www.joscargo.com | ] jasa undername export Archives
+    33→  Kami membantu proses administrasi Bea Cukai , izin import , pembayaran bea masuk , dan pajak import lainnya sesuai dengan ketentuan berlaku ... Pengurusan Dokumen ... Read more
+    34→- [httpsradexcargo.web.indotrading.com | ] Tentang Kami - PT. Radex Cargo Transportama
+    35→  Radex Cargo menyediakan jasa layanan Ekspor dan Impor lengkap dengan angkutan laut, angkutan udara dan truk untuk para pelanggan di seluruh wilayah republik ... Read more
+    36→- [ptkaryaindakargo.wordpress.com | May 2, 2019] 6 ALUR PENGIRIMAN BARANG IMPORT DOOR TO DOOR
+    37→  May 2, 2019 — 6 Alur Pengiriman barang Import Door to Door · 1. Menghubungi Perusahaan Penyedia Jasa Import Door to Door · 2. Memberikan informasi tentang ... Read more
+    38→- [id.scribd.com | ] Memahami Peran PPJK dalam Kepabeanan | PDF | Bisnis
+    39→  PPJK adalah badan usaha yang melakukan pengurusan pemenuhan kewajiban pabean untuk importir dan eksportir, seperti klasifikasi barang dan pengisian dokumen .  ...
+    40→- [www.ferrytrans.id | Feb 25, 2021] Import undername LCL with complete document procedur
+    41→  Feb 25, 2021 — Setelah dokumen cargo import LCL anda benar instruksikan supplier kirim original dokumen import tersebut ke alamat anda atau ke alamat ... Read more
+    42→- [hsh.co.id | ] Apa yang Dirasakan Pelanggan Ketika Forwarder Benar-Benar
+    43→  Regulasi impor / ekspor itu rumitnya minta ampun. HS Code lah, Lartas lah, PI lah. Banyak istilah asing yang bikin pusing. Banyak importir pemula malu nanya.
+    44→- [blog.pajakind.com | Dec 1, 2025] Penyesuaian Aturan E-Seal Melalui KEP-188/BC/2025
+    45→  Dec 1, 2025 — Pada awalnya, penerapan E-Seal untuk transportasi barang impor dan/atau ekspor diatur dalam Keputusan Direktur Jenderal Bea dan Cukai Nomor KEP- ... Read more
+    46→
+    47→===== bisnis/q4_amdal.json (1 hasil) =====
+    48→- [id.scribd.com | ] Panduan Pengurusan Izin PBPHH | PDF
+    49→  1) Copy Keputusan PBPHH; · 2) Persetujuan Lingkungan atau Perubahan LOKET PTSP Provinsi Persetujuan Lingkungan ; · 3) Sertifikat Legalitas Kayu (SLK) bagi IUIPHHK. Read more
+    50→
+    51→===== bisnis/q5_halal_bpom_sni.json (4 hasil) =====
+    52→- [naeema-permit.com | Feb 6, 2025] Jasa Pengurusan Izin PIRT dan Halal MUI Cepat dan Efisien
+    53→  Feb 6, 2025 — Selain izin edar PIRT dan Halal kami juga menerima jasa pengurus ijin BPOM , SNI , KEMENKES dan KEMENTAN · Newer Jasa Pengurusan Izin PIRT Cepat ... Read more
+    54→- [id.scribd.com | ] Panduan Sertifikasi Halal BPOM | PDF | Hukum
+    55→  Pemohon yang akan melakukan pendaftaran serifikasi halal harus menyiapkan dokumen dan memberikan keterangan dengan status valid. Layanan Sertifikat Halal . Izin ...
+    56→- [sakamitranusantara.co.id | Dec 3, 2022] 7 Cara Mengurus Izin SNI, Mudah dan Cepat
+    57→  Dec 3, 2022 — 1. Isi Formulir Permohonan SPPT SNI · 2. Verifikasi Permohonan · 3. Audit Sistem Manajemen Mutu Produsen · 4. Menguji Sampel Produk · 5. Proses ... Read more
+    58→- [sirusa.web.bps.go.id | ] Detail Metadata Variabel Statistik - BPS
+    59→  Standar Halal , SNI , Izin Edar dari BPOM Buku Panduan Layanan Aduan Konsumen. Definisi, Mencerminkan kehati-hatian, kesadaran, dan kepedulian konsumen terhadap ... Read more
+    60→
+    61→===== bisnis/q6_akuntansi.json (2 hasil) =====
+    62→- [repo.stie-pembangunan.ac.id | ] pengaruh jumlah anggota, simpanan anggota dan volume
+    63→  by Y ASTRIYANA · Cited by 1 — Standar akuntansi keuangan (PSAK No.27) perhitungan hasil usaha perhitungan menyajikan berita mengenai pendapatan dan beban-beban usaha serta beban. Read more 67 pages
+    64→- [www.kppod.org | Apr 28, 2016] Reformasi Kemudahan Berusaha
+    65→  Apr 28, 2016 — Laporan ini dibuat untuk 7 daerah bisnis utama di Indonesia, yakni Provinsi DKI Jakarta, Kota. Surabaya, Kota Bandung, Kota Palembang,. Kota ... Read more 178 pages
+    66→
+    67→===== bisnis/q7_visa_expatriat.json (6 hasil) =====
+    68→- [apegale.com | ] Layanan KITAS & KITAP - Conversant Expatriate Services
+    69→  Dalam kondisi tertentu RPTKA dapat diberikan dalam waktu yang singkat dan tidak dapat diperpanjang tergantung dari sifat dan jenis pekerjaan yang dibutuhkan ... Read more
+    70→- [www.imigrasi.go.id | Nov 18, 2022] KITAS Indonesia: Cara Mengurus dan Biayanya
+    71→  Nov 18, 2022 — syaratan pengurusan KITAS adalah sebagai berikut: • Surat permohonan ITAS dari sponsor; IMTA , RPTKA , surat nikah dan akte kelahiran …  ...
+    72→- [jasavisajogja.com | ] 0852 2828 6996 | PENGURUSAN KITAS
+    73→  PERSYARATAN UMUM KITAS : Paspor kebangsaan yang sah dan masih berlaku, dan memuat cap/tanda masuk terakhir ke Indonesia;; surat penjaminan dari Penjamin; ... Read more
+    74→- [www.livenworkkonsultan.co.id | ] Pengurusan KITAS (Izin Tinggal Sementara) - Konsultan Live
+    75→  Layanan Komprehensif: Dari syarat pengurusan KITAS hingga persiapan dokumen, pengajuan visa telex, pemeriksaan medis, dan follow-up aplikasi. Garansi Kepatuhan ... Read more
+    76→- [www.uruskitas.com | ] Our Services - jasa ekspatriat, jasa urus kitas
+    77→  Jasa Pengurusan Tenaga Kerja Asing (TKA) KITAS /ITAS, RPTKA KITAS KITAP IMTA … pengurusan tenaga kerja asing (TKA). +62 815-1162-5693
+    78→- [visaku.id | ] Layanan Jasa Legalitas Kitas, Visa Kerja, RPTKA, IMTA
+    79→  Pengurusan Legalitas Izin Tinggal untuk Ekspatriat yang kami kerjakan mencakup Telex Vitas, KITAS , KITAP , MERP, EPO dan ERP Tidak Kembali. LAYANAN VISA DAN ... Read more
+    80→
+    81→===== izin/q1_nib_oss.json (1 hasil) =====
+    82→- [id.scribd.com | ] Panduan Aplikasi SIPPADU Sidoarjo | PDF
+    83→  Bagian Data Pemohon. Merupakan bagian layanan pengajuan izin atau pendaftaran izin . Bagian Download Merupakan bagian layanan pengajuan izin atau ... Read more
+    84→
+    85→===== izin/q2_jenis_perizinan.json (7 hasil) =====
+    86→- [www.megasyariah.co.id | Apr 25, 2025] 10 Jenis Perizinan Usaha di Indonesia, Wajib Diurus
+    87→  Apr 25, 2025 — Daftar 10 Jenis Perizinan Usaha · 1. No mor Induk Berusaha (NIB ) · 2. Nomor Pokok Wajib Pajak (NPWP) · 3. Surat Keterangan Domisili Usaha (SKDU) · 4. Read more
+    88→- [www.hukumonline.com | Oct 15, 2025] Apa Itu Perizinan Berusaha Berbasis Risiko?
+    89→  Oct 15, 2025 — Saya membaca peraturan perizinan berusaha berbasis risiko saat ini sudah diubah dengan PP 8/2025. Bolehkah diperjelas PP 8/2025 tentang apa? Apa yang ...
+    90→- [dpmptsp.rokanhulukab.go.id | ] Jenis Perizinan
+    91→  1. Perizinan Berusaha Sektor Pertanian · 2. Perizinan Berusaha Sektor Lingkungan Hidup · 3. Perizinan Berusaha Sektor Pekerjaan Umum dan Perumahan Rakyat · 4. Read more
+    92→- [dpmptsp.lombokbaratkab.go.id | Feb 14, 2023] Perizinan Berusaha Berbasis Resiko (Perdagangan)
+    93→  Feb 14, 2023 — Perizinan Berusaha Berbasis Resiko (Perdagangan ) · 1. Resiko Rendah ->NIB · 2. Resiko Menengah Rendah dan Tinggi -> NIB dan Sertifikat Standar ( ... Read more
+    94→- [sbr-cpa.co.id | May 19, 2023] Mengenal 17 Jenis Izin Usaha Yang Ada di Indonesia
+    95→  May 19, 2023 — 1. NIB (Nomor Induk Berusaha ) · 2. SKDU (Surat Keterangan Domisili Usaha) · 3. NPWP (Nomor Pokok Wajib Pajak) · 4. Surat Izin UD (Usaha Dagang) · 5. Read more
+    96→- [daunpena.com | Oct 1, 2024] Izin Berusaha Berbasis Risiko dan Persetujuan Lingkungan
+    97→  Oct 1, 2024 — Perizinan Berusaha Berbasis Risiko diperkenalkan dalam OSS, jenis perizinan ini dibagi berdasarkan tingkat risiko usaha, yaitu:. Read more
+    98→- [hivefivetangerang.com | ] Sektor Apa Saja yang Perizinannya Dilaksanakan Melalui
+    99→  1. OSS untuk izin apa saja? OSS digunakan untuk mengurus izin usaha seperti izin li ngkungan , izin mendirikan bangunan (IMB), izin edar produk, dan lain- ... Read more
+   100→
+   101→===== izin/q3_izin_edar.json (6 hasil) =====
+   102→- [intelijen.pom.go.id | ] Mengenal Izin Edar Pangan, Apa Bedanya SPP-IRT dan
+   103→  Izin edar merupakan bentuk pengawasan pemerintah terhadap produk pangan olahan yang beredar di masyarakat. Beberapa jenis produk wajib memiliki izin dari BPOM . ...
+   104→- [siprconsultant.id | Feb 8, 2024] Simak! Ini Pentingnya Izin Edar - SIPR Consultant
+   105→  Feb 8, 2024 — Izin edar merupakan izin yang dikeluarkan oleh BPOM (Badan Pengawas Obat dan Makanan) terhadap suatu produk baik itu produk makanan maupun ... Read more
+   106→- [icg.co.id | ] Pengurusan Izin Edar lokal dan atau impor produk Pangan
+   107→  Izin Edar dari BPOM adalah persetujuan yang harus diperoleh oleh produsen atau pemasar sebelum produknya dapat beredar di pasaran Indonesia . Izin Edar ini ... Read more
+   108→- [www.pom.go.id | Aug 26, 2019] Kini, Urus Izin Edar Badan POM Lebih Mudah dengan E-
+   109→  Aug 26, 2019 — Di Indonesia , instansi yang berwenang mengeluarkan izin edar pangan olahan adalah Dinas Kesehatan dan Badan POM. Dalam rangka membantu Usaha ... Read more
+   110→- [www.hukumku.id | ] Cara Daftar Izin Edar BPOM: Syarat, Biaya, dan Waktu
+   111→  Izin edar yang diberikan oleh BPOM sendiri terbagi menjadi dua, yaitu BPOM RI MD untuk produk yang diproduksi di dalam negeri dan BPOM RI ML untuk produk yang ... Read more
+   112→- [www.halodoc.com | Jun 28, 2026] Cara Cek Izin Edar Produk Melalui Ebpom Dengan Mudah
+   113→  Jun 28, 2026 — Cek izin edar produk kini lebih mudah lewat ebpom. status izin edar dari berbagai kategori produk , seperti obat-obatan, obat tradisional (jamu) ...
+   114→
+   115→===== izin/q4_pendirian_badan.json (8 hasil) =====
+   116→- [rewangrencang.com | Jun 11, 2025] Panduan Lengkap Pendirian PT di Indonesia
+   117→  Jun 11, 2025 — Minimal 2 pendiri · KTP dan NPWP para pendiri · Menentukan nama PT (harus unik dan sesuai ketentuan hukum) · Menentukan bidang usaha (berdasarkan ... Read more
+   118→- [izinesia.id | ] Pendirian Badan Usaha PT, CV, Firma, Yayasan, Koperasi
+   119→  Akta Pendirian adalah perjanjian tertulis yang berisi kesepakatan-kesepakatan yang dibuat antara pihak-pihak yang mendirikan PT. Akta Pendirian PT Wajib ... Read more
+   120→- [www.easybiz.id | Nov 28, 2021] Perbedaan Proses Pendirian PT dan CV Setelah
+   121→  Nov 28, 2021 — Sedangkan untuk pendirian CV harus dengan membuat akta pendirian di hadapan Notaris.
+   122→- [id.scribd.com | ] Prosedur Pendirian CV dan PT di Jakarta | PDF | Bisnis
+   123→  Pendirian CV hanya memerlukan akta notaris dan pendaftaran di pengadilan, sedangkan pendirian PT memerlukan persetujuan kementerian dan biaya lebih mahal. Read more
+   124→- [www.hukumonline.com | Mar 18, 2024] Kemudahan Pendirian PT untuk Usaha Mikro dan Kecil
+   125→  Mar 18, 2024 — Saya mau mendirikan usaha berbentuk PT, tetapi usaha saya kecil karena saya tidak punya modal banyak. Berapa ya modal minimum membuat PT? Dan berapa ...
+   126→- [irmadevita.com | Jun 5, 2026] PROSEDUR, CARA DAN SYARAT PENDIRIAN CV
+   127→  Jun 5, 2026 — Karena, berbeda dengan PT yang mensyaratkan minimal modal dasar sebesar Rp. 50jt dan harus di setor ke kas Perseroan minimal 25%nya, untuk CV ... Read more
+   128→- [www.livenworkkonsultan.co.id | ] Pembuatan Akta Pendirian Perusahaan
+   129→  Syarat Pembuatan Akta Pendirian Perusahaan · Fotokopi KTP dan NPWP pendiri/pengurus . · Paspor dan KITAS/KITAP untuk WNA (jika PMA). · Akta pendirian induk untuk ... Read more
+   130→- [temanlegal.com | ] Jasa Terbaik untuk Pembuatan PT dan CV Online
+   131→  Biaya yang ditawarkan untuk layanan pendirian PT kurang lebih Rp 5.500.000 hingga Rp 6.500.000. Sementara itu, biaya layanan pendirian CV menggunakan jasa ... Read more
+   132→
+   133→===== izin/q5_izin_sektoral.json (8 hasil) =====
+   134→- [www.mcsc.co.id | ] KBLI Directory | Indonesian Business Classification Codes
+   135→  Ya, perusahaan di Indonesia dapat mendaftarkan beberapa kode KBLI dalam Anggaran Dasar dan profil OSS -nya, selama kode tersebut kompatibel dengan jenis modal ...
+   136→- [id.scribd.com | ] Contoh Lampiran KBLI Industri | PDF
+   137→  Dokumen tersebut membahas persyaratan dan kewajiban perizinan untuk industri karung goni berdasarkan skala usahanya, yaitu industri kecil, menengah, dan besar. Read more
+   138→- [www.oss-nib.com | ] Artikel – Page 11 – Daftar NIB OSS – Izin UMKM – Nomor Induk
+   139→  Apakah NIB wajib diterbitkan dulu sebelum mengajukan PIRT? Ya, NIB menjadi kunci utama; sistem OSS tidak akan memunculkan formulir PIRT bila NIB belum aktif.
+   140→- [izin.co.id | Sep 2, 2026] Panduan KBLI PKRT: Kode yang Tepat untuk Produsen
+   141→  Sep 2, 2026 — Panduan memilih KBLI yang benar untuk bisnis PKRT: KBLI 20231 untuk produsen sabun/deterjen, 20212 untuk pestisida, hingga KBLI distribusi.
+   142→- [www.instagram.com | ] KBLI 2025 telah resmi diberlakukan. Apakah perusahaan Anda
+   143→  KBLI 2025 telah resmi diberlakukan. Apakah perusahaan Anda perlu melakukan penyesuaian? Tidak semua pelaku usaha wajib mengubah KBLI .
+   144→- [epinter.bengkaliskab.go.id | Jan 5, 2017] KBLI 2020 - EPINTER
+   145→  Jan 5, 2017 — Dengan semakin strategisnya peranan. Online Single Submission ( OSS ) yaitu sistem yang digunakan untuk mempermudah perizinan usaha secara daring ...
+   146→- [indomonangjadi.com | ] 10 Kesalahan Umum Saat Mengurus Dokumen Legalitas
+   147→  KBLI (Klasifikasi Baku Lapangan Usaha Indonesia ) adalah kode yang menentukan jenis kegiatan usaha perusahaan Anda. Memilih KBLI yang tidak tepat atau terlalu ...
+   148→- [legalmp.id | ] Izin Usaha Penggilingan Padi: Cara Daftar dan Biayanya
+   149→  Pelajari cara daftar izin usaha penggilingan padi lengkap dengan syarat, alur OSS RBA, estimasi biaya, dan tips agar proses cepat disetujui.
+   150→
+   151→===== izin/q6_biaya_nib.json (5 hasil) =====
+   152→- [web-dpmptsp.jabarprov.go.id | Apr 20, 2026] Cara Membuat NIB Tahun 2026, Gratis dan Mudah melalui
+   153→  Apr 20, 2026 — Dengan sistem berbasis digital, proses pendaftaran dapat dilakukan secara cepat dan efisien tanpa dipungut biaya . ... Berikut langkah-langkah ... Read more
+   154→- [umkm.kompas.com | Dec 12, 2023] UMKM Harus Buat NIB, Gratis dan Cuma 5-10 Menit Lewat
+   155→  Dec 12, 2023 — pembuatan NIB dapat dilakukan secara mudah dan cepat. NIB ini berbayar, padahal ini gratis. butuh waktu 5-10 menit lewat OSS dengan mengakses ...
+   156→- [qontak.com | Feb 13, 2026] Cara Membuat NIB Online bagi Perusahaan dan Syaratnya
+   157→  Feb 13, 2026 — Penerbitan NIB tidak dikenakan biaya dan berlaku selama usaha masih berjalan, dengan proses pendaftaran dilakukan secara online melalui sistem ... Read more
+   158→- [kontrakhukum.com | ] Jasa Pembuatan NIB
+   159→  Biaya Pembuatan NIB ; NIB OSS (Online Single Submission – Business Permit) Badan Usaha (dibawah 5M) – UPDATE OSS – NIB – Sertifikat Standar, 1.990.000, 1.490.000. Read more
+   160→- [infiniti.id | ] Jasa Pengurusan OSS & NIB | Status Efektif
+   161→  Kami bisa mengurus OSS & NIB hingga berlaku efektif | Biaya 2.5 juta selama masa Promo | Proses cepat 2 hari kerja. Bisa juga rollback OSS proses cepat.
+   162→
+   163→===== izin/q7_sda.json (4 hasil) =====
+   164→- [id.scribd.com | ] Pengenalan Perencanaan Tambang Terbuka | PDF
+   165→  mampu mengetahui serta menganalisis batas area klasifikasi tambang sehingga kita dapat mengetahui pembuatan peta Izin Usaha Pertambangan ( IUP ) untuk tambang
+   166→- [www.niaga.asia | Jun 8, 2025] Izin Pertambangan Nikel di Raja Ampat, Bahlil
+   167→  Jun 8, 2025 — Perusahaan ini mengantongi IUP Operasi Produksi berdasarkan SK Menteri ESDM No. 91201051135050013 yang diterbitkan pada 7 Januari 2024 dan ... Read more
+   168→- [www.slideshare.net | ] Implementasi Kebijakan Pelayanan Terpadu Satu Pintu
+   169→  Pasal 4 Permen ESDM No. 25/2015: Dalam rangka melaksanakan pendelegasian wewenang pemberian perizinan di bidang pertambangan mineral dan batubara , Kepala BKPM ... Read more
+   170→- [www.antaranews.com | Jun 10, 2025] Komisi XII DPR: Pencabutan IUP Raja Ampat demi
+   171→  Jun 10, 2025 — Ia juga menekankan bahwa kebijakan ini sejalan dengan komitmen pemerintah dalam menghadirkan praktik pertambangan yang lebih ramah lingkungan . Read more
+   172→
+   173→===== pajak/q1_konsultan_pajak.json (5 hasil) =====
+   174→- [taxnow.co.id | ] 4 Manfaat dan Tips Memilih Jasa Konsultan Pajak SPT Tahunan
+   175→  Sederhananya, jasa konsultan pajak SPT tahunan adalah pihak yang menawarkan layanan untuk membantu klien menyelesaikan urusan SPT tahunan . Penyelesaian tersebut ... Read more
+   176→- [finfloo.com | Sep 3, 2024] Konsultasi Pajak Online Gratis – Jasa Perpajakan
+   177→  Sep 3, 2024 — Ingin konsultasi seputar pajak secara online dan gratis? Hubungi +62 881-0819-30868. Sampaikan apapun kebutuhan Anda terkait perpajakan dan ...
+   178→- [kontrakhukum.com | Jul 22, 2024] Manfaat Jasa Konsultan Pajak Online, Salah Satunya
+   179→  Jul 22, 2024 — Jasa konsultan pajak online menawarkan berbagai layanan yang dirancang untuk membantu bisnis mengelola kewajiban pajak dengan lebih mudah. Read more
+   180→- [jtconsulting.tax | Jun 2, 2021] Jasa Konsultan Pajak Tangerang Pribadi
+   181→  Jun 2, 2021 — Layanan yang satu ini ditujukan untuk memastikan anda melakukan pembayaran dan pelaporan SPT bulanan, SPT tahunan, dan juga pelaporan lainnya ... Read more
+   182→- [proconsult.id | Feb 27, 2025] Biaya Konsultan Pajak Perusahaan Terbaru - Proconsult
+   183→  Feb 27, 2025 — Konsultan Pajak Perusahaan adalah seorang ahli di bidang perpajakan yang akan memberikan jasa konsultasi kepada perusahaan atau badan. Hubungi ...
+   184→
+   185→===== pajak/q2_spt_pribadi.json (2 hasil) =====
+   186→- [safttax.com | Feb 5, 2025] Jasa Konsultan Pajak Spt Tahunan Di Surakarta
+   187→  Feb 5, 2025 — 0882-8919-0730 - Jasa Konsultan Pajak Spt Tahunan Di Surakarta, Jasa Pelaporan SPT Tahunan Pribadi dan Badan, Pengajuan PKP, NPWP, ...
+   188→- [proconsult.id | May 15, 2022] 3 Keuntungan Memiliki Konsultan Pajak Pribadi Profesional
+   189→  May 15, 2022 — Konsultan perpajakan pribadi membuat Anda sangat terbantu dalam mengurus perpajakan mulai dari perhitungan, pembayaran, hingga laporannya.
+   190→
+   191→===== pajak/q3_pajak_badan.json (10 hasil) =====
+   192→- [pajak.go.id | ] Pengusaha Kena Pajak | Direktorat Jenderal Pajak
+   193→  Pengusaha yang telah dikukuhkan sebagai PKP wajib memungut, menyetor, dan melaporkan PPN atau Pajak PPnBM yang terutang atas penyerahan BKP dan/atau JKP yang ...
+   194→- [klikpajak.id | Feb 24, 2025] Panduan Pelaporan Pajak Perusahaan Non-PKP
+   195→  Perbedaan kewajiban pajak perusahaan PKP dan Non-PKP meliputi pungutan PPN serta kewajiban untuk melaporkan SPT Masa PPN. Terdapat 4 ketentuan ...
+   196→- [isipajak.co.id | ] Harga Jasa Konsultan Pajak | Lihat Daftarnya Disini.
+   197→  Daftar harga Jasa SPT Badan Usaha, PPH dan PPN (bulanan) · SPT Bulanan (Badan Usaha) Mulai Rp. 800.000,- · SPT Bulanan (Badan Usaha) Mulai Rp. 1.500.000,- · SPT ...
+   198→- [journal.untar.ac.id | ] ANALISIS PPN DAN PPH BADAN PADA PERUSAHAAN
+   199→  by F Tiolemba · 2024 · Cited by 2 — Pajak Pertambahan Nilai Jasa (Jasa PPN), dimana Pengusaha Kena Pajak (PKP) rahan jasa yang mengakibatkan penggunaan barang, Jasa Kena Pajak (JKP),
+   200→- [izinkilat.id | Jul 22, 2025] Perusahaan PKP dan NON PKP
+   201→  Persyaratan PKP · 1. Memiliki Nomor Pokok Wajib Pajak (NPWP) : Perusahaan harus terdaftar sebagai wajib pajak dan memiliki NPWP yang diterbitkan ...
+   202→- [easytax.id | ] Jasa Pengurusan PKP Perusahaan - Easytax
+   203→  Bantu bisnis Anda terbit PKP lebih cepat. Layanan jasa pengurusan PKP EasyTax siap dampingi dari persiapan berkas hingga selesai.
+   204→- [legalitas.org | Nov 13, 2023] Mxxengenal Perusahaan PKP dan Non PKP
+   205→  PKP adalah Pengusaha Kena Pajak yang memiliki kewajiban memungut PPN atas barang dan jasa kena pajak.
+   206→- [www.online-pajak.com | Jan 13, 2023] Inilah Hak dan Kewajiban PKP atas PPN (Pajak
+   207→  Salah satu kewajiban PKP atas PPN adalah mengukuhkan usahanya sebagai PKP jika omzetnya Rp4,8 miliar per tahun. Jasa Kena Pajak (JKP)
+   208→- [pajaknesia.id | ] Jasa Pengurusan Pajak Efaktur, PT, CV, UMKM
+   209→  Secara umum konsultan pajak membantu klien perusahaan/badan usaha dan perseorangan dalam pengurusan SPT PPN dan PPh pengenaan pahak yang benar. JASA ...
+   210→- [kontrakhukum.com | ] Jasa Pengurusan PKP
+   211→  Urusan PKP cepat dan efisien. Dapatkan Pengukuhan Kena Pajak dengan mudah dan layanan profesional. KONSULTASI GRATIS.
+   212→
+   213→===== pajak/q4_payroll.json (7 hasil) =====
+   214→- [klikpajak.id | Aug 6, 2026] Bukti Potong PPh 21 dan Cara Download Formulir 1721-A1
+   215→  Aug 6, 2026 — Formulir 1721 - A1 /A2 kini bernama BPA1/BPA2. Pelajari aturan baru, syarat NIK, dan cara download bukti potong PPh 21 karyawan di Coretax.
+   216→- [muc.co.id | Mar 6, 2025] Berikut Tata Cara Mengunduh Bukti Potong PPh Pasal 21
+   217→  Mar 6, 2025 — Bukti Potong PPh Pasal 21 atau Formulir 1721 - A1 untuk mengisi SPT Tahunan PPh Pasal 21 kini dapat didownload langsung lewat DJP Online.
+   218→- [www.talenta.co | Mar 3, 2026] Panduan Bukti Potong PPh 21: Jenis, Format, Contoh, dan
+   219→  Mar 3, 2026 — 1. Formulir 1721 - A1 . Digunakan untuk pegawai tetap di perusahaan swasta. Ini adalah formulir yang paling umum digunakan oleh HR. Form ini berisi ... Read more
+   220→- [mekari.com | Sep 5, 2022] Ketahui Bukti Potong 1721 A1 Bagi Wajib Pajak Karyawan
+   221→  Sep 5, 2022 — Bukti potong 1721 A1 merupakan bukti pemotongan oleh Wajib Pajak orang pribadi berstatus pegawai maupun pensiunan di instansi swasta.
+   222→- [pajak.go.id | Jan 2, 2025] 1721-A1 Lebih Potong, Bagaimana Dampaknya pada
+   223→  Jan 2, 2025 — Lebih potong pada 1721 - A1 tahun 2024 sangat mungkin terjadi, mengingat PPh Pasal 21 yang dipotong oleh pemberi kerja pada suatu masa pajak ... Read more
+   224→- [benemica.com | Dec 17, 2025] apakah perusahaan masih wajib mengirimkan bukti
+   225→  Dec 17, 2025 — Bukti pemotongan PPh Pasal 21 atas penghasilan karyawan selama 1 tahun pajak; Dokumen pendukung utama bagi karyawan dalam pengisian SPT Tahunan ... Read more
+   226→- [www.online-pajak.com | Sep 27, 2018] Formulir 1721-A1: Cara Membuat di Coretax dan Fungsinya
+   227→  Sep 27, 2018 — 1721-A1 adalah bukti potong PPh 21 tahunan . untuk penghasilan di bawah Rp60 juta/tahun dari satu pemberi kerja, Karyawan disarankan menghubungi ...
+   228→
+   229→===== pmi/q1_penempatan.json (8 hasil) =====
+   230→- [jaripmi.info | ] Jerman
+   231→  Temukan komunitas masyarakat Indonesia di negara tujuan untuk membangun jaringan sosial yang kuat. Temukan dukungan dan informasi dari sesama pekerja migran, ... Read more
+   232→- [journal.bacaanmedia.id | ] Tata Kelola Perlindungan Pekerja Migran Indonesia melalui One
+   233→  ... tenaga kerja. Dalam konteks ketenagakerjaan, Arab Saudi menjadi salah satu negara tujuan utama PMI karena tingginya kebutuhan tenaga kerja asing, terutama ...
+   234→- [id.scribd.com | ] Penempatan Dan Perlindungan Pekerja Migran Indonesia
+   235→  Luar Negeri Berperan dalam memberikan perlindungan, pendataan, pembinaan, serta bantuan hukum kepada PMI selama bekerja di negara penempatan .
+   236→- [infopublik.id | ] Kerja Sama Indonesia-Jerman Buka 4.000 Lapangan
+   237→  Kementerian P2MI perkuat kolaborasi lintas kementerian setelah penandatanganan kerja sama penempatan 4.000 pekerja migran Indonesia ke Jerman.
+   238→- [sumbar.bp2mi.go.id | ] daftar isi - BP3MI SUMATERA BARAT
+   239→  penempatan Pekerja Migran Indonesia ke luar negeri setiap tahunnya menempatkan Pekerja Migran Indonesia ke berbagai negara . Hal ini menunjukkan bahwa BP2MI ... Read more
+   240→- [repository.radenintan.ac.id | ] analisis hukum islam tentang pembiayaan
+   241→  by D ROMADHONA · 2021 · Cited by 1 — Terbatasnya kesempatan kerja di dalam negeri menjadikan pangsa pasar kerja luar negeri sebagai alternatif mengatasi permasalahan dan mengurangi pengangguran ... Read more 40 pages
+   242→- [news.detik.com | Sep 25, 2020] Menelisik Lika-liku Pekerja Migran Ilegal dari Indonesia
+   243→  Sep 25, 2020 — Indonesia dan negara penempatan PMI harus memiliki perjanjian tertulis tentang kerja sama penempatan calon pekerja migran.
+   244→- [jurnal.umsu.ac.id | ] E-ISSN: 2828-3910
+   245→  ABSTRAK. Penelitian ini bertujuan untuk menganalisis tanggung jawab pemerintah dalam menjamin perlindungan hukum bagi pekerja migran Indonesia ( PMI ), ... Read more
+   246→
+   247→===== pmi/q2_sip2mi.json (5 hasil) =====
+   248→- [siskop2mi.bp2mi.go.id | ] List P3MI - SISKOP2MI
+   249→  PMI List P3MI Home List Info Dinas. Lembaga Keuangan 66. WANG CAHAYA PENDIDIKAN INTERNASIONAL. PENEMPATAN PEMENANG ASIA PRAMA ULTRA GLOBAL INTERPRISE
+   250→- [kp2mi.go.id | ] Kelembagaan Penempatan
+   251→  Penempatan P3MI BLKLN. Penempatan Pekerja Migran Indonesia ( P3MI ) Call Center 08001000 (dalam negeri) +6221-29244800. Whatsapp Pengaduan 0811-8080-141
+   252→- [kwerja.com | Nov 5, 2025] 7 Cara Cek Negara dan Agen Resmi untuk Calon Pekerja
+   253→  Nov 5, 2025 — Caranya cukup klik menu “ Daftar P3MI ” di situs SISKOP2MI, lalu ketik nama perusahaan penempatan pada kolom pencarian. Pastikan perusahaan ... Read more
+   254→- [disnakeresdm.baliprov.go.id | ] Daftar Perusahaan Penempatan Pekerja Migran Indonesia
+   255→  Daftar Perusahaan Penempatan Pekerja Migran Indonesia ( P3MI ). Daftar Manning Agency yang memiliki Surat Izin Perekrutan dan Penempatan Awak Kapal (SIUPPAK) ...
+   256→- [kemnaker.go.id | ] Kemnaker Perbarui Daftar Negara Penempatan PMI di
+   257→  SIAPkerja. Aplikasi SIAPkerja. Cari lowongan terbaik gratis langsung dari ponsel Anda. Gratis di Play Store. Instal · Beranda. Unit Kerja. Read more
+   258→
+   259→===== pmi/q3_gaji.json (8 hasil) =====
+   260→- [www.numbeo.com | ] South-Eastern Asia: Average Monthly Net Salary (After Tax
+   261→  South-Eastern Asia: Average Monthly Net Salary (After Tax) Kuala Lumpur, Malaysia 1459.90 3 Penang, Malaysia 928.00
+   262→- [en.wikipedia.org | ] List of countries by average wage
+   263→  List of countries by average wage … 2023 average net wage in the United States was $63,932, while the 2023 median net wage was $43,222. dataset contains data ...
+   264→- [en.tempo.co | May 8, 2024] 11 Countries with Highest Salary in Southeast Asia
+   265→  May 8, 2024 — The average minimum wage in Indonesia is Rp5.07 million per month. Meanwhile, according to Salary Explorer, the average monthly salary in ... Read more
+   266→- [www.worlddata.info | ] Cost of living in a global comparison
+   267→  International ranking of the cost of living and purchasing power in 175 countries compared to the US. Differences in price and quality.
+   268→- [rivermate.com | Apr 28, 2026] Comparison of Wages and Cost of Living in ASEAN
+   269→  Apr 28, 2026 — Indonesia Average monthly wage: Depending on the industry and region, wages can range from USD150 to USD600. can range from USD400. Indonesia ...
+   270→- [ginitalent.com | Oct 15, 2025] Employer Costs in Southeast Asia 2025: Country
+   271→  Oct 15, 2025 — For accurate budgeting, add these percentages to gross wages: Indonesia 10-11%, Malaysia 1.25-1.75%, Philippines 13%, Singapore 17% (citizens ... Read more
+   272→- [databoks.katadata.co.id | Aug 14, 2023] Average Salaries in Southeast Asia: Who Earns the Most?
+   273→  Aug 14, 2023 — Singapore had the highest average salary in Southeast Asia in 2023. The average monthly salary in Singapore was recorded at US$4,985. Indonesia ...
+   274→- [www.businesstoday.com.my | May 11, 2024] Malaysia Placed 4th In Southeast Asia's Salary Rankings
+   275→  May 11, 2024 — Among other Southeast Asian countries, the average salaries in the Philippines (USD800.12), Indonesia (USD760) and Vietnam (USD713) ranked ... Read more
+   276→
+   277→===== pmi/q4_syarat.json (5 hasil) =====
+   278→- [cettakorean.cetta.id | Jul 20, 2026] Ini 25+ Istilah yang Wajib Dipahami TKI, Jangan Sampai
+   279→  Jul 20, 2026 — 1. Kontrak Kerja (근로계약서) · 2. Paspor · 3. Visa Kerja · 4. Residence Card (외국인등록증) · 5. Slip Gaji (급여명세서) · 6. Dokumen Asuransi. Read more
+   280→- [jdih.bp2mi.go.id | ] keputusan kepala badan nasional penempatan dan
+   281→  TKI dalam pengurusan dokumen untuk bekerja di luar negeri adalah Layanan Terpadu Satu Pintu (LTSP) yang berada di Provinsi Nusa Tenggara Barat. 156 pages
+   282→- [id.scribd.com | ] Jenis-Jenis Paspor Indonesia | PDF
+   283→  Diplomatik untuk pejabat negara , 3) Paspor Dinas untuk pegawai negeri yang bekerja di luar negeri , dan ・ 1. Scan e-ktp ・ 3. Scan ijazah / akta kelahiran / ...
+   284→- [www.slideserve.com | Feb 22, 2013] PENEMPATAN DAN PERLINDUNGAN TKI DI LUAR NEGERI
+   285→  Feb 22, 2013 — PROSES PENEMPATAN TENAGA KERJA INDONESIA MANDIRI (PERORANGAN) CALON TKI • Menunjukkan dokumen asli • dan menyerahkan copy : • Paspor • Calling ... Read more
+   286→- [safetravel.kemlu.go.id | ] Bahrain
+   287→  Informasi Umum · Persyaratan Masuk/Keluar · Keselamatan dan Keamanan · Hukum dan Kebiasaan Setempat · Mata Uang dan Penukaran · Asuransi dan Kesehatan.
+   288→
+   289→===== pmi/q5_sektor.json (7 hasil) =====
+   290→- [jom.fisip.budiluhur.ac.id | ] Analisis Viktimisasi Struktural Terhadap Pekerja Migran
+   291→  by D Puspita · 2019 · Cited by 3 — Penempatan PMI keluar negeri dibagi dalam dua sektor yaitu formal dan informal . Sedangkan PMI yang bekerja di bidang informal sebanyak 31.023 ...
+   292→- [komnasperempuan.go.id | Dec 20, 2022] Memastikan Pelindungan, Pemajuan, Penegakan dan
+   293→  Dec 20, 2022 — Persentase perempuan PMI yang bekerja di sektor informal termasuk PRT, juga meningkat dari 42% pada 2014 menjadi 51% pada 2019 (PUSLITFO BNP2 ...
+   294→- [www.researchgate.net | Aug 16, 2026] pekerja migran indonesia non prosedural asal pulau
+   295→  Aug 16, 2026 — Penelitian ini mengkaji fenomena migrasi TKI ilegal asal Pulau Kundur ke Malaysia melalui jalur ilegal, atau tanpa jalur resmi yang ... Read more
+   296→- [dspace.uii.ac.id | ] BAB I PENDAHULUAN A. Latar Belakang Pekerja Migran
+   297→  Indonesia ( PMI ) adalah kategori individu tenaga kerja yang melakukan aktivitas ekonomi dengan bekerja. PMI ) sektor informal bekerja
+   298→- [repository.unas.ac.id | ] BAB I
+   299→  Sektor informal di negara ini dapat dikatakan tidak memanusiakan para pekerjanya, karena beban kerja yang cukup berat dan resiko pekerjaan
+   300→- [eprints.umpo.ac.id | ] BAB 1
+   301→  by E Elvia · 2024 — Migran Indonesia ( PMI ) untuk berangkat serta pemutusan hubungan kerja (PHK) formal maupun yang belum memiliki pekerjaan , alternatif di luar sektor formal . ...
+   302→- [journal.ugm.ac.id | ] Malangnya Nasib Pekerja Migran Indonesia (PMI) di Masa
+   303→  Hasil studi literatur menunjukkan bahwa PMI mengalami berbagai permasalahan selama pandemi, baik secara ekonomi, psikososial, hingga kesehatan, sehingga ... Read more
+   304→
+   305→===== pmi/q6_negara_2024.json (6 hasil) =====
+   306→- [investortrust.id | Jul 2, 2024] BPJS Ketenagakerjaan Catat Jumlah Kepesertaan Pekerja
+   307→  Jul 2, 2024 — Taiwan masih menjadi negara tujuan terbesar para PMI , dengan jumlah kepesertaan mencapai 216.738 peserta. Diikuti Malaysia sebanyak 176.278 ... Read more
+   308→- [rri.co.id | Sep 20, 2025] Malaysia Menjadi Tujuan Utama Pekerja Migran Indonesia
+   309→  Sep 20, 2025 — Malaysia tercatat sebagai negara tujuan utama pekerja migran Indonesia per 2024 , dengan jumlah mencapai 209,5 ribu orang atau sekitar 46,3 ...
+   310→- [lpem.org | Mar 19, 2024] LABOR MARKET BRIEF
+   311→  Mar 19, 2024 — Migran Indonesia ( PMI ) Kebutuhan pekerja migran dari negara lain terus ・ 6,7 juta pekerja migran pada tahun 2040 ・ pada pemenuhan pekerja ... 10 pages
+   312→- [id.scribd.com | ] Proyeksi Penempatan Pekerja Migran 2024-2026 | PDF
+   313→  Data ini menunjukkan bahwa migran Indonesia di Italia akan meningkat secara bertahap menjadi 3147 pada tahun 2024 , lalu menurun ke angka 3121 pada tahun 2025,
+   314→- [journal.uii.ac.id | ] Urgensi Penambahan labour attache sebagai upaya
+   315→  by AHJ Kusuma · Cited by 2 — Taiwan (85 ribu PMI ) dan Malaysia (52 ribu PMI ) sebagai tiga tujuan terbesar , sementara. Jepang dan Italia menampung belasan ribu pekerja tanpa satu pun pejabat. Read more
+   316→- [www.antaranews.com | ] Kumpulan Berita negara tujuan pekerja migran
+   317→  8 Januari 2024. Jumlah WNI lebihi data resmi, KBRI update pekerja migran di Kamboja . 30 ... Read more
+   318→
+   319→

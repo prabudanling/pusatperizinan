@@ -1,0 +1,944 @@
+     1→// ============================================================
+     2→// PUSATPERIZINAN.COM — Generator Katalog 1.000+ Halaman SEO
+     3→// Kombinasi deterministik: layanan × provinsi × kota × negara × sektor
+     4→// Murni TS (tanpa DB/AI) → aman untuk static export
+     5→// ============================================================
+     6→
+     7→import { SERVICES } from "@/lib/landing-data";
+     8→import { TAX_ALL } from "@/lib/tax-services";
+     9→import { PMI_B2B_SERVICES, PMI_B2C_SERVICES, PMI_COUNTRIES } from "@/lib/pmi-services";
+    10→import { PROVINCES } from "@/lib/coverage-data";
+    11→import { PERMIT_GUIDES } from "@/lib/seo-content";
+    12→import type { ServicePage, ServiceFaq, CatalogCategory } from "./types";
+    13→import { CATEGORY_META } from "./types";
+    14→import { LICENSE_DETAIL_MAP, GUIDE_MAP } from "./detail-licenses";
+    15→import { TAX_DETAIL_MAP, PMI_DETAIL_MAP, PMI_COUNTRY_MAP } from "./detail-tax-pmi";
+    16→import { VO_PAGES } from "./virtual-office";
+    17→import { CERT_PAGES } from "./certifications";
+    18→import { slugify, parsePrice } from "./utils";
+    19→
+    20→// ------------------------------------------------------------
+    21→// KONSTANTAS KOMBINASI
+    22→// ------------------------------------------------------------
+    23→
+    24→/** Layanan perizinan yang dibuatkan halaman untuk SEMUA 38 provinsi */
+    25→const REGION_FULL_SERVICES = [
+    26→  "nib", "pt", "cv", "pt-perorangan", "halal", "bpom", "merek", "pbg",
+    27→  "lingkungan", "iso", "api-impex", "koperasi-yayasan", "sni", "ppi-umroh",
+    28→];
+    29→
+    30→/** Provinsi utama untuk layanan yang lebih spesifik (8 provinsi) */
+    31→const REGION_LITE_PROVINCES = [
+    32→  "DKI Jakarta", "Jawa Barat", "Jawa Tengah", "Jawa Timur",
+    33→  "Bali", "Sumatera Utara", "Sulawesi Selatan", "Kalimantan Timur",
+    34→];
+    35→
+    36→/** Layanan perizinan yang dibuatkan halaman × kota besar */
+    37→const CITY_SERVICES = ["nib", "pt", "cv", "halal", "bpom", "merek"];
+    38→
+    39→/** 10 kota besar */
+    40→export const BIG_CITIES = [
+    41→  "Jakarta", "Surabaya", "Bandung", "Medan", "Semarang",
+    42→  "Makassar", "Denpasar", "Tangerang", "Bekasi", "Batam",
+    43→];
+    44→
+    45→/** Layanan pajak yang dibuatkan halaman × 15 kota */
+    46→const TAX_CITY_SERVICES = [
+    47→  "tax-npwp-op", "tax-spt-op", "tax-umkm",
+    48→  "tax-npwp-badan", "tax-pkp-badan", "tax-spt-masa-badan", "tax-spt-tahunan-badan",
+    49→];
+    50→
+    51→/** Layanan pajak × SEMUA 38 provinsi (paling dicari secara lokal) */
+    52→const REGION_TAX_SERVICES = [
+    53→  "tax-npwp-op", "tax-spt-op", "tax-umkm", "tax-npwp-badan",
+    54→  "tax-pkp-badan", "tax-spt-masa-badan", "tax-spt-tahunan-badan", "tax-planning",
+    55→];
+    56→
+    57→/** Layanan PMI B2C × 8 provinsi utama pengirim pekerja migran */
+    58→const REGION_PMI_SERVICES = [
+    59→  "dokumen-pmi", "jepang-ssw", "korea-eps", "taiwan-hk-sg", "timur-tengah-pmi",
+    60→];
+    61→
+    62→/** Provinsi utama pengirim PMI (porsi terbesar penempatan nasional) */
+    63→const PMI_SOURCE_PROVINCES = [
+    64→  "Jawa Barat", "Jawa Tengah", "Jawa Timur", "DKI Jakarta",
+    65→  "Sumatera Utara", "Nusa Tenggara Barat", "Sulawesi Selatan", "Kalimantan Timur",
+    66→];
+    67→
+    68→/** 15 kota untuk pajak */
+    69→export const TAX_CITIES = [
+    70→  "Jakarta", "Surabaya", "Bandung", "Medan", "Semarang", "Makassar",
+    71→  "Palembang", "Tangerang", "Tangerang Selatan", "Denpasar",
+    72→  "Yogyakarta", "Bogor", "Depok", "Batam", "Malang",
+    73→];
+    74→
+    75→// ------------------------------------------------------------
+    76→// HELPER
+    77→// ------------------------------------------------------------
+    78→
+    79→export { slugify, parsePrice };
+    80→
+    81→/** Potong metaDesc agar tidak melebihi batas mesin pencari dengan rapi */
+    82→function capMeta(text: string, max = 300): string {
+    83→  if (text.length <= max) return text;
+    84→  const cut = text.slice(0, max);
+    85→  const lastStop = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf("— "), cut.lastIndexOf(", "));
+    86→  return (lastStop > max * 0.6 ? cut.slice(0, lastStop) : cut.replace(/[,;\s]+$/, "")) + ".";
+    87→}
+    88→
+    89→const WA_LINK = "https://wa.me/6281269999910";
+    90→
+    91→function makeCtaFaq(serviceName: string, regionName: string, ctaText: string): ServiceFaq {
+    92→  return {
+    93→    q: `Bagaimana cara mulai pengurusan ${serviceName} di ${regionName}?`,
+    94→    a: `Sangat mudah — klik tombol "${ctaText}" di halaman ini atau hubungi WhatsApp kami. Konsultasi awal gratis: ceritakan kondisi usaha Anda, dan tim kami susun roadmap lengkap (dokumen, biaya, timeline) dalam hitungan jam. 95% proses berjalan online tanpa Anda perlu ke kantor kami di SCBD Jakarta.`,
+    95→  };
+    96→}
+    97→
+    98→// ------------------------------------------------------------
+    99→// BUILD DATA MASTER: layanan dasar dari 3 file + detail kaya
+   100→// ------------------------------------------------------------
+   101→
+   102→interface BaseServiceRecord {
+   103→  id: string;
+   104→  category: CatalogCategory;
+   105→  title: string;
+   106→  desc: string;
+   107→  price: string;
+   108→  duration: string;
+   109→  features: string[];
+   110→  long: string;
+   111→  audience: string[];
+   112→  legalBasis: string;
+   113→  authority: string;
+   114→  requirements: string[];
+   115→  steps: string[];
+   116→  faq: ServiceFaq[];
+   117→  keywords: string[];
+   118→}
+   119→
+   120→function buildBaseServices(): Map<string, BaseServiceRecord> {
+   121→  const map = new Map<string, BaseServiceRecord>();
+   122→
+   123→  // A. Perizinan (SERVICES)
+   124→  for (const s of SERVICES) {
+   125→    const guideId = GUIDE_MAP[s.id];
+   126→    const guide = guideId ? PERMIT_GUIDES.find((g) => g.id === guideId) : undefined;
+   127→    const detail = LICENSE_DETAIL_MAP.get(s.id);
+   128→
+   129→    const long =
+   130→      detail?.long ??
+   131→      (guide
+   132→        ? guide.long
+   133→        : `${s.desc} Layanan ini ditangani tim ahli ${CATEGORY_META.perizinan.label.toLowerCase()} PusatPerizinan.com yang sudah menangani ribuan kasus serupa di 38 provinsi — proses resmi, transparan, dan bergaransi.`);
+   134→
+   135→    const requirements =
+   136→      detail?.requirements ?? guide?.requirements ?? [
+   137→        "KTP & NPWP pemilik/pengurus",
+   138→        "Dokumen badan usaha (bila sudah ada)",
+   139→        "Alamat usaha & kontak aktif",
+   140→        "Dokumen khusus sesuai jenis layanan (kami pandu)",
+   141→      ];
+   142→
+   143→    const steps =
+   144→      detail?.steps ?? guide?.steps ?? [
+   145→        "Konsultasi gratis: petakan kebutuhan & dokumen Anda",
+   146→        "Penawaran transparan: biaya & timeline jelas sejak awal",
+   147→        "Kami proses: koordinasi instansi & notaris penuh",
+   148→        "Monitoring progres real-time via WhatsApp",
+   149→        "Dokumen terbit + panduan kewajiban pasca-terbit",
+   150→      ];
+   151→
+   152→    const faq =
+   153→      detail?.faq ?? guide?.faq ?? [
+   154→        { q: `Berapa biaya jasa ${s.title}?`, a: `Harga jasa kami mulai ${s.price} dengan durasi proses ${s.duration}. Biaya resmi pemerintah/notaris terpisah dan transparan — semua tercantum di penawaran sebelum mulai. Tidak ada biaya tersembunyi, dan garansi uang kembali 100% bila gagal karena kesalahan proses kami.` },
+   155→        { q: `Berapa lama proses ${s.title}?`, a: `Estimasi proses ${s.duration} sejak dokumen lengkap. Timeline bisa lebih cepat bila dokumen Anda sudah rapi sejak awal — kami bantu audit dokumen di konsultasi gratis pertama.` },
+   156→        { q: `Apakah harus datang ke kantor?`, a: `Tidak perlu. 95% proses daring + kurir dokumen. Layanan kami menjangkau seluruh 38 provinsi dan 514 kabupaten/kota. Untuk kebutuhan audit fisik, tim kami yang datang ke lokasi Anda.` },
+   157→      ];
+   158→
+   159→    map.set(s.id, {
+   160→      id: s.id,
+   161→      category: "perizinan",
+   162→      title: s.title,
+   163→      desc: s.desc,
+   164→      price: s.price,
+   165→      duration: s.duration,
+   166→      features: s.features,
+   167→      long,
+   168→      audience: detail?.audience ?? ["Individu", "UMKM", "Perusahaan"],
+   169→      legalBasis: detail?.legalBasis ?? guide?.legalBasis ?? "UU Cipta Kerja, PP 5/2021, PP 22/2021",
+   170→      authority: detail?.authority ?? guide?.authority ?? "OSS-RBA + Instansi terkait",
+   171→      requirements,
+   172→      steps,
+   173→      faq,
+   174→      keywords: detail?.keywords ?? [s.title.toLowerCase(), `jasa ${s.title.toLowerCase()}`, `biaya ${s.title.toLowerCase()}`],
+   175→    });
+   176→  }
+   177→
+   178→  // B. Pajak (TAX_ALL)
+   179→  for (const s of TAX_ALL) {
+   180→    const d = TAX_DETAIL_MAP.get(s.id);
+   181→    map.set(s.id, {
+   182→      id: s.id,
+   183→      category: "pajak",
+   184→      title: s.title,
+   185→      desc: s.desc,
+   186→      price: s.price,
+   187→      duration: s.duration,
+   188→      features: s.features,
+   189→      long: d?.long ?? s.desc,
+   190→      audience: d?.audience ?? ["Individu", "UMKM", "Perusahaan"],
+   191→      legalBasis: d?.legalBasis ?? "UU KUP, UU HPP, PER DJP terkini",
+   192→      authority: d?.authority ?? "DJP (Direktorat Jenderal Pajak)",
+   193→      requirements: d?.requirements ?? [
+   194→        "NPWP aktif & akses Coretax DJP",
+   195→        "Dokumen transaksi/ penghasilan yang relevan",
+   196→        "Data penerima/ karyawan (bila pemotong pajak)",
+   197→      ],
+   198→      steps: d?.steps ?? [
+   199→        "Konsultasi gratis: bedah kondisi pajak Anda",
+   200→        "Penyusunan strategi & dokumen yang tepat",
+   201→        "Eksekusi via Coretax/e-Filing dengan monitoring",
+   202→        "Laporan & arsip digital yang rapi",
+   203→        "Panduan kewajiban berikutnya",
+   204→      ],
+   205→      faq: d?.faq ?? [
+   206→        { q: `Berapa biaya jasa ${s.title}?`, a: `Mulai ${s.price} dengan durasi ${s.duration}. Konsultasi awal gratis — kami beri penawaran presisi setelah memahami kondisi Anda. Semua transparan, tanpa biaya tersembunyi.` },
+   207→        { q: `Apakah bisa sekalian diperiksa/diperbaiki pajak tahun lalu?`, a: `Bisa. Banyak klien kami mulai dari situasi "pajak berantakan" dan berakhir rapi: SPT tertunda dilaporkan, denda ditangani, dan sistem ke depan dibangun benar. Bawa kondisi Anda — kami bedah dulu sebelum menawarkan.` },
+   208→        { q: `Apakah prosesnya online?`, a: `Ya — semua administrasi pajak kini elektronik (Coretax DJP). Kami kerja penuh daring + rapat online bila perlu. Dokumen dikirim digital, laporan bisa Anda pantau dari dashboard.` },
+   209→      ],
+   210→      keywords: d?.keywords ?? [s.title.toLowerCase(), "jasa pajak", s.id.replace("tax-", "").replace(/-/g, " ")],
+   211→    });
+   212→  }
+   213→
+   214→  // C. PMI (B2B + B2C)
+   215→  for (const s of [...PMI_B2B_SERVICES, ...PMI_B2C_SERVICES]) {
+   216→    const d = PMI_DETAIL_MAP.get(s.id);
+   217→    map.set(s.id, {
+   218→      id: s.id,
+   219→      category: "pmi",
+   220→      title: s.title,
+   221→      desc: s.desc,
+   222→      price: s.price,
+   223→      duration: s.duration,
+   224→      features: s.features,
+   225→      long: d?.long ?? s.desc,
+   226→      audience: d?.audience ?? [s.audience === "perusahaan" ? "Perusahaan" : "Individu"],
+   227→      legalBasis: d?.legalBasis ?? "UU 18/2017 (PSMI), PP 22/2022",
+   228→      authority: d?.authority ?? "KemenP2MI + BP2MI + SISKOP2MI",
+   229→      requirements: d?.requirements ?? [
+   230→        "KTP & Kartu Keluarga (individu) / akta badan usaha (perusahaan)",
+   231→        "Dokumen dasar sesuai skema (kami pandu)",
+   232→      ],
+   233→      steps: d?.steps ?? [
+   234→        "Konsultasi gratis: profil & tujuan Anda",
+   235→        "Pemetaan skema & negara yang paling cocok",
+   236→        "Persiapan dokumen & pelatihan (bila perlu)",
+   237→        "Eksekusi: kontrak, visa & keberangkatan",
+   238→        "Pendampingan purna sesuai UU 18/2017",
+   239→      ],
+   240→      faq: d?.faq ?? [
+   241→        { q: `Berapa biaya ${s.title}?`, a: `Mulai ${s.price} dengan durasi ${s.duration}. Semua biaya tercantum di perjanjian resmi — tidak ada biaya bawah tangan. Untuk penempatan PMI, kami hanya kerja dengan job order resmi SISKOP2MI & majikan terverifikasi.` },
+   242→        { q: `Apakah ini legal & aman?`, a: `Mutlak legal — sesuai UU 18/2017 dan jalur resmi KemenP2MI/BP2MI. Kami bukan pihak yang menjanjikan kerja ilegal atau "merpati putih". Perlindungan Anda sejak dokumen sampai purna adalah bagian dari layanan kami.` },
+   243→        { q: `Bagaimana memulai?`, a: `Hubungi WhatsApp kami untuk konsultasi gratis. Ceritakan profil Anda (atau kebutuhan perusahaan), dan tim kami susun roadmap lengkap dengan biaya & timeline yang transparan.` },
+   244→      ],
+   245→      keywords: d?.keywords ?? [s.title.toLowerCase(), "jasa pmi", "penempatan tki"],
+   246→    });
+   247→  }
+   248→
+   249→  return map;
+   250→}
+   251→
+   252→export const BASE_SERVICES = buildBaseServices();
+   253→
+   254→// ------------------------------------------------------------
+   255→// BUILDER: Halaman Induk Layanan
+   256→// ------------------------------------------------------------
+   257→
+   258→function buildBasePage(id: string): ServicePage | null {
+   259→  const b = BASE_SERVICES.get(id);
+   260→  if (!b) return null;
+   261→  const catMeta = CATEGORY_META[b.category];
+   262→  return {
+   263→    slug: id,
+   264→    kind: "base",
+   265→    category: b.category,
+   266→    title: `Jasa ${b.title} — Resmi, Cepat & Bergaransi`,
+   267→    h1: b.title,
+   268→    desc: b.desc,
+   269→    metaDesc: capMeta(`Jasa pengurusan ${b.title} resmi & transparan. ${b.desc} Mulai ${b.price}, proses ${b.duration}. Konsultasi gratis via WhatsApp — menjangkau 38 provinsi.`),
+   270→    intro: b.long,
+   271→    longDesc: [
+   272→      b.desc,
+   273→      `Tim PusatPerizinan.com sudah menangani 3.899+ pengurusan serupa untuk 1.247+ klien di seluruh 38 provinsi dengan rating 4,9/5. Semua proses menggunakan jalur resmi — ${b.authority} — dan didokumentasikan transparan sehingga Anda bisa memantau progres setiap tahap.`,
+   274→      `Biaya jasa kami mulai ${b.price} dengan estimasi waktu ${b.duration}. Konsultasi awal gratis: kami bedah kondisi Anda, susun roadmap, dan baru bergerak setelah Anda setuju. Bergaransi uang kembali 100% bila gagal terbit karena kesalahan proses kami.`,
+   275→    ],
+   276→    price: b.price,
+   277→    priceNumeric: parsePrice(b.price),
+   278→    duration: b.duration,
+   279→    audience: b.audience,
+   280→    features: b.features,
+   281→    requirements: b.requirements,
+   282→    steps: b.steps,
+   283→    faq: b.faq,
+   284→    keywords: [
+   285→      ...b.keywords,
+   286→      `jasa ${b.title.toLowerCase()}`,
+   287→      `biaya ${b.title.toLowerCase()} 2025`,
+   288→      `${b.title.toLowerCase()} terpercaya`,
+   289→      `konsultan ${b.title.toLowerCase()}`,
+   290→    ],
+   291→    legalBasis: b.legalBasis,
+   292→    authority: b.authority,
+   293→    related: [],
+   294→    breadcrumbs: [
+   295→      { name: "Beranda", href: "/" },
+   296→      { name: "Layanan", href: "/layanan" },
+   297→      { name: catMeta.label, href: `/layanan/kategori/${catMeta.slug}` },
+   298→      { name: b.title, href: `/layanan/${id}` },
+   299→    ],
+   300→  };
+   301→}
+   302→
+   303→// ------------------------------------------------------------
+   304→// BUILDER: Halaman Layanan × Provinsi
+   305→// ------------------------------------------------------------
+   306→
+   307→function buildRegionPage(serviceId: string, provinceIdx: number): ServicePage | null {
+   308→  const b = BASE_SERVICES.get(serviceId);
+   309→  if (!b) return null;
+   310→  const prov = PROVINCES[provinceIdx];
+   311→  if (!prov) return null;
+   312→  const provSlug = slugify(prov.name);
+   313→  const slug = `${serviceId}-${provSlug}`;
+   314→  const catMeta = CATEGORY_META[b.category];
+   315→  const cities = prov.majors.slice(0, 4).join(", ");
+   316→  const regionTitle = `di ${prov.name}`;
+   317→
+   318→  const intro = `${b.title} untuk usaha Anda ${regionTitle} diurus penuh oleh tim PusatPerizinan.com — 100% sesuai jalur resmi ${b.authority}. ${b.desc} Kami menjangkau seluruh wilayah ${prov.name}, termasuk ${cities}, dengan proses dominan daring: dokumen dikirim digital, kurir fisik mengurus dokumen yang wajib tatap muka, dan Anda memantau progres dari WhatsApp.`;
+   319→
+   320→  const officialFeeNote =
+   321→    b.category === "pajak"
+   322→      ? "biaya resmi DJP (PNBP/norma)"
+   323→      : b.category === "pmi"
+   324→        ? "biaya resmi KemenP2MI/BP2MI"
+   325→        : "biaya resmi pemerintah termasuk PNBP daerah";
+   326→
+   327→  const regionFaq: ServiceFaq[] = [
+   328→    {
+   329→      q: `Berapa biaya ${b.title} di ${prov.name}?`,
+   330→      a: `Jasa kami mulai ${b.price} — sama transparannya untuk semua wilayah ${prov.name}. ${officialFeeNote.charAt(0).toUpperCase() + officialFeeNote.slice(1)} terpisah dan jelas sejak penawaran. ${prov.note}`,
+   331→    },
+   332→    {
+   333→      q: `Apakah harus ke ${cities.split(",")[0]} atau ke kantor ${b.authority}?`,
+   334→      a: `Tidak perlu. Untuk ${b.title}, proses kini dominan daring (${b.authority} menyediakan sistem elektronik). Dokumen yang wajib fisik kami urus via kurir tertutup. Anda tinggal di mana pun di ${prov.name} — ${prov.majors.join(", ")} — dan tetap bisa diurus penuh.`,
+   335→    },
+   336→    {
+   337→      q: `Apa kekhasan pengurusan ${b.title} di ${prov.name}?`,
+   338→      a: `${prov.note} Setiap DPMPTSP/instansi daerah punya kecepatan & kebiasaan berbeda — tim kami sudah terbiasa dengan alur ${prov.name} sehingga antisipasi revisi dokumen lebih baik daripada mengurus sendiri tanpa pengalaman lokal.`,
+   339→    },
+   340→  ];
+   341→
+   342→  return {
+   343→    slug,
+   344→    kind: "region",
+   345→    category: b.category,
+   346→    parent: serviceId,
+   347→    title: `Jasa ${b.title} ${regionTitle} — Biaya & Proses 2025`,
+   348→    h1: `${b.title} ${regionTitle}`,
+   349→    desc: b.desc,
+   350→    metaDesc: capMeta(`Pengurusan ${b.title} ${regionTitle}: resmi via ${b.authority}, mulai ${b.price}, proses ${b.duration}. Melayani ${cities} & seluruh ${prov.name}. Konsultasi gratis — proses dominan online.`),
+   351→    intro,
+   352→    longDesc: [
+   353→      `${b.long}`,
+   354→      `Permintaan ${b.title.toLowerCase()} di ${prov.name} terus naik seiring pertumbuhan UMKM & investasi. ${prov.note} Kami menangani alurnya rutin: dari pemilihan ${b.category === "perizinan" ? "KBLI" : "strategi"} yang tepat, penyusunan dokumen, koordinasi dengan ${b.authority}, sampai terbit & panduan kewajiban pasca-terbit.`,
+   355→      `Kota-kota yang paling sering kami tangani di ${prov.name}: ${prov.majors.join(", ")}. ${b.category === "perizinan" ? "Untuk wilayah lain di " + prov.name + " maupun kabupaten sekitarnya, proses tetap sama karena sistem perizinan terintegrasi OSS-RBA secara nasional." : b.category === "pajak" ? "Untuk wilayah lain di " + prov.name + ", proses sama karena layanan pajak terintegrasi Coretax DJP secara nasional — KPP/KP2KP setempat cukup diakses online." : "Untuk wilayah lain di " + prov.name + ", proses sama karena penempatan PMI terintegrasi SISKOP2MI secara nasional — LPK & medical check-up di dekat domisili Anda."}`,
+   356→    ],
+   357→    price: b.price,
+   358→    priceNumeric: parsePrice(b.price),
+   359→    duration: b.duration,
+   360→    audience: b.audience,
+   361→    features: b.features,
+   362→    requirements: [...b.requirements, `Bukti domisili usaha di ${prov.name} (bila diminta instansi)`],
+   363→    steps: b.steps.map((s, i) => (i === 1 ? `${s} (dokumen sesuai ketentuan ${prov.name})` : s)),
+   364→    faq: [...regionFaq, ...b.faq.slice(0, 2)],
+   365→    keywords: [
+   366→      `${b.title.toLowerCase()} ${prov.name.toLowerCase()}`,
+   367→      `biaya ${b.title.toLowerCase()} ${prov.name.toLowerCase()}`,
+   368→      `jasa ${b.title.toLowerCase()} ${prov.majors[0]?.toLowerCase() ?? ""}`,
+   369→      `pengurusan ${b.title.toLowerCase()} ${prov.name.toLowerCase()} 2025`,
+   370→      ...b.keywords.slice(0, 2).map((k) => `${k} ${prov.name.toLowerCase()}`),
+   371→    ],
+   372→    legalBasis: b.legalBasis,
+   373→    authority: b.authority,
+   374→    region: prov.name,
+   375→    related: [],
+   376→    breadcrumbs: [
+   377→      { name: "Beranda", href: "/" },
+   378→      { name: "Layanan", href: "/layanan" },
+   379→      { name: b.title, href: `/layanan/${serviceId}` },
+   380→      { name: prov.name, href: `/layanan/${slug}` },
+   381→    ],
+   382→  };
+   383→}
+   384→
+   385→// ------------------------------------------------------------
+   386→// BUILDER: Halaman Layanan × Kota
+   387→// ------------------------------------------------------------
+   388→
+   389→function buildCityPage(serviceId: string, city: string, category: CatalogCategory): ServicePage | null {
+   390→  const b = BASE_SERVICES.get(serviceId);
+   391→  if (!b) return null;
+   392→  const citySlug = slugify(city);
+   393→  const slug = `${serviceId}-${citySlug}`;
+   394→  const ctaText = "Konsultasi Gratis";
+   395→
+   396→  const intro = `${b.title} di ${city} diurus penuh oleh PusatPerizinan.com via jalur resmi ${b.authority}. ${b.desc} Proses dominan daring — Anda tidak perlu bolak-balik kantor instansi, dan progres bisa dipantau real-time dari WhatsApp.`;
+   397→
+   398→  return {
+   399→    slug,
+   400→    kind: "city",
+   401→    category: b.category,
+   402→    parent: serviceId,
+   403→    title: `Jasa ${b.title} di ${city} — Cepat & Resmi`,
+   404→    h1: `${b.title} di ${city}`,
+   405→    desc: b.desc,
+   406→    metaDesc: capMeta(`Pengurusan ${b.title} di ${city} oleh tim ahli. Mulai ${b.price}, proses ${b.duration}, jalur resmi ${b.authority}. Konsultasi gratis — 95% proses online, melayani seluruh ${city}.`),
+   407→    intro,
+   408→    longDesc: [
+   409→      b.long,
+   410→      `${city} adalah salah satu pasar paling aktif untuk ${b.category === "perizinan" ? "perizinan usaha" : b.category === "pajak" ? "layanan pajak" : "penempatan PMI"} di Indonesia. Warga & pelaku usaha ${city} memakai layanan kami karena: (1) konsultasi gratis tanpa komitmen, (2) biaya transparan sejak awal, (3) garansi uang kembali 100% bila gagal karena kesalahan kami, dan (4) support WhatsApp cepat bahkan setelah dokumen terbit.`,
+   411→    ],
+   412→    price: b.price,
+   413→    priceNumeric: parsePrice(b.price),
+   414→    duration: b.duration,
+   415→    audience: b.audience,
+   416→    features: b.features,
+   417→    requirements: b.requirements,
+   418→    steps: b.steps,
+   419→    faq: [
+   420→      ...b.faq.slice(0, 2),
+   421→      makeCtaFaq(b.title, city, ctaText),
+   422→    ],
+   423→    keywords: [
+   424→      `${b.title.toLowerCase()} di ${city.toLowerCase()}`,
+   425→      `biaya ${b.title.toLowerCase()} ${city.toLowerCase()}`,
+   426→      `jasa ${b.title.toLowerCase()} ${city.toLowerCase()} 2025`,
+   427→      ...b.keywords.slice(0, 2),
+   428→    ],
+   429→    legalBasis: b.legalBasis,
+   430→    authority: b.authority,
+   431→    region: city,
+   432→    related: [],
+   433→    breadcrumbs: [
+   434→      { name: "Beranda", href: "/" },
+   435→      { name: "Layanan", href: "/layanan" },
+   436→      { name: b.title, href: `/layanan/${serviceId}` },
+   437→      { name: city, href: `/layanan/${slug}` },
+   438→    ],
+   439→  };
+   440→}
+   441→
+   442→// ------------------------------------------------------------
+   443→// BUILDER: Negara Tujuan PMI
+   444→// ------------------------------------------------------------
+   445→
+   446→function buildCountryPage(code: string): ServicePage | null {
+   447→  const c = PMI_COUNTRIES.find((x) => x.code === code);
+   448→  const d = PMI_COUNTRY_MAP.get(code);
+   449→  if (!c || !d) return null;
+   450→  const slug = `kerja-di-${code}`;
+   451→
+   452→  const intro = `Kerja resmi di ${d.name} ${d.flag} untuk Pekerja Migran Indonesia: skema resmi ${d.scheme}, kisaran gaji ${d.salary}, sektor dengan permintaan tertinggi (${d.sectors.map((s) => s.label.split("(")[0].trim()).join(", ")}), sampai seluruh dokumen & proses keberangkatan sesuai UU 18/2017. Semua diurus jalur resmi — tanpa agen liar, tanpa biaya bawah tangan.`;
+   453→
+   454→  return {
+   455→    slug,
+   456→    kind: "country",
+   457→    category: "pmi",
+   458→    title: `Kerja di ${d.name} untuk PMI — Gaji, Syarat & Cara Daftar`,
+   459→    h1: `Kerja di ${d.name} ${d.flag} — Panduan Lengkap PMI 2025`,
+   460→    desc: `Skema resmi ${d.scheme} · gaji ${d.salary} · sektor: ${d.sectors.map((s) => s.label.split("(")[0].trim()).join(", ")}`,
+   461→    metaDesc: capMeta(`Panduan kerja di ${d.name} untuk PMI: skema resmi ${d.scheme}, gaji ${d.salary}, syarat & dokumen lengkap, sektor paling dibutuhkan. Proses resmi UU 18/2017 — konsultasi gratis.`),
+   462→    intro,
+   463→    longDesc: [
+   464→      d.salaryNote,
+   465→      `Skema penempatan yang dipakai: ${d.scheme}. Jenis visa yang umum: ${d.visaTypes.join("; ")}. Estimasi total proses dari pendaftaran sampai berangkat: ${d.timeline}.`,
+   466→      `Kami hanya bekerja dengan job order resmi terdaftar di SISKOP2MI dan majikan/agensi yang terverifikasi di ${d.name}. Setiap kontrak direview bersama Anda sebelum tanda tangan — gaji, jam kerja, fasilitas, dan hak Anda semuanya tercantum jelas. Perlindungan purna (termasuk pendampingan bermasalah via BP2MI/KBRI) bagian dari layanan.`,
+   467→    ],
+   468→    price: d.sectors[0]?.salary ?? d.salary,
+   469→    priceNumeric: 0,
+   470→    duration: d.timeline,
+   471→    audience: ["Individu (PMI/TKI)"],
+   472→    features: [
+   473→      `Skema resmi: ${d.scheme}`,
+   474→      `Gaji kisaran: ${d.salary}`,
+   475→      `Sektor tersedia: ${d.sectors.map((s) => s.label.split("(")[0].trim()).join(", ")}`,
+   476→      "Kontrak direview bersama sebelum tanda tangan",
+   477→      "Pendampingan dokumen, visa & keberangkatan penuh",
+   478→    ],
+   479→    requirements: d.documents,
+   480→    steps: d.process,
+   481→    faq: d.faq,
+   482→    keywords: d.keywords,
+   483→    authority: `KemenP2MI + ${d.scheme}`,
+   484→    country: d.name,
+   485→    related: [],
+   486→    breadcrumbs: [
+   487→      { name: "Beranda", href: "/" },
+   488→      { name: "Layanan", href: "/layanan" },
+   489→      { name: "Kerja Luar Negeri", href: "/layanan/kategori/kerja-luar-negeri" },
+   490→      { name: `Kerja di ${d.name}`, href: `/layanan/${slug}` },
+   491→    ],
+   492→  };
+   493→}
+   494→
+   495→// ------------------------------------------------------------
+   496→// BUILDER: Negara × Sektor PMI
+   497→// ------------------------------------------------------------
+   498→
+   499→function buildSectorPage(code: string, sectorIdx: number): ServicePage | null {
+   500→  const c = PMI_COUNTRIES.find((x) => x.code === code);
+   501→  const d = PMI_COUNTRY_MAP.get(code);
+   502→  if (!c || !d) return null;
+   503→  const sector = d.sectors[sectorIdx];
+   504→  if (!sector) return null;
+   505→  const slug = `kerja-di-${code}-${sector.slug}`;
+   506→
+   507→  const intro = `Kerja sebagai ${sector.label} di ${d.name} ${d.flag}: gaji kisaran ${sector.salary}, permintaan pasar ${sector.demand}, skema resmi ${d.scheme}, dan seluruh dokumen diurus sesuai UU 18/2017. Panduan lengkap persyaratan, proses, dan strategi agar diterima — dari tim yang rutin menempatkan PMI ke ${d.name}.`;
+   508→
+   509→  return {
+   510→    slug,
+   511→    kind: "sector",
+   512→    category: "pmi",
+   513→    parent: `kerja-di-${code}`,
+   514→    title: `Kerja ${sector.label} di ${d.name} — Gaji & Syarat Terbaru`,
+   515→    h1: `Kerja ${sector.label} di ${d.name} ${d.flag}`,
+   516→    desc: `${sector.label} · gaji ${sector.salary} · skema resmi ${d.scheme}`,
+   517→    metaDesc: capMeta(`Lowongan resmi ${sector.label} di ${d.name}: gaji ${sector.salary}, permintaan ${sector.demand}. Syarat, dokumen & proses lengkap via skema resmi ${d.scheme}. Konsultasi gratis.`),
+   518→    intro,
+   519→    longDesc: [
+   520→      `${sector.label} adalah salah satu sektor paling dibutuhkan di ${d.name}: ${sector.demand}. Kisaran gajinya ${sector.salary} — ${d.salaryNote}`,
+   521→      `Proses penempatannya: ${d.process.join(" → ")}. Total estimasi waktu ${d.timeline}. Dokumen yang disiapkan: ${d.documents.join(", ")}.`,
+   522→      `Untuk posisi ${sector.label}, kunci diterima adalah: (1) dokumen lengkap & legal sejak awal, (2) persiapan bahasa sesuai negara tujuan, dan (3) kontrak yang direview sebelum tanda tangan. Kami memastikan ketiga-tiganya — plus pendampingan purna bila ada kendala di ${d.name} (via kanal resmi BP2MI/KBRI).`,
+   523→    ],
+   524→    price: sector.salary,
+   525→    priceNumeric: 0,
+   526→    duration: d.timeline,
+   527→    audience: ["Individu (PMI/TKI)"],
+   528→    features: [
+   529→      `Posisi: ${sector.label}`,
+   530→      `Gaji kisaran: ${sector.salary}`,
+   531→      `Permintaan pasar: ${sector.demand}`,
+   532→      `Skema resmi: ${d.scheme}`,
+   533→      "Kontrak direview bersama & majikan terverifikasi",
+   534→    ],
+   535→    requirements: d.documents,
+   536→    steps: d.process,
+   537→    faq: [
+   538→      {
+   539→        q: `Berapa gaji ${sector.label} di ${d.name}?`,
+   540→        a: `Kisaran ${sector.salary}. ${d.salaryNote} Gaji pastinya tergantung employer, pengalaman & keterampilan — semua tercantum di kontrak sebelum Anda tanda tangan.`,
+   541→      },
+   542→      ...d.faq.slice(0, 2),
+   543→    ],
+   544→    keywords: [
+   545→      `kerja ${sector.label.toLowerCase()} di ${d.name.toLowerCase()}`,
+   546→      `gaji ${sector.slug} ${d.name.toLowerCase()}`,
+   547→      `lowongan ${sector.label.toLowerCase()} ${d.name.toLowerCase()} 2025`,
+   548→      `syarat kerja ${sector.label.toLowerCase()} di ${d.name.toLowerCase()}`,
+   549→      ...d.keywords.slice(0, 2),
+   550→    ],
+   551→    authority: `KemenP2MI + ${d.scheme}`,
+   552→    country: d.name,
+   553→    related: [],
+   554→    breadcrumbs: [
+   555→      { name: "Beranda", href: "/" },
+   556→      { name: "Layanan", href: "/layanan" },
+   557→      { name: `Kerja di ${d.name}`, href: `/layanan/kerja-di-${code}` },
+   558→      { name: sector.label, href: `/layanan/${slug}` },
+   559→    ],
+   560→  };
+   561→}
+   562→
+   563→// ------------------------------------------------------------
+   564→// BUILDER: Halaman Kota Hub (wilayah/{prov}/{kota}) — indeks semua layanan di satu kota
+   565→// ------------------------------------------------------------
+   566→
+   567→function buildCityHubPage(provIdx: number, city: string): ServicePage | null {
+   568→  const prov = PROVINCES[provIdx];
+   569→  if (!prov || !city) return null;
+   570→  const provSlug = slugify(prov.name);
+   571→  const citySlug = slugify(city);
+   572→  const slug = `wilayah/${provSlug}/${citySlug}`;
+   573→
+   574→  const regionMembers = ALL_SERVICE_PAGES.filter(
+   575→    (p) => p.kind === "region" && p.region === prov.name
+   576→  );
+   577→  const cityMembers = ALL_SERVICE_PAGES.filter(
+   578→    (p) => p.kind === "city" && p.region === city
+   579→  );
+   580→  const totalServices = regionMembers.length + cityMembers.length;
+   581→  if (totalServices === 0) return null;
+   582→
+   583→  const sample = cityMembers[0] ?? regionMembers[0];
+   584→  const provinceHubSlug = `wilayah/${provSlug}`;
+   585→
+   586→  const intro = `Konsultan perizinan, legalitas & pajak usaha di ${city}, ${prov.name} — ${totalServices}+ layanan dalam satu genggaman: NIB & OSS-RBA, pendirian PT/CV, sertifikasi halal, BPOM, merek, PBG/SLF, sampai urusan pajak Coretax DJP dan penempatan PMI. ${prov.note} Proses dominan daring: dokumen dikirim digital, kurir mengurus bagian yang wajib fisik, dan progres dipantau real-time via WhatsApp.`;
+   587→
+   588→  const longDesc = [
+   589→    `${city} adalah salah satu pasar yang paling aktif di ${prov.name} (${prov.island}) untuk legalitas usaha — dari UMKM rumahan yang butuh NIB & sertifikasi halal, sampai korporasi yang mengurus BPOM, PBG/SLF dan izin lingkungan. ${prov.note} Tim PusatPerizinan.com menangani alur lokal ${city} setiap hari sehingga pola revisi dokumen, kebiasaan instansi, dan cara mempercepat proses sudah jadi rutinitas kami.`,
+   590→    `Kenapa pelaku usaha ${city} memilih kami: (1) konsultasi awal gratis tanpa komitmen — kondisi Anda dibedah dulu, baru kami susun roadmap; (2) penawaran transparan — biaya jasa, biaya resmi pemerintah, dan timeline tertulis jelas sejak awal; (3) garansi uang kembali 100% bila gagal terbit karena kesalahan proses kami; (4) support WhatsApp tetap aktif setelah dokumen terbit — termasuk panduan kewajiban pasca-terbit. Rating kami 4,9/5 dari 1.247+ klien di 38 provinsi.`,
+   591→    `Jangkauan kami bukan hanya ${city} — seluruh kabupaten/kota di ${prov.name} dilayani dengan proses yang sama karena sistem perizinan (OSS-RBA), pajak (Coretax DJP), dan penempatan PMI (SISKOP2MI) semuanya terintegrasi secara nasional. Anda tinggal di mana pun di ${prov.name}, tim kami tetap bisa mengurus penuh — 95% tanpa tatap muka.`,
+   592→  ];
+   593→
+   594→  const faq: ServiceFaq[] = [
+   595→    {
+   596→      q: `Izin apa saja yang bisa diurus di ${city}?`,
+   597→      a: `${totalServices}+ layanan: NIB & OSS-RBA, pendirian PT, CV, PT Perorangan, koperasi & yayasan, sertifikasi halal, BPOM, merek, PBG/SLF, ISO, izin lingkungan/UKL-UPL, sampai layanan pajak (NPWP, SPT, PKP, UMKM PPh final) dan penempatan kerja luar negeri. Semua halaman detailnya tersedia di halaman ini lengkap dengan biaya, syarat & timeline.`,
+   598→    },
+   599→    {
+   600→      q: `Berapa biaya jasa konsultan perizinan di ${city}?`,
+   601→      a: `Mulai dari ${sample.price} untuk layanan paling ringan, tergantung jenis izin & kompleksitas usaha. Semua biaya resmi pemerintah/notaris terpisah dan transparan di penawaran tertulis — tanpa biaya tersembunyi. Gagal terbit karena kesalahan proses kami? Uang kembali 100%.`,
+   602→    },
+   603→    {
+   604→      q: `Apakah harus datang ke kantor untuk urus izin di ${city}?`,
+   605→      a: `Tidak perlu. 95% proses kami daring via OSS-RBA, Coretax DJP & SISKOP2MI. Dokumen yang memang wajib fisik (akta, tanda tangan notaris, plat usaha) diurus lewat kurir tertutup. Kantor kami di SCBD Jakarta hanya kebutuhan khusus — mayoritas klien ${city} selesai tanpa bertemu tatap muka sekali pun.`,
+   606→    },
+   607→    {
+   608→      q: `Berapa lama proses izin usaha di ${city}?`,
+   609→      a: `NIB bisa terbit di hari yang sama (1 hari kerja), PT/CV umumnya 3-5 hari kerja setelah dokumen lengkap, sertifikasi halal & BPOM tergantung audit. Timeline pasti ada di halaman detail masing-masing layanan — dan dokumen yang rapi sejak awal (kami audit gratis di konsultasi pertama) adalah kunci proses paling cepat.`,
+   610→    },
+   611→    {
+   612→      q: `Apakah melayani wilayah kabupaten sekitar ${city}?`,
+   613→      a: `Ya — seluruh kabupaten/kota di ${prov.name} kami layani dengan proses & biaya yang sama karena sistem perizinan nasional terintegrasi. Bila Anda di kecamatan/kabupaten di sekitar ${city}, cukup hubungi WhatsApp kami: roadmap, dokumen, dan monitoring semuanya sama rapi.`,
+   614→    },
+   615→  ];
+   616→
+   617→  return {
+   618→    slug,
+   619→    kind: "hub",
+   620→    category: "perizinan",
+   621→    region: city,
+   622→    province: prov.name,
+   623→    title: `Konsultan Perizinan & Legalitas Usaha di ${city} — Semua Izin`,
+   624→    h1: `Konsultan Perizinan & Legalitas Usaha di ${city}`,
+   625→    desc: `${totalServices}+ layanan perizinan, pajak & PMI untuk ${city}, ${prov.name} — NIB, PT, CV, halal, BPOM, merek, SPT. Mulai ${sample.price}, garansi 100%.`,
+   626→    metaDesc: `Jasa konsultan perizinan usaha di ${city}, ${prov.name}: NIB, PT, CV, halal, BPOM, merek & pajak. Mulai ${sample.price}, proses dominan online, garansi uang kembali 100%. Konsultasi gratis via WhatsApp!`,
+   627→    intro,
+   628→    longDesc,
+   629→    price: sample.price,
+   630→    priceNumeric: 0,
+   631→    duration: "Sesuai layanan",
+   632→    audience: ["UMKM", "Perusahaan", "Individu"],
+   633→    features: [...regionMembers.slice(0, 5), ...cityMembers.slice(0, 1)].map((m) => m.title),
+   634→    requirements: [],
+   635→    steps: [],
+   636→    faq,
+   637→    keywords: [
+   638→      `konsultan perizinan ${city.toLowerCase()}`,
+   639→      `jasa izin usaha ${city.toLowerCase()}`,
+   640→      `biaya pendirian pt ${city.toLowerCase()}`,
+   641→      `konsultan bisnis ${city.toLowerCase()}`,
+   642→      `legalitas usaha ${city.toLowerCase()} ${prov.name.toLowerCase()}`,
+   643→      `jasa pengurusan izin ${city.toLowerCase()} 2025`,
+   644→    ],
+   645→    related: regionMembers.slice(0, 6).map((m) => m.slug),
+   646→    breadcrumbs: [
+   647→      { name: "Beranda", href: "/" },
+   648→      { name: "Layanan", href: "/layanan" },
+   649→      { name: prov.name, href: `/layanan/${provinceHubSlug}` },
+   650→      { name: city, href: `/layanan/${slug}` },
+   651→    ],
+   652→  };
+   653→}
+   654→
+   655→// ------------------------------------------------------------
+   656→// BUILD ALL — agregasi seluruh katalog
+   657→// ------------------------------------------------------------
+   658→
+   659→function buildAllPages(): ServicePage[] {
+   660→  const pages: ServicePage[] = [];
+   661→
+   662→  // 1. Halaman induk (61 layanan)
+   663→  for (const id of BASE_SERVICES.keys()) {
+   664→    const p = buildBasePage(id);
+   665→    if (p) pages.push(p);
+   666→  }
+   667→
+   668→  // 2. Perizinan × 38 provinsi (layanan populer)
+   669→  for (const svc of REGION_FULL_SERVICES) {
+   670→    for (let i = 0; i < PROVINCES.length; i++) {
+   671→      const p = buildRegionPage(svc, i);
+   672→      if (p) pages.push(p);
+   673→    }
+   674→  }
+   675→  // 2b. Perizinan lain × 8 provinsi utama
+   676→  const liteServices = [...BASE_SERVICES.values()]
+   677→    .filter((b) => b.category === "perizinan" && !REGION_FULL_SERVICES.includes(b.id))
+   678→    .map((b) => b.id);
+   679→  for (const svc of liteServices) {
+   680→    for (const provName of REGION_LITE_PROVINCES) {
+   681→      const idx = PROVINCES.findIndex((p) => p.name === provName);
+   682→      if (idx >= 0) {
+   683→        const p = buildRegionPage(svc, idx);
+   684→        if (p) pages.push(p);
+   685→      }
+   686→    }
+   687→  }
+   688→
+   689→  // 2c. Pajak × 38 provinsi (layanan pajak paling dicari)
+   690→  for (const svc of REGION_TAX_SERVICES) {
+   691→    for (let i = 0; i < PROVINCES.length; i++) {
+   692→      const p = buildRegionPage(svc, i);
+   693→      if (p) pages.push(p);
+   694→    }
+   695→  }
+   696→
+   697→  // 2d. PMI B2C × 8 provinsi utama pengirim migran
+   698→  for (const svc of REGION_PMI_SERVICES) {
+   699→    for (const provName of PMI_SOURCE_PROVINCES) {
+   700→      const idx = PROVINCES.findIndex((p) => p.name === provName);
+   701→      if (idx >= 0) {
+   702→        const p = buildRegionPage(svc, idx);
+   703→        if (p) pages.push(p);
+   704→      }
+   705→    }
+   706→  }
+   707→
+   708→  // 3. Perizinan × 10 kota besar
+   709→  for (const svc of CITY_SERVICES) {
+   710→    for (const city of BIG_CITIES) {
+   711→      const p = buildCityPage(svc, city, "perizinan");
+   712→      if (p) pages.push(p);
+   713→    }
+   714→  }
+   715→
+   716→  // 4. Pajak × 15 kota
+   717→  for (const svc of TAX_CITY_SERVICES) {
+   718→    for (const city of TAX_CITIES) {
+   719→      const p = buildCityPage(svc, city, "pajak");
+   720→      if (p) pages.push(p);
+   721→    }
+   722→  }
+   723→
+   724→  // 5. Negara PMI (17) + Negara × Sektor
+   725→  for (const c of PMI_COUNTRIES) {
+   726→    const cp = buildCountryPage(c.code);
+   727→    if (cp) pages.push(cp);
+   728→    const d = PMI_COUNTRY_MAP.get(c.code);
+   729→    if (d) {
+   730→      for (let i = 0; i < d.sectors.length; i++) {
+   731→        const sp = buildSectorPage(c.code, i);
+   732→        if (sp) pages.push(sp);
+   733→      }
+   734→    }
+   735→  }
+   736→
+   737→  // 6. Virtual Office — paket × lokasi × keperluan × kota × area × provinsi × panduan (1.168)
+   738→  pages.push(...VO_PAGES);
+   739→
+   740→  // 7. Sertifikasi — PPIU/PIHK, ISO (termasuk 9001:2026), halal jasa, pangan, lab, badan usaha (43)
+   741→  pages.push(...CERT_PAGES);
+   742→
+   743→  return pages;
+   744→}
+   745→
+   746→export const ALL_SERVICE_PAGES: ServicePage[] = buildAllPages();
+   747→
+   748→const PAGE_MAP = new Map(ALL_SERVICE_PAGES.map((p) => [p.slug, p]));
+   749→
+   750→export function getServicePage(slug: string): ServicePage | undefined {
+   751→  return PAGE_MAP.get(slug);
+   752→}
+   753→
+   754→export function getAllSlugs(): string[] {
+   755→  return ALL_SERVICE_PAGES.map((p) => p.slug);
+   756→}
+   757→
+   758→/** Related: isi internal linking (induk, saudara wilayah, cross-category) */
+   759→function buildRelated(): void {
+   760→  const byCategory = new Map<CatalogCategory, ServicePage[]>();
+   761→  const byRegion = new Map<string, ServicePage[]>();
+   762→  for (const p of ALL_SERVICE_PAGES) {
+   763→    const cat = byCategory.get(p.category) ?? [];
+   764→    cat.push(p);
+   765→    byCategory.set(p.category, cat);
+   766→    if (p.region) {
+   767→      const r = byRegion.get(p.region) ?? [];
+   768→      r.push(p);
+   769→      byRegion.set(p.region, r);
+   770→    }
+   771→  }
+   772→
+   773→  for (const p of ALL_SERVICE_PAGES) {
+   774→    const rel: string[] = [];
+   775→    // 1. Halaman induk (untuk kombinasi) / kombinasi populer (untuk induk)
+   776→    if (p.parent) rel.push(p.parent);
+   777→    const siblings = ALL_SERVICE_PAGES.filter(
+   778→      (x) => x.parent === p.parent && x.kind === p.kind && x.slug !== p.slug
+   779→    );
+   780→    for (const s of siblings.slice(0, 2)) rel.push(s.slug);
+   781→    // 2. Cross-category dari layanan dasar
+   782→    const others = ALL_SERVICE_PAGES.filter(
+   783→      (x) => x.kind === "base" && x.category === p.category && x.slug !== p.slug && x.slug !== p.parent
+   784→    );
+   785→    for (const o of others.slice(0, p.kind === "base" ? 3 : 2)) rel.push(o.slug);
+   786→    // 3. Sama wilayah (untuk halaman region/city)
+   787→    if (p.region) {
+   788→      const sameRegion = (byRegion.get(p.region) ?? []).filter((x) => x.slug !== p.slug);
+   789→      for (const s of sameRegion.slice(0, 2)) rel.push(s.slug);
+   790→    }
+   791→    p.related = [...new Set(rel)].slice(0, 6);
+   792→  }
+   793→}
+   794→buildRelated();
+   795→
+   796→/** Halaman kategori (hub) */
+   797→export function getCategoryHub(category: CatalogCategory): ServicePage | null {
+   798→  const meta = CATEGORY_META[category];
+   799→  const members = ALL_SERVICE_PAGES.filter((p) => p.category === category && p.kind === "base");
+   800→  if (members.length === 0) return null;
+   801→  const sample = members[0];
+   802→  return {
+   803→    slug: `kategori/${meta.slug}`,
+   804→    kind: "hub",
+   805→    category,
+   806→    title: `${meta.label} — Katalog Layanan PusatPerizinan.com`,
+   807→    h1: meta.label,
+   808→    desc: meta.desc,
+   809→    metaDesc: `${meta.desc} ${members.length}+ layanan resmi dengan harga transparan & garansi. Konsultasi gratis via WhatsApp — menjangkau 38 provinsi & 17 negara tujuan PMI.`,
+   810→    intro: meta.desc,
+   811→    longDesc: [
+   812→      `${meta.desc} Setiap layanan ditangani tim spesialis dengan jalur resmi — ${members.map((m) => m.authority).filter((v, i, a) => a.indexOf(v) === i).slice(0, 4).join(", ")} dan lainnya.`,
+   813→      `Semua layanan di kategori ini mendapat: konsultasi gratis, penawaran transparan sebelum mulai, monitoring progres real-time via WhatsApp, dan garansi uang kembali 100% bila gagal terbit karena kesalahan proses kami. Rating klien kami 4,9/5 dari 1.247+ pelanggan di 38 provinsi.`,
+   814→    ],
+   815→    price: sample.price,
+   816→    priceNumeric: 0,
+   817→    duration: "Sesuai layanan",
+   818→    audience: sample.audience,
+   819→    features: members.slice(0, 6).map((m) => m.title),
+   820→    requirements: [],
+   821→    steps: [],
+   822→    faq: [
+   823→      {
+   824→        q: `Apa saja layanan dalam kategori ${meta.label}?`,
+   825→        a: `Tersedia ${members.length} layanan utama: ${members.map((m) => m.title).join(", ")}. Setiap layanan punya halaman detail lengkap dengan biaya, syarat, proses & FAQ — dan bisa dikombinasikan dengan 38 provinsi tujuan Anda.`,
+   826→      },
+   827→      {
+   828→        q: `Bagaimana memilih layanan yang tepat?`,
+   829→        a: `Mulai dari konsultasi gratis: ceritakan kondisi Anda (usaha baru? ekspansi? masalah pajak? ingin kerja di luar negeri?), dan tim kami susun roadmap yang paling efisien — bukan menjual semua layanan, tapi yang Anda perlukan.`,
+   830→      },
+   831→    ],
+   832→    keywords: [meta.label.toLowerCase(), "jasa konsultan", "layanan lengkap", ...members.slice(0, 4).map((m) => m.title.toLowerCase())],
+   833→    related: members.slice(0, 6).map((m) => m.slug),
+   834→    breadcrumbs: [
+   835→      { name: "Beranda", href: "/" },
+   836→      { name: "Layanan", href: "/layanan" },
+   837→      { name: meta.label, href: `/layanan/kategori/${meta.slug}` },
+   838→    ],
+   839→  };
+   840→}
+   841→
+   842→/** Halaman wilayah (hub) — semua layanan untuk satu provinsi */
+   843→export function getRegionHub(provinceIdx: number): ServicePage | null {
+   844→  const prov = PROVINCES[provinceIdx];
+   845→  if (!prov) return null;
+   846→  const provSlug = slugify(prov.name);
+   847→  const members = ALL_SERVICE_PAGES.filter((p) => p.region === prov.name && p.kind === "region");
+   848→  const sample = members[0];
+   849→  if (!sample) return null;
+   850→  return {
+   851→    slug: `wilayah/${provSlug}`,
+   852→    kind: "hub",
+   853→    category: "perizinan",
+   854→    region: prov.name,
+   855→    title: `Layanan Perizinan & Konsultan di ${prov.name} — Semua Izin`,
+   856→    h1: `Layanan Konsultan di ${prov.name}`,
+   857→    desc: prov.note,
+   858→    metaDesc: `Semua jasa perizinan, pajak & penempatan PMI untuk ${prov.name}: NIB, PT, halal, SPT, kerja luar negeri. Melayani ${prov.majors.join(", ")}. Konsultasi gratis — garansi 100%.`,
+   859→    intro: `${prov.note} PusatPerizinan.com melayani seluruh ${prov.name} — dari ${prov.majors.join(", ")} sampai kabupaten/kota lainnya — dengan ${members.length}+ layanan yang bisa dikombinasikan sesuai kebutuhan usaha Anda.`,
+   860→    longDesc: [
+   861→      `${prov.note} Tim kami sudah menangani ratusan kasus di ${prov.name}: dari NIB UMKM sampai perizinan korporasi, dari SPT orang pribadi sampai tax planning perusahaan, dari dokumen PMI sampai keberangkatan ke 17 negara tujuan.`,
+   862→      `Kota yang paling sering kami layani: ${prov.majors.join(", ")}. Proses dominan daring + kurir dokumen — Anda tidak perlu ke kantor kami di SCBD Jakarta. Konsultasi awal gratis via WhatsApp, dan penawaran transparan sebelum mulai.`,
+   863→    ],
+   864→    price: sample.price,
+   865→    priceNumeric: 0,
+   866→    duration: "Sesuai layanan",
+   867→    audience: ["UMKM", "Perusahaan", "Individu"],
+   868→    features: members.slice(0, 6).map((m) => m.title),
+   869→    requirements: [],
+   870→    steps: [],
+   871→    faq: [
+   872→      {
+   873→        q: `Apa saja layanan yang tersedia di ${prov.name}?`,
+   874→        a: `${members.length}+ layanan, antara lain: ${members.slice(0, 8).map((m) => m.title).join(", ")}, dan lainnya. Semua bisa dilihat di halaman ini dengan link ke detail masing-masing.`,
+   875→      },
+   876→      {
+   877→        q: `Apakah harus datang ke ${prov.majors[0]}?`,
+   878→        a: `Tidak perlu — 95% proses kami daring. Dokumen fisik yang wajib (akta, tanda tangan notaris, dsb) diurus via kurir. Layanan menjangkau seluruh kabupaten/kota di ${prov.name}.`,
+   879→      },
+   880→    ],
+   881→    keywords: [
+   882→      `konsultan perizinan ${prov.name.toLowerCase()}`,
+   883→      `jasa izin usaha ${prov.name.toLowerCase()}`,
+   884→      `konsultan pajak ${prov.name.toLowerCase()}`,
+   885→      `jasa tki ${prov.name.toLowerCase()}`,
+   886→      `konsultan bisnis ${prov.majors[0]?.toLowerCase() ?? ""}`,
+   887→    ],
+   888→    related: members.slice(0, 6).map((m) => m.slug),
+   889→    breadcrumbs: [
+   890→      { name: "Beranda", href: "/" },
+   891→      { name: "Layanan", href: "/layanan" },
+   892→      { name: prov.name, href: `/layanan/wilayah/${provSlug}` },
+   893→    ],
+   894→  };
+   895→}
+   896→
+   897→/** Daftar slug hub (kategori + wilayah + kota) untuk routing & sitemap */
+   898→export function getHubSlugs(): string[] {
+   899→  const slugs: string[] = [];
+   900→  for (const cat of Object.keys(CATEGORY_META) as CatalogCategory[]) {
+   901→    if (getCategoryHub(cat)) slugs.push(`kategori/${CATEGORY_META[cat].slug}`);
+   902→  }
+   903→  for (let i = 0; i < PROVINCES.length; i++) {
+   904→    const hub = getRegionHub(i);
+   905→    if (hub) slugs.push(`wilayah/${hub.slug.split("/")[1]}`);
+   906→  }
+   907→  for (const cityHub of getCityHubs()) {
+   908→    slugs.push(cityHub.slug);
+   909→  }
+   910→  return slugs;
+   911→}
+   912→
+   913→/** Halaman kota hub (wilayah/{prov}/{kota}) — dibangun lazy setelah ALL_SERVICE_PAGES siap */
+   914→export function getCityHubs(): ServicePage[] {
+   915→  const pages: ServicePage[] = [];
+   916→  for (let i = 0; i < PROVINCES.length; i++) {
+   917→    for (const city of PROVINCES[i].majors) {
+   918→      const p = buildCityHubPage(i, city);
+   919→      if (p) pages.push(p);
+   920→    }
+   921→  }
+   922→  return pages;
+   923→}
+   924→
+   925→/** Lookup halaman apapun (termasuk hub kategori, wilayah, dan kota) */
+   926→export function getAnyPage(slugOrPath: string): ServicePage | undefined {
+   927→  if (PAGE_MAP.has(slugOrPath)) return PAGE_MAP.get(slugOrPath);
+   928→  if (slugOrPath.startsWith("kategori/")) {
+   929→    for (const cat of Object.keys(CATEGORY_META) as CatalogCategory[]) {
+   930→      if (`kategori/${CATEGORY_META[cat].slug}` === slugOrPath) return getCategoryHub(cat) ?? undefined;
+   931→    }
+   932→  }
+   933→  if (slugOrPath.startsWith("wilayah/")) {
+   934→    const parts = slugOrPath.replace("wilayah/", "").split("/");
+   935→    const provIdx = PROVINCES.findIndex((p) => slugify(p.name) === parts[0]);
+   936→    if (provIdx < 0) return undefined;
+   937→    if (parts.length === 1) return getRegionHub(provIdx) ?? undefined;
+   938→    if (parts.length === 2) return buildCityHubPage(provIdx, PROVINCES[provIdx].majors.find((c) => slugify(c) === parts[1]) ?? "");
+   939→  }
+   940→  return undefined;
+   941→}
+   942→
+   943→export { WA_LINK };
+   944→

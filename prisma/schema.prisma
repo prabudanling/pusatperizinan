@@ -7,18 +7,161 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Consultation {
+// ============================================================
+// PUSATPERIZINAN.COM — Database Schema
+// Lead Generation Engine untuk Konsultan Perizinan
+// ============================================================
+
+// Lead: calon klien yang submit form (ASET BISNIS TERBAIK)
+model Lead {
   id           String   @id @default(cuid())
   name         String
-  phone        String
+  whatsapp     String
   email        String?
-  businessType String
-  serviceType  String
-  message      String?
-  status       String   @default("NEW")
+  businessType String   // jenis usaha: kuliner, konstruksi, retail, dll
+  businessDesc String?  // deskripsi singkat usaha
+  package      String?  // paket yang diminati: UMKM, Bisnis, Enterprise
+  source       String   @default("landing") // landing, chat, checker, popup
+  status       String   @default("NEW") // NEW, CONTACTED, CONSULTED, CLOSED_WON, CLOSED_LOST
+  estimatedValue Int    @default(0) // estimasi nilai kontrak (Rupiah)
+  notes        String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
   @@index([status])
   @@index([createdAt])
+}
+
+// Consultation: jadwal konsultasi yang dibooking
+model Consultation {
+  id         String   @id @default(cuid())
+  leadId     String?
+  name       String
+  whatsapp   String
+  topic      String   // topik konsultasi
+  preferredDate String? // tanggal yang diinginkan
+  preferredTime String? // pagi/siang/sore/malam
+  method     String   @default("WA") // WA, Zoom, Meet, Kantor
+  status     String   @default("PENDING") // PENDING, CONFIRMED, DONE, CANCELLED
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([status])
+}
+
+// ChatMessage: log percakapan dengan AI Consultant
+model ChatMessage {
+  id        String   @id @default(cuid())
+  sessionId String
+  role      String   // user / assistant
+  content   String
+  leadCaptured Boolean @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([sessionId])
+}
+
+// LicenseCheck: log penggunaan fitur Cek Izin AI
+model LicenseCheck {
+  id         String   @id @default(cuid())
+  businessInput String  // deskripsi usaha yang diketik user
+  sector     String?  // sektor usaha
+  location   String?  // lokasi
+  scale      String?  // skala: mikro, kecil, menengah, besar
+  result     String?  // JSON hasil rekomendasi izin
+  whatsapp   String?  // WA yang ditinggalkan saat ambil hasil
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// Subscriber: pendaftar kursus email 7 hari (lead nurturing engine)
+model Subscriber {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  whatsapp  String?
+  source    String   @default("email-course")
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// Testimonial: testimoni klien (bisa dikelola)
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  company   String?
+  role      String?
+  content   String
+  rating    Int      @default(5)
+  avatarSeed String?
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+// DocumentCheck: log AI Cek Dokumen via upload foto (lead magnet Tier 2)
+model DocumentCheck {
+  id          String   @id @default(cuid())
+  fileName    String   // nama file asli yang diupload
+  docCategory String   // konteks yang dipilih user: npwp, nib, ktp, paspor, sertifikat-standar, izin-edar, kontrak, auto
+  fileType    String   // image/jpeg, image/png, image/webp
+  fileSize    Int      // ukuran file dalam bytes
+  result      String?  // JSON hasil analisis AI (tanpa data pribadi mentah)
+  whatsapp    String?  // WA yang ditinggalkan saat ambil laporan lengkap
+  status      String   @default("NEW") // NEW, FOLLOWED_UP, CONVERTED
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+// RoadmapRequest: pengguna AI Roadmap Generator 12 bulan (lead premium)
+model RoadmapRequest {
+  id           String   @id @default(cuid())
+  name         String
+  whatsapp     String
+  businessField String  // bidang usaha yang diketik user
+  province     String   // provinsi usaha
+  scale        String   // individu / umkm / perusahaan
+  capital      String   // range modal: <10jt, 10-50jt, 50-500jt, >500jt
+  plan         String?  // rencana tambahan: online/offline/ekspor
+  result       String?  // JSON roadmap dari AI
+  status       String   @default("NEW") // NEW, FOLLOWED_UP, CONVERTED
+  createdAt    DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+// NotificationSetting: konfigurasi kanal notifikasi real-time (Telegram / WhatsApp)
+// Token juga bisa diambil dari env (TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, FONNTE_TOKEN) sbg fallback
+model NotificationSetting {
+  id               String   @id @default(cuid())
+  telegramEnabled  Boolean  @default(false)
+  telegramBotToken String?  // token dari @BotFather
+  telegramChatId   String?  // chat id / channel id tujuan
+  whatsappEnabled  Boolean  @default(false)
+  whatsappProvider String   @default("fonnte") // fonnte | wablas
+  whatsappApiToken String?  // token API gateway WA
+  whatsappTarget   String?  // nomor HP tujuan (62xxx)
+  templateNewLead  String?  // template pesan dengan placeholder {{nama}} dst
+  updatedAt        DateTime @updatedAt
+}
+
+// NotificationLog: riwayat pengiriman notifikasi (bahan feed real-time dashboard)
+model NotificationLog {
+  id        String   @id @default(cuid())
+  leadId    String?  // id lead terkait (bila bukan uji coba)
+  leadName  String
+  leadWa    String
+  source    String   // landing | chat | roadmap | test
+  channel   String   // telegram | whatsapp
+  status    String   // sent | failed
+  message   String?  // pesan ter-render (dipakai ulang saat retry)
+  error     String?  // pesan error bila gagal
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([status])
 }

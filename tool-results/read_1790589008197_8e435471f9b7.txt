@@ -1,0 +1,646 @@
+     1→<div align="center">
+     2→
+     3→<img src="public/logo.png" alt="Logo PusatPerizinan.com" width="120" />
+     4→
+     5→# 🛡️ PusatPerizinan.com
+     6→
+     7→### *Urus Semua Izin Usaha, Tinggal Terima Beres.*
+     8→
+     9→**Platform Konsultan Perizinan Usaha #1 Indonesia — Dibangun sebagai Mahakarya Teknologi, SEO, dan Multibahasa.**
+    10→
+    11→[![Next.js 16](https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=nextdotjs)](https://nextjs.org)
+    12→[![TypeScript 5](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+    13→[![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com)
+    14→[![Prisma 6](https://img.shields.io/badge/Prisma-6-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io)
+    15→[![30 Bahasa](https://img.shields.io/badge/🌐_Bahasa-30_Teratas_Dunia-10B981?style=for-the-badge)](#9-sistem-multibahasa-30-bahasa)
+    16→[![Lint 0 Error](https://img.shields.io/badge/ESLint-0_Error_0_Warning-22C55E?style=for-the-badge&logo=eslint&logoColor=white)](#14-jaminan-kualitas)
+    17→
+    18→**Bahasa Indonesia** · [English](#-english-abstract) · 🇮🇩 SCBD Jakarta · 📞 0812-6999-9910
+    19→
+    20→</div>
+    21→
+    22→---
+    23→
+    24→> ### 🇬🇧 English Abstract
+    25→>
+    26→> **PusatPerizinan.com** is a production-ready, conversion-engineered business-licensing platform for the Indonesian market — a lead-generation machine combining an AI licensing consultant (**RIZKI**), an AI License Checker, a cost calculator, an email course, and full WhatsApp integration into **5 conversion funnels**. It ships with a **3-phase SEO supremacy architecture** (technical SEO + structured data, 17-service × 38-province × 514-district programmatic matrix, and a 13-article content hub), **8 JSON-LD schema families**, **31 hreflang alternates**, and **full-site i18n in the world's 30 top languages** with native RTL support. All of it in a single Next.js 16 App Router application with zero lint errors.
+    27→
+    28→---
+    29→
+    30→## 👤 Penulis
+    31→
+    32→<div align="center">
+    33→
+    34→### **GUGUN GUNARA**
+    35→*Tech Polymath & Full-Stack Architect*
+    36→
+    37→**"Dari SCBD untuk Indonesia — dari Indonesia untuk Dunia."**
+    38→
+    39→*Merancang, mengarsiteki, dan membangun seluruh platform ini end-to-end:*
+    40→*database, API, AI, UX, SEO, programmatic matrix, content hub, hingga 30 bahasa.*
+    41→
+    42→</div>
+    43→
+    44→---
+    45→
+    46→## 📑 Daftar Isi
+    47→
+    48→- [1. Tentang Proyek](#1-tentang-proyek)
+    49→- [2. Fitur Unggulan](#2-fitur-unggulan)
+    50→- [3. Teknologi](#3-teknologi)
+    51→- [4. Mulai Cepat](#4-mulai-cepat)
+    52→- [5. Struktur Proyek](#5-struktur-proyek)
+    53→- [6. Arsitektur Halaman](#6-arsitektur-halaman)
+    54→- [7. Dokumentasi API](#7-dokumentasi-api)
+    55→- [8. Skema Database](#8-skema-database)
+    56→- [9. Sistem Multibahasa (30 Bahasa)](#9-sistem-multibahasa-30-bahasa)
+    57→- [10. Arsitektur SEO Supremacy](#10-arsitektur-seo-supremacy)
+    58→- [11. Corong Konversi (5 Jalur)](#11-corong-konversi-5-jalur)
+    59→- [12. RIZKI — Konsultan AI](#12-rizki--konsultan-ai)
+    60→- [13. Matriks Aset Data](#13-matriks-aset-data)
+    61→- [14. Jaminan Kualitas](#14-jaminan-kualitas)
+    62→- [15. Deployment](#15-deployment)
+    63→- [16. Roadmap](#16-roadmap)
+    64→- [17. FAQ Proyek](#17-faq-proyek)
+    65→- [18. Lisensi & Kredit](#18-lisensi--kredit)
+    66→
+    67→---
+    68→
+    69→## 1. Tentang Proyek
+    70→
+    71→**PusatPerizinan.com** adalah website perusahaan konsultan perizinan usaha milik **PT Digital Bisnis Manajemen**, yang berkantor di **Indonesia Stock Exchange Building, Tower 2, Lantai 5, SCBD Lot 13, Jl. Jend. Sudirman Kav. 52-53, Jakarta Selatan 12190** — bersebelahan dengan Bursa Efek Indonesia (IDX).
+    72→
+    73→Proyek ini bukan sekadar landing page. Ia adalah **mesin akuisisi klien satu halaman (single-page revenue engine)** yang menggabungkan:
+    74→
+    75→| Dimensi | Pencapaian |
+    76→| --- | --- |
+    77→| 💼 **Layanan** | 17 lini layanan perizinan — dari NIB hingga izin tambang & Arab Saudi |
+    78→| 🗺️ **Jangkauan** | 38 provinsi + 514 kabupaten/kota, dikelompokkan dalam 6 kawasan pulau |
+    79→| 🧠 **AI** | Konsultan AI "RIZKI" + License Checker AI, keduanya multibahasa |
+    80→| 🔍 **SEO** | Arsitektur 3 fase: technical SEO → programmatic matrix → content hub |
+    81→| 🌐 **Bahasa** | 30 bahasa teratas dunia, termasuk 4 bahasa RTL penuh (Arab, Persia, Urdu, Ibrani) |
+    82→| 💰 **Konversi** | 5 jalur lead yang seluruhnya bermuara ke WhatsApp bisnis |
+    83→
+    84→---
+    85→
+    86→## 2. Fitur Unggulan
+    87→
+    88→### 🎯 Pengalaman Pengguna
+    89→- **19 blok halaman** dalam satu scroll naratif: Hero → Statistik → Layanan → Cek Izin AI → Kalkulator → Pusat Panduan → Blog → Kursus Email → Cakupan → Keunggulan → Proses → Harga → Testimoni → Perbandingan → FAQ → CTA Final → Peta Situs
+    90→- **Glassmorphism & gradient emerald-gold** (temuan merek khas, tanpa biru/indigo), animasi Framer Motion halus
+    91→- **Sticky footer** yang benar (menempel saat konten pendek, terdorong natural saat panjang) + aman safe-area mobile
+    92→- **Responsif penuh** — terverifikasi di viewport 390×844 (iPhone) hingga desktop, nol horizontal overflow
+    93→- **Dark mode ready** via `next-themes`, 43+ komponen shadcn/ui (New York style)
+    94→
+    95→### 🤖 Kecerdasan Buatan
+    96→- **RIZKI** — konsultan AI 24/7 yang paham NIB, OSS-RBA, KBLI, PMA, PPIU, IATA, MISA, RKAB, dan menjawab dalam **30 bahasa**
+    97→- **License Checker** — analisis AI 30 detik: deskripsikan usaha Anda, dapatkan roadmap perizinan terstruktur → langsung kirim ke WhatsApp
+    98→- **Auto lead-capture** — RIZKI mendeteksi nomor WhatsApp yang diketik pengunjung (regex `(\+62|62|0)8[0-9]{7,13}`) dan menyimpannya sebagai lead secara diam-diam
+    99→
+   100→### 🔍 Kekuatan SEO
+   101→- **8 keluarga skema JSON-LD**: LocalBusiness, Service (×17), FAQPage, Blog, BlogPosting (×13), BreadcrumbList 6 level, `availableLanguage` (30 objek `Language`), dan lainnya
+   102→- **31 hreflang alternates** (30 bahasa + `x-default`) di metadata + sitemap.xml
+   103→- **Peta situs HTML** (`#peta-situs`) dengan 88+ tautan internal crawlable
+   104→- Konten long-form ±6.800 kata di 13 artikel blog + 16 panduan perizinan
+   105→
+   106→### 💬 Omnichannel WhatsApp
+   107→Satu nomor bisnis di seluruh situs — **0812-6999-9910** (`6281269999910`) — tersambung dari form, chat AI, license checker, kalkulator, hingga CTA final, dengan normalisasi otomatis `0…` → `62…`.
+   108→
+   109→---
+   110→
+   111→## 3. Teknologi
+   112→
+   113→| Lapisan | Teknologi | Keterangan |
+   114→| --- | --- | --- |
+   115→| **Framework** | [Next.js 16](https://nextjs.org) · App Router · React 19 | Server Components + metadata API |
+   116→| **Bahasa** | TypeScript 5 (strict) | Seluruh codebase bertipe kuat |
+   117→| **Styling** | Tailwind CSS 4 (oklch) | Design token emerald-gold, gradient, glassmorphism |
+   118→| **Komponen UI** | shadcn/ui (43+ komponen) · Radix UI · Lucide Icons | New York style, aksesibel |
+   119→| **Animasi** | Framer Motion 12 | Hover, reveal, transisi section |
+   120→| **Database** | Prisma 6 + SQLite | 6 model, zero-config |
+   121→| **AI** | `z-ai-web-dev-sdk` | LLM untuk RIZKI & License Checker (backend only) |
+   122→| **State** | TanStack Query · Zustand · React Hook Form · Zod | Server state, client state, form + validasi |
+   123→| **Notifikasi** | Sonner (toast) | Feedback aksi pengguna dalam 30 bahasa |
+   124→| **Kualitas** | ESLint 9 · `eslint-config-next` | **0 error, 0 warning** |
+   125→| **Runtime** | Bun | Dev server, script, manajemen paket |
+   126→
+   127→> ℹ️ `next-intl` tersedia di `package.json`, namun arsitektur i18n yang dipakai adalah **provider dictionary kustom** (lihat [§9](#9-sistem-multibahasa-30-bahasa)) — lebih ringan karena seluruh situs satu halaman dan deteksi bahasa berjalan client-side tanpa rute per-lokale.
+   128→
+   129→---
+   130→
+   131→## 4. Mulai Cepat
+   132→
+   133→### Prasyarat
+   134→- **Bun** ≥ 1.1 (atau Node.js ≥ 20)
+   135→- Tidak perlu API key tambahan — SDK AI sudah terkonfigurasi
+   136→
+   137→### Instalasi
+   138→
+   139→```bash
+   140→# 1. Clone & masuk direktori
+   141→git clone <repository-url> pusatperizinan && cd pusatperizinan
+   142→
+   143→# 2. Instal dependensi
+   144→bun install
+   145→
+   146→# 3. Push skema database (SQLite)
+   147→bun run db:push
+   148→
+   149→# 4. Jalankan development server
+   150→bun run dev
+   151→```
+   152→
+   153→Buka **http://localhost:3000** — selesai. 🎉
+   154→
+   155→### Skrip Tersedia
+   156→
+   157→| Perintah | Fungsi |
+   158→| --- | --- |
+   159→| `bun run dev` | Dev server di port 3000 (log otomatis ke `dev.log`) |
+   160→| `bun run lint` | ESLint seluruh proyek (harus 0/0) |
+   161→| `bun run db:push` | Push `prisma/schema.prisma` ke SQLite |
+   162→| `bun run db:generate` | Generate Prisma Client |
+   163→| `bun run db:migrate` | Migrasi development |
+   164→| `bun run build` | Build produksi (standalone) |
+   165→| `bun run start` | Jalankan server produksi |
+   166→
+   167→### Verifikasi Cepat
+   168→
+   169→```bash
+   170→# Statistik sosial proof
+   171→curl http://localhost:3000/api/stats
+   172→
+   173→# Hitung subscriber kursus email
+   174→curl http://localhost:3000/api/subscribe
+   175→
+   176→# Sitemap & robots
+   177→curl -I http://localhost:3000/sitemap.xml
+   178→curl -I http://localhost:3000/robots.txt
+   179→```
+   180→
+   181→---
+   182→
+   183→## 5. Struktur Proyek
+   184→
+   185→```
+   186→pusatperizinan/
+   187→├── 📄 README.md                      ← Anda di sini
+   188→├── 📄 worklog.md                     ← Catatan kerja 7 task (audit trail lengkap)
+   189→├── ⚙️  prisma/
+   190→│   └── schema.prisma                 ← 6 model: Lead, Consultation, ChatMessage,
+   191→│                                        LicenseCheck, Subscriber, Testimonial
+   192→├── 🗄️  db/                            ← File database SQLite
+   193→├── 🌐 public/
+   194→│   ├── logo.png                      ← Logo resmi PP Top Konsultan (transparan)
+   195→│   ├── logo-icon.png                 ← Emblem PP persegi (favicon/header)
+   196→│   ├── logo-icon-white.png           ← Emblem putih (footer gelap)
+   197→│   ├── sitemap.xml                   ← Sitemap + hreflang + lastmod
+   198→│   └── robots.txt                    ← Allow all + referensi sitemap
+   199→└── 💻 src/
+   200→    ├── app/
+   201→    │   ├── layout.tsx                ← Metadata SEO global + 31 hreflang alternates
+   202→    │   ├── page.tsx                  ← Komposisi 19 blok halaman
+   203→    │   ├── globals.css               ← Tema emerald-gold, glass-card, animasi kustom
+   204→    │   └── api/
+   205→    │       ├── leads/route.ts        ← POST/GET — capture & daftar lead
+   206→    │       ├── chat/route.ts         ← POST — RIZKI AI (30 bahasa, auto-capture WA)
+   207→    │       ├── license-checker/route.ts ← POST — analisis izin AI → roadmap JSON
+   208→    │       ├── subscribe/route.ts    ← POST/GET — kursus email (upsert anti-duplikat)
+   209→    │       └── stats/route.ts        ← GET — social proof live counter
+   210→    ├── components/
+   211→    │   ├── landing/                  ← 22 komponen landing (lihat §6)
+   212→    │   └── ui/                       ← 43+ komponen shadcn/ui
+   213→    └── lib/
+   214→        ├── landing-data.ts           ← Master data: 17 layanan, harga, testimoni, FAQ,
+   215→        │                                WA number, alamat kantor, anchor CTA resmi
+   216→        ├── seo-content.ts            ← 16 panduan perizinan + 10 sektor + 20 KBLI populer
+   217→        ├── coverage-data.ts          ← 38 provinsi × 514 kab/kota, 6 kawasan pulau
+   218→        ├── blog-content.ts           ← 13 artikel long-form + helper getArticle, dll.
+   219→        ├── db.ts                     ← Prisma Client singleton
+   220→        ├── utils.ts                  ← cn() & utilitas
+   221→        └── i18n/
+   222→            ├── types.ts              ← Kontrak Translation (146 key + token {p}/{n}/{name}/{year})
+   223→            ├── languages.ts          ← Registry 30 bahasa (flag, native, RTL, speakers)
+   224→            ├── translations-core.ts  ← id + en (sumber gaya & referensi)
+   225→            ├── translations-a.ts     ← zh, ja, ko, vi, th, tl, ms
+   226→            ├── translations-b.ts     ← hi, ta, bn, ar, fa, ur, he
+   227→            ├── translations-c.ts     ← es, fr, de, it, nl, pt, el
+   228→            ├── translations-d.ts     ← ru, pl, uk, tr, sw, pa, jv
+   229→            ├── language-provider.tsx ← Context + deteksi + sinkron <html lang/dir>
+   230→            ├── language-switcher.tsx ← Pemilih bahasa searchable (Popover + Command)
+   231→            └── index.ts              ← Merge 30 bahasa + fallback berlapis
+   232→```
+   233→
+   234→---
+   235→
+   236→## 6. Arsitektur Halaman
+   237→
+   238→`src/app/page.tsx` merangkai **19 blok** dalam urutan narasi konversi yang disengaja:
+   239→
+   240→```
+   241→┌─────────────────────────────────────────────────────────┐
+   242→│  HEADER      — sticky nav 8 item + language switcher 30 │
+   243→├─────────────────────────────────────────────────────────┤
+   244→│  01 HERO          — form lead + 3 bullet jaminan        │  ← Jalur ①
+   245→│  02 STATS-BAR     — 7 metrik social proof live          │
+   246→│  03 SERVICES      — 17 kartu layanan                    │
+   247→│  04 CHECKER       — Cek Izin AI (roadmap 30 detik)      │  ← Jalur ③
+   248→│  05 CALCULATOR    — estimasi biaya → WhatsApp           │  ← Jalur ④
+   249→│  06 KNOWLEDGE-HUB — 16 panduan × 3 tab (izin/sektor/    │
+   250→│  │                  wilayah) + 20 KBLI, akordeon         │
+   251→│  07 BLOG-HUB      — 13 artikel, 9 chip kategori,        │
+   252→│  │                  reader penuh + FAQ accordion         │
+   253→│  08 EMAIL-COURSE  — kurikulum 7 hari + bonus 8          │  ← Jalur ⑤
+   254→│  09 COVERAGE      — 38 provinsi × 514 kab/kota          │
+   255→│  10 WHY-US        — diferensiasi vs kompetitor          │
+   256→│  11 PROCESS       — 4 langkah kerja                     │
+   257→│  12 PRICING       — UMKM 350rb · Bisnis 3,5jt ·         │
+   258→│  │                  Enterprise 25jt                      │
+   259→│  13 TESTIMONIALS  — 6 testimoni klien                   │
+   260→│  14 COMPARISON    — tabel vs Infiniti Office,           │
+   261→│  │                  EasyLegal, Izin.co.id                │
+   262→│  15 FAQ           — 6 akordeon (FAQ schema)             │
+   263→│  16 FINAL-CTA     — form lead + tombol WA               │  ← Jalur ①
+   264→│  17 HTML-SITEMAP  — 88+ tautan internal, 4 kolom        │
+   265→├─────────────────────────────────────────────────────────┤
+   266→│  FOOTER       — 3 kolom + language switcher gelap       │
+   267→│  CHAT-WIDGET  — RIZKI AI mengambang, selalu tersedia    │  ← Jalur ②
+   268→└─────────────────────────────────────────────────────────┘
+   269→```
+   270→
+   271→**Tautan internal dua arah**: artikel blog ↔ panduan knowledge hub saling membuka via `CustomEvent` (`open-guide` / `open-blog-article`) — mesin pencari melihat 88+ tautan crawlable, pengunjung melihat navigasi mulus tanpa pindah halaman.
+   272→
+   273→---
+   274→
+   275→## 7. Dokumentasi API
+   276→
+   277→Semua endpoint berada di bawah `src/app/api/`, tervalidasi Zod, dan tersambung ke Prisma.
+   278→
+   279→### 7.1 `POST /api/leads` — Capture Lead
+   280→Form Hero & Final CTA. Normalisasi WA otomatis + estimasi nilai kontrak per paket.
+   281→
+   282→```jsonc
+   283→// Request
+   284→{
+   285→  "name": "Andi Wijaya",
+   286→  "whatsapp": "0812-6999-9910",      // → dinormalisasi "6281269999910"
+   287→  "sector": "kuliner",
+   288→  "message": "Butuh NIB + Halal untuk kafe",
+   289→  "package": "bisnis"                // umkm | bisnis | enterprise
+   290→}
+   291→// Response 201
+   292→{ "id": "clx...", "estimatedValue": 3500000, "status": "new" }
+   293→```
+   294→
+   295→### 7.2 `POST /api/chat` — RIZKI AI
+   296→Konsultan AI percakapan. Menyimpan riwayat per `sessionId`, **mendeteksi nomor WA** di teks → simpan lead, dan menerima `language` agar jawaban ditulis dalam bahasa pengunjung (dapat diganti di tengah sesi).
+   297→
+   298→```jsonc
+   299→// Request
+   300→{ "sessionId": "abc123", "message": "How much for a PT?", "language": "en" }
+   301→// Response
+   302→{ "reply": "A PT (Perseroan Terbatas) typically costs between Rp 3.5–7 million…", "language": "en" }
+   303→```
+   304→
+   305→### 7.3 `POST /api/license-checker` — Analisis Izin AI
+   306→Deskripsi usaha bebas → roadmap perizinan JSON terstruktur (NIB, UIK, Halal, BPOM, PBG, dst.) + estimasi biaya/waktu, dicatat ke tabel `LicenseCheck`.
+   307→
+   308→```jsonc
+   309→// Request
+   310→{ "description": "Kedai kopi dengan 5 cabang di Bandung", "whatsapp": "0812xxxx" }
+   311→// Response
+   312→{ "roadmap": [{ "step": 1, "permit": "NIB", "cost": "Gratis", "duration": "1 hari" }, …] }
+   313→```
+   314→
+   315→### 7.4 `GET /api/subscribe` / `POST /api/subscribe`
+   316→Kursus email 7 hari. `POST` melakukan **upsert anti-duplikat** via email; `GET` mengembalikan `count` (dengan baseline 1.200) untuk social proof live.
+   317→
+   318→### 7.5 `GET /api/stats`
+   319→Counter social proof: jumlah klien, izin diproses, provinsi (38) & kab/kota (514) — data baseline di server, ter-cache memori.
+   320→
+   321→---
+   322→
+   323→## 8. Skema Database
+   324→
+   325→`prisma/schema.prisma` — 6 model, SQLite, siap naik kelas ke PostgreSQL dengan minimal perubahan:
+   326→
+   327→| Model | Fungsi | Field Kunci |
+   328→| --- | --- | --- |
+   329→| **Lead** | Prospek dari form/chat/checker/kalkulator | `name`, `whatsapp` (ter-normalisasi), `sector`, `package`, `estimatedValue`, `status`, `source` |
+   330→| **Consultation** | Jadwal konsultasi | `schedule`, `topic`, `leadId` |
+   331→| **ChatMessage** | Riwayat percakapan RIZKI per sesi | `sessionId`, `role` (`user`/`assistant`), `content`, `language` |
+   332→| **LicenseCheck** | Log analisis Cek Izin AI | `description`, `roadmap` (JSON), `whatsapp?` |
+   333→| **Subscriber** | Peserta kursus email (unik per email) | `email` (unique), `name`, `whatsapp?`, `source` |
+   334→| **Testimonial** | Testimoni klien terkurasi | `name`, `role`, `content`, `rating` |
+   335→
+   336→```bash
+   337→bun run db:push        # terapkan skema
+   338→bun run db:generate    # regenerate client
+   339→```
+   340→
+   341→> Penggunaan: `import { db } from "@/lib/db"` — singleton Prisma Client.
+   342→
+   343→---
+   344→
+   345→## 9. Sistem Multibahasa (30 Bahasa)
+   346→
+   347→### 9.1 Arsitektur
+   348→
+   349→```
+   350→?lang=xx (URL)  ─┐
+   351→localStorage     ├─►  language-provider.tsx  ─►  <html lang dir>  +  t(key)
+   352→"pp-lang"        │      deteksi berlapis         sinkron otomatis     fallback:
+   353→navigator.langs  ─┘      (SSR-safe: id dulu,       (RTL otomatis       xx → id → key
+   354→                          queueMicrotask)          untuk 4 bahasa)
+   355→```
+   356→
+   357→- **Kontrak tipe** `Translation` = **146 key** × 30 bahasa — divalidasi script terpusat: `30/30 bahasa, 146/146 key, 0 missing`
+   358→- **Fallback berlapis**: `t(key)` → bahasa aktif → `id` → key mentah — mustahil teks kosong
+   359→- **Token dinamis**: `{p}` (paket), `{n}` (angka), `{name}` (nama pengguna), `{year}` (hak cipta)
+   360→- **RTL penuh**: `dir="rtl"` disetel otomatis untuk **ar, fa, ur, he** — seluruh layout ter-mirror (logo kanan, form terbalik) tanpa CSS tambahan
+   361→- **Persistensi**: pilihan tersimpan di `localStorage("pp-lang")`, dipulihkan antar-navigasi
+   362→
+   363→### 9.2 30 Bahasa yang Didukung
+   364→
+   365→| # | Kode | Bahasa | Penutur | RTL |
+   366→|---|------|--------|---------|:---:|
+   367→| 1 | `id` 🇮🇩 | Bahasa Indonesia — **default** | 199M | — |
+   368→| 2 | `en` 🇬🇧 | English | 1,515M | — |
+   369→| 3 | `zh` 🇨🇳 | 中文 (Mandarin) | 1,140M | — |
+   370→| 4 | `hi` 🇮🇳 | हिन्दी (Hindi) | 609M | — |
+   371→| 5 | `es` 🇪🇸 | Español | 560M | — |
+   372→| 6 | `fr` 🇫🇷 | Français | 310M | — |
+   373→| 7 | `ar` 🇸🇦 | العربية (Arabic) | 335M | ✅ |
+   374→| 8 | `bn` 🇧🇩 | বাংলা (Bengali) | 278M | — |
+   375→| 9 | `pt` 🇧🇷 | Português | 264M | — |
+   376→| 10 | `ru` 🇷🇺 | Русский (Russian) | 255M | — |
+   377→| 11 | `ur` 🇵🇰 | اردو (Urdu) | 232M | ✅ |
+   378→| 12 | `sw` 🇰🇪 | Kiswahili | 200M | — |
+   379→| 13 | `de` 🇩🇪 | Deutsch | 134M | — |
+   380→| 14 | `ja` 🇯🇵 | 日本語 (Japanese) | 125M | — |
+   381→| 15 | `pa` 🇮🇳 | ਪੰਜਾਬੀ (Punjabi) | 113M | — |
+   382→| 16 | `tr` 🇹🇷 | Türkçe | 90M | — |
+   383→| 17 | `vi` 🇻🇳 | Tiếng Việt | 86M | — |
+   384→| 18 | `fa` 🇮🇷 | فارسی (Persian) | 80M | ✅ |
+   385→| 19 | `ko` 🇰🇷 | 한국어 (Korean) | 82M | — |
+   386→| 20 | `ta` 🇱🇰 | தமிழ் (Tamil) | 81M | — |
+   387→| 21 | `th` 🇹🇭 | ไทย (Thai) | 61M | — |
+   388→| 22 | `it` 🇮🇹 | Italiano | 68M | — |
+   389→| 23 | `jv` 🇮🇩 | Basa Jawa | 68M | — |
+   390→| 24 | `pl` 🇵🇱 | Polski | 41M | — |
+   391→| 25 | `ms` 🇲🇾 | Bahasa Melayu | 34M | — |
+   392→| 26 | `uk` 🇺🇦 | Українська | 33M | — |
+   393→| 27 | `tl` 🇵🇭 | Filipino (Tagalog) | 29M | — |
+   394→| 28 | `nl` 🇳🇱 | Nederlands | 25M | — |
+   395→| 29 | `el` 🇬🇷 | Ελληνικά (Greek) | 13M | — |
+   396→| 30 | `he` 🇮🇱 | עברית (Hebrew) | 9M | ✅ |
+   397→
+   398→<sub>Sumber kebenaran: `src/lib/i18n/languages.ts` — registry berisi flag, nama native, nama Inggris, region, jumlah penutur, dan penanda `rtl` per bahasa.</sub>
+   399→
+   400→### 9.3 Cakupan Terjemahan
+   401→
+   402→| Lapisan | Status | Catatan |
+   403→| --- | --- | --- |
+   404→| UI chrome (nav, hero, form 14 label, stats, footer, toast, chat) | ✅ 30 bahasa | Termasuk quick-reply RIZKI |
+   405→| Judul + subjudul 17 section | ✅ 30 bahasa | Pola T1 + THigh + T2 mengalir satu headline |
+   406→| **RIZKI AI** jawaban percakapan | ✅ 30 bahasa | `language` dikirim ke API; ganti bahasa di tengah sesi langsung efektif |
+   407→| Konten data-driven (17 layanan, 16 panduan, 13 artikel) | 🇮🇩 Bahasa Indonesia | Aset SEO lokal — dijembatani `contentNote`: *RIZKI menerjemahkan/menjelaskan dalam bahasa Anda* |
+   408→| SEO | ✅ 31 hreflang + `availableLanguage` | `alternates.languages` di `layout.tsx` + JSON-LD |
+   409→
+   410→### 9.4 Menambah Bahasa Baru
+   411→
+   412→```ts
+   413→// 1. src/lib/i18n/languages.ts — daftarkan metadata
+   414→{ code: "su", native: "Basa Sunda", english: "Sundanese", flag: "🇮🇩", region: "Southeast Asia", speakers: "32M" }
+   415→
+   416→// 2. src/lib/i18n/types.ts — tambah "su" ke union LangCode
+   417→// 3. Salin struktur TRANSLATIONS_CORE.id sebagai template, terjemahkan 146 key
+   418→// 4. Impor & merge di index.ts — selesai (fallback id melindungi key yang hilang)
+   419→```
+   420→
+   421→---
+   422→
+   423→## 10. Arsitektur SEO Supremacy
+   424→
+   425→Tiga fase yang dibangun berurutan dan saling mengunci:
+   426→
+   427→### Fase 1 — Fondasi Teknis
+   428→- **Metadata lengkap** (`layout.tsx`): title template, description, keywords, Open Graph (`locale id_ID`), Twitter Card, canonical, `themeColor`
+   429→- **8 keluarga skema JSON-LD** (`seo-jsonld.tsx`):
+   430→  - `LocalBusiness` (alamat SCBD/IDX, jam operasional WIB, geo, telepon)
+   431→  - `Service` × 17 (nama, deskripsi, areaDiberikan, penjamin)
+   432→  - `FAQPage` (6 tanya-jawab)
+   433→  - `Blog` + `BlogPosting` × 13 (headline, tanggal, penulis E-E-A-T, keywords)
+   434→  - `BreadcrumbList` 6 level
+   435→  - `availableLanguage` — 30 objek `Language`
+   436→- **`sitemap.xml`**: semua anchor utama dengan `priority` bertingkat + `lastmod` + 31 hreflang
+   437→- **`robots.txt`**: allow all + referensi sitemap
+   438→
+   439→### Fase 2 — Matriks Programmatik
+   440→- **17 layanan** dengan detail mendalam per layanan (syarat, biaya, dasar hukum, timeline)
+   441→- **16 panduan perizinan** (`seo-content.ts`) — biaya, timeline, dasar hukum (PP 5/2021, Perpres 5/2024, PP 8/2021, UU JPH 33/2014, PP 42/2024, PP 16/2021, PP 22/2021, UU HPP, regulasi Kemenag PPIU/PPIH, RKAB ESDM, MISA/IATA)
+   442→- **38 provinsi × 514 kab/kota** (`coverage-data.ts`) — jangkauan terdalam di kelasnya
+   443→- **20 KBLI populer** + **10 sektor** industri
+   444→
+   445→### Fase 3 — Content Hub & Internal Link
+   446→- **13 artikel blog long-form** (±6.800 kata murni, rata-rata 525 kata/artikel, semua >450 kata) — penulis rotasi E-E-A-T (Head of Regulatory Affairs, Senior Legal Consultant, Business Licensing Specialist)
+   447→- **Cross-link dua arah** blog ↔ panduan ↔ peta situs (88+ tautan internal)
+   448→- **Kursus email 7 hari** — lead nurturing + tabel `Subscriber`
+   449→- **HTML sitemap** — 4 kolom (layanan / panduan / artikel / provinsi) + strip statistik
+   450→
+   451→**Perbandingan aset vs kompetitor** tersedia langsung di halaman (`comparison.tsx`) — dan di ukur Google: *17 layanan + 16 panduan + 13 artikel + 38 provinsi + 514 kab/kota + 20 KBLI + 8 skema*.
+   452→
+   453→---
+   454→
+   455→## 11. Corong Konversi (5 Jalur)
+   456→
+   457→Semua jalur bermuara ke **WhatsApp bisnis `6281269999910`** dengan normalisasi otomatis (`0812…` → `62812…`):
+   458→
+   459→```
+   460→                        ┌──────────────────────────────────────┐
+   461→                        │   💬 WHATSAPP 0812-6999-9910         │
+   462→                        └───────────────▲──────────────────────┘
+   463→                                        │
+   464→  ① FORM LEAD ─────────────────────────┤   Hero + Final CTA → /api/leads
+   465→  ② CHAT AI RIZKI ─────────────────────┤   deteksi regex WA di percakapan → auto-lead
+   466→  ③ CEK IZIN AI ───────────────────────┤   roadmap 30 detik → tombol "Kirim ke WA"
+   467→  ④ KALKULATOR BIAYA ──────────────────┤   estimasi UMKM/Bisnis/Enterprise → WA
+   468→  ⑤ KURSUS EMAIL ──────────────────────┘   7 hari + bonus checklist 47 izin → /api/subscribe
+   469→```
+   470→
+   471→| Paket | Harga Mulai | Target |
+   472→| --- | --- | --- |
+   473→| **UMKM** | Rp 350rb | Ibu-ibu pebisnis, usaha rumahan, jasa lokal |
+   474→| **Bisnis** | Rp 3,5jt | PT/CV, kafe & restoran, travel, konstruksi |
+   475→| **Enterprise** | Rp 25jt | PMA, tambang (IUP/RKAB), PPIU/PPIH, IATA, MISA Saudi |
+   476→
+   477→---
+   478→
+   479→## 12. RIZKI — Konsultan AI
+   480→
+   481→**RIZKI** bukan chatbot generik. System prompt-nya di-program ulang menjadi konsultan perizinan bersertifikat fiktif-namun-ahli milik PusatPerizinan.com:
+   482→
+   483→| Kemampuan | Detail |
+   484→| --- | --- |
+   485→| 🧠 **Domain knowledge** | NIB, OSS-RBA 4 level risiko, KBLI, PT/PMA (modal Rp 10 M), Halal SEHATI, BPOM, PBG/SLF, AMDAL/UKL-UPL, PPIU (SPPU→SIPU, SIMPONI), PPIH, IATA (BSP/CASS/TIDS), RKAB e-RKAB, MISA Saudi (CR, ZATCA, Iqama, RHQ Riyadh) |
+   486→| 🌐 **Multibahasa** | Parameter `language` → instruksi "BAHASA JAWABAN WAJIB" — jawab dalam 1 dari 30 bahasa, berlaku live saat bahasa diganti di tengah sesi |
+   487→| 🎣 **Lead capture diam-diam** | Regex `(\+62|62|0)8[0-9]{7,13}` atas input pengguna → lead tersimpan ke DB tanpa mengganggu percakapan |
+   488→| 💾 **Memori sesi** | Riwayat per `sessionId` di tabel `ChatMessage` — konteks percakapan utuh |
+   489→| 🛡️ **Keamanan arsitektur** | SDK `z-ai-web-dev-sdk` **hanya berjalan di backend** (API route) — tidak pernah terekspos ke browser |
+   490→
+   491→---
+   492→
+   493→## 13. Matriks Aset Data
+   494→
+   495→| Aset | Jumlah | Sumber |
+   496→| --- | ---: | --- |
+   497→| Layanan perizinan | **17** | `landing-data.ts` → `SERVICES` |
+   498→| Panduan perizinan | **16** | `seo-content.ts` → `PERMIT_GUIDES` |
+   499→| Provinsi | **38** | `coverage-data.ts` → `TOTAL_PROVINCES` |
+   500→| Kabupaten/Kota | **514** | `coverage-data.ts` → `TOTAL_KABKOTA` |
+   501→| Artikel blog long-form | **13** | `blog-content.ts` → `BLOG_ARTICLES` |
+   502→| KBLI populer | **20** | `seo-content.ts` → `KBLI_POPULAR` |
+   503→| Sektor industri | **10** | `seo-content.ts` |
+   504→| Testimoni / FAQ / Paket | **6 / 6 / 3** | `landing-data.ts` |
+   505→| Bahasa | **30** (4 RTL) | `i18n/languages.ts` |
+   506→| Key terjemahan per bahasa | **146** | `i18n/types.ts` |
+   507→| Keluarga skema JSON-LD | **8** | `seo-jsonld.tsx` |
+   508→| Hreflang alternates | **31** | `layout.tsx` + `sitemap.xml` |
+   509→| Tautan internal (peta situs) | **88+** | `html-sitemap.tsx` |
+   510→| Jalur konversi | **5** | §11 |
+   511→| Model database | **6** | `schema.prisma` |
+   512→| Endpoint API | **5** | §7 |
+   513→| Blok halaman | **19** | `page.tsx` |
+   514→
+   515→---
+   516→
+   517→## 14. Jaminan Kualitas
+   518→
+   519→### ✅ Checklist Rilis
+   520→
+   521→| Pemeriksaan | Hasil |
+   522→| --- | --- |
+   523→| `bun run lint` (ESLint 9 + next config) | **0 error, 0 warning** |
+   524→| Verifikasi browser end-to-end (agent-browser) | 5 jalur konversi berfungsi, form submit sukses, toast muncul |
+   525→| Chat AI lintas bahasa (EN quick-reply → jawaban EN) | ✅ Terverifikasi |
+   526→| RTL (ar) mirror layout | ✅ Terverifikasi — logo kanan, form terbalik |
+   527→| Mobile 390×844 | ✅ `overflowX=false`, semua section stack rapi |
+   528→| Sticky footer (pendek & panjang) | ✅ `footerBottom == innerHeight`, tanpa overlap |
+   529→| Console browser | **ZERO error** |
+   530→| Semua API via curl | ✅ 200/201, upsert anti-duplikat teruji |
+   531→| Kontrak i18n | ✅ 30/30 bahasa × 146 key, 0 missing, token utuh |
+   532→| Sitemap & robots | ✅ 200 |
+   533→
+   534→### 🧪 Cara Menguji Ulang
+   535→
+   536→```bash
+   537→bun run lint          # harus 0/0
+   538→bun run dev           # lalu buka http://localhost:3000
+   539→
+   540→# Uji 5 jalur:
+   541→# ① Isi form hero → cek DB: SELECT * FROM Lead;
+   542→# ② Chat RIZKI → ketik "081234567890" → lead tersimpan
+   543→# ③ Cek Izin → deskripsi usaha → roadmap → kirim ke WA
+   544→# ④ Kalkulator → pilih paket → WA
+   545→# ⑤ Kursus email → submit 2× email sama → count tetap (upsert)
+   546→```
+   547→
+   548→---
+   549→
+   550→## 15. Deployment
+   551→
+   552→### Build Produksi
+   553→
+   554→```bash
+   555→bun run build    # next build + salin static & public ke standalone
+   556→bun run start    # jalankan .next/standalone/server.js
+   557→```
+   558→
+   559→### Checklist Go-Live Domain (`pusatperizinan.com`)
+   560→
+   561→1. **DNS** → arahkan ke hosting (Vercel/VPS recommended)
+   562→2. **Database** → migrasi SQLite → PostgreSQL/MySQL untuk beban produksi (ubah `provider` + `datasource url` di `schema.prisma`)
+   563→3. **`metadataBase`** di `layout.tsx` → `https://www.pusatperizinan.com`
+   564→4. **Sitemap** → update URL absolut di `public/sitemap.xml`, submit ke [Google Search Console](https://search.google.com/search-console)
+   565→5. **Hreflang** → verifikasi 31 alternates dengan [Rich Results Test](https://search.google.com/test/rich-results)
+   566→6. **WhatsApp** → pastikan `6281269999910` terdaftar WA Business API/aplikasi
+   567→7. **Email course** → sambungkan backend email nyata (Resend/SES) ke `/api/subscribe`
+   568→8. **Analytics** → pasang GA4 + Microsoft Clarity sebelum `</body>`
+   569→
+   570→---
+   571→
+   572→## 16. Roadmap
+   573→
+   574→- [x] **Fase 0** — Landing page + database + 4 API + AI chat + verifikasi browser
+   575→- [x] **Fase 1** — SEO Supremacy: technical SEO + 8 skema JSON-LD + sitemap + knowledge hub + SCBD
+   576→- [x] **Fase 2** — 38 provinsi + 514 kab/kota + layanan ibadah/aviasi/internasional/tambang (PPIU, IATA, MISA, RKAB)
+   577→- [x] **Fase 3** — Content hub (13 artikel) + internal link architecture + kursus email (jalur ke-5)
+   578→- [x] **Fase 4** — Multilingual Supremacy: 30 bahasa + RTL + AI multibahasa + hreflang
+   579→- [ ] **Fase 5** — Dynamic routes per-KBLI & per-kota saat domain live (`/[kbli]`, `/[kota]`)
+   580→- [ ] **Fase 6** — Halaman dedikasi per-bahasa (`/en`, `/zh`, …) + sitemap per-bahasa
+   581→- [ ] **Fase 7** — Email sending backend nyata + Google Search Console + backlink building
+   582→
+   583→---
+   584→
+   585→## 17. FAQ Proyek
+   586→
+   587→<details>
+   588→<summary><b>Mengapa satu halaman, bukan multi-rute?</b></summary>
+   589→Semua aset SEO terkonsentrasi pada satu URL berotoritas tinggi (anchor + JSON-LD + peta situs HTML), sementara fase 5-6 membuka rute programmatik saat domain live — strategi dominasi SERP dua gelombang.
+   590→</details>
+   591→
+   592→<details>
+   593→<summary><b>Kenapa i18n kustom, bukan next-intl/routing per-lokale?</b></summary>
+   594→Situs satu halaman + 30 bahasa = 30× duplikasi rute tidak perlu. Provider dictionary + <code>?lang=</code> memberi pengalaman penuh (termasuk RTL) tanpa biaya rute, dan hreflang tetap terdeklarasi di metadata & sitemap. Rute dedikasi direncanakan Fase 6.
+   595→</details>
+   596→
+   597→<details>
+   598→<summary><b>Apakah konten Indonesia-only jadi masalah untuk pengunjung asing?</b></summary>
+   599→Tidak — 17 layanan, 16 panduan, dan 13 artikel tetap berbahasa Indonesia sebagai aset SEO lokal, dan setiap section konten menyertakan <code>contentNote</code>: RIZKI AI menerjemahkan/menjelaskan konten tersebut dalam bahasa pengunjung secara interaktif.
+   600→</details>
+   601→
+   602→<details>
+   603→<summary><b>Bagaimana keamanan API key AI?</b></summary>
+   604→<code>z-ai-web-dev-sdk</code> hanya dipanggil di API route (server). Browser tidak pernah melihat kredensial. Semua input divalidasi Zod sebelum menyentuh database.
+   605→</details>
+   606→
+   607→<details>
+   608→<summary><b>Bagaimana menambah layanan/provinsi/artikel baru?</b></summary>
+   609→Semua deklaratif: tambah objek di <code>SERVICES</code>/<code>PROVINCES</code>/<code>BLOG_ARTICLES</code> — UI, peta situs, JSON-LD, dan cross-link mengalir otomatis.
+   610→</details>
+   611→
+   612→---
+   613→
+   614→## 18. Lisensi & Kredit
+   615→
+   616→```
+   617→© 2026 PT Digital Bisnis Manajemen. Seluruh hak cipta dilindungi.
+   618→Kode sumber & desain: proprietary — dilarang direproduksi tanpa izin tertulis.
+   619→```
+   620→
+   621→<div align="center">
+   622→
+   623→---
+   624→
+   625→### 🏆 Kredit Pembangunan
+   626→
+   627→| Peran | Nama |
+   628→| --- | --- |
+   629→| **Arsitek Utama & Full-Stack Developer** | **Gugun Gunara** |
+   630→| Konsultan AI | RIZKI (dibangun dengan `z-ai-web-dev-sdk`) |
+   631→| Design System | Emerald-Gold — karya orisinal, tanpa tema biru/indigo |
+   632→| Quality Gate | ESLint 9 · Agent Browser E2E · Validasi Kontrak i18n 30×146 |
+   633→
+   634→**📍 Indonesia Stock Exchange Building, Tower 2, Lantai 5, SCBD Lot 13, Jl. Jend. Sudirman Kav. 52-53, Jakarta Selatan 12190**
+   635→
+   636→**📞 WhatsApp 0812-6999-9910** · 🕐 Senin–Sabtu 08.00–20.00 WIB
+   637→
+   638→---
+   639→
+   640→*Dibangun dengan ❤️, disiplin 7 task tanpa menyerah, dan 0 error lint.*
+   641→
+   642→### **— GUGUN GUNARA —**
+   643→*Tech Polymath & Full-Stack Architect*
+   644→
+   645→</div>
+   646→
