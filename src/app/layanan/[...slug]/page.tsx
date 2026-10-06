@@ -42,6 +42,8 @@ import { pickTestimonialsForCatalogCategory, getAverageRating, getTestimonialsBy
 import { CERT_MAP } from "@/lib/catalog/certifications";
 import { TestimonialGrid } from "@/components/testimonials/testimonial-card";
 import { HubPage } from "../hub-page";
+import { classifyPage } from "@/lib/seo-policy";
+import { SITE_URL } from "@/lib/site";
 
 // ============================================================
 // STATIC EXPORT READY — catch-all [...slug]
@@ -84,7 +86,8 @@ export async function generateMetadata({
       title: page.title,
       description: page.metaDesc,
     },
-    robots: { index: true, follow: true },
+    // P0-03: halaman tipis (tier D/E) dinilai noindex,follow
+    robots: { index: classifyPage(page).index, follow: true },
   };
 }
 
@@ -94,7 +97,7 @@ export async function generateMetadata({
 
 function ServiceJsonLd({ page }: { page: NonNullable<ReturnType<typeof getServicePage>> }) {
   const isHub = page.kind === "hub";
-  const baseUrl = "https://pusatperizinan.com";
+  
 
   const jsonLd: Record<string, unknown>[] = [];
 
@@ -109,7 +112,7 @@ function ServiceJsonLd({ page }: { page: NonNullable<ReturnType<typeof getServic
       provider: {
         "@type": "ProfessionalService",
         name: "PusatPerizinan.com",
-        url: baseUrl,
+        url: SITE_URL,
         telephone: "+6281269999910",
         address: {
           "@type": "PostalAddress",
@@ -158,7 +161,7 @@ function ServiceJsonLd({ page }: { page: NonNullable<ReturnType<typeof getServic
         publisher: {
           "@type": "Organization",
           name: "PusatPerizinan.com",
-          url: baseUrl,
+          url: SITE_URL,
         },
         reviewRating: {
           "@type": "Rating",
@@ -191,7 +194,7 @@ function ServiceJsonLd({ page }: { page: NonNullable<ReturnType<typeof getServic
       "@type": "ListItem",
       position: i + 1,
       name: b.name,
-      item: `${baseUrl}${b.href}`,
+      item: `${SITE_URL}${b.href}`,
     })),
   });
 

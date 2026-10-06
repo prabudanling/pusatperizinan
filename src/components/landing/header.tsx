@@ -26,7 +26,7 @@ export function Header() {
     { label: t("navCheckAI"), href: "#cek-izin" },
     { label: t("navCalculator"), href: "#kalkulator" },
     { label: t("navGuides"), href: "#panduan" },
-    { label: t("navBlog"), href: "#blog" },
+    { label: t("navBlog"), href: "/blog" },
     { label: t("navPricing"), href: "#harga" },
     { label: t("navFaq"), href: "#faq" },
   ];

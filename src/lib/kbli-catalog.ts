@@ -242,7 +242,7 @@ function buildKbliPages(): KbliPage[] {
       slug,
       title: `KBLI ${raw.c} ${raw.t} — Izin, Risiko & Cara Pengurusan`,
       h1: `KBLI ${raw.c} — ${raw.t}`,
-      metaDesc: `KBLI ${raw.c} (${raw.t}): arti, tingkat risiko ${riskMeta.label.toLowerCase()}, izin yang dibutuhkan (${licenses.map((l) => l.name.split("(")[0].trim()).slice(0, 2).join(", ")}), kewajiban pajak & cara pengurusan via OSS-RBA. Panduan lengkap 2025.`,
+      metaDesc: `KBLI ${raw.c} (${raw.t}): arti, tingkat risiko ${riskMeta.label.toLowerCase()}, izin yang dibutuhkan (${licenses.map((l) => l.name.split("(")[0].trim()).slice(0, 2).join(", ")}), kewajiban pajak & cara pengurusan via OSS-RBA. Panduan lengkap.`,
       category,
       risk: raw.risk,
       riskLabel: riskMeta.label,

@@ -4,53 +4,81 @@ import { KBLI_PAGES } from "@/lib/kbli-catalog";
 import { JOBS } from "@/lib/jobs-data";
 import { COMPARISONS } from "@/lib/comparisons";
 import { TESTIMONIAL_CATEGORIES } from "@/lib/testimonials-data";
+import { PERMIT_GUIDES } from "@/lib/seo-content";
+import { BLOG_ARTICLES } from "@/lib/blog-content";
+import { SITE_URL } from "@/lib/site";
+import { classifyPage } from "@/lib/seo-policy";
 
 /**
  * Sitemap dinamis — digenerate otomatis dari katalog layanan + KBLI + lowongan + perbandingan.
  * Static export compatible: Next menuliskan out/sitemap.xml saat build.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const BASE = "https://pusatperizinan.com";
+  
   const now = new Date();
 
   const staticPages: MetadataRoute.Sitemap = [
-    { url: `${BASE}/`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
-    { url: `${BASE}/layanan`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
-    { url: `${BASE}/kbli`, lastModified: now, changeFrequency: "daily", priority: 0.95 },
-    { url: `${BASE}/kalkulator-pajak`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE}/roadmap`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE}/cek-dokumen`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE}/lowongan-kerja`, lastModified: now, changeFrequency: "daily", priority: 0.85 },
-    { url: `${BASE}/bandingkan`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
-    { url: `${BASE}/testimoni`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${BASE}/virtual-office`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
-    { url: `${BASE}/kanal-resmi`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${SITE_URL}/`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
+    { url: `${SITE_URL}/layanan`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${SITE_URL}/kbli`, lastModified: now, changeFrequency: "daily", priority: 0.95 },
+    { url: `${SITE_URL}/kalkulator-pajak`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE_URL}/roadmap`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE_URL}/cek-dokumen`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE_URL}/lowongan-kerja`, lastModified: now, changeFrequency: "daily", priority: 0.85 },
+    { url: `${SITE_URL}/bandingkan`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${SITE_URL}/testimoni`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE_URL}/virtual-office`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${SITE_URL}/kanal-resmi`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
+    // P0-02: blog kini URL nyata & crawlable
+    { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    // Trust & legal pages (E-E-A-T)
+    { url: `${SITE_URL}/tentang-kami`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE_URL}/kontak`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE_URL}/kebijakan-privasi`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
+    { url: `${SITE_URL}/syarat-ketentuan`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
   ];
+
+  // Panduan pillar (16) — sebelumnya tersembunyi di hub JS, kini URL nyata
+  const panduanPages: MetadataRoute.Sitemap = PERMIT_GUIDES.map((g) => ({
+    url: `${SITE_URL}/panduan/${g.id}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
+  // Artikel blog (15) — setiap artikel URL unik dengan meta unik
+  const blogPages: MetadataRoute.Sitemap = BLOG_ARTICLES.map((a) => ({
+    url: `${SITE_URL}/blog/${a.slug}`,
+    lastModified: new Date(a.updatedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
 
   // Halaman testimoni per kategori (URL cantik + Review schema)
   const testimoniPages: MetadataRoute.Sitemap = TESTIMONIAL_CATEGORIES.map((c) => ({
-    url: `${BASE}/testimoni/${c.slug}`,
+    url: `${SITE_URL}/testimoni/${c.slug}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.85,
   }));
 
   const jobPages: MetadataRoute.Sitemap = JOBS.map((j) => ({
-    url: `${BASE}/lowongan-kerja/${j.slug}`,
+    url: `${SITE_URL}/lowongan-kerja/${j.slug}`,
     lastModified: now,
     changeFrequency: "daily" as const,
     priority: 0.8,
   }));
 
   const comparisonPages: MetadataRoute.Sitemap = COMPARISONS.map((c) => ({
-    url: `${BASE}/bandingkan/${c.slug}`,
+    url: `${SITE_URL}/bandingkan/${c.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.85,
   }));
 
-  const servicePages: MetadataRoute.Sitemap = ALL_SERVICE_PAGES.map((p) => ({
-    url: `${BASE}/layanan/${p.slug}`,
+  // P0-03: halaman tier D/E (tipis/layak hapus) TIDAK masuk sitemap
+  const servicePages: MetadataRoute.Sitemap = ALL_SERVICE_PAGES.filter((p) => classifyPage(p).index).map((p) => ({
+    url: `${SITE_URL}/layanan/${p.slug}`,
     lastModified: now,
     changeFrequency: "monthly",
     priority:
@@ -58,7 +86,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const kbliPages: MetadataRoute.Sitemap = KBLI_PAGES.map((p) => ({
-    url: `${BASE}/kbli/${p.slug}`,
+    url: `${SITE_URL}/kbli/${p.slug}`,
     lastModified: now,
     changeFrequency: "monthly",
     priority: 0.85,
@@ -67,11 +95,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const hubPages: MetadataRoute.Sitemap = getHubSlugs()
     .filter((s) => !ALL_SERVICE_PAGES.some((p) => p.slug === s))
     .map((slug) => ({
-      url: `${BASE}/layanan/${slug}`,
+      url: `${SITE_URL}/layanan/${slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.8,
     }));
 
-  return [...staticPages, ...testimoniPages, ...servicePages, ...kbliPages, ...hubPages, ...jobPages, ...comparisonPages];
+  return [...staticPages, ...panduanPages, ...blogPages, ...testimoniPages, ...servicePages, ...kbliPages, ...hubPages, ...jobPages, ...comparisonPages];
 }

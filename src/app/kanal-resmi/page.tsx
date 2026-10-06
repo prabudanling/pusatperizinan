@@ -11,8 +11,9 @@ import {
 import { INSTITUTIONS } from "@/lib/institutions";
 import { InstitutionSeal } from "@/components/institutions/institution-seal";
 import { WHATSAPP_NUMBER } from "@/lib/landing-data";
+import { SITE_URL } from "@/lib/site";
 
-const SITE_URL = "https://pusatperizinan.com";
+
 const PAGE_TITLE = "Direktori 20 Kanal Resmi Pemerintah — Kementerian & Lembaga Terkait";
 const PAGE_DESC =
   "Direktori lengkap 20 kementerian, lembaga & otoritas yang kami urus setiap hari: Kemenkumham, DJP, OSS-RBA, BPJPH, BPOM, Kemenag, ESDM, LPJK, Kementerian PU, KLH, BNP2MI, IATA, MISA — beserta izin yang kami proses di masing-masing kanal.";

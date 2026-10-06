@@ -29,6 +29,7 @@ import {
   VO_GUIDES,
 } from "@/lib/virtual-office-data";
 import { WHATSAPP_NUMBER } from "@/lib/landing-data";
+import { SITE_URL } from "@/lib/site";
 
 // ============================================================
 // PUSATPERIZINAN.COM — Halaman Hub Virtual Office
@@ -36,7 +37,7 @@ import { WHATSAPP_NUMBER } from "@/lib/landing-data";
 // Server component — SEO aman, tanpa client JS.
 // ============================================================
 
-const BASE_URL = "https://pusatperizinan.com";
+
 const TIER_LABEL: Record<string, string> = {
   premium: "Premium",
   bisnis: "Bisnis",
@@ -89,7 +90,7 @@ function JsonLd() {
       provider: {
         "@type": "ProfessionalService",
         name: "PusatPerizinan.com",
-        url: BASE_URL,
+        url: SITE_URL,
         telephone: "+6281269999910",
         address: {
           "@type": "PostalAddress",
@@ -168,8 +169,8 @@ function JsonLd() {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Beranda", item: BASE_URL },
-        { "@type": "ListItem", position: 2, name: "Virtual Office", item: `${BASE_URL}/virtual-office` },
+        { "@type": "ListItem", position: 1, name: "Beranda", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "Virtual Office", item: `${SITE_URL}/virtual-office` },
       ],
     },
   ];

@@ -11,8 +11,9 @@ import { FOUNDER, TEAM } from "@/lib/team-data";
 import { PERMIT_GUIDES, SECTOR_GUIDES } from "@/lib/seo-content";
 import { BLOG_ARTICLES } from "@/lib/blog-content";
 import { LANGUAGES } from "@/lib/i18n/languages";
+import { SITE_URL, CONTACT, TRUST_METRICS, priceToIdr } from "@/lib/site";
 
-const SITE_URL = "https://pusatperizinan.com";
+
 
 function JsonLd({ data }: { data: object }) {
   return (
@@ -36,22 +37,21 @@ export function SeoJsonLd() {
     image: `${SITE_URL}/logo.png`,
     description:
       "Konsultan perizinan usaha, perpajakan & penempatan pekerja migran #1 Indonesia. Jasa pengurusan NIB, pendirian PT/CV/PMA, OSS-RBA, sertifikasi halal, izin BPOM, PBG/SLF, AMDAL, pajak pribadi & badan (NPWP, SPT, PKP, Coretax), penempatan PMI ke 17 negara (Jepang, Korea, Saudi, dsb), izin PPTKIS/P3MI, izin umroh (PPIU) & haji (PPIH), registrasi IATA, izin usaha Arab Saudi (MISA), RKAB & perizinan tambang — melayani 38 provinsi & 514 kabupaten/kota dengan garansi 100% uang kembali.",
-    telephone: "+62-812-6999-9910",
+    telephone: CONTACT.phoneIntl,
     email: "halo@pusatperizinan.com",
-    foundingDate: "2024",
+    foundingDate: CONTACT.foundingYear,
     address: {
       "@type": "PostalAddress",
-      streetAddress:
-        "Indonesia Stock Exchange Building, Tower 2, Lantai 5, SCBD Lot 13, Jl. Jend. Sudirman Kav. 52-53",
-      addressLocality: "Jakarta Selatan",
-      addressRegion: "DKI Jakarta",
-      postalCode: "12190",
-      addressCountry: "ID",
+      streetAddress: CONTACT.address.street,
+      addressLocality: CONTACT.address.city,
+      addressRegion: CONTACT.address.region,
+      postalCode: CONTACT.address.postalCode,
+      addressCountry: CONTACT.address.country,
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: -6.2249,
-      longitude: 106.809,
+      latitude: CONTACT.geo.lat,
+      longitude: CONTACT.geo.lng,
     },
     openingHoursSpecification: [
       {
@@ -92,9 +92,9 @@ export function SeoJsonLd() {
     sameAs: [],
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: "4.9",
+      ratingValue: TRUST_METRICS.rating,
       bestRating: "5",
-      reviewCount: "890",
+      reviewCount: TRUST_METRICS.reviewCount,
     },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
@@ -109,7 +109,7 @@ export function SeoJsonLd() {
             serviceType: "Perizinan Usaha",
           },
           priceCurrency: "IDR",
-          price: s.price.replace(/[^\d]/g, "") || "0",
+          price: String(priceToIdr(s.price) ?? 0),
           position: i + 1,
         })),
         ...TAX_ALL.map((s, i) => ({
@@ -121,7 +121,7 @@ export function SeoJsonLd() {
             serviceType: "Jasa Perpajakan",
           },
           priceCurrency: "IDR",
-          price: s.price.replace(/[^\d]/g, "") || "0",
+          price: String(priceToIdr(s.price) ?? 0),
           position: SERVICES.length + i + 1,
         })),
         ...[...PMI_B2B_SERVICES, ...PMI_B2C_SERVICES].map((s, i) => ({
@@ -133,7 +133,7 @@ export function SeoJsonLd() {
             serviceType: "Penempatan Pekerja Migran Indonesia",
           },
           priceCurrency: "IDR",
-          price: s.price.replace(/[^\d]/g, "") || "0",
+          price: String(priceToIdr(s.price) ?? 0),
           position: SERVICES.length + TAX_ALL.length + i + 1,
         })),
       ],
@@ -164,21 +164,14 @@ export function SeoJsonLd() {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "@id": `${SITE_URL}/#faq`,
-    mainEntity: [
-      ...FAQS.map((f) => ({
-        "@type": "Question",
-        name: f.q,
-        acceptedAnswer: { "@type": "Answer", text: f.a },
-      })),
-      // FAQ dari panduan izin (juga tampil di halaman)
-      ...PERMIT_GUIDES.flatMap((g) =>
-        g.faq.map((f) => ({
-          "@type": "Question",
-          name: f.q,
-          acceptedAnswer: { "@type": "Answer", text: f.a },
-        }))
-      ),
-    ],
+    // CATATAN AUDIT: hanya FAQ yang terlihat di homepage.
+    // FAQ panduan tidak lagi dimuat di sini — masing-masing kini
+    // punya FAQPage schema sendiri di /panduan/[id] (integritas schema).
+    mainEntity: FAQS.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
   };
 
   // 4. ItemList panduan izin (knowledge hub)
@@ -253,7 +246,7 @@ export function SeoJsonLd() {
     name: "Blog PusatPerizinan.com — Wawasan Perizinan Usaha",
     description:
       "Artikel mendalam seputar perizinan usaha Indonesia: NIB, PT, PMA, halal, BPOM, PBG/SLF, tambang (RKAB), travel umroh/haji (PPIU/PPIH), IATA, dan izin usaha Arab Saudi (MISA).",
-    url: `${SITE_URL}/#blog`,
+    url: `${SITE_URL}/blog`,
     inLanguage: "id-ID",
     publisher: { "@id": `${SITE_URL}/#organization` },
     blogPost: BLOG_ARTICLES.map((a) => ({
@@ -266,7 +259,7 @@ export function SeoJsonLd() {
       keywords: a.keywords.join(", "),
       author: { "@type": "Person", name: a.author, jobTitle: a.authorRole },
       publisher: { "@id": `${SITE_URL}/#organization` },
-      mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/#blog` },
+      mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/blog/${a.slug}` },
     })),
   };
 
@@ -274,61 +267,16 @@ export function SeoJsonLd() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    // CATATAN AUDIT: URL hash (#section) diganti halaman nyata —
+    // BreadcrumbList harus menunjuk URL yang benar-benar bisa di-crawl.
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Beranda",
-        item: SITE_URL,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Layanan Perizinan",
-        item: `${SITE_URL}/#layanan`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Jasa Pajak Pribadi & Perusahaan",
-        item: `${SITE_URL}/#pajak`,
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "Kirim Pekerja Indonesia ke Luar Negeri",
-        item: `${SITE_URL}/#kerja-luar-negeri`,
-      },
-      {
-        "@type": "ListItem",
-        position: 5,
-        name: "Kalkulator Biaya Perizinan",
-        item: `${SITE_URL}/#kalkulator`,
-      },
-      {
-        "@type": "ListItem",
-        position: 6,
-        name: "Panduan Perizinan",
-        item: `${SITE_URL}/#panduan`,
-      },
-      {
-        "@type": "ListItem",
-        position: 7,
-        name: "Blog & Artikel Perizinan",
-        item: `${SITE_URL}/#blog`,
-      },
-      {
-        "@type": "ListItem",
-        position: 8,
-        name: "Jangkauan 38 Provinsi & 514 Kabupaten/Kota",
-        item: `${SITE_URL}/#jangkauan`,
-      },
-      {
-        "@type": "ListItem",
-        position: 9,
-        name: "Testimoni Klien Terverifikasi",
-        item: `${SITE_URL}/testimoni`,
-      },
+      { "@type": "ListItem", position: 1, name: "Beranda", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Layanan Perizinan", item: `${SITE_URL}/layanan` },
+      { "@type": "ListItem", position: 3, name: "Database KBLI", item: `${SITE_URL}/kbli` },
+      { "@type": "ListItem", position: 4, name: "Kalkulator Biaya", item: `${SITE_URL}/kalkulator-pajak` },
+      { "@type": "ListItem", position: 5, name: "Panduan Perizinan", item: `${SITE_URL}/panduan/nib` },
+      { "@type": "ListItem", position: 6, name: "Blog Perizinan", item: `${SITE_URL}/blog` },
+      { "@type": "ListItem", position: 7, name: "Testimoni Klien", item: `${SITE_URL}/testimoni` },
     ],
   };
 

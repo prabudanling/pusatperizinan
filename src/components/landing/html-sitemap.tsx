@@ -4,6 +4,7 @@ import { BookOpen, FileText, Globe2, Landmark, MapPin, Wrench, Languages } from 
 import { Badge } from "@/components/ui/badge";
 import { SERVICES } from "@/lib/landing-data";
 import { PERMIT_GUIDES } from "@/lib/seo-content";
+import Link from "next/link";
 import { BLOG_ARTICLES } from "@/lib/blog-content";
 import { ISLANDS, PROVINCES } from "@/lib/coverage-data";
 import { TAX_ALL } from "@/lib/tax-services";
@@ -20,10 +21,6 @@ import { useLanguage } from "@/lib/i18n/language-provider";
 
 function openGuide(id: string) {
   window.dispatchEvent(new CustomEvent("open-guide", { detail: id }));
-}
-
-function openArticle(slug: string) {
-  window.dispatchEvent(new CustomEvent("open-blog-article", { detail: slug }));
 }
 
 const TOOLS = [
@@ -165,14 +162,13 @@ export function HtmlSitemap() {
             <ul className="mt-3.5 space-y-2 max-h-96 overflow-y-auto scrollbar-thin pr-2">
               {BLOG_ARTICLES.map((a) => (
                 <li key={a.slug}>
-                  <a
-                    href="#blog"
+                  <Link
+                    href={`/blog/${a.slug}`}
                     title={a.excerpt}
-                    onClick={() => openArticle(a.slug)}
                     className="text-[13px] text-foreground/75 hover:text-primary transition-colors"
                   >
                     {a.title}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

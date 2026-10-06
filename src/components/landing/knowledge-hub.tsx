@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -247,19 +248,14 @@ export function KnowledgeHub() {
                         </p>
                         <div className="flex flex-wrap gap-2">
                           {relatedBlogForGuide(guide.id).map((a) => (
-                            <a
+                            <Link
                               key={a.slug}
-                              href="#blog"
-                              onClick={() =>
-                                window.dispatchEvent(
-                                  new CustomEvent("open-blog-article", { detail: a.slug })
-                                )
-                              }
+                              href={`/blog/${a.slug}`}
                               className="inline-flex items-center gap-1.5 rounded-full border border-primary/25 bg-primary/5 px-3.5 py-1.5 text-[12px] font-semibold text-primary hover:bg-primary/10 transition-colors"
                             >
                               <BookOpen className="h-3.5 w-3.5" />
                               {a.title}
-                            </a>
+                            </Link>
                           ))}
                         </div>
                       </div>

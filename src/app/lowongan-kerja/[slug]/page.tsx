@@ -25,6 +25,7 @@ import {
   isoValidThrough,
 } from "@/lib/jobs-data";
 import { WHATSAPP_NUMBER } from "@/lib/landing-data";
+import { SITE_URL, absUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return JOBS.map((j) => ({ slug: j.slug }));
@@ -100,8 +101,8 @@ export default async function JobDetailPage({ params }: { params: Promise<{ slug
     hiringOrganization: {
       "@type": "Organization",
       name: job.organization,
-      sameAs: "https://pusatperizinan.com",
-      logo: "https://pusatperizinan.com/logo-icon.png",
+      sameAs: SITE_URL,
+      logo: absUrl("/logo-icon.png"),
     },
     ...(job.workType === "remote"
       ? {

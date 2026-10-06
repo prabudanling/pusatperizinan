@@ -4,6 +4,21 @@
 # Kompatibel: cPanel idwebhost, LiteSpeed, Apache 2.4+
 # ============================================================
 
+
+# ============================================================
+# P0-01 CANONICAL HOST — satu host di seluruh sinyal SEO
+# Canonical host: https://pusatperizinan.com (apex, HTTPS)
+# Semua varian (www / http) dipaksa 301 ke host kanonik agar
+# Google hanya melihat SATU versi (konsolidasi sinyal ranking).
+# ============================================================
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # http/https + www → https://pusatperizinan.com
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^(.*)$ https://pusatperizinan.com/$1 [R=301,L]
+</IfModule>
+
 DirectoryIndex index.html
 
 # ---------- Halaman 404 branded ----------

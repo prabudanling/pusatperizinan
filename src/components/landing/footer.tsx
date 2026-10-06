@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ShieldCheck, MapPin, Mail, PhoneCall } from "lucide-react";
 import { WHATSAPP_DISPLAY } from "@/lib/landing-data";
 import { useLanguage } from "@/lib/i18n/language-provider";
@@ -296,6 +297,15 @@ export function Footer() {
           <p className="text-xs text-emerald-100/50">
             {t("footerRights").replace("{year}", String(new Date().getFullYear()))}
           </p>
+          <nav aria-label="Tautan legal" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 sm:pr-10">
+            <Link href="/tentang-kami" className="text-xs text-emerald-100/50 hover:text-emerald-300 transition-colors">Tentang Kami</Link>
+            <span aria-hidden>·</span>
+            <Link href="/kontak" className="text-xs text-emerald-100/50 hover:text-emerald-300 transition-colors">Kontak</Link>
+            <span aria-hidden>·</span>
+            <Link href="/kebijakan-privasi" className="text-xs text-emerald-100/50 hover:text-emerald-300 transition-colors">Privasi</Link>
+            <span aria-hidden>·</span>
+            <Link href="/syarat-ketentuan" className="text-xs text-emerald-100/50 hover:text-emerald-300 transition-colors">Syarat &amp; Ketentuan</Link>
+          </nav>
           <p className="text-xs text-emerald-100/50 sm:pr-10">
             {t("footerMade")}
           </p>

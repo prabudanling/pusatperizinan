@@ -10,8 +10,9 @@ import {
 } from "@/lib/testimonials-data";
 import { TestimonialGrid, Stars } from "@/components/testimonials/testimonial-card";
 import { WHATSAPP_NUMBER } from "@/lib/landing-data";
+import { SITE_URL } from "@/lib/site";
 
-const SITE_URL = "https://pusatperizinan.com";
+
 const PAGE_TITLE = "Testimoni Klien PusatPerizinan.com — 76 Ulasan Terverifikasi Rating 4,9/5";
 const PAGE_DESC =
   "76 testimoni asli & terverifikasi dari 1.247 klien di 38 provinsi: perizinan usaha, sertifikasi halal, BPOM, pajak Coretax, penempatan PMI, izin umroh PPIU, konstruksi & tambang. Rating 4,9/5.";

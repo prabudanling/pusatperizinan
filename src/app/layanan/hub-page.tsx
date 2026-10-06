@@ -10,8 +10,9 @@ import {
 } from "@/lib/catalog";
 import { PROVINCES } from "@/lib/coverage-data";
 import { WHATSAPP_NUMBER } from "@/lib/landing-data";
+import { SITE_URL } from "@/lib/site";
 
-const BASE_URL = "https://pusatperizinan.com";
+
 
 /**
  * JSON-LD untuk halaman hub: BreadcrumbList + FAQPage + ItemList anggota.
@@ -33,7 +34,7 @@ function HubJsonLd({
       "@type": "ListItem",
       position: i + 1,
       name: b.name,
-      item: `${BASE_URL}${b.href}`,
+      item: `${SITE_URL}${b.href}`,
     })),
   });
 
@@ -59,7 +60,7 @@ function HubJsonLd({
         "@type": "ListItem",
         position: i + 1,
         name: m.h1,
-        url: `${BASE_URL}/layanan/${m.slug}`,
+        url: `${SITE_URL}/layanan/${m.slug}`,
       })),
     });
   }

@@ -18,8 +18,9 @@ import {
 } from "@/lib/testimonials-data";
 import { TestimonialGrid, Stars, CategoryLinks } from "@/components/testimonials/testimonial-card";
 import { WHATSAPP_NUMBER } from "@/lib/landing-data";
+import { SITE_URL } from "@/lib/site";
 
-const SITE_URL = "https://pusatperizinan.com";
+
 
 export const dynamicParams = false;
 

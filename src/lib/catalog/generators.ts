@@ -17,6 +17,7 @@ import { VO_PAGES } from "./virtual-office";
 import { CERT_PAGES } from "./certifications";
 import { CERT_REGION_PAGES, CERT_PROV_HUBS } from "./sertifikasi-provinsi";
 import { slugify, parsePrice } from "./utils";
+import { CURRENT_YEAR } from "@/lib/site";
 
 // ------------------------------------------------------------
 // KONSTANTAS KOMBINASI
@@ -285,7 +286,7 @@ function buildBasePage(id: string): ServicePage | null {
     keywords: [
       ...b.keywords,
       `jasa ${b.title.toLowerCase()}`,
-      `biaya ${b.title.toLowerCase()} 2025`,
+      `biaya ${b.title.toLowerCase()} ${CURRENT_YEAR}`,
       `${b.title.toLowerCase()} terpercaya`,
       `konsultan ${b.title.toLowerCase()}`,
     ],
@@ -345,7 +346,7 @@ function buildRegionPage(serviceId: string, provinceIdx: number): ServicePage | 
     kind: "region",
     category: b.category,
     parent: serviceId,
-    title: `Jasa ${b.title} ${regionTitle} — Biaya & Proses 2025`,
+    title: `Jasa ${b.title} ${regionTitle} — Biaya & Proses ${CURRENT_YEAR}`,
     h1: `${b.title} ${regionTitle}`,
     desc: b.desc,
     metaDesc: capMeta(`Pengurusan ${b.title} ${regionTitle}: resmi via ${b.authority}, mulai ${b.price}, proses ${b.duration}. Melayani ${cities} & seluruh ${prov.name}. Konsultasi gratis — proses dominan online.`),
@@ -367,7 +368,7 @@ function buildRegionPage(serviceId: string, provinceIdx: number): ServicePage | 
       `${b.title.toLowerCase()} ${prov.name.toLowerCase()}`,
       `biaya ${b.title.toLowerCase()} ${prov.name.toLowerCase()}`,
       `jasa ${b.title.toLowerCase()} ${prov.majors[0]?.toLowerCase() ?? ""}`,
-      `pengurusan ${b.title.toLowerCase()} ${prov.name.toLowerCase()} 2025`,
+      `pengurusan ${b.title.toLowerCase()} ${prov.name.toLowerCase()} ${CURRENT_YEAR}`,
       ...b.keywords.slice(0, 2).map((k) => `${k} ${prov.name.toLowerCase()}`),
     ],
     legalBasis: b.legalBasis,
@@ -424,7 +425,7 @@ function buildCityPage(serviceId: string, city: string, category: CatalogCategor
     keywords: [
       `${b.title.toLowerCase()} di ${city.toLowerCase()}`,
       `biaya ${b.title.toLowerCase()} ${city.toLowerCase()}`,
-      `jasa ${b.title.toLowerCase()} ${city.toLowerCase()} 2025`,
+      `jasa ${b.title.toLowerCase()} ${city.toLowerCase()} ${CURRENT_YEAR}`,
       ...b.keywords.slice(0, 2),
     ],
     legalBasis: b.legalBasis,
@@ -457,7 +458,7 @@ function buildCountryPage(code: string): ServicePage | null {
     kind: "country",
     category: "pmi",
     title: `Kerja di ${d.name} untuk PMI — Gaji, Syarat & Cara Daftar`,
-    h1: `Kerja di ${d.name} ${d.flag} — Panduan Lengkap PMI 2025`,
+    h1: `Kerja di ${d.name} ${d.flag} — Panduan Lengkap PMI ${CURRENT_YEAR}`,
     desc: `Skema resmi ${d.scheme} · gaji ${d.salary} · sektor: ${d.sectors.map((s) => s.label.split("(")[0].trim()).join(", ")}`,
     metaDesc: capMeta(`Panduan kerja di ${d.name} untuk PMI: skema resmi ${d.scheme}, gaji ${d.salary}, syarat & dokumen lengkap, sektor paling dibutuhkan. Proses resmi UU 18/2017 — konsultasi gratis.`),
     intro,
@@ -545,7 +546,7 @@ function buildSectorPage(code: string, sectorIdx: number): ServicePage | null {
     keywords: [
       `kerja ${sector.label.toLowerCase()} di ${d.name.toLowerCase()}`,
       `gaji ${sector.slug} ${d.name.toLowerCase()}`,
-      `lowongan ${sector.label.toLowerCase()} ${d.name.toLowerCase()} 2025`,
+      `lowongan ${sector.label.toLowerCase()} ${d.name.toLowerCase()} ${CURRENT_YEAR}`,
       `syarat kerja ${sector.label.toLowerCase()} di ${d.name.toLowerCase()}`,
       ...d.keywords.slice(0, 2),
     ],
@@ -641,7 +642,7 @@ function buildCityHubPage(provIdx: number, city: string): ServicePage | null {
       `biaya pendirian pt ${city.toLowerCase()}`,
       `konsultan bisnis ${city.toLowerCase()}`,
       `legalitas usaha ${city.toLowerCase()} ${prov.name.toLowerCase()}`,
-      `jasa pengurusan izin ${city.toLowerCase()} 2025`,
+      `jasa pengurusan izin ${city.toLowerCase()} ${CURRENT_YEAR}`,
     ],
     related: regionMembers.slice(0, 6).map((m) => m.slug),
     breadcrumbs: [

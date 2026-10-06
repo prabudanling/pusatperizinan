@@ -3,7 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SeoJsonLd } from "@/components/landing/seo-jsonld";
+import { Analytics } from "@/components/landing/analytics";
 import { LanguageProvider } from "@/lib/i18n/language-provider";
+import { SITE_URL } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,7 +22,7 @@ const geistMono = Geist_Mono({
 // Dibangun untuk mendominasi pencarian perizinan Indonesia
 // ============================================================
 
-const SITE_URL = "https://pusatperizinan.com";
+
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -149,8 +151,9 @@ export default function RootLayout({
             canonical GANDA di semua 2.830 halaman (hardcode homepage vs canonical
             per-halaman dari generateMetadata). Homepage kini memakai canonical
             dari alternates.canonical di atas. */}
-        {/* Verifikasi webmaster — ganti token saat domain live */}
-        <meta name="google-site-verification" content="pusatperizinan-gwt-token" />
+        {/* P0-06: token placeholder DIHAPUS — pasang token asli sesuai
+            docs/SEARCH-CONSOLE-ANALYTICS.md lalu unpublish placeholder. */}
+        {/* TODO(deploy): <meta name="google-site-verification" content="TOKEN_ASLI" /> */}
         <meta name="geo.region" content="ID-JK" />
         <meta name="geo.placename" content="Jakarta Selatan" />
         <meta name="geo.position" content="-6.2249;106.809" />
@@ -162,6 +165,7 @@ export default function RootLayout({
         <LanguageProvider>
           {children}
           <SeoJsonLd />
+          <Analytics />
           <Toaster />
         </LanguageProvider>
       </body>

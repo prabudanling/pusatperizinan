@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/accordion";
 import { getKbliBySlug, getAllKbliSlugs, KBLI_PAGES } from "@/lib/kbli-catalog";
 import { WHATSAPP_NUMBER } from "@/lib/landing-data";
+import { SITE_URL } from "@/lib/site";
 
 export const dynamicParams = false;
 
@@ -58,7 +59,7 @@ export async function generateMetadata({
 }
 
 function KbliJsonLd({ page }: { page: NonNullable<ReturnType<typeof getKbliBySlug>> }) {
-  const baseUrl = "https://pusatperizinan.com";
+  
   const jsonLd: Record<string, unknown>[] = [
     // DefinedTerm — magnet featured snippet untuk pencarian "kbli 56101"
     {
@@ -70,10 +71,10 @@ function KbliJsonLd({ page }: { page: NonNullable<ReturnType<typeof getKbliBySlu
       inDefinedTermSet: {
         "@type": "DefinedTermSet",
         name: "Klasifikasi Baku Lapangan Usaha Indonesia (KBLI) 2025",
-        url: `${baseUrl}/kbli`,
+        url: `${SITE_URL}/kbli`,
       },
       termCode: page.code,
-      url: `${baseUrl}/kbli/${page.slug}`,
+      url: `${SITE_URL}/kbli/${page.slug}`,
     },
     {
       "@context": "https://schema.org",
@@ -88,9 +89,9 @@ function KbliJsonLd({ page }: { page: NonNullable<ReturnType<typeof getKbliBySlu
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Beranda", item: `${baseUrl}/` },
-        { "@type": "ListItem", position: 2, name: "Database KBLI", item: `${baseUrl}/kbli` },
-        { "@type": "ListItem", position: 3, name: `KBLI ${page.code}`, item: `${baseUrl}/kbli/${page.slug}` },
+        { "@type": "ListItem", position: 1, name: "Beranda", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Database KBLI", item: `${SITE_URL}/kbli` },
+        { "@type": "ListItem", position: 3, name: `KBLI ${page.code}`, item: `${SITE_URL}/kbli/${page.slug}` },
       ],
     },
   ];
