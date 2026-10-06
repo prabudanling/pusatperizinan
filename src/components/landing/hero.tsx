@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { motion } from "framer-motion";
 import {
   ShieldCheck,
@@ -51,19 +52,27 @@ export function Hero() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const [whatsappFallback, setWhatsappFallback] = useState(false);
+  const waText = encodeURIComponent(
+    `Halo PusatPerizinan.com! Saya ${form.name} (${form.whatsapp}).\nJenis usaha: ${form.businessType || "-"}.\nKebutuhan: ${form.businessDesc || "-"}.\nPaket: ${form.package}.\nMohon konsultasi lanjutan.`
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    setWhatsappFallback(false);
     try {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, source: "hero" }),
+        signal: AbortSignal.timeout(12000),
       });
       const json = await res.json();
-      if (json.success) {
+      if (!res.ok && res.status !== 400) throw new Error("Lead endpoint unavailable");
+      if (res.ok && json.success === true) {
         setDone(true);
+        trackEvent("lead_submit", { form_id: "hero" });
         toast({
           title: t("toastSuccess"),
           description: json.message,
@@ -76,17 +85,9 @@ export function Hero() {
         });
       }
     } catch {
-      // Hosting statis (tanpa Node.js): API tidak tersedia —
-      // fallback MULUS ke WhatsApp resmi agar lead tetap masuk, tidak pernah hangus.
-      const waText = encodeURIComponent(
-        `Halo PusatPerizinan.com! Saya ${form.name || "(nama)"} (${form.whatsapp || "via form"}).\nJenis usaha: ${form.businessType || "-"}.\nKebutuhan: ${form.businessDesc || "-"}.\nPaket: ${form.package}.\nMohon konsultasi lanjutan. Terima kasih!`
-      );
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${waText}`, "_blank", "noopener,noreferrer");
-      setDone(true);
-      toast({
-        title: t("toastSuccess"),
-        description: "Pesanan Anda diteruskan via WhatsApp — konsultan kami segera merespons.",
-      });
+      // A WhatsApp draft is not a delivered lead. Keep the form and offer
+      // an explicit link so browsers do not block an asynchronous popup.
+      setWhatsappFallback(true);
     } finally {
       setSubmitting(false);
     }
@@ -98,7 +99,7 @@ export function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
           {/* Left: Copy */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="max-w-xl"
@@ -133,7 +134,7 @@ export function Hero() {
               ].map((item, i) => (
                 <motion.li
                   key={i}
-                  initial={{ opacity: 0, x: -16 }}
+                  initial={false}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 + i * 0.15 }}
                   className="flex items-start gap-3"
@@ -175,7 +176,7 @@ export function Hero() {
 
           {/* Right: Lead Form */}
           <motion.div
-            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            initial={false}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative"
@@ -250,6 +251,7 @@ export function Hero() {
                         <Label htmlFor="hero-name">{t("labelName")}</Label>
                         <Input
                           id="hero-name"
+                          autoComplete="name"
                           placeholder="cth: Budi Santoso"
                           value={form.name}
                           onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -263,6 +265,7 @@ export function Hero() {
                         <Input
                           id="hero-wa"
                           type="tel"
+                          autoComplete="tel"
                           inputMode="tel"
                           placeholder="cth: 0812 3456 7890"
                           value={form.whatsapp}
@@ -335,6 +338,20 @@ export function Hero() {
                         </>
                       )}
                     </Button>
+
+                    {whatsappFallback && (
+                      <div role="status" className="rounded-xl border border-primary/30 bg-primary/5 p-4 text-sm">
+                        <p>Formulir belum terkirim. Lanjutkan melalui WhatsApp, lalu tekan kirim di WhatsApp agar tim menerima permintaan Anda.</p>
+                        <a
+                          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${waText}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-3 inline-flex min-h-11 items-center font-bold text-primary underline"
+                        >
+                          Lanjutkan konsultasi di WhatsApp
+                        </a>
+                      </div>
+                    )}
 
                     <p className="text-[11px] text-center text-muted-foreground flex items-center justify-center gap-1.5">
                       <ShieldCheck className="h-3.5 w-3.5 text-primary" />

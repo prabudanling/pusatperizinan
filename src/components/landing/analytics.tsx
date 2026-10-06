@@ -1,4 +1,5 @@
 import Script from "next/script";
+import { ConversionTracker } from "./conversion-tracker";
 
 // ============================================================
 // PUSATPERIZINAN.COM — GA4 (PHASE 11)
@@ -17,6 +18,7 @@ export function Analytics() {
 
   return (
     <>
+      <ConversionTracker />
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
         strategy="afterInteractive"
@@ -31,11 +33,4 @@ export function Analytics() {
       </Script>
     </>
   );
-}
-
-/** Helper event tracking — aman dipanggil walau GA belum aktif. */
-export function trackEvent(name: string, params?: Record<string, unknown>) {
-  if (typeof window === "undefined") return;
-  const w = window as unknown as { gtag?: (...args: unknown[]) => void };
-  w.gtag?.("event", name, params);
 }

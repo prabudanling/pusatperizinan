@@ -80,7 +80,7 @@ for (const p of KBLI_PAGES) {
   rows.push({ url: `https://pusatperizinan.com/kbli/${p.slug}`, title: p.title ?? "", h1: "", metaDesc: p.metaDesc ?? "", slug: p.slug, source: "kbli" });
 }
 for (const j of JOBS) {
-  rows.push({ url: `https://pusatperizinan.com/lowongan-kerja/${j.slug}`, title: j.title ?? "", h1: "", metaDesc: j.desc ?? "", slug: j.slug, source: "jobs" });
+  rows.push({ url: `https://pusatperizinan.com/lowongan-kerja/${j.slug}`, title: j.title ?? "", h1: "", metaDesc: j.description.join(" "), slug: j.slug, source: "jobs" });
 }
 for (const c of COMPARISONS) {
   rows.push({ url: `https://pusatperizinan.com/bandingkan/${c.slug}`, title: c.title ?? "", h1: "", metaDesc: c.metaDesc ?? "", slug: c.slug, source: "comparisons" });
@@ -222,7 +222,7 @@ console.log(`Tanggal audit : ${new Date().toISOString()}`);
 console.log(`TOTAL URL     : ${rows.length}`);
 console.log(`INDEXABLE     : ${indexable}`);
 console.log(`NOINDEX       : ${noindexList.length}`);
-console.log(`CANONICAL     : per-halaman via generateMetadata (semua 200)`);
+console.log(`CANONICAL     : konfigurasi generateMetadata; status HTTP live belum diuji`);
 console.log(`DUPLICATE TITL: ${dupeTitles.size}`);
 console.log(`DUPLICATE META: ${dupeMetas.size}`);
 console.log(`DUPLICATE SLUG: ${dupeSlugs.size}`);
@@ -283,5 +283,5 @@ console.log("\n" + "=".repeat(64));
 console.log("REKOMENDASI: halaman tier D dinilai noindex,follow oleh");
 console.log("seo-policy.ts; sitemap otomatis mengecualikannya. Tier C");
 console.log("pantau 60 hari di GSC Coverage — jika 'Crawled - not indexed'");
-console.log("dominan, turunkan ambang minUniqueShare di seo-policy.ts.");
+console.log("dominan, tinjau keunikan konten dan prioritas URL secara editorial.");
 console.log("=".repeat(64));

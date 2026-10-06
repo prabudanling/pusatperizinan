@@ -16,36 +16,35 @@ import { classifyPage } from "@/lib/seo-policy";
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   
-  const now = new Date();
+  // Omit lastModified unless the content has an actual editorial update date.
 
   const staticPages: MetadataRoute.Sitemap = [
-    { url: `${SITE_URL}/`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
-    { url: `${SITE_URL}/layanan`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
-    { url: `${SITE_URL}/kbli`, lastModified: now, changeFrequency: "daily", priority: 0.95 },
-    { url: `${SITE_URL}/kalkulator-pajak`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${SITE_URL}/roadmap`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${SITE_URL}/cek-dokumen`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${SITE_URL}/lowongan-kerja`, lastModified: now, changeFrequency: "daily", priority: 0.85 },
-    { url: `${SITE_URL}/bandingkan`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
-    { url: `${SITE_URL}/testimoni`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${SITE_URL}/virtual-office`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
-    { url: `${SITE_URL}/kanal-resmi`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${SITE_URL}/`, changeFrequency: "weekly", priority: 1.0 },
+    { url: `${SITE_URL}/layanan`, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${SITE_URL}/kbli`, changeFrequency: "daily", priority: 0.95 },
+    { url: `${SITE_URL}/kalkulator-pajak`, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE_URL}/roadmap`, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE_URL}/cek-dokumen`, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE_URL}/lowongan-kerja`, changeFrequency: "daily", priority: 0.85 },
+    { url: `${SITE_URL}/bandingkan`, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${SITE_URL}/testimoni`, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE_URL}/virtual-office`, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${SITE_URL}/kanal-resmi`, changeFrequency: "monthly", priority: 0.85 },
     // P0-02: blog kini URL nyata & crawlable
-    { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE_URL}/blog`, changeFrequency: "weekly", priority: 0.9 },
     // Katalog lengkap (31 divisi layanan) + paket bundel
-    { url: `${SITE_URL}/katalog`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
-    { url: `${SITE_URL}/paket`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE_URL}/katalog`, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${SITE_URL}/paket`, changeFrequency: "weekly", priority: 0.9 },
     // Trust & legal pages (E-E-A-T)
-    { url: `${SITE_URL}/tentang-kami`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/kontak`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/kebijakan-privasi`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
-    { url: `${SITE_URL}/syarat-ketentuan`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
+    { url: `${SITE_URL}/tentang-kami`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE_URL}/kontak`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE_URL}/kebijakan-privasi`, changeFrequency: "yearly", priority: 0.4 },
+    { url: `${SITE_URL}/syarat-ketentuan`, changeFrequency: "yearly", priority: 0.4 },
   ];
 
   // Panduan pillar (16) — sebelumnya tersembunyi di hub JS, kini URL nyata
   const panduanPages: MetadataRoute.Sitemap = PERMIT_GUIDES.map((g) => ({
     url: `${SITE_URL}/panduan/${g.id}`,
-    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.85,
   }));
@@ -61,21 +60,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Halaman testimoni per kategori (URL cantik + Review schema)
   const testimoniPages: MetadataRoute.Sitemap = TESTIMONIAL_CATEGORIES.map((c) => ({
     url: `${SITE_URL}/testimoni/${c.slug}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.85,
   }));
 
   const jobPages: MetadataRoute.Sitemap = JOBS.map((j) => ({
     url: `${SITE_URL}/lowongan-kerja/${j.slug}`,
-    lastModified: now,
     changeFrequency: "daily" as const,
     priority: 0.8,
   }));
 
   const comparisonPages: MetadataRoute.Sitemap = COMPARISONS.map((c) => ({
     url: `${SITE_URL}/bandingkan/${c.slug}`,
-    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.85,
   }));
@@ -83,7 +79,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // P0-03: halaman tier D/E (tipis/layak hapus) TIDAK masuk sitemap
   const servicePages: MetadataRoute.Sitemap = ALL_SERVICE_PAGES.filter((p) => classifyPage(p).index).map((p) => ({
     url: `${SITE_URL}/layanan/${p.slug}`,
-    lastModified: now,
     changeFrequency: "monthly",
     priority:
       p.kind === "base" ? 0.9 : p.kind === "country" ? 0.85 : p.kind === "hub" ? 0.8 : p.category === "virtual-office" ? 0.8 : 0.7,
@@ -91,7 +86,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const kbliPages: MetadataRoute.Sitemap = KBLI_PAGES.map((p) => ({
     url: `${SITE_URL}/kbli/${p.slug}`,
-    lastModified: now,
     changeFrequency: "monthly",
     priority: 0.85,
   }));
@@ -100,7 +94,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter((s) => !ALL_SERVICE_PAGES.some((p) => p.slug === s))
     .map((slug) => ({
       url: `${SITE_URL}/layanan/${slug}`,
-      lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.8,
     }));
@@ -108,7 +101,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Divisi katalog lengkap (31) — satu halaman per divisi layanan
   const katalogPages: MetadataRoute.Sitemap = CATEGORIES.map((c) => ({
     url: `${SITE_URL}/katalog/${c.slug}`,
-    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: c.flagship ? 0.9 : 0.8,
   }));

@@ -36,7 +36,7 @@ interface PageLike {
   slug: string;
   kind: string;
   intro?: string;
-  longDesc?: string;
+  longDesc?: string | string[];
   faq?: unknown[];
   features?: unknown[];
   requirements?: unknown[];
@@ -52,7 +52,8 @@ export const THRESHOLDS = {
 } as const;
 
 export function classifyPage(page: PageLike): QualityDecision {
-  const proseChars = `${page.intro ?? ""} ${page.longDesc ?? ""}`.trim().length;
+  const paragraphs = Array.isArray(page.longDesc) ? page.longDesc.join(" ") : page.longDesc ?? "";
+  const proseChars = `${page.intro ?? ""} ${paragraphs}`.trim().length;
   const faqCount = Array.isArray(page.faq) ? page.faq.length : 0;
   const bullets = [
     ...(Array.isArray(page.features) ? page.features : []),

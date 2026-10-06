@@ -122,12 +122,6 @@ function ServiceJsonLd({ page }: { page: NonNullable<ReturnType<typeof getServic
           postalCode: "12190",
           addressCountry: "ID",
         },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.9",
-          reviewCount: "1247",
-          bestRating: "5",
-        },
       },
       areaServed: page.region
         ? { "@type": "Place", name: page.region }
@@ -145,31 +139,7 @@ function ServiceJsonLd({ page }: { page: NonNullable<ReturnType<typeof getServic
           }
         : {}),
       ...(page.legalBasis ? { termsOfService: page.legalBasis } : {}),
-      // Review klien + agregat di level Service (rich result bintang di SERP)
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.9",
-        bestRating: "5",
-        reviewCount: "1247",
-      },
-      review: pickTestimonialsForCatalogCategory(page.category, 3).map((t) => ({
-        "@type": "Review",
-        name: `${t.name} — ${t.service}`,
-        reviewBody: t.content,
-        datePublished: t.date,
-        author: { "@type": "Person", name: t.name },
-        publisher: {
-          "@type": "Organization",
-          name: "PusatPerizinan.com",
-          url: SITE_URL,
-        },
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: String(t.rating),
-          bestRating: "5",
-          worstRating: "1",
-        },
-      })),
+
     });
   }
 
@@ -201,7 +171,7 @@ function ServiceJsonLd({ page }: { page: NonNullable<ReturnType<typeof getServic
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
     />
   );
 }

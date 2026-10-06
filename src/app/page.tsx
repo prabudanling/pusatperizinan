@@ -1,3 +1,6 @@
+import type { Metadata } from "next";
+import { HomeJsonLd } from "@/components/landing/seo-jsonld";
+import { ServiceShortcuts } from "@/components/landing/service-shortcuts";
 import { Header } from "@/components/landing/header";
 import { Hero } from "@/components/landing/hero";
 import { StatsBar } from "@/components/landing/stats-bar";
@@ -36,12 +39,18 @@ import { CatalogTeaser } from "@/components/landing/catalog-teaser";
 // Lead Generation Engine + AI Consultant 24/7
 // ============================================================
 
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
+      <HomeJsonLd />
       <Header />
       <main className="flex-1">
         <Hero />
+        <ServiceShortcuts />
         <StatsBar />
         <GovernmentChannels />
         <Services />
