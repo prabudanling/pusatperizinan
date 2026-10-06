@@ -6,6 +6,8 @@
 // PP 55/2022 (PPh final 0,5%), PMK per pajak.
 // ============================================================
 
+import { PROGRAMMATIC_COMPARISONS } from "./comparisons-generated";
+
 export type Winner = "a" | "b" | "tie";
 
 export interface CompareAspect {
@@ -37,7 +39,7 @@ export interface Comparison {
 
 const WINNER_LABEL: Record<Winner, string> = { a: "kiri", b: "kanan", tie: "imbang" };
 
-export const COMPARISONS: Comparison[] = [
+const HAND_MADE_COMPARISONS: Comparison[] = [
   {
     slug: "pt-vs-cv",
     aId: "pt",
@@ -537,6 +539,9 @@ export const COMPARISONS: Comparison[] = [
     ],
   },
 ];
+
+// Gabungan: perbandingan hand-crafted + programatik (dibangun dari data katalog)
+export const COMPARISONS: Comparison[] = [...HAND_MADE_COMPARISONS, ...PROGRAMMATIC_COMPARISONS];
 
 export function getComparison(slug: string): Comparison | undefined {
   return COMPARISONS.find((c) => c.slug === slug);

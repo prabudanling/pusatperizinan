@@ -25,14 +25,18 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { getKbliBySlug, getAllKbliSlugs, KBLI_PAGES } from "@/lib/kbli-catalog";
+import { getKbliBySlug, getAllKbliSlugs, KBLI_PAGES, KBLI_CATEGORY_PAGES, getKbliCategoryPage } from "@/lib/kbli-catalog";
+import type { KbliCategoryPage } from "@/lib/kbli-catalog";
 import { WHATSAPP_NUMBER } from "@/lib/landing-data";
 import { SITE_URL } from "@/lib/site";
 
 export const dynamicParams = false;
 
 export function generateStaticParams(): { slug: string[] }[] {
-  return getAllKbliSlugs().map((s) => ({ slug: [s] }));
+  return [
+    ...getAllKbliSlugs().map((s) => ({ slug: [s] })),
+    ...KBLI_CATEGORY_PAGES.map((c) => ({ slug: c.slug.split("/") })),
+  ];
 }
 
 export async function generateMetadata({
@@ -41,7 +45,19 @@ export async function generateMetadata({
   params: Promise<{ slug: string[] }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const page = getKbliBySlug(slug.join("/"));
+  const joined = slug.join("/");
+  const cat = getKbliCategoryPage(joined);
+  if (cat) {
+    return {
+      title: cat.title,
+      description: cat.metaDesc,
+      keywords: cat.keywords,
+      alternates: { canonical: `/kbli/${cat.slug}` },
+      openGraph: { title: cat.title, description: cat.metaDesc, url: `/kbli/${cat.slug}`, type: "article" },
+      robots: { index: true, follow: true },
+    };
+  }
+  const page = getKbliBySlug(joined);
   if (!page) return {};
   return {
     title: page.title,
@@ -110,13 +126,174 @@ const RISK_BADGE: Record<string, string> = {
   tinggi: "bg-red-100 text-red-800 border-red-200",
 };
 
+function riskKey(label: string): string {
+  const l = label.toLowerCase();
+  if (l.includes("menengah rendah")) return "menengah-rendah";
+  if (l.includes("menengah tinggi")) return "menengah-tinggi";
+  if (l.includes("tinggi")) return "tinggi";
+  return "rendah";
+}
+
+function KbliCategoryJsonLd({ page }: { page: KbliCategoryPage }) {
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: page.h1,
+      description: page.metaDesc,
+      url: `${SITE_URL}/kbli/${page.slug}`,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: page.faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Beranda", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Database KBLI", item: `${SITE_URL}/kbli` },
+        { "@type": "ListItem", position: 3, name: page.name, item: `${SITE_URL}/kbli/${page.slug}` },
+      ],
+    },
+  ];
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />;
+}
+
+function KbliCategoryView({ page }: { page: KbliCategoryPage }) {
+  const waText = `Halo, saya mencari KBLI bidang ${page.name} untuk usaha saya: `;
+  return (
+    <main className="min-h-screen bg-background">
+      <KbliCategoryJsonLd page={page} />
+
+      <div className="border-b bg-card/50">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+          <Link href="/kbli" className="flex items-center gap-2.5" aria-label="Kembali ke Database KBLI">
+            <img src="/logo-icon.png" alt="Logo PusatPerizinan.com" className="h-8 w-8" />
+            <span className="font-bold text-[15px] tracking-tight">
+              Pusat<span className="text-primary">Perizinan</span>
+              <span className="text-gold">.com</span>
+            </span>
+            <span className="text-sm text-muted-foreground hidden sm:inline">/ KBLI / {page.name}</span>
+          </Link>
+          <a
+            href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm min-h-[44px]"
+          >
+            <PhoneCall className="h-4 w-4" aria-hidden /> Konsultasi Gratis
+          </a>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8">
+        <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground mb-4">
+          <Link href="/" className="hover:text-primary">Beranda</Link>
+          <span className="mx-1.5">/</span>
+          <Link href="/kbli" className="hover:text-primary">Database KBLI</Link>
+          <span className="mx-1.5">/</span>
+          <span className="font-medium text-foreground">{page.name}</span>
+        </nav>
+
+        <div className="flex items-center gap-3">
+          <span className="text-4xl" aria-hidden>{page.icon}</span>
+          <Badge variant="outline" className="border-primary/30 text-primary">Bidang {page.letter}</Badge>
+        </div>
+        <h1 className="mt-3 text-2xl md:text-4xl font-extrabold tracking-tight">{page.h1}</h1>
+        <div className="mt-3 space-y-3 text-sm md:text-base text-muted-foreground leading-relaxed">
+          {page.intro.map((p, i) => (<p key={i}>{p}</p>))}
+          {page.longDesc.map((p, i) => (<p key={`l-${i}`}>{p}</p>))}
+        </div>
+
+        {/* Distribusi risiko */}
+        <div className="mt-6 flex flex-wrap gap-2">
+          {page.riskSpread.map((r) => (
+            <Badge key={r.label} variant="outline" className="text-muted-foreground">
+              {r.count} kode · {r.label}
+            </Badge>
+          ))}
+        </div>
+
+        {/* Daftar kode */}
+        <h2 className="mt-8 font-bold text-xl">{page.members.length} Kode KBLI di Bidang Ini</h2>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          {page.members.map((m) => (
+            <Link
+              key={m.slug}
+              href={`/kbli/${m.slug}`}
+              className="group rounded-2xl border bg-card p-4 hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-mono font-bold text-primary">{m.code}</span>
+                <span className={`rounded-full border px-2 py-0.5 text-[11px] font-semibold ${RISK_BADGE[riskKey(m.riskLabel)]}`}>
+                  {m.riskLabel}
+                </span>
+              </div>
+              <span className="mt-1.5 block font-semibold text-sm leading-snug group-hover:text-primary transition-colors">{m.title}</span>
+            </Link>
+          ))}
+        </div>
+
+        {/* Layanan terkait */}
+        <h2 className="mt-10 font-bold text-xl">Layanan yang Biasa Diurus untuk Bidang Ini</h2>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {page.relatedServices.map((s) => (
+            <Link key={s.slug} href={`/layanan/${s.slug}`} className="rounded-full border bg-background px-3.5 py-2 text-sm hover:border-primary/50 transition-colors">
+              {s.title} <ArrowRight className="inline h-3.5 w-3.5" aria-hidden />
+            </Link>
+          ))}
+        </div>
+
+        {/* FAQ */}
+        <h2 className="mt-10 font-bold text-xl">Pertanyaan Umum</h2>
+        <div className="mt-4 space-y-3">
+          {page.faq.map((f, i) => (
+            <details key={i} className="group rounded-xl border bg-card overflow-hidden">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-4 font-semibold text-sm md:text-base hover:bg-muted/40 transition-colors">
+                {f.q}
+                <ChevronRight className="h-4 w-4 shrink-0 transition-transform group-open:rotate-90" aria-hidden />
+              </summary>
+              <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">{f.a}</div>
+            </details>
+          ))}
+        </div>
+
+        <div className="mt-8 rounded-2xl border bg-gradient-to-br from-primary/5 to-gold/5 p-6 text-center">
+          <h2 className="font-bold text-lg">Sudah menemukan KBLI usaha Anda?</h2>
+          <p className="text-sm text-muted-foreground mt-1.5">Kami urus NIB & seluruh perizinannya sampai terbit — konsultasi gratis.</p>
+          <a
+            href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-base font-bold text-primary-foreground shadow-md min-h-[44px]"
+          >
+            <PhoneCall className="h-5 w-5" aria-hidden /> Chat WhatsApp Sekarang
+          </a>
+        </div>
+      </div>
+    </main>
+  );
+}
+
 export default async function KbliDetailPage({
   params,
 }: {
   params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
-  const page = getKbliBySlug(slug.join("/"));
+  const joined = slug.join("/");
+
+  // Halaman kategori bidang KBLI (kategori/{id})
+  const cat = getKbliCategoryPage(joined);
+  if (cat) return <KbliCategoryView page={cat} />;
+
+  const page = getKbliBySlug(joined);
   if (!page) notFound();
 
   const serviceName = page.h1.replace(/^KBLI \d+ — /, "");

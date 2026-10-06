@@ -1,0 +1,807 @@
+// ============================================================
+// PUSATPERIZINAN.COM — Data Master 16 Sektor Industri
+// Sumber konten: UU Cipta Kerja, PP 5/2021 (OSS-RBA), KBLI 2020,
+// regulasi sektoral (BPOM, Kemenkes, OJK, Kementerian Pariwisata,
+// ESDM, PUPR, Komdigi, dll). Dipakai untuk halaman /industri/*
+// dan matriks layanan × industri.
+// ============================================================
+
+import type { Industry } from "./types";
+
+export const INDUSTRIES: Industry[] = [
+  // ------------------------------------------------------------
+  {
+    slug: "kuliner",
+    name: "Kuliner & F&B",
+    shortName: "Kuliner",
+    tagline: "Restoran, kafe, katering, home industry sampai pabrik pangan",
+    profile: [
+      "Kuliner adalah salah satu sektor UMKM terbesar Indonesia — dari warung kelontong dan food stall di food court sampai restoran jaringan, katering korporasi, home industry frozen food, dan pabrik pangan berskala besar. Pola bisnisnya juga paling beragam: ada yang hanya jualan via GoFood/GrabFood, ada dine-in dengan tempat usaha fisik, ada yang memproduksi sendiri lalu menjual ke supermarket.",
+      "Setiap pola itu punya kebutuhan legalitas berbeda. Usaha rumahan tanpa tempat usaha khusus cukup PIRT; produksi pangan yang dijual lintas kota atau masuk minimarket butuh izin edar BPOM. Outlet fisik menambah lapisan PBG (persetujuan bangunan) dan izin lingkungan. Menjual produk pangan olahan menuntut sertifikasi halal — dan sejak kewajiban halal tahap kedua, produk pangan masuk daftar wajib halal.",
+    ],
+    challenges: [
+      { title: "PIRT vs BPOM — banyak pemilik salah jalur", detail: "Home industry dengan skala mikro biasanya cukup PIRT (Sertifikat Produksi Pangan Industri Rumah Tangga). Tapi begitu produk masuk ritel modern, dijual lintas provinsi, atau diproduksi dengan mesin kapasitas besar, jalurnya berubah menjadi izin edar BPOM (MD/MO). Salah jalur berarti produk bisa disita pengawasan pasar." },
+      { title: "Sertifikasi halal kini bukan opsional", detail: "Produk pangan masuk jadwal kewajiban sertifikasi halal. Untuk restoran dan katering, halal jasa (bahan + proses penyajian) jadi nilai jual utama bagi konsumen muslim Indonesia. Prosesnya butuh pemahaman bahan, pemasok, dan proses produksi." },
+      { title: "Outlet fisik = rantai izin lokasi", detail: "Restoran dan kafe dengan tempat usaha menghadapi PBG dari Dinas PUPR/DPMPTSP, izin lingkungan sesuai skala (UKL-UPL atau UPBL), dan kewajiban penilaian teknis dari Dinas Kesehatan. Banyak pemilik baru sadar rantai ini setelah renovasi berjalan." },
+      { title: "KBLI ganda untuk pola jualan campuran", detail: "Usaha yang dine-in sekaligus delivery sekaligus jual produk kemasan butuh kombinasi KBLI 56101 (restoran), 56102 (katering), 10730/10792 (produksi pangan/minuman) — pemilihan KBLI yang salah membuat izin tidak mencakup aktivitas riil." },
+    ],
+    services: [
+      { id: "nib", why: "NIB adalah legalitas dasar yang dipakai untuk daftar GoFood/GrabFood, buka rekening usaha, dan kerja sama supplier — tanpa NIB, kemitraan ritel modern biasanya menolak." },
+      { id: "halal", why: "Konsumen pangan Indonesia memeriksa logo halal sebelum membeli; sertifikasi halal (produk atau jasa restoran) menaikkan konversi dan membuka jalur ekspor pangan halal." },
+      { id: "bpom", why: "Produk pangan/minuman kemasan yang masuk supermarket, minimarket, atau dijual lintas kota wajib izin edar BPOM — tanpa izin edar, distributor dan marketplace resmi menolak stok." },
+      { id: "pbg", why: "Restoran, kafe, dan dapur produksi dengan bangunan fisik wajib PBG agar operasional legal, aman dari penutupan, dan lolos due diligence saat dicari investor/franchise." },
+      { id: "lingkungan", why: "Dapur komersial menghasilkan limbah minyak dan asap — izin lingkungan (UKL-UPL) mewajibkan pengelolaan limbah agar tidak terganggu saman dari warga sekitar." },
+      { id: "pt", why: "Saat usaha kuliner berkembang jadi beberapa cabang atau masuk franchise, PT memberi proteksi aset pribadi dan kredibilitas untuk kredit modal kerja." },
+      { id: "cv", why: "CV adalah pilihan cepat-murah untuk usaha kuliner keluarga atau kemitraan dua orang — pendirian 1-3 hari dengan biaya lebih ringan." },
+      { id: "merek", why: "Nama kedai, logo, dan kemasan adalah aset kuliner paling berharga — pendaftaran merek sejak awal mencegah pihak lain mengklaim nama brand yang sudah viral." },
+      { id: "sni", why: "Beberapa produk pangan tertentu (misal air minum dalam kemasan, gula, terigu) masuk kewajiban SNI — jadi syarat masuk ritel dan pengadaan institusi." },
+      { id: "tax-umkm", why: "UMKM kuliner dengan omzet di bawah Rp4,8 miliar bisa memakai PPh final 0,5% — kepatuhan pajak ringan yang wajib untuk buka rekening korporasi dan kemitraan marketplace." },
+      { id: "lkpm", why: "Usaha ber-NIB wajib lapor LKPM berkala ke OSS — sering terlewat di sektor kuliner dan menjadi masalah saat mengajukan kredit atau upgrade izin." },
+    ],
+    kbliCommon: [
+      { code: "56101", title: "Restoran" },
+      { code: "56102", title: "Katering" },
+      { code: "10730", title: "Industri Makanan & Olahan Lain" },
+      { code: "10792", title: "Industri Kopi & Teh" },
+      { code: "47112", title: "Toko Kelontong / Warung" },
+      { code: "56301", title: "Kafe & Bar" },
+    ],
+    regulations: [
+      "UU Cipta Kerja & PP 5/2021 — perizinan berusaha berbasis risiko via OSS-RBA",
+      "BPOM — izin edar pangan olahan (MD) & pangan agroindustri rumah tangga",
+      "PP 42/2024 & kewajiban sertifikasi halal (BPJPH) untuk produk pangan",
+      "Perda & reg. daerah tentang ketertiban usaha pangan (higiene sanitasi jasaboga)",
+    ],
+    faq: [
+      { q: "Usaha kuliner rumahan apa saja izin minimalnya?", a: "Paling ringan: NIB + PIRT untuk produk pangan rumah tangga, plus NPWP dan PPh final 0,5% untuk kepatuhan pajak. Begitu jualan keluar kota atau masuk minimarket, jalurnya naik ke izin edar BPOM dan sertifikasi halal menjadi kewajiban." },
+      { q: "Apakah food stall tanpa bangunan permanen butuh PBG?", a: "PBG melekat pada bangunan. Food stall/kios di dalam mal atau food court umumnya sudah di-cover PBG induk milik pengelola, tapi Anda tetap wajib NIB dan bisa saja diminta dokumen dukung dari pengelola. Bangunan sendiri — wajib PBG." },
+      { q: "Berapa lama proses sertifikasi halal untuk restoran?", a: "Umumnya 1-3 bulan tergantung kesiapan dokumen bahan, pemasok, dan proses produksi. Tim kami bantu audit bahan & pemasok sejak awal supaya tidak bolak-balik revisi." },
+      { q: "Apakah frozen food rumahan bisa langsung jual ke supermarket?", a: "Tidak sebelum punya izin edar BPOM dan (untuk pangan) sertifikat halal. Supermarket wajib memeriksa izin edar. Rencanakan upgrade PIRT → BPOM begitu target jualan masuk ritel." },
+    ],
+    keywords: ["perizinan usaha kuliner", "izin restoran", "legalitas usaha makanan", "pirt vs bpom", "sertifikasi halal restoran"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "retail-ecommerce",
+    name: "Retail & E-Commerce",
+    shortName: "Retail",
+    tagline: "Toko fisik, toko online, marketplace, brand D2C",
+    profile: [
+      "Retail Indonesia berjalan di dua jalur sekaligus: toko fisik (warung, minimarket, butik, grosir) dan e-commerce (toko di marketplace, brand D2C lewat website, social commerce via TikTok Shop). Keduanya kini disatukan regulasi yang sama — setiap pelaku usaha wajib punya NIB dan pemenuhan KBLI yang benar untuk aktivitas jualannya.",
+      "Tantangan legalitas paling khas di sektor ini: pemilihan KBLI (usaha online sering salah pakai KBLI ritel fisik), kewajiban PSE Komdigi untuk yang membangun website/marketplace sendiri, perlindungan merek untuk brand D2C yang tumbuh cepat, dan kepatuhan pajak PPh final 0,5% yang jadi syarat admin marketplace & penerimaan pembayaran digital.",
+    ],
+    challenges: [
+      { title: "KBLI toko online sering salah", detail: "Jualan via marketplace/website sebaiknya memakai KBLI perdagangan eceran melalui media elektronik — bukan sekadar KBLI warung. Salah KBLI bikin dokumen tidak mencerminkan aktivitas dan jadi masalah saat due diligence atau kredit." },
+      { title: "PSE Komdigi untuk platform sendiri", detail: "Membangun website toko sendiri atau marketplace mini yang memproses data pengguna menuntut pendaftaran PSE Komdigi — wajib dan berkonsekuensi penonaktifan akses bila diabaikan." },
+      { title: "Merek adalah satu-satunya pagar brand", detail: "Brand D2C hidup dari nama & desain. Tanpa pendaftaran merek di DJKI, kompetitor bisa mendaftarkan nama Anda duluan — dan Anda yang harus pindah nama." },
+      { title: "Pajak & verifikasi akun jualan", detail: "Marketplace dan payment gateway meminta NPWP dan data legalitas untuk verifikasi merchant. UMKM dengan omzet di bawah Rp4,8 miliar pakai PPh final 0,5% — tapi harus terdaftar benar sejak awal." },
+    ],
+    services: [
+      { id: "nib", why: "NIB adalah syarat dasar verifikasi merchant di marketplace, pembukaan rekening usaha, dan pengajuan payment gateway resmi." },
+      { id: "pt", why: "PT menaikkan kredibilitas saat approach distributor besar, jadi syarat bagi brand D2C yang menawarkan saham ke investor, dan memisahkan aset pribadi dari stok & hutang usaha." },
+      { id: "pt-perorangan", why: "PT Perorangan (UU Cipta Kerja) memberi badan hukum untuk satu pemilik — ideal untuk founder toko online solo yang ingin profil bisnis formal dengan biaya minimal." },
+      { id: "cv", why: "CV cocok untuk toko yang dijalankan dua orang atau keluarga — cepat didirikan, administrasi ringan, langsung bisa urus NPWP badan usaha." },
+      { id: "merek", why: "Satu-satunya perlindungan hukum atas nama & logo brand retail — wajib sebelum produk memasang kemasan atau promosi besar-besaran." },
+      { id: "pse-komdigi", why: "Website toko sendiri, aplikasi, atau sistem langganan yang mengelola data pengguna wajib terdaftar sebagai PSE Komdigi." },
+      { id: "halal", why: "Untuk retail yang jual produk pangan/kosmetik muslim — sertifikasi halal produk menaikkan konversi dan syarat masuk pasar ekspor muslim." },
+      { id: "sni", why: "Sebagian produk retail (elektronik, mainan, perlengkapan bayi, dll) masuk daftar wajib SNI — tanpa SNI produk bisa dijadikan objek penindakan pengawasan pasar." },
+      { id: "tax-umkm", why: "PPh final 0,5% untuk omzet di bawah Rp4,8 miliar — kepatuhan yang dianggap standar oleh marketplace saat verifikasi pajak merchant." },
+      { id: "iso", why: "ISO 9001 menaikkan skor saat mengajukan kerja sama vendor dengan korporasi/institusi — sangat relevan untuk retail B2B dan grosir." },
+    ],
+    kbliCommon: [
+      { code: "47911", title: "Perdagangan Eceran melalui Pesanan" },
+      { code: "47912", title: "Perdagangan Eceran via Pesanan Beraneka Barang" },
+      { code: "47112", title: "Toko Kelontong / Warung" },
+      { code: "47115", title: "Supermarket" },
+      { code: "47711", title: "Eceran Kosmetik & Perawatan Diri" },
+      { code: "47411", title: "Eceran Komputer & Perlengkapannya" },
+    ],
+    regulations: [
+      "UU Cipta Kerja & PP 5/2021 — NIB via OSS-RBA untuk semua pelaku perdagangan",
+      "PP 71/2019 & Permenkominfo — PSE (Penyelenggara Sistem Elektronik)",
+      "PP 55/2022 — PPh final 0,5% UMKM",
+      "UU Merek & Indikasi Geografis (UU 20/2016) — perlindungan brand retail",
+    ],
+    faq: [
+      { q: "Jualan di marketplace saja, apakah tetap wajib NIB?", a: "Ya. Setiap pelaku usaha ekonomi — termasuk penjual marketplace — wajib punya NIB. NIB juga jadi syarat verifikasi merchant dan kewajiban pelaporan LKPM tetap berjalan." },
+      { q: "Apa beda KBLI warung dan KBLI usaha online?", a: "KBLI ritel fisik mencakup jualan dari toko/warung; jualan via website, aplikasi, atau media elektronik dicakup KBLI perdagangan eceran melalui media pesanan/elektronik. Usaha campuran sebaiknya mendaftarkan keduanya agar aktivitas ter-cover." },
+      { q: "Kapan toko online wajib daftar PSE?", a: "Bila Anda menjalankan sistem elektronik sendiri (website/aplikasi) yang menyediakan layanan atau memproses data pribadi pengguna. Toko yang hanya berjualan di marketplace pihak ketiga umumnya ter-cover registrasi marketplace-nya." },
+      { q: "Brand saya sudah dikenal, tapi belum ada merek. Masih bisa daftar?", a: "Bisa — tapi risikonya kompetitor daftar duluan. Indonesia memakai sistem first-to-file, jadi segera daftarkan sebelum orang lain memakai nama usaha Anda." },
+    ],
+    keywords: ["legalitas toko online", "izin usaha e-commerce", "kbli usaha online", "pse komdigi toko online", "izin marketplace"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "manufaktur",
+    name: "Manufaktur & Industri Pengolahan",
+    shortName: "Manufaktur",
+    tagline: "Pabrik, home industry naik kelas, produksi B2B & OEM",
+    profile: [
+      "Manufaktur mencakup seluruh industri pengolahan — dari konveksi dan pengolahan pangan sampai komponen otomotif dan elektronik. Indonesia mendorong downstreaming dan manufaktur 4.0, sehingga pemain manufaktur yang legalitasnya rapi justru paling banyak menikmati fasilitas: kemudahan importir bahan baku, insentif ekspor, dan akses pembelian pemerintah.",
+      "Legalitas manufaktur lebih berlapis daripada sektor lain: selain NIB dan izin lingkungan (pabrik berdampak lingkungan), ada izin industri bila relevan, SNI untuk produk tertentu, sertifikasi halal untuk pangan, dan sertifikat sistem manajemen (ISO) yang jadi syarat tender vendor besar. Untuk pemain ekspor-impor, API-U/API-P dan dokumen HS/COO menentukan tarif bea masuk.",
+    ],
+    challenges: [
+      { title: "Izin lingkungan menentukan timeline", detail: "Pabrik dengan dampak lingkungan signifikan butuh UKL-UPL bahkan AMDAL — dokumen andalan (KA-ANDAL) adalah tahap terlama. Perencanaan awal sangat menentukan kapan pabrik boleh operasi." },
+      { title: "Kewajiban LKPM sering lupa", detail: "Perusahaan ber-NIB wajib lapor LKPM tiap triwulan (menengah/besar). Laporan yang bolong jadi temuan saat audit OSS dan bisa menghambat perubahan/perluasan izin." },
+      { title: "SNI & halal sebagai gerbang pasar", detail: "Produk tertentu wajib SNI (ditetapkan Kemenperin/BSN) dan pangan wajib halal. Tanpa sertifikat, produk tidak boleh beredar untuk kategori tersebut — meski pabrik Anda sudah legal." },
+      { title: "Berkas ekspor-impor menentukan margin", detail: "Salah klasifikasi HS Code berarti salah tarif bea masuk; tanpa COO (Form E, Form D, AANZ) ekspor kalah bersaing di negara mitra." },
+    ],
+    services: [
+      { id: "nib", why: "NIB industri (skala menengah/besar) membuka akses insentif, fasilitas bahan baku, dan syarat pembelian pemerintah." },
+      { id: "pt", why: "PT adalah standar badan usaha manufaktur — dibutuhkan untuk kredit investasi besar, kemitraan OEM, dan perluasan pabrik." },
+      { id: "cv", why: "CV untuk workshop produksi keluarga/kemitraan kecil yang belum butuh struktur PT." },
+      { id: "lingkungan", why: "Izin lingkungan (UKL-UPL/AMDAL) adalah prasyarat operasi pabrik — persiapan dokumen andalan sejak awal memangkas timeline berbulan-bulan." },
+      { id: "sni", why: "SNI wajib untuk kategori produk tertentu dan nilai jual kepercayaan B2B — syarat masuk pengadaan ritel modern & proyek pemerintah." },
+      { id: "halal", why: "Pangan, minuman, dan bahan pangan olahan wajib halal; kosmetik & obat tradisional mengikuti jadwal kewajiban — kritis untuk pabrik dengan pasar muslim domestic & ekspor." },
+      { id: "bpom", why: "Produksi pangan kemasan, kosmetik, atau obat tradisional butuh izin edar BPOM/CPPOB — syarat produk boleh beredar komersial." },
+      { id: "api-impex", why: "API-U untuk importir bahan baku, API-P untuk produsen-ekspor — peta API yang tepat menentukan fasilitas bea masuk yang boleh dipakai." },
+      { id: "iso", why: "ISO 9001 (mutu), 14001 (lingkungan), 45001 (K3) jadi syarat vendor korporat multinasional dan multiplikator kepercayaan buyer ekspor." },
+      { id: "lkpm", why: "LKPM berkala wajib untuk NIB menengah/besar — kepatuhan yang sering jadi temuan audit OSS di sektor manufaktur." },
+      { id: "smk3", why: "Pabrik dengan pekerja ≥100 atau risiko tinggi wajib SMK3 — juga menurunkan premi asuransi kecelakaan kerja (JKK)." },
+      { id: "tax-npwp-badan", why: "NPWP badan dan kepatuhan PPh Badan 22% adalah fondasi pajak perusahaan manufaktur — dengan fasilitas tertentu untuk industri tertentu." },
+    ],
+    kbliCommon: [
+      { code: "14111", title: "Industri Pakaian Jadi (Konveksi)" },
+      { code: "10711", title: "Industri Penggilingan Terigu" },
+      { code: "22291", title: "Industri Produk Plastik Lainnya" },
+      { code: "28221", title: "Industri Mesin Pertanian" },
+      { code: "32911", title: "Industri Perhiasan & Barang Kemewahan" },
+      { code: "32401", title: "Industri Mainan Anak" },
+    ],
+    regulations: [
+      "UU Cipta Kerja & PP 5/2021 — perizinan industri via OSS-RBA",
+      "PP 22/2021 — perlindungan & pengelolaan lingkungan (UKL-UPL/AMDAL)",
+      "PP 42/2024 & UU 33/2014 — kewajiban halal produk",
+      "Peraturan Kemenperin — wajib SNI per kategori produk",
+    ],
+    faq: [
+      { q: "Pabrik kecil apakah wajib AMDAL?", a: "Tidak selalu. Berdasarkan risiko dan skala, bisa cukup UKL-UPL. Kategori risiko ditentukan jenis kegiatan dan kapasitas produksi di OSS — kami petakan dulu sebelum dokumen disusun." },
+      { q: "Apa beda izin industri dan NIB?", a: "Di sistem OSS-RBA, kegiatan industri dinyatakan lewat NIB + pemenuhan komitmen (termasuk izin lingkungan & standar teknis). Nama 'izin industri' lama kini mencair menjadi standar & komitmen dalam OSS." },
+      { q: "Berapa lama ISO 9001 untuk pabrik?", a: "Umumnya 30-60 hari tergantung kesiapan sistem mutu. Kami bantu mulai gap analysis, dokumen, sampai sertifikasi lembaga terakreditasi." },
+      { q: "Bahan baku impor, izin apa yang saya butuhkan?", a: "Minimal NIB + API-U sesuai kategori, dan perhatikan fasilitas (misal penarikan kembali bea masuk untuk produsen-ekspor). Kami bantu petakan jalur paling efisien." },
+    ],
+    keywords: ["perizinan pabrik", "izin industri", "legalitas manufaktur", "izin lingkungan pabrik", "sni produk wajib"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "konstruksi",
+    name: "Konstruksi & Properti Proyek",
+    shortName: "Konstruksi",
+    tagline: "Kontraktor, subkontraktor, konsultan perencanaan & pengawasan",
+    profile: [
+      "Sektor konstruksi adalah salah satu penyumbang PDB terbesar — digerakkan proyek pemerintah, properti privat, dan pembangunan infrastruktur. Pemainnya beragam: kontraktor utama, subkontraktor spesialis (sipil, MEP, finishing), konsultan perencanaan/pengawasan, sampai usaha penyewaan alat berat.",
+      "Legalitas konstruksi punya karakter khusus: selain badan usaha dan NIB, kualifikasi teknis dibuktikan lewat SBU (Sertifikat Badan Usaha) LPJK dan sertifikat kompetensi personel (SKTTK). Untuk tender, kualifikasi SBU + pengalaman + kepatuhan pajak menentukan kualifikasi lelang. Beban pekerja besar juga menuntut SMK3.",
+    ],
+    challenges: [
+      { title: "SBU & kualifikasi menentukan tender", detail: "Tanpa SBU LPJK yang sesuai sub-bidang (bangunan gedung, sipil, MEP), perusahaan tidak bisa ikut tender sesuai kualifikasi. Naik kelas SBU butuh track record, personel bersertifikat, dan kepatuhan dokumen." },
+      { title: "Personel inti wajib bersertifikat", detail: "SKA/SKT (Tenaga Teknik) adalah syarat personel inti di LPJK. Direksi dan staf teknis harus dipetakan sejak awal supaya kualifikasi badan usaha tidak mentok." },
+      { title: "Kepatuhan pajak = syarat dokumen lelang", detail: "Dokumen kualifikasi tender meminta SPP/SPT — pajak yang tidak rapi bisa mematikan kualifikasi di tahap administrasi meski teknis bagus." },
+      { title: "K3 & SMK3 untuk proyek berisiko", detail: "Proyek dengan pekerja besar wajib SMK3 — plus kewajiban perencanaan K3 proyek. Pelanggaran K3 berdampak sanksi dan reputasi." },
+    ],
+    services: [
+      { id: "nib", why: "NIB menandakan usaha konstruksi resmi di OSS — syarat dasar sebelum menerbitkan SBU dan mengikuti tender LPJK." },
+      { id: "pt", why: "PT adalah badan usaha standar kontraktor — dipakai untuk SBU, tender, kredit alat berat, dan perlindungan aset dari risiko proyek." },
+      { id: "cv", why: "CV untuk subkontraktor kecil dan kemitraan keluarga yang mengerjakan paket spesifik — cepat didirikan." },
+      { id: "iso", why: "ISO 9001/45001 menaikkan kredibilitas teknis — banyak klien korporat mensyaratkan sistem mutu & K3 untuk kontraktor besar." },
+      { id: "smk3", why: "SMK3 wajib untuk perusahaan konstruksi dengan pekerja ≥100 atau risiko tinggi — juga standar penilaian K3 proyek." },
+      { id: "pbg", why: "Untuk pemilik proyek dan pengembang: PBG adalah persetujuan bangunan yang wajib sebelum konstruksi dilaksanakan." },
+      { id: "lingkungan", why: "Proyek konstruksi berdampak lingkungan wajib dokumen lingkungan (UKL-UPL/AMDAL) — krusial untuk proyek infrastruktur besar." },
+      { id: "tax-npwp-badan", why: "Kepatuhan pajak badan (PPh 22, PPN, SPP/SPT) adalah syarat administrasi tender — dokumen pajak rapi memuluskan kualifikasi lelang." },
+      { id: "slo-kelistrikan", why: "Instalasi kelistrikan gedung proyek wajib SLO — bagian penyelesaian proyek yang sering terlewat hingga handover." },
+    ],
+    kbliCommon: [
+      { code: "41011", title: "Konstruksi Bangunan Gedung" },
+      { code: "42101", title: "Konstruksi Jalan & Rel" },
+      { code: "43290", title: "Instalasi Mekanikal & Elektrikal (MEP)" },
+      { code: "71101", title: "Jasa Arsitektur (konsultan perencana)" },
+      { code: "77391", title: "Sewa Alat Berat Konstruksi" },
+    ],
+    regulations: [
+      "UU 2/2017 (jasa konstruksi) & PP 22/2020 — SBU & sertifikasi LPJK",
+      "UU 28/2002 jo. UU Cipta Kerja — bangunan & PBG",
+      "UU 1/1970 keselamatan kerja & PP 50/2012 — SMK3",
+      "PMK & UU HPP — kewajiban pajak untuk dokumen lelang",
+    ],
+    faq: [
+      { q: "Apa syarat terbit SBU LPJK?", a: "Dasar: badan usaha sah (PT/CV), NIB aktif, personel inti bersertifikat SKA/SKT, dokumentasi pengalaman proyek, dan kepatuhan administrasi. Kami bantu dari pemetaan personel sampai penerbitan SBU." },
+      { q: "Bisakah CV ikut tender?", a: "Beberapa paket kecil menerima CV, tapi mayoritas tender — terutama paket menengah ke atas — mensyaratkan badan hukum PT dengan SBU. Kalau rencana Anda tender, mulai dari PT." },
+      { q: "Berapa lama pendirian PT untuk kontraktor?", a: "3-7 hari kerja untuk akta + SK Kemenkumham + NIB. SBU menyusul setelah personel & dokumen kualifikasi lengkap — total umumnya 2-4 minggu." },
+      { q: "Apakah SMK3 wajib untuk kontraktor kecil?", a: "Kewajiban SMK3 menyasar perusahaan dengan ≥100 pekerja atau risiko tinggi. Kontraktor kecil tetap wajib menerapkan asas K3, tapi tidak wajib sertifikasi SMK3 penuh." },
+    ],
+    keywords: ["syarat sbu lpjk", "izin usaha konstruksi", "badan usaha kontraktor", "smk3 konstruksi", "izin tender pemerintah"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "logistik",
+    name: "Logistik & Transportasi",
+    shortName: "Logistik",
+    tagline: "Ekspedisi, gudang, forwarding, kargo & last-mile delivery",
+    profile: [
+      "Logistik Indonesia tumbuh bersama e-commerce — dari ekspedisi nasional, jasa forwarding impor, gudang & fulfillment, sampai kurir last-mile. Sektor ini padat regulasi: setiap moda punya otoritas dan izinnya sendiri, dan pemain lintas moda (ekspedisi + gudang + distribusi) harus menyusun legalitasnya berlapis.",
+      "Poin kritis legalitas logistik: NIB dengan KBLI yang mencakup seluruh aktivitas (jasa kirim barang, penyimpanan, forwarding), izin moda (angkutan barang darat dari Dishub, armada laut/udara sesuai kewenangan), kepatuhan PPN yang menentukan struktur invoice B2B, dan sertifikasi sistem mutu untuk menangani klien korporat.",
+    ],
+    challenges: [
+      { title: "Izin moda spesifik", detail: "Angkutan barang darat butuh izin Dishub (dan armada terdaftar), jasa air memakai regulasi perhubungan laut, udara lewat otoritas penerbangan. Banyak pemain salah petakan izin moda karena mengandalkan NIB saja." },
+      { title: "Gudang & lingkungan", detail: "Gudang berskala besar berdampak lalu lintas dan lingkungan — beberapa kawasan menuntut dokumen lingkungan dan PBG untuk bangunan penyimpanan." },
+      { title: "Struktur pajak B2B", detail: "Klien korporat meminta faktur PPN — perusahaan logistik yang belum PKP kalah bersaing. Kepatuhan PPN dan PPh 21 karyawan armada harus rapi." },
+      { title: "Sertifikasi untuk klien besar", detail: "Korporasi dan ekspedisi mitra sering minta bukti sistem mutu (ISO 9001) atau standar keamanan logistik sebelum kontrak." },
+    ],
+    services: [
+      { id: "nib", why: "NIB dengan KBLI logistik yang tepat (jasa kirim barang, penyimpanan, forwarding) adalah fondasi legal semua operasi." },
+      { id: "pt", why: "PT memberi kredibilitas untuk kontrak korporat & vendor resmi platform, plus proteksi aset untuk risiko kehilangan kargo." },
+      { id: "cv", why: "CV untuk usaha kurir lokal/armada keluarga yang beroperasi satu wilayah." },
+      { id: "api-impex", why: "Untuk forwarding & jasa impor-ekspor: API dan pemahaman dokumen HS/COO menentukan kelancaran clearance." },
+      { id: "hscoo", why: "Dokumen HS Code & COO yang akurat mencegah salah tarif bea masuk — nilai tambah layanan forwarding." },
+      { id: "iso", why: "ISO 9001 menjadi standar kepercayaan B2B untuk penyimpanan & distribusi — syarat vendor di banyak korporasi." },
+      { id: "pbg", why: "Bangunan gudang wajib PBG agar operasi penyimpanan legal dan aman dari penutupan." },
+      { id: "lingkungan", why: "Gudang berskala besar & armada berdampak lingkungan — dokumen lingkungan mencegah konflik dengan warga & pemerintah daerah." },
+      { id: "rptka-kitas", why: "Untuk logistik lintas negara yang butuh tenaga asing manajemen — RPTKA & KITAS diurus benar agar bebas sanksi imigrasi." },
+    ],
+    kbliCommon: [
+      { code: "49311", title: "Angkutan Barang Kota" },
+      { code: "52101", title: "Jasa Penyimpanan & Gudang" },
+      { code: "52291", title: "Jasa Penunjang Transportasi Lainnya" },
+      { code: "53201", title: "Jasa Kurir & Pengiriman Barang" },
+      { code: "49231", title: "Angkutan Barang Antar Provinsi" },
+    ],
+    regulations: [
+      "UU 23/2007 (perhubungan) & PP 74/2014 (angkutan jalan)",
+      "UU Cipta Kerja — perizinan transportasi via OSS-RBA",
+      "UU HPP — kewajiban PPN untuk jasa logistik B2B",
+      "Bea Cukai — API, HS Code, COO untuk forwarding",
+    ],
+    faq: [
+      { q: "Usaha kurir kecil butuh izin apa saja?", a: "NIB dengan KBLI jasa kurir/pengiriman barang, NPWP (PPh final 0,5% bila memenuhi syarat UMKM), dan kepatuhan operasional moda (untuk armada darat: perizinan Dishub sesuai bobot & wilayah operasi)." },
+      { q: "Apakah gudang sewa butuh PBG?", a: "Ya — bangunan gudang adalah bangunan gedung yang wajib PBG. Untuk gudang di kawasan industri, tata kelola biasanya diatur pengelola kawasan tapi PBG tetap penting." },
+      { q: "Kapan usaha logistik wajib PKP?", a: "Ketika peredaran bruto melewati ambang PPN (Rp4,8 miliar) atau memilih dilantik lebih awal karena klien B2B meminta faktur PPN. Banyak perusahaan logistik sengaja dilantik untuk daya saing B2B." },
+      { q: "Izin apa yang dibutuhkan untuk forwarding?", a: "NIB dengan KBLI jasa forwarder + API (U/P) untuk berurusan bea cukai, dan kemitraan dengan emkl/pelabuhan. Untuk jasa internasional penuh, pertimbangkan registrasi resmi di asosiasi jasa ekspedisi." },
+    ],
+    keywords: ["izin usaha logistik", "izin ekspedisi", "legalitas gudang", "izin angkutan barang", "izin forwarding"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "kesehatan",
+    name: "Kesehatan & Farmasi",
+    shortName: "Kesehatan",
+    tagline: "Klinik, farmasi, alkes, laboratorium & wellness",
+    profile: [
+      "Sektor kesehatan adalah sektor berisiko tinggi dengan regulasi paling ketat — pasien menaruh tubuh dan hidupnya di tangan Anda. Klinik, praktik mandiri, farmasi, distributor alkes, lab, sampai bisnis wellness semuanya punya lapisan izin: badan usaha, izin operasional dari Dinkes, standar sarana, dan tenaga medis ber-straf.",
+      "Untuk produk: obat, kosmetik, dan alkes yang diproduksi atau diimpor wajib izin edar BPOM/CPAKB. Untuk jasa: izin operasional klinik berlapis dengan NIB dan penilaian sarana. Kesalahan umum: badan usaha sudah berdiri tapi izin operasional belum siap — atau sebaliknya — sehingga operasional tertunda berbulan-bulan.",
+    ],
+    challenges: [
+      { title: "Izin operasional & sarana", detail: "Klinik butuh izin operasional Dinkes yang menilai sarana, personel, dan tata ruang. Prasyaratnya (akta badan usaha, NIB, dokumen tenaga medis) harus sinkron — satu dokumen bolong menunda semua." },
+      { title: "Produk kesehatan = BPOM", detail: "Produksi/impor alkes (CPAKB), kosmetik, suplemen, obat tradisional — semuanya melewati BPOM. Jalur dan kelasnya berbeda-beda; salah klasifikasi produk menunda izin edar." },
+      { title: "Tenaga medis & STR", detail: "Direktur medis dan tenaga profesional harus punya STR/SIP aktif sesuai kelas klinik — penempatan personel sering jadi bottleneck terbesar." },
+      { title: "Limbah medis", detail: "Fasilitas pelayanan kesehatan menghasilkan limbah B3 medis — kewajiban pengelolaan (kerjasama pihak ketiga berizin) masuk dokumen lingkungan." },
+    ],
+    services: [
+      { id: "nib", why: "NIB dengan KBLI kesehatan yang tepat adalah legalitas dasar sebelum izin operasional Dinkes diproses." },
+      { id: "pt", why: "PT menjadi bentuk badan usaha yang disarankan untuk klinik & jasa kesehatan — kredibilitas untuk kerjasama asuransi dan BPJS." },
+      { id: "pt-perorangan", why: "Untuk praktik yang dikelola satu dokter dengan struktur korporat ringan — PT Perorangan memberi legalitas badan usaha tanpa mitra." },
+      { id: "bpom", why: "Produksi/impor alkes, kosmetik, suplemen & obat tradisional wajib izin edar BPOM/CPAKB — krusial untuk brand kesehatan yang menjual produk." },
+      { id: "lingkungan", why: "Fasilitas kesehatan wajib mengelola limbah B3 medis — dokumen lingkungan mencakup kewajiban pengelolaan limbah dan dampak operasional." },
+      { id: "iso", why: "ISO 9001 untuk manajemen layanan & ISO 15189 untuk lab — syarat kerja sama asuransi, perusahaan, dan kredibilitas akreditasi." },
+      { id: "merek", why: "Nama klinik & brand produk kesehatan perlu dilindungi sejak awal — sektor ini rawan peniruan nama & logo." },
+      { id: "tax-npwp-badan", why: "Kepatuhan pajak badan untuk kerjasama asuransi & korporat — banyak asuransi meminta dokumen pajak sebelum kontrak." },
+      { id: "alkes", why: "Distribusi alat kesehatan butuh izin distribusi (IDAK/DAK) — krusial untuk pemain alkes B2B dan online." },
+    ],
+    kbliCommon: [
+      { code: "86101", title: "Kegiatan Perawatan Rumah Sakit Umum" },
+      { code: "86201", title: "Praktik Dokter" },
+      { code: "86301", title: "Praktik Bidan" },
+      { code: "46492", title: "Perdagangan Besar Alat Kesehatan" },
+      { code: "86906", title: "Jasa Laboratorium Medis" },
+    ],
+    regulations: [
+      "UU 17/2023 (kesehatan) & PP terkait sarana pelayanan kesehatan",
+      "BPOM — izin edar produk kesehatan (obat, alkes, kosmetik)",
+      "Permenkes — izin operasional klinik & standar sarana",
+      "PP 22/2021 — pengelolaan limbah B3 medis",
+    ],
+    faq: [
+      { q: "Berapa lama izin operasional klinik?", a: "Teraccep 1-3 bulan setelah dokumen lengkap — tergantung kelas klinik, kelengkapan personel (STR/SIP), dan penilaian sarana. Konsultasi awal memetakan semuanya agar tidak bolak-balik." },
+      { q: "Apakah klinik wajib badan usaha PT?", a: "Untuk klinik dengan struktur korporat, PT adalah bentuk yang paling umum dan mudah bekerja sama dengan asuransi. Praktik mandiri dokter berbeda jalurnya — cukup izin praktik dengan STR/SIP." },
+      { q: "Produk skincare saya butuh izin apa?", a: "Kosmetik butuh notifikasi BPOM (untuk yang diproduksi/diimpor), plus kewajiban halal sesuai jadwal. Kalau klaim kesehatan tertentu, bisa bergeser ke obat tradisional/suplemen dengan jalur BPOM berbeda." },
+      { q: "Alat kesehatan impor, syaratnya apa?", a: "Izin edar/CPAKB dari BPOM untuk produknya, izin distribusi (DAK) untuk badan usaha, dan kepatuhan aturan pemasaran alkes. Kami bantu dari klasifikasi kelas alkes sampai izin terbit." },
+    ],
+    keywords: ["izin klinik", "izin usaha kesehatan", "cpakb alkes", "izin bpom kosmetik", "legalitas klinik"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "pendidikan",
+    name: "Pendidikan & Pelatihan",
+    shortName: "Pendidikan",
+    tagline: "Lembaga kursus, bimbel, sekolah, edutech & LPK",
+    profile: [
+      "Pendidikan nonformal (bimbel, kursus bahasa, coding, musik, keahlian) dan LPK (lembaga pelatihan kerja) adalah sektor yang membesar pesat lewat model hybrid dan edutech. Legalitasnya berlapis: badan usaha (PT/CV/yayasan), izin operasional dari dinas pendidikan/dinas sosial/Disnaker untuk LPK, dan standar pengelolaan pendidikan.",
+      "Kesalahan umum pemain edukasi: menjalankan lembaga bertahun-tahun hanya dengan NIB tanpa izin operasional — hingga gagal dipercaya orang tua siswa, tidak bisa menerbitkan sertifikat resmi, atau kesulitan kerja sama sekolah dan korporasi.",
+    ],
+    challenges: [
+      { title: "Izin operasional sesuai jenis lembaga", detail: "Kursus & bimbel berada di bawah dinas pendidikan nonformal; LPK di bawah Disnaker; sekolah formal di bawah Kemenperin/Dikdas. Salah petakan wewenang berarti izin jalan di tempat." },
+      { title: "Bentuk badan usaha vs yayasan", detail: "Sekolah formal biasanya berbentuk yayasan; lembaga kursus komersial bisa PT/CV. Pilih bentuk yang sesuai model bisnis — bila target investasi & laba, PT lebih fleksibel." },
+      { title: "Kurikulum & sertifikat", detail: "LPK yang ingin menerbitkan sertifikat kompetensi butuh kerja sama BNSP/LSP — legalitas lembaga menjadi prasyarat akreditasi program." },
+      { title: "Struktur pajak guru & tutor", detail: "Pembayaran honor guru/tutor punya konsekuensi PPh 21 — pemain bimbel sering terlambat memahami kewajiban ini hingga diaudit." },
+    ],
+    services: [
+      { id: "koperasi-yayasan", why: "Yayasan adalah bentuk yang lazim untuk sekolah & lembaga pendidikan nirlaba — pendirian akta + SK, dengan struktur pengurus yang jelas." },
+      { id: "pt", why: "PT untuk jaringan bimbel/edutech komersial — fleksibel untuk investor, franchise, dan ekspansi cabang." },
+      { id: "cv", why: "CV untuk lembaga kursus kecil milik dua orang atau keluarga — cepat, murah, administrasi ringan." },
+      { id: "nib", why: "NIB dengan KBLI pendidikan nonformal adalah legalitas dasar sebelum izin operasional dinas diproses." },
+      { id: "pendidikan", why: "Izin operasional lembaga (kursus, bimbel, LPK) dari dinas terkait — krusial agar sertifikat yang diterbitkan diakui resmi." },
+      { id: "iso", why: "ISO 21001 (manajemen organisasi pendidikan) menaikkan kredibilitas lembaga di mata orang tua & mitra korporat." },
+      { id: "merek", why: "Nama lembaga & metode belajar bisa jadi brand — daftarkan sebelum ekspansi cabang." },
+      { id: "tax-umkm", why: "Bimbel & kursus berskala UMKM bisa pakai PPh final 0,5% — kepatuhan ringan yang memuluskan kerja sama sekolah & korporasi." },
+    ],
+    kbliCommon: [
+      { code: "85401", title: "Kursus Latihan Olahraga" },
+      { code: "85402", title: "Kursus Latihan Keagamaan" },
+      { code: "85403", title: "Kursus Latihan Seni" },
+      { code: "85409", title: "Kursus Latihan Lainnya (bimbel, bahasa, coding)" },
+      { code: "80301", title: "Kegiatan Sekolah Dasar" },
+    ],
+    regulations: [
+      "UU 20/2003 (Sisdiknas) & PP 57/2021 — jalur pendidikan nonformal",
+      "Permenaker — LPK (lembaga pelatihan kerja) di bawah Disnaker",
+      "UU Cipta Kerja & PP 5/2021 — NIB via OSS",
+      "UU 33/2014 jo. PP 42/2024 — untuk lembaga pendidikan berbasis agama (bila relevan)",
+    ],
+    faq: [
+      { q: "Bimbel harus yayasan atau PT?", a: "Tergantung model bisnis. Yayasan cocok untuk misi sosial/pendidikan formal; PT lebih fleksibel untuk bisnis komersial, investor, dan franchise. Kami bantu bedah kebutuhan Anda di konsultasi awal." },
+      { q: "Apakah kursus online butuh izin operasional?", a: "Ya — lembaga kursus, termasuk yang berjalan online, tetap butuh izin operasional dari dinas pendidikan setempat (atau jalur PSE bila punya platform sendiri dengan data pengguna)." },
+      { q: "Berapa lama pendirian yayasan?", a: "Akta notaris + SK Kemenkumham + NIB umumnya selesai 5-10 hari kerja setelah dokumen pengurus lengkap." },
+      { q: "LPK punya syarat khusus?", a: "LPK butuh izin dari Disnaker, program pelatihan terstruktur, dan instruktur berkualifikasi. Untuk menerbitkan sertifikat kompetensi, kerja sama dengan LSP/BNSP dibutuhkan." },
+    ],
+    keywords: ["izin bimbel", "izin lembaga kursus", "izin lpk", "pendirian yayasan pendidikan", "izin pendidikan nonformal"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "jasa-profesional",
+    name: "Jasa Profesional & Konsultan",
+    shortName: "Jasa Pro",
+    tagline: "Konsultan, agensi, kantor advokat, freelancer korporat",
+    profile: [
+      "Jasa profesional mencakup konsultan bisnis, agensi digital & iklan, akuntan, penasehat hukum, arsitek, sampai freelancer yang melayani korporat. Karakteristiknya: aset utama adalah kepercayaan dan kontrak — sehingga legalitas badan usaha, kredibilitas sertifikasi, dan kepatuhan pajak B2B jadi pembeda kompetitif.",
+      "Klien korporat melakukan due diligence sebelum kontrak: mereka memeriksa badan usaha, NPWP/PKP, dan sering meminta bukti sistem mutu (ISO 9001) untuk kontrak besar. Freelancer yang ingin naik kelas ke vendor korporat hampir selalu butuh badan usaha formal (PT/PT Perorangan).",
+    ],
+    challenges: [
+      { title: "Vendor korporat mensyaratkan badan usaha", detail: "Korporasi besar tidak bisa membayar vendor tanpa badan usaha + NPWP + faktur PPN. Freelancer tanpa legalitas terkunci di pasar premium." },
+      { title: "PKP untuk kontrak B2B", detail: "Begitu omzet melewati ambang (atau dipilih dilantik awal), PKP membuat invoice Anda diterima klien korporat — penyelesaian pemotongan PPN tergantung status ini." },
+      { title: "Kredibilitas sertifikasi", detail: "ISO 9001 dan sertifikat kompetensi (BNSP) menaikkan skor proposal tender jasa — banyak RFP memintanya." },
+      { title: "Perlindungan merek & IP", detail: "Nama agensi, metodologi, dan karya kreatif adalah aset jasa — pendaftaran merek mengamankan aset dari pihak lain yang meniru." },
+    ],
+    services: [
+      { id: "pt", why: "PT menjadi badan usaha paling diakui untuk vendor korporat — plus proteksi aset pribadi dari risiko kontrak jasa." },
+      { id: "pt-perorangan", why: "Jembatan sempurna freelancer → korporasi: badan hukum untuk satu pemilik dengan biaya paling ringan." },
+      { id: "cv", why: "CV untuk agensi dua orang/kemitraan kecil yang belum butuh struktur PT." },
+      { id: "nib", why: "NIB dengan KBLI jasa profesional yang tepat — dasar untuk NPWP badan, rekening usaha, dan kontrak formal." },
+      { id: "iso", why: "ISO 9001 & ISO 27001 (untuk jasa digital) menaikkan kredibilitas saat tender RFP — sering jadi penentu scoring." },
+      { id: "merek", why: "Nama agensi & metode khas Anda adalah aset — pendaftaran merek melindungi dari peniruan." },
+      { id: "tax-npwp-badan", why: "NPWP badan & kepatuhan SPT adalah syarat vendor list korporasi — dokumen pajak rapi menaikkan kepercayaan." },
+      { id: "tax-pkp-badan", why: "Sertifikasi PKP membuat faktur Anda sah untuk kontrak B2B — penting begitu omzet naik atau klien korporat meminta PPN." },
+    ],
+    kbliCommon: [
+      { code: "70201", title: "Jasa Manajemen Perusahaan & Konsultan" },
+      { code: "69201", title: "Jasa Akuntansi" },
+      { code: "73101", title: "Periklanan" },
+      { code: "74100", title: "Jasa Desain Khusus" },
+      { code: "71201", title: "Jasa Inspeksi & Pengujian Teknik" },
+    ],
+    regulations: [
+      "UU Cipta Kerja & PP 5/2021 — NIB via OSS untuk jasa profesional",
+      "UU HPP — ambang PKP & kewajiban PPN B2B",
+      "UU 20/2016 — pendaftaran merek untuk agensi & metode usaha",
+      "Regulasi profesi khusus (advokat, akuntan publik) bila relevan",
+    ],
+    faq: [
+      { q: "Freelancer perlu badan usaha?", a: "Untuk melayani korporat — ya. Korporasi butuh badan usaha + NPWP + faktur. PT Perorangan adalah jalan paling ringan; PT biasa bila rencana investor atau mitra." },
+      { q: "Apa beda PT Perorangan dan PT biasa untuk konsultan?", a: "PT Perorangan: 1 pemilik, biaya & administrasi minimal, tetapi tidak bisa menambah pemegang saham. PT biasa: bisa investor, struktur direksi, lebih cocok untuk pertumbuhan agensi." },
+      { q: "Kapan harus jadi PKP?", a: "Otomatis saat peredaran bruto melewati ambang; atau sengaja dilantik lebih awal bila klien korporat meminta faktur PPN. Konsultasikan — ada strategi timing yang tepat." },
+      { q: "ISO 27001 relevan untuk agensi digital?", a: "Sangat — banyak klien enterprise meminta bukti keamanan informasi sebelum membagikan data. ISO 27001 menaikkan peluang kontrak dan menurunkan risiko kebocoran data." },
+    ],
+    keywords: ["badan usaha konsultan", "izin usaha jasa profesional", "pt perorangan freelancer", "vendor korporat legalitas", "iso 9001 konsultan"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "travel-umrah",
+    name: "Travel Haji & Umrah",
+    shortName: "Travel Ibadah",
+    tagline: "PPIU/PIHK, MICE ibadah, ziarah & wisata halal",
+    profile: [
+      "Travel haji-umrah adalah sektor yang paling banyak menjalani restrukturisasi regulasi. Dengan diberlakukannya regulasi penyelenggaraan haji-umrah terbaru (PMHU 2/2026), bentuk badan usaha, syarat modal, kewajiban rekening infaq, asuransi, dan sertifikasi pembimbing ibadah semuanya ditata ulang — travel yang tidak menyesuaikan berisiko kehilangan izinnya.",
+      "Legalitas inti sektor ini: PPIU/PIHK sebagai izin operasional (diterbitkan Kementerian Agama untuk umrah dan Kemenag/PIHK untuk haji khusus), badan usaha PT dengan modal sesuai regulasi, dan kewajiban pendukung: sertifikat pembimbing ibadah, SPB kemitraan, asuransi penanggungan, dan sistem keuangan terpisah dari dana jemaah.",
+    ],
+    challenges: [
+      { title: "Transisi regulasi PMHU terbaru", detail: "Regulasi penyelenggaraan haji-umrah baru mengubah persyaratan modal, dokumen, dan mekanisme perizinan. Travel yang beroperasi dengan pemahaman regulasi lama bisa gagal perpanjang izin." },
+      { title: "PPIU vs PIHK — jangan tertukar", detail: "PPIU untuk umrah (Kemenag), PIHK untuk haji khusus (regulasi PMHU). Banyak travel punya umrah tapi mengiklankan paket haji khusus — itu pelanggaran berat." },
+      { title: "Rekening & dana jemaah", detail: "Kewajiban rekening terpisah untuk dana jemaah, setoran infaq, dan transparansi keuangan jadi standar audit regulasi terbaru — struktur keuangan harus dipersiapkan." },
+      { title: "Pembimbing ibadah bersertifikat", detail: "Setiap keberangkatan menuntut pembimbing ibadah dengan sertifikat resmi — kewajiban personel yang masuk penilaian izin." },
+    ],
+    services: [
+      { id: "ppi-umroh", why: "PPIU (izin umrah dari Kemenag) adalah legalitas inti travel umrah — tanpa PPIU, jualan paket umrah adalah pelanggaran UU." },
+      { id: "ppi-haji", why: "PIHK (pemasaran haji khusus) — izin menyasar jemaah haji khusus sesuai regulasi terbaru, dengan persyaratan modal & dokumen lebih tinggi." },
+      { id: "pt", why: "PT dengan modal sesuai regulasi adalah prasyarat PPIU/PIHK — struktur saham yang benar menentukan kelulusan izin." },
+      { id: "halal", why: "Sertifikasi halal untuk layanan travel ibadah (jasa) menaikkan kepercayaan jemaah — relevan untuk paket wisata halal & makanan dalam perjalanan." },
+      { id: "iso", why: "ISO 9001 menunjukkan sistem pelayanan jemaah yang terukur — nilai plus saat audit perpanjangan izin & kemitraan bank." },
+      { id: "merek", why: "Nama travel adalah aset reputasi — pendaftaran merek melindungi dari peniruan nama oleh agen tak resmi." },
+      { id: "nib", why: "NIB untuk badan usaha travel (sebelum/bersamaan PPIU) — mencakup kegiatan agensi perjalanan wisata." },
+      { id: "koperasi-yayasan", why: "Beberapa travel memilih struktur yayasan/koperasi untuk model komunitas — dengan konsekuensi izin yang perlu dipetakan benar." },
+    ],
+    kbliCommon: [
+      { code: "79121", title: "Agen Perjalanan Umrah & Haji Khusus" },
+      { code: "79111", title: "Agen Perjalanan Wisata" },
+      { code: "79201", title: "Penyelenggaraan Paket Wisata" },
+      { code: "56102", title: "Katering (untuk makanan paket)" },
+      { code: "85402", title: "Kursus Keagamaan (persiapan ibadah)" },
+    ],
+    regulations: [
+      "UU 13/2008 (penyelenggaraan haji) & regulasi PMHU terbaru",
+      "Keputusan Menteri Agama — PPIU & syarat penyelenggaraan umrah",
+      "PP 42/2024 & BPJPH — halal untuk layanan jasa terkait",
+      "UU 10/1998 jo. — rekening & transparansi dana jemaah",
+    ],
+    faq: [
+      { q: "Apa syarat utama PPIU untuk travel baru?", a: "Badan usaha PT dengan modal sesuai regulasi, NIB aktif, dokumen kesehatan usaha, rekening usaha, dan personel yang memenuhi syarat. Prosesnya melewati Kemenag provinsi — kami bantu dari pendirian PT sampai PPIU terbit." },
+      { q: "Apakah bisa jual umrah tanpa PPIU dengan kerja sama travel lain?", a: "Bisa sebagai sub-agen yang resmi (SPB kemitraan), tapi tidak boleh menyelenggara sendiri. Banyak travel baru memulai sebagai sub-agen lalu naik ke PPIU sendiri setelah track record." },
+      { q: "Apa perbedaan PMHU lama dan PMHU terbaru?", a: "PMHU terbaru menata ulang syarat modal, kewajiban rekening infaq, asuransi, sertifikasi pembimbing, dan mekanisme sanksi. Travel harus melakukan gap analysis terhadap dokumen lamanya." },
+      { q: "Kapan wajib sertifikasi pembimbing ibadah?", a: "Setiap keberangkatan paket harus didampingi pembimbing dengan sertifikat resmi — jumlah pembimbing proporsional terhadap jumlah jemaah sesuai regulasi." },
+    ],
+    keywords: ["ppi umrah", "pihk haji khusus", "izin travel umrah", "pmhu 2026", "legalitas travel haji"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "teknologi",
+    name: "Teknologi & Startup Digital",
+    shortName: "Teknologi",
+    tagline: "SaaS, software house, fintech, edutech & digital agency",
+    profile: [
+      "Ekosistem digital Indonesia tumbuh dengan dukungan investor dan regulasi yang terus dikembangkan. Pemainnya: software house, SaaS, startup, fintech, e-commerce platform, dan digital agency. Legalitas teknologi punya dua lapis: lapis badan usaha (PT untuk investor & klien korporat) dan lapis sistem elektronik (PSE Komdigi untuk platform yang mengelola data pengguna).",
+      "Untuk startup yang mengejar seed/Series A, struktur PT yang bersih (saham, ESOP-ready, PMA bila founder asing) adalah keharusan due diligence. Untuk platform dengan data pengguna, PSE dan kepatuhan UU PDP adalah keharusan regulasi — bukan pilihan.",
+    ],
+    challenges: [
+      { title: "PSE & UU PDP", detail: "Platform yang memproses data pribadi wajib terdaftar PSE Komdigi dan patuh UU Perlindungan Data Pribadi — sanksi termasuk pemblokiran akses dan denda administratif." },
+      { title: "Struktur saham untuk investor", detail: "Due diligence investor mengecek kebersihan struktur: akta PT, saham, hak pilih, dan tidak ada sengketa IP. PT yang didirikan asal-asalan menunda closing funding." },
+      { title: "PMA untuk founder asing", detail: "Startup dengan co-founder asing butuh PT PMA (PP 49/2021) — negatif investment list menentukan kepemilikan asing per sektor." },
+      { title: "Merek & IP produk", detail: "Nama produk, logo, dan aplikasi adalah aset intangible utama — pendaftaran merek & manajemen IP masuk cek due diligence investor." },
+    ],
+    services: [
+      { id: "pt", why: "PT adalah bentuk badan usaha standar startup — siap due diligence investor, ESOP, dan kontrak enterprise." },
+      { id: "ekspansi-asing", why: "PT PMA untuk co-founder asing — kepemilikan asing diatur PP 49/2021 dengan daftar positif per sektor." },
+      { id: "nib", why: "NIB dengan KBLI teknologi informasi & pengembangan software — dasar untuk klien enterprise & vendor list." },
+      { id: "pse-komdigi", why: "Pendaftaran PSE Komdigi untuk platform/aplikasi yang menyediakan layanan atau mengelola data pengguna — wajib, dengan sanksi pemblokiran bila diabaikan." },
+      { id: "pt-perorangan", why: "Untuk developer & indie founder yang ingin legalitas badan usaha dengan biaya minimal sebelum mengundang co-founder." },
+      { id: "cv", why: "CV untuk studio/agensi dua orang yang mengerjakan proyek komersial awal." },
+      { id: "merek", why: "Nama produk, logo, dan icon aplikasi — pendaftaran merek melindungi aset digital dari peniruan & pembajakan nama." },
+      { id: "iso", why: "ISO 27001 (keamanan informasi) menjadi syarat klien enterprise & enterprise sales — menaikkan kredibilitas keamanan platform." },
+      { id: "tax-npwp-badan", why: "NPWP badan & kepatuhan SPT adalah syarat due diligence investor — pajak yang rapi mempercepat closing funding." },
+    ],
+    kbliCommon: [
+      { code: "62011", title: "Pengembangan Software (Software House)" },
+      { code: "62019", title: "Aktivitas Pemrograman Komputer Lainnya" },
+      { code: "63122", title: "Portal Web & Pengolahan Data" },
+      { code: "62091", title: "Aktivitas Teknik Komputer Lainnya" },
+      { code: "62012", title: "Perancangan Jaringan Komputer" },
+    ],
+    regulations: [
+      "PP 71/2019 & Permenkominfo — PSE & sistem elektronik",
+      "UU 27/2022 — Perlindungan Data Pribadi (PDP)",
+      "PP 49/2021 — daftar positif investasi (PT PMA)",
+      "UU Cipta Kerja & PP 5/2021 — NIB via OSS",
+    ],
+    faq: [
+      { q: "Startup sebelum funding, PT atau PT Perorangan?", a: "PT Perorangan cocok untuk fase validasi satu founder. Untuk mengejar seed dengan co-founder/investor, PT biasa lebih tepat — struktur saham lebih fleksibel dan investor memahaminya." },
+      { q: "Apakah aplikasi kecil juga wajib PSE?", a: "Bila aplikasi/website menyediakan layanan elektronik kepada pengguna (termasuk akun & data pribadi), pendaftaran PSE tetap berlaku — skalanya tidak mengubah kewajiban." },
+      { q: "Founder asing ikut holding saham, bagaimana?", a: "Pendiri asing masuk struktur PT PMA sesuai daftar positif. Alternatif: founder asing via kontrak/konsultan sampai struktur PMA disiapkan. Konsultasikan sejak awal agar tidak diulang." },
+      { q: "Apa yang dicek investor saat due diligence legalitas?", a: "Akta & struktur saham, NIB/izin operasional, pendaftaran IP (merek, software), kepatuhan pajak, dan kontrak kerja tim. Legalitas yang rapi mempercepat proses berminggu-minggu." },
+    ],
+    keywords: ["izin startup", "pse komdigi aplikasi", "pt pma founder asing", "legalitas software house", "uu pdp startup"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "pertanian-agribisnis",
+    name: "Pertanian & Agribisnis",
+    shortName: "Agribisnis",
+    tagline: "Budidaya, perkebunan, pengolahan hasil & ekspor komoditas",
+    profile: [
+      "Agribisnis Indonesia mencakup budidaya (padi, jagung, hortikultura), perkebunan (sawit, kopi, kakao, rempah), peternakan, perikanan budidaya, sampai pengolahan pasca-panen. Sektor ini mendapat perhatian khusus pemerintah — banyak fasilitas (kredit, subsidi, kemitraan) hanya bisa diakses oleh pelaku usaha dengan legalitas rapi.",
+      "Untuk yang menekuni pengolahan & ekspor, tantangan naik kelas: sertifikasi halal untuk produk pangan, SNI untuk kategori tertentu, dokumen ekspor (API-P, HS Code, COO, phytosanitary), dan sertifikasi mutu (ISO 22000/HACCP) yang menjadi syarat buyer internasional.",
+    ],
+    challenges: [
+      { title: "Legalitas lahan & bukan-bumi", detail: "Pengolahan lahan (terutama sawit) menuntut legalitas bukan bumi dan kepatuhan tata ruang — masalah legalitas lahan adalah risiko hukum terbesar sektor perkebunan." },
+      { title: "Dokumen ekspor kompleks", detail: "Ekspor komoditas butuh API-P, dokumen phytosanitary dari Dinas Pertanian, COO untuk negara mitra, dan kadang izin lelang/daftar eksportir komoditas tertentu." },
+      { title: "Sertifikasi pangan untuk olahan", detail: "Produk olahan (kopi kemasan, sambal, frozen food) wajib PIRT/BPOM dan halal — kewajiban yang sering terlewat petani yang naik kelas ke pengolahan." },
+      { title: "Akses kredit & kemitraan", detail: "Kredit petani, kemitraan pabrik, dan program pemerintah mensyaratkan badan usaha/GRUP tani resmi — koperasi sering jadi wadah yang paling cocok." },
+    ],
+    services: [
+      { id: "nib", why: "NIB dengan KBLI budidaya/pengolahan yang tepat — dasar akses program, kredit, dan kemitraan pemerintah." },
+      { id: "koperasi-yayasan", why: "Koperasi adalah wadah klasik petani untuk akses kredit, sarana produksi bersama, dan kontrak offtaker — dengan legalitas badan hukum." },
+      { id: "pt", why: "PT untuk agribisnis yang mengolah & mengekspor — kredibilitas buyer internasional dan akses kredit modal besar." },
+      { id: "cv", why: "CV untuk usaha tani keluarga yang memproses & menjual produk ke distributor lokal." },
+      { id: "halal", why: "Produk agri olahan (pangan) wajib & bernilai tinggi halal — membuka pasar ekspor muslim global." },
+      { id: "sni", why: "Beberapa produk agri olahan masuk kewajiban SNI — syarat masuk ritel modern & pengadaan." },
+      { id: "api-impex", why: "API-P untuk eksportir komoditas — pintu masuk skema ekspor resmi dengan fasilitas bea masuk bahan baku." },
+      { id: "hscoo", why: "HS Code & COO yang tepat (Form E untuk China, AANZ untuk Australia, dsb) menentukan tarif preferensi ekspor." },
+      { id: "iso", why: "ISO 22000 & HACCP untuk pengolahan pangan — syarat buyer internasional dan keamanan pangan." },
+      { id: "tax-umkm", why: "UMKM agribisnis di bawah ambang pakai PPh final 0,5% — kepatuhan ringan untuk akses kredit & kemitraan." },
+    ],
+    kbliCommon: [
+      { code: "01111", title: "Pertanian Padi" },
+      { code: "01270", title: "Pertanian Tanaman Rempah" },
+      { code: "02221", title: "Perkebunan Kakao" },
+      { code: "01430", title: "Peternakan Kambing & Domba" },
+      { code: "10330", title: "Pengolahan & Pengawetan Ikan" },
+    ],
+    regulations: [
+      "UU 22/2019 (sistem pertanian) & UU Cipta Kerja — perizinan budidaya",
+      "Dinas Pertanian — sertifikat & dokumen phytosanitary ekspor",
+      "PP 42/2024 & BPJPH — halal produk pangan",
+      "Bea Cukai — API-P, HS Code & COO untuk ekspor",
+    ],
+    faq: [
+      { q: "Petani individual butuh NIB?", a: "Untuk jualan ke pabrik, akses kredit, atau program pemerintah — NIB sangat membantu (dan kini mudah via OSS). Untuk usaha yang lebih besar atau beranggota banyak, koperasi sering lebih tepat." },
+      { q: "Saya mau ekspor kopi, izin apa yang dibutuhkan?", a: "NIB + API-P, dokumen phytosanitary dari Dinas Pertanian untuk kopi, COO (Form E bila ke China), dan pemenuhan syarat mutu buyer (kadang HACCP/ISO 22000). Kami bantu menyusun paket dokumennya." },
+      { q: "Produk olahan dari hasil tani butuh PIRT atau BPOM?", a: "Tergantung skala & target pasar: PIRT untuk produk rumah tangga jualan lokal; BPOM untuk yang masuk ritel modern/lintas kota. Dua-duanya butuh sertifikasi halal untuk pangan." },
+      { q: "Koperasi atau PT untuk usaha tani grup?", a: "Koperasi kuat untuk internal grup & akses program; PT lebih kuat untuk investasi & ekspor. Banyak usaha tani punya keduanya — koperasi untuk anggota, PT untuk operasi komersial." },
+    ],
+    keywords: ["izin usaha pertanian", "izin ekspor komoditas", "legalitas petani", "koperasi tani", "api p eksportir"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "pertambangan",
+    name: "Pertambangan & Energi",
+    shortName: "Pertambangan",
+    tagline: "IUP, RKAB, energi mineral & jasa penunjang tambang",
+    profile: [
+      "Pertambangan adalah sektor berisiko tinggi dengan perizinan paling kompleks di Indonesia: IUP (Izin Usaha Pertambangan) diterbitkan berdasarkan wilayah, kewajiban RKAB (rencana kegiatan anggaran biaya) diajukan berkala, dokumen lingkungan berlapis, dan kewajiban kemitraan & pembangunan masyarakat. Sektor ini dikelola ESDM dan dinas terkait dengan pengawasan berlapis.",
+      "Pemain pendukung (kontraktor tambang, hauling, transportasi batubara, lab analisis, jasa pengeboran) juga tunduk pada standar ketat: sertifikasi teknis, SMK3, kepatuhan lingkungan, dan dokumentasi kepatuhan pajak yang rapi untuk due diligence mitra IUP.",
+    ],
+    challenges: [
+      { title: "RKAB & kewajiban berkala", detail: "IUP holder wajib menyusun RKAB dan lapor kinerja berkala — keterlambatan atau kesalahan RKAB berdampak pada izin berikutnya dan bisa menjadi alasan evaluasi negatif." },
+      { title: "Dokumen lingkungan berlapis", detail: "AMDAL/UKL-UPL, rencana pengelolaan pascatambang, dan kewajiban reklamasi — semuanya prasyarat operasi dan perpanjangan IUP." },
+      { title: "Kepatuhan PDP (pembangunan daerah)", detail: "Kewajiban kemitraan masyarakat & kontribusi daerah masuk penilaian IUP — program yang terdokumentasi rapi memperlancar evaluasi." },
+      { title: "Vendor tambang wajib sertifikasi", detail: "Kontraktor & jasa penunjang (hauling, eksplorasi, lab) dipilih berdasarkan sertifikasi teknis, SMK3, dan rekam jejak kepatuhan — legalitas rapi adalah tiket masuk." },
+    ],
+    services: [
+      { id: "nib", why: "NIB dengan KBLI tambang & jasa penunjang — dasar legalitas operasi (untuk IUP holder, NIB menyertai izin khusus tambang)." },
+      { id: "pt", why: "PT adalah badan usaha standar IUP & kontraktor — kredibilitas untuk kemitraan, kredit alat berat, dan due diligence." },
+      { id: "lingkungan", why: "AMDAL/UKL-UPL untuk operasi tambang — dokumen paling kritis sebelum operasi, plus kewajiban pascatambang & reklamasi." },
+      { id: "b3-proper", why: "Pengelolaan limbah B3 & PROPER adalah kewajiban lingkungan sektor tambang — peringkat PROPER mempengaruhi reputasi & perizinan lanjutan." },
+      { id: "iso", why: "ISO 14001 (lingkungan) & ISO 45001 (K3) menjadi standar operator tambang — sering syarat kontrak mitra IUP & buyer komoditas." },
+      { id: "smk3", why: "SMK3 wajib untuk operasi berisiko tinggi — melindungi pekerja & menurunkan premi JKK untuk armada dan situs tambang." },
+      { id: "rkab-tambang", why: "RKAB (rencana kegiatan anggaran biaya) adalah kewajiban berkala IUP — penyusunan yang tepat menghindari temuan evaluasi." },
+      { id: "api-impex", why: "Untuk kegiatan impor alat & ekspor mineral sesuai kebijakan downstreaming — API dan dokumen ekspor yang benar." },
+    ],
+    kbliCommon: [
+      { code: "07121", title: "Pertambangan Nikel" },
+      { code: "07231", title: "Pertambangan Bituminous (batubara)" },
+      { code: "09901", title: "Jasa Penunjang Pertambangan Lainnya" },
+      { code: "08101", title: "Penggalian Batu Kapur & Batu Gamping" },
+      { code: "09101", title: "Jasa Penunjang Pertambangan Minyak & Gas" },
+    ],
+    regulations: [
+      "UU 3/2020 (perubahan UU 4/2009) — pertambangan mineral & batubara",
+      "PP 22/2021 — dokumen lingkungan & pascatambang",
+      "Regulasi ESDM — RKAB, laporan berkala & evaluasi IUP",
+      "PP 50/2012 — SMK3 untuk operasi berisiko tinggi",
+    ],
+    faq: [
+      { q: "Apa beda IUP dan NIB untuk tambang?", a: "IUP adalah izin khusus wilayah dari pemerintah (berlaku tahapan: eksplorasi/operasi produksi). NIB adalah legalitas usaha dasar di OSS — IUP holder tetap butuh NIB dengan KBLI tambang." },
+      { q: "Vendor hauling butuh izin apa?", a: "NIB dengan KBLI jasa penunjang pertambangan, armada terdaftar sesuai regulasi transportasi, SMK3 untuk operasi berisiko, dan dokumen kepatuhan pajak — mitra IUP biasanya mengecek semuanya." },
+      { q: "Seberapa penting ISO 45001 untuk tambang?", a: "Sangat — operasi tambang berisiko tinggi, dan operator internasional/jaringan tambang besar mensyaratkan sistem K3 yang tersertifikasi. ISO 45001 + SMK3 adalah kombinasi yang dipakai banyak kontraktor." },
+      { q: "PROPER itu apa?", a: "Program Penilaian Peringkat Kinerja Perusahaan dalam pengelolaan lingkungan hidup — peringkat (warna) yang diberikan KLHK. Peringkat baik menaikkan reputasi & memperlancar perizinan lanjutan." },
+    ],
+    keywords: ["izin tambang iup", "rkab tambang", "legalitas vendor tambang", "proper b3", "izin lingkungan tambang"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "kreatif-media",
+    name: "Industri Kreatif & Media",
+    shortName: "Kreatif",
+    tagline: "Produksi film, desain, periklanan, publisher & konten kreator",
+    profile: [
+      "Industri kreatif Indonesia (film, animasi, desain, musik, periklanan, publisher, kreator) tumbuh eksponensial dengan dukungan pemerintah dan pasar global. Bisnisnya beragam: studio produksi, agensi kreatif, gaming, sampai kreator individual dengan jutaan pengikut yang mulai mengelola kontrak sponsor.",
+      "Legalitasnya punya dua sisi: formalisasi badan usaha untuk kontrak korporat & platform (agencies, YouTube, streaming service meminta data pajak & badan usaha untuk pembayaran besar), dan perlindungan kekayaan intelektual — hak cipta karya, merek untuk nama studio, dan lisensi konten.",
+    ],
+    challenges: [
+      { title: "Kontrak sponsor & pembayaran platform", detail: "Pendapatan besar dari sponsor & platform (AdSense, brand deal) membutuhkan NPWP yang benar — kreator dengan omzet besar tanpa struktur pajak bisa kena penyesuaian tak terduga." },
+      { title: "Hak cipta & kepemilikan karya", detail: "Karya produksi (film, musik, desain) adalah aset hak cipta — manajemen IP (who owns what) harus diatur dalam kontrak produksi & pemasaran." },
+      { title: "Merek untuk nama studio & jargon", detail: "Nama studio, jargon catchphrase, dan karakter bisa didaftarkan sebagai merek — penting sebelum merchandise & franchising." },
+      { title: "Regulasi konten & PSE", detail: "Platform yang menyediakan layanan publikasi (portal berita, aplikasi konten) wajib PSE Komdigi dan patuh UU ITE/penyelenggaraan media." },
+    ],
+    services: [
+      { id: "pt", why: "PT untuk studio produksi & agensi yang menandatangani kontrak korporat besar — kredibilitas & proteksi aset." },
+      { id: "pt-perorangan", why: "Kreator solo yang omzetnya naik — PT Perorangan memberi badan hukum ringan untuk kontrak & pajak yang rapi." },
+      { id: "cv", why: "CV untuk duo/kemitraan kreatif kecil (studio dua orang, duo videographer-editor)." },
+      { id: "nib", why: "NIB dengan KBLI industri kreatif (produksi film, desain, periklanan) — dasar kontrak resmi & pembayaran platform besar." },
+      { id: "merek", why: "Nama studio, karakter, dan jargon — pendaftaran merek melindungi aset kreatif dari peniruan." },
+      { id: "pse-komdigi", why: "Portal berita, platform konten, atau aplikasi yang menyediakan layanan publikasi wajib PSE Komdigi." },
+      { id: "paten-hki", why: "Selain merek: manajemen hak cipta & HKI lainnya untuk karya produksi — krusial untuk studio film/musik." },
+      { id: "tax-umkm", why: "UMKM kreatif di bawah ambang bisa pakai PPh final 0,5% — kepatuhan ringan yang menjaga omzet besar tetap aman." },
+    ],
+    kbliCommon: [
+      { code: "59111", title: "Aktivitas Produksi Film, Video & Program TV" },
+      { code: "74100", title: "Jasa Desain Khusus" },
+      { code: "73101", title: "Periklanan" },
+      { code: "58191", title: "Penerbitan Majalah & Berkala" },
+      { code: "90001", title: "Aktivitas Seni Pertunjukan" },
+    ],
+    regulations: [
+      "UU 28/2014 — hak cipta untuk karya kreatif",
+      "UU 20/2016 — merek & indikasi geografis",
+      "PP 71/2019 & Permenkominfo — PSE untuk platform konten",
+      "UU Cipta Kerja — kemudahan perizinan industri kreatif",
+    ],
+    faq: [
+      { q: "Kreator YouTube/Ads perlu badan usaha?", a: "Begitu omzet konsisten besar dan ada kontrak sponsor — ya. NPWP yang benar + struktur badan usaha (PT Perorangan/PT) membuat pajak tertangani dan kontrak korporat bisa diterima." },
+      { q: "Bagaimana melindungi nama studio & karakter?", a: "Daftarkan sebagai merek (nama & logo studio, karakter franchise). Untuk karya (film, musik, desain), manajemen hak cipta diatur UU 28/2014 — dokumentasi karya & kontrak memudahkan bukti kepemilikan." },
+      { q: "Portal berita online wajib PSE?", a: "Ya — platform yang menyediakan layanan publikasi atau media elektronik terdaftar PSE Komdigi. Plus kepatuhan UU ITE & standar penyelenggaraan media." },
+      { q: "Apa beda merek dan hak cipta untuk studio?", a: "Merek melindungi nama & logo yang dipakai komersial (di kontrak, merchandise). Hak cipta melindungi karya itu sendiri (film, musik, ilustrasi). Studio besar biasanya butuh keduanya." },
+    ],
+    keywords: ["izin studio produksi", "legalitas kreator", "izin agensi periklanan", "hak cipta studio", "pse portal berita"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "kecantikan-kosmetik",
+    name: "Kecantikan, Kosmetik & Wellness",
+    shortName: "Kecantikan",
+    tagline: "Salon, klinik estetika, brand skincare & spa",
+    profile: [
+      "Industri kecantikan Indonesia memecah dua dunia regulasi: jasa (salon, spa, klinik estetika) yang berada di bawah dinas & kesehatan, dan produk (skincare, kosmetik) yang berada di bawah BPOM. Pemain yang jualan keduanya (klinik + produk sendiri) harus mengelola kedua jalur — dan itu sering membuat pemula salah langkah.",
+      "Untuk produk: notifikasi BPOM kosmetik + kewajiban halal + GMP untuk produksi. Untuk jasa: izin usaha & standar keselamatan (terutama untuk prosedur estetika minimally-invasive yang masuk ranah kesehatan). Merek adalah aset terbesar di sektor ini — brand skincare yang viral harus dilindungi sejak hari pertama.",
+    ],
+    challenges: [
+      { title: "Kosmetik wajib notifikasi BPOM", detail: "Produk kosmetik (termasuk skincare homemade yang dijual) wajib notifikasi BPOM — tanpa notifikasi, produk bisa ditarik pengawasan pasar & marketplace menolak listing." },
+      { title: "Halal untuk kosmetik", detail: "Kosmetik masuk jadwal kewajiban halal — untuk brand yang menarget konsumen muslim (dan ekspor), sertifikasi halal adalah keharusan pasar, bukan pilihan." },
+      { title: "Klinik estetika = ranah medis", detail: "Prosedur invasif (filler, botox, laser medis) hanya boleh dijalankan tenaga medis di fasilitas berizin — salon yang menawarkan ini berisiko sanksi berat." },
+      { title: "Merek adalah segalanya", detail: "Brand skincare hidup dari nama & kemasan — peniruan brand viral adalah kasus paling sering. Daftar merek sebelum produk diluncurkan." },
+    ],
+    services: [
+      { id: "bpom", why: "Notifikasi BPOM kosmetik adalah syarat produk boleh beredar — termasuk di marketplace, karena platform meminta nomor notifikasi." },
+      { id: "halal", why: "Sertifikasi halal kosmetik menaikkan konversi konsumen muslim & syarat masuk pasar ekspor — mulai dari audit bahan & pemasok." },
+      { id: "nib", why: "NIB dengan KBLI kosmetik/salon — dasar legal untuk produksi (bila memproduksi) dan jasa." },
+      { id: "pt", why: "PT untuk brand skincare yang tumbuh — kredibilitas distributor, investor, dan proteksi aset pribadi." },
+      { id: "cv", why: "CV untuk salon/spa keluarga atau kemitraan kecil." },
+      { id: "merek", why: "Aset terpenting sektor ini — pendaftaran merek menahan peniruan nama brand & kemasan." },
+      { id: "iso", why: "ISO 22716 (GMP kosmetik) & ISO 9001 untuk produksi — syarat distributor besar & kredibilitas kualitas." },
+      { id: "tax-umkm", why: "UMKM kecantikan di bawah ambang pakai PPh final 0,5% — administrasi ringan untuk fokus pada brand." },
+      { id: "lkpm", why: "Usaha ber-NIB wajib lapor LKPM — sering terlewat brand skincare yang dikelola secara informal." },
+    ],
+    kbliCommon: [
+      { code: "96011", title: "Salon Rambut" },
+      { code: "96091", title: "Aktivitas Penyedia Layanan Kecantikan Lainnya" },
+      { code: "20230", title: "Industri Kosmetik & Perlengkapan Mandi" },
+      { code: "47711", title: "Eceran Kosmetik & Perawatan Diri" },
+      { code: "96094", title: "Aktivitas Spa & Pijat" },
+    ],
+    regulations: [
+      "BPOM — notifikasi kosmetik & GMP CPKB",
+      "PP 42/2024 & BPJPH — kewajiban halal kosmetik",
+      "UU 20/2016 — pendaftaran merek brand",
+      "Regulasi kesehatan daerah — untuk fasilitas estetika medis",
+    ],
+    faq: [
+      { q: "Skincare homemade yang dijual, wajib BPOM?", a: "Ya — begitu dijual komersial (bukan sekadar dipakai sendiri), produk kosmetik wajib notifikasi BPOM. Jalur produksinya juga harus memenuhi CPKB (Cara Pembuatan Kosmetik yang Baik)." },
+      { q: "Salon bisa menjalankan treatment filler?", a: "Tidak. Prosedur invasif adalah ranah medis — hanya boleh dijalankan tenaga medis di fasilitas pelayanan kesehatan berizin. Salon boleh menawarkan perawatan non-medis." },
+      { q: "Kapan merek harus didaftarkan?", a: "Sebaiknya sebelum produk diluncurkan. Indonesia first-to-file — brand yang viral tanpa merek bisa dibajak namanya dalam hitungan minggu." },
+      { q: "Apa syarat produksi kosmetik sendiri?", a: "NIB dengan KBLI industri kosmetik, CPKB dari BPOM (GMP kosmetik), notifikasi produk, dan sertifikasi halal untuk jadwal kewajiban. Alternatif yang lebih cepat: kontrak produksi dengan pabrik CPKB." },
+    ],
+    keywords: ["notifikasi bpom kosmetik", "izin salon", "izin skincare", "cpkb kosmetik", "halal kosmetik"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "fashion",
+    name: "Fashion & Konveksi",
+    shortName: "Fashion",
+    tagline: "Brand pakaian, konveksi, butik & apparel ekspor",
+    profile: [
+      "Fashion Indonesia mencakup brand lokal (streetwear, modest wear, batik), konveksi/jasa produksi (CMT/OEM), butik, dan apparel ekspor. Sektor ini padat karya dengan rantai pasok panjang: bahan → produksi → branding → distribusi — dan setiap mata rantai punya konsekuensi legalitasnya.",
+      "Untuk brand: merek adalah aset utama (peniruan desain & nama adalah masalah terbesar). Untuk konveksi: legalitas usaha & kemitraan dengan brand/distributor. Untuk ekspor: dokumen ekspor, HS Code apparel, dan sertifikasi produksi yang diminta buyer (ISO, social compliance).",
+    ],
+    challenges: [
+      { title: "Peniruan merek & desain", detail: "Desain viral bisa ditiru dalam hitungan hari — pendaftaran merek (dan dokumentasi desain untuk hak cipta desain industri) adalah satu-satunya pagar hukum." },
+      { title: "Konveksi sering informal", detail: "Banyak konveksi jalan tanpa badan usaha — hingga gagal kontrak brand besar yang meminta legalitas & faktur pajak. Formalisasi membuka pasar B2B." },
+      { title: "Ekspor apparel butuh dokumen berlapis", detail: "API-P, HS Code apparel yang tepat, COO, dan kadang sertifikasi kepatuhan sosial (social compliance) dari buyer Eropa/Amerika." },
+      { title: "SNI & halal untuk kategori tertentu", detail: "Beberapa produk tekstil (tali kur, kain untuk ibadah) punya peluang halal; kategori tertentu ada kewajiban SNI — tergantung target pasar." },
+    ],
+    services: [
+      { id: "merek", why: "Merek adalah aset brand fashion paling penting — daftar sejak sebelum peluncuran untuk mencegah pembajakan nama & logo." },
+      { id: "paten-hki", why: "Untuk desain khas (batik karya, motif) — manajemen HKI melindungi karya desain di luar merek." },
+      { id: "nib", why: "NIB dengan KBLI konveksi/ritel pakaian — dasar kontrak B2B, marketplace, dan ekspor." },
+      { id: "pt", why: "PT untuk brand yang naik ke retail besar & investor — juga syarat vendor ritel modern." },
+      { id: "cv", why: "CV untuk konveksi keluarga & kemitraan desainer-producer." },
+      { id: "halal", why: "Untuk modest wear & produk berbasis bahan tertentu — sertifikasi halal menambah nilai jual di pasar muslim (domestik & ekspor)." },
+      { id: "api-impex", why: "API-P untuk ekspor apparel — dengan HS Code yang tepat menentukan tarif & kuota negara tujuan." },
+      { id: "hscoo", why: "COO (Form E, GSP, dsb) memberi preferensi tarif di negara mitra — tanpa COO, ekspor kalah bersaing harga." },
+      { id: "iso", why: "ISO 9001 & sertifikasi kepatuhan sosial menaikkan peluang buyer internasional yang mengecek standar pabrik." },
+    ],
+    kbliCommon: [
+      { code: "14111", title: "Industri Pakaian Jadi (Konveksi)" },
+      { code: "14113", title: "Industri Pakaian Jadi Selain Kerja" },
+      { code: "47711", title: "Eceran Pakaian & Aksesori" },
+      { code: "18113", title: "Industri Percetakan (label & kemasan)" },
+      { code: "13131", title: "Industri Penenunan & Perabot Tekstil" },
+    ],
+    regulations: [
+      "UU 20/2016 — pendaftaran merek (aset utama fashion)",
+      "UU 28/2014 — hak cipta & desain industri untuk motif khas",
+      "Bea Cukai — API-P, HS Code & COO untuk apparel ekspor",
+      "UU Cipta Kerja — kemudahan perizinan usaha padat karya",
+    ],
+    faq: [
+      { q: "Brand fashion kecil perlu merek sejak awal?", a: "Sangat disarankan — biaya daftar merek jauh lebih murah daripada biaya rebranding saat nama dibajak. Prosesnya bisa dimulai sebelum produk rilis." },
+      { q: "Konveksi harus PT atau CV?", a: "CV cukup untuk konveksi keluarga dengan klien lokal. Untuk kontrak brand besar, ritel modern, atau ekspor — PT lebih dipercaya (dan sering diminta)." },
+      { q: "Apa syarat ekspor pakaian?", a: "NIB + API-P, HS Code apparel yang tepat, COO untuk preferensi tarif, dokumen pembayaran ekspor, dan kadang sertifikasi standar pabrik dari buyer. Kami bantu menyusun paketnya." },
+      { q: "Desain saya ditiru kompetitor, bisa dituntut?", a: "Bila desain terdaftar (desain industri/hak cipta) atau merek terdaftar — ya, ada jalur hukum. Tanpa pendaftaran, bukti kepemilikan lebih lemah. Pendaftaran adalah investasi terbaik." },
+    ],
+    keywords: ["izin konveksi", "merek brand fashion", "izin ekspor pakaian", "legalitas brand lokal", "hak cipta desain"],
+  },
+
+  // ------------------------------------------------------------
+  {
+    slug: "properti",
+    name: "Properti & Real Estate",
+    shortName: "Properti",
+    tagline: "Pengembang, agen, persewaan & manajemen properti",
+    profile: [
+      "Properti Indonesia mencakup pengembang (developer), agen & broker, manajemen properti, persewaan gedung, dan layanan konstruksi pendukung. Regulasi properti berlapis: badan usaha, PBG untuk bangunan, dokumen lingkungan untuk kawasan besar, dan sertifikasi kewilayahan untuk kategori tertentu.",
+      "Untuk developer: struktur PT dengan modal memadai adalah standar kredit konstruksi & proyek. Untuk agen: badan usaha + kepatuhan pajak menjadi syarat kemitraan developer besar. Untuk penyewaan: PBG & izin lingkungan untuk gedung komersial menentukan legalitas operasi.",
+    ],
+    challenges: [
+      { title: "PBG & SLF menentukan legalitas bangunan", detail: "Bangunan komersial wajib PBG sebelum konstruksi dan SLF setelah selesai — tanpa keduanya, operasi & transaksi properti bermasalah." },
+      { title: "Kawasan besar butuh dokumen lingkungan", detail: "Pengembangan kawasan (perumahan, mall, gedung besar) menuntut AMDAL/UKL-UPL — dokumen lingkungan mempengaruhi timeline proyek." },
+      { title: "Kredit & due diligence bank", detail: "Kredit konstruksi menuntut badan usaha PT yang rapi: akta, izin, pajak, dan laporan keuangan — semua dicermati bank sebelum cair." },
+      { title: "PPN & pajak transaksi properti", detail: "Transaksi properti (jual, sewa) punya konsekuensi PPN & PPh — struktur pajak yang benar dari awal menghindari penyesuaian tak terduga." },
+    ],
+    services: [
+      { id: "pt", why: "PT adalah badan usaha standar pengembang — kredibilitas bank, kredit konstruksi, dan struktur proyek." },
+      { id: "cv", why: "CV untuk usaha properti keluarga (sewa kost, guesthouse kecil) yang belum butuh struktur PT." },
+      { id: "pbg", why: "PBG wajib untuk setiap bangunan — dari kost sampai mall; SLF menyusul setelah selesai agar bangunan legal operasi." },
+      { id: "lingkungan", why: "Kawasan pengembangan besar butuh dokumen lingkungan (UKL-UPL/AMDAL) — kritis untuk timeline proyek." },
+      { id: "nib", why: "NIB dengan KBLI real estate (pengembang, agen, persewaan) — dasar legalitas semua aktivitas properti." },
+      { id: "koperasi-yayasan", why: "Yayasan untuk properti sosial/pendidikan; koperasi untuk perumahan komunitas — bentuk yang sesuai misi non-komersial." },
+      { id: "tax-npwp-badan", why: "NPWP badan & kepatuhan PPN/PPh transaksi properti — struktur pajak yang benar menghindari penyesuaian saat audit." },
+      { id: "iso", why: "ISO 9001 untuk manajemen properti & pengembang — menaikkan kepercayaan pembeli unit & investor." },
+    ],
+    kbliCommon: [
+      { code: "41012", title: "Konstruksi Gedung Bertingkat" },
+      { code: "68101", title: "Perusahaan Holding Properti" },
+      { code: "68201", title: "Perdagangan, Sewa & Pengelolaan Properti Sendiri" },
+      { code: "68209", title: "Agen & Jasa Perantara Properti" },
+      { code: "52101", title: "Jasa Penyimpanan (gudang sewa)" },
+    ],
+    regulations: [
+      "UU 28/2002 jo. UU Cipta Kerja — bangunan, PBG & SLF",
+      "PP 22/2021 — dokumen lingkungan kawasan",
+      "UU HPP & PMK — PPN & PPh transaksi properti",
+      "UU 1/2011 — perumahan & kawasan permukiman (developer)",
+    ],
+    faq: [
+      { q: "Sewa kost perlu badan usaha?", a: "Untuk operasi kecil — cukup NIB + pajak yang benar. Untuk yang berkembang (beberapa gedung, kemitraan), PT/CV memberi struktur yang lebih rapi untuk kredit & pajak." },
+      { q: "Apa beda PBG dan SLF?", a: "PBG (Persetujuan Bangunan Gedung) diterbitkan sebelum/untuk konstruksi. SLF (Sertifikat Laik Fungsi) diterbitkan setelah bangunan selesai — membuktikan bangunan laik dihuni/dipakai." },
+      { q: "Developer butuh izin lingkungan?", a: "Ya — kawasan pengembangan (perumahan besar, mall, gedung) menuntut dokumen lingkungan sesuai skala dampak. AMDAL untuk dampak besar, UKL-UPL untuk yang lebih kecil." },
+      { q: "Agen properti harus badan usaha?", a: "Untuk kemitraan developer besar & komisi korporat — ya. Badan usaha (PT/CV) + NPWP membuat komisi bisa dicatat resmi dan kontrak ditandatangani legal." },
+    ],
+    keywords: ["izin pengembang properti", "pbg slf bangunan", "legalitas real estate", "izin kost", "pt developer"],
+  },
+];
+
+export const INDUSTRY_MAP = new Map(INDUSTRIES.map((i) => [i.slug, i]));
+export const INDUSTRY_TOTAL = INDUSTRIES.length;
+
+/** Semua id layanan unik yang dipakai matriks industri */
+export const INDUSTRY_SERVICE_IDS: string[] = [
+  ...new Set(INDUSTRIES.flatMap((i) => i.services.map((s) => s.id))),
+];

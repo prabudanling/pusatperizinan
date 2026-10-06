@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   ChevronRight,
   Clock,
+  Compass,
   FileText,
   Globe2,
   ListChecks,
@@ -37,6 +38,7 @@ import {
   slugify,
 } from "@/lib/catalog";
 import { PROVINCES } from "@/lib/coverage-data";
+import { INDUSTRIES } from "@/lib/seo-pages";
 import { WHATSAPP_NUMBER } from "@/lib/landing-data";
 import { pickTestimonialsForCatalogCategory, getAverageRating, getTestimonialsByCategory } from "@/lib/testimonials-data";
 import { CERT_MAP } from "@/lib/catalog/certifications";
@@ -353,6 +355,47 @@ function RelatedSection({ page }: { page: NonNullable<ReturnType<typeof getServi
 }
 
 /**
+ * Deep-link ekspansi (Task 25): dari halaman layanan dasar →
+ * /biaya/{slug}, /syarat/{slug}, dan matriks industri relevan.
+ * Hanya tampil untuk kind "base" (110 halaman induk).
+ */
+function DeepLinksSection({ page }: { page: NonNullable<ReturnType<typeof getServicePage>> }) {
+  if (page.kind !== "base") return null;
+  const industryLinks = INDUSTRIES.flatMap((i) =>
+    i.services.some((s) => s.id === page.slug)
+      ? [{ label: `${page.h1} untuk ${i.name}`, href: `/industri/${i.slug}/${page.slug}` }]
+      : []
+  ).slice(0, 3);
+  const links = [
+    { label: `Biaya ${page.h1} — rincian & cara hemat`, href: `/biaya/${page.slug}` },
+    { label: `Syarat ${page.h1} — checklist dokumen`, href: `/syarat/${page.slug}` },
+    ...industryLinks,
+  ];
+  return (
+    <section className="mt-12" aria-labelledby="deep-links-heading">
+      <h2 id="deep-links-heading" className="flex items-center gap-2 text-xl font-bold mb-5">
+        <Compass className="h-5 w-5 text-primary" aria-hidden />
+        Panduan Detail Layanan Ini
+      </h2>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {links.map((l) => (
+          <Link
+            key={l.href}
+            href={l.href}
+            className="group rounded-xl border bg-card p-4 transition-all hover:border-primary/40 hover:shadow-md"
+          >
+            <h3 className="font-semibold leading-snug group-hover:text-primary transition-colors">{l.label}</h3>
+            <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+              Buka halaman <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+            </span>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/**
  * Section testimoni klien — 3 ulasan relevan per kategori layanan.
  * Tampil di 1.300+ halaman programatik (E-E-A-T + interlink ke /testimoni).
  */
@@ -619,6 +662,7 @@ export default async function ServiceDetailPage({
             <RegionLinks page={page} />
             <ServiceTestimonials page={page} />
             <RelatedSection page={page} />
+            <DeepLinksSection page={page} />
           </div>
 
           {/* Sidebar sticky */}

@@ -6,7 +6,7 @@
 
 ### Platform Jasa Perizinan & Konsultan Bisnis Indonesia — Mesin Konten Programatik dengan Quality Gate Otomatis
 
-**4.580 URL live · 4.239 halaman katalog lolos gerbang kualitas · 0 duplikat · 0 schema error · Audit otomatis `bun run seo:audit`**
+**9.470 URL live · 9.038 halaman katalog+ekspansi lolos gerbang kualitas · 0 duplikat · 0 schema error · Audit otomatis `bun run seo:audit`**
 
 [![Next.js 16](https://img.shields.io/badge/Next.js-16.1.3-000000?style=flat-square&logo=nextdotjs)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://typescriptlang.org)
@@ -14,7 +14,7 @@
 [![Prisma 6](https://img.shields.io/badge/Prisma-6-2D3748?style=flat-square&logo=prisma&logoColor=white)](https://prisma.io)
 [![Bun](https://img.shields.io/badge/Runtime-Bun-f472b6?style=flat-square&logo=bun&logoColor=white)](https://bun.sh)
 [![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-New%20York-000000?style=flat-square)](https://ui.shadcn.com)
-[![Sitemap](https://img.shields.io/badge/Sitemap-4.580_URL-10B981?style=flat-square)](#-statistik-terverifikasi--cara-reproduksi)
+[![Sitemap](https://img.shields.io/badge/Sitemap-9.470_URL-10B981?style=flat-square)](#-statistik-terverifikasi--cara-reproduksi)
 [![Quality Gate](https://img.shields.io/badge/Quality_Gate-A–E_seo--policy-8B5CF6?style=flat-square)](#-gerbang-kualitas-klasifikasi-ae)
 [![Audit](https://img.shields.io/badge/bun_run_seo:audit-0_temuan-10B981?style=flat-square)](#-audit-otomatis-bun-run-seoaudit)
 [![AI Chat](https://img.shields.io/badge/RIZKI_AI-24%2F7-8B5CF6?style=flat-square)](#-rizki--konsultan-ai-247)
@@ -53,7 +53,7 @@ bun run dev          # buka http://localhost:3000
 bun run seo:audit    # gerbang kualitas SEO — WAJIB hijau sebelum deploy
 ```
 
-Satu `bun run dev` menghidupkan **4.580 URL** (mesin programatik 4.239 halaman + 132 KBLI + blog + panduan + halaman trust) dengan canonical, JSON-LD, breadcrumb, dan internal-linking di setiap halaman — semuanya dijaga **audit otomatis** yang gagalkan deploy bila ada duplikat, konten kurus, tahun kedaluwarsa, atau schema rusak.
+Satu `bun run dev` menghidupkan **9.470 URL** (mesin programatik 8.657 halaman + ekspansi biaya/syarat/industri 381 + 148 KBLI + 47 perbandingan + blog + panduan + halaman trust) dengan canonical, JSON-LD, breadcrumb, dan internal-linking di setiap halaman — semuanya dijaga **audit otomatis** yang gagalkan deploy bila ada duplikat, konten kurus, tahun kedaluwarsa, atau schema rusak.
 
 ---
 
@@ -81,10 +81,10 @@ flowchart LR
     end
     subgraph TENGAH["⚙️ TENGAH — Mesin Konten & SEO"]
         direction TB
-        D[Generator programatik<br/>4.239 halaman katalog]
+        D[Generator programatik<br/>8.657 halaman katalog<br/>+ 381 ekspansi biaya/syarat/industri]
         E[Editorial: 13 blog<br/>+ 16 panduan pillar]
         F[seo-policy.ts<br/>Klasifikasi A–E]
-        G[JSON-LD · canonical<br/>sitemap 4.580 URL]
+        G[JSON-LD · canonical<br/>sitemap 9.470 URL]
     end
     subgraph HILIR["🎯 HILIR — Konversi & Operasi"]
         direction TB
@@ -112,8 +112,8 @@ Google menemukan (sitemap) → memahami (schema + konten) → mempercayai (E-E-A
 
 | Metrik | Angka | Tanggal | Reproduksi |
 |---|---|---|---|
-| URL di sitemap live | **4.580** | 2026-10-06 | `curl -s localhost:3000/sitemap.xml \| grep -c "<url>"` |
-| Halaman katalog (generator) | **4.239** — semua kelas B | 2026-10-06 | `bun run seo:audit` → bagian klasifikasi |
+| URL di sitemap live | **9.470** | 2026-10-06 | `curl -s localhost:3000/sitemap.xml \| grep -c "<url>"` |
+| Halaman katalog + ekspansi | **9.038** — semua kelas B | 2026-10-06 | `bun run seo:audit` → bagian klasifikasi |
 | Duplikat title/meta/slug | **0** | 2026-10-06 | `bun run seo:audit` |
 | Tahun kedaluwarsa (stale) | **0** | 2026-10-06 | `bun run seo:audit` |
 | Masalah JSON-LD schema | **0** | 2026-10-06 | `bun run seo:audit` |
@@ -163,18 +163,23 @@ src/
 │   ├── api/                        # 17 route handlers (lihat API Reference)
 │   ├── layout.tsx                  # Metadata global, GA4, provider
 │   ├── not-found.tsx               # 404 yang tetap menjual
-│   └── sitemap.ts                  # Generator 4.580 URL + lastmod
+│   └── sitemap.ts                  # Generator 9.470 URL + lastmod
 ├── lib/
 │   ├── site.ts                     # ⭐ SINGLE SOURCE OF TRUTH (URL/NAP/trust/tahun)
 │   ├── seo-policy.ts               # ⭐ Gerbang kualitas A–E + keputusan index
 │   ├── catalog/                    # Mesin programatik
-│   │   ├── generators.ts           #    4.239 halaman — deterministik, dedupe slug
+│   │   ├── generators.ts           #    8.657 halaman — deterministik, dedupe slug
 │   │   ├── types.ts                #    ServicePage, CATEGORY_META
 │   │   └── detail-*.ts             #    konten kaya per layanan/negara/sektor
+│   ├── seo-pages/                  # ⭐ Ekspansi Tier-2 (381 halaman)
+│   │   ├── biaya.ts · syarat.ts    #    110+110 halaman biaya & syarat per layanan
+│   │   ├── industries.ts           #    16 sektor industri (profil/tantangan/KBLI/regulasi)
+│   │   └── industry-matrix.ts      #    145 halaman layanan × industri
 │   ├── blog-content.ts             # 13 artikel + kategori (BLOG_ARTICLES)
 │   ├── seo-content.ts              # 16 PERMIT_GUIDES + 10 sector + 9 region guides
 │   ├── coverage-data.ts            # 38 provinsi + catatan lokal per wilayah
-│   ├── kbli-catalog.ts             # 132 kode KBLI (risiko, izin, pajak, insentif)
+│   ├── kbli-catalog.ts             # 148 KBLI: 131 kode + 17 kategori bidang
+│   ├── comparisons.ts              # 46 perbandingan (8 hand-crafted + 38 programatik)
 │   ├── i18n/                       # 32 bahasa (provider + kamus)
 │   ├── notify.ts                   # Telegram + WhatsApp (fonnte/wablas) + template
 │   ├── admin-auth.ts               # Auth dashboard
@@ -224,7 +229,7 @@ Setiap model lead punya `source` (landing/chat/checker/roadmap/popup) dan `statu
 | POST | `/api/roadmap` | Roadmap izin 12 bulan (AI, tersimpan) |
 | POST | `/api/subscribe` | Email course 7 hari (lead nurturing) |
 | GET | `/api/stats` | Statistik live klien & izin |
-| GET | `/sitemap.xml` | 4.580 URL + lastmod |
+| GET | `/sitemap.xml` | 9.470 URL + lastmod |
 
 **Admin** (dilindungi `/api/admin/auth`):
 
@@ -248,21 +253,25 @@ curl -X POST http://localhost:3000/api/chat \
 
 # ⚙️ LAPISAN 2 · TENGAH — Mesin Konten & SEO
 
-## Komposisi Sitemap Live (4.580 URL)
+## Komposisi Sitemap Live (9.470 URL)
 
 | Kategori | Jumlah | Contoh |
 |---|---|---|
-| `/layanan/**` | **4.377** | `/layanan/nib-dki-jakarta`, `/layanan/iso-9001-jawa-barat` |
-| ┗ halaman generator | 4.239 | base 110 · region 2.654 · vo 1.209 · city 165 · sector 46 · country 17 · hub 38 |
-| ┗ hub wilayah | 132 | 38 provinsi + 94 kota — `/layanan/wilayah/jawa-barat/bandung` |
-| ┗ hub kategori + indeks | 6 | `/layanan`, `/layanan/kategori/pajak`, … |
-| Database KBLI | **132** | `/kbli/01111-pertanian-padi` |
+| `/layanan/**` | **8.795** | `/layanan/nib-dki-jakarta`, `/layanan/iso-9001-jawa-barat` |
+| ┗ halaman generator | 8.657 | base 110 · region 3.952 · city 3.285 · vo 1.209 · sector 46 · country 17 · hub 38 |
+| ┗ hub wilayah + kategori | 138 | 38 provinsi + 94 kota + 5 kategori — `/layanan/wilayah/jawa-barat/bandung` |
+| Halaman biaya `/biaya/**` | **111** | `/biaya/pt`, `/biaya/iso-9001`, indeks `/biaya` — rincian biaya per layanan |
+| Halaman syarat `/syarat/**` | **111** | `/syarat/halal`, indeks `/syarat` — checklist dokumen per layanan |
+| Per sektor industri `/industri/**` | **162** | `/industri/kuliner`, `/industri/kuliner/nib` — 16 sektor × layanan relevan |
+| Database KBLI | **149** | 131 kode (`/kbli/01111-pertanian-padi`) + 17 kategori bidang + indeks |
+| Perbandingan `/bandingkan/**` | **47** | 46 pasangan (PT vs CV, ISO 9001 vs 27001, PPIU vs PIHK) + indeks |
 | Panduan pillar | **16** | `/panduan/panduan-nib-oss-rba` |
 | Blog | **14** | 13 artikel + indeks `/blog` |
 | Lowongan + JobPosting | **13** | `/lowongan-kerja/perawat-lansia-jepang` |
-| Perbandingan + testimoni | **18** | 9 `/bandingkan/pt-vs-cv` + 9 `/testimoni` |
-| Halaman tunggal | **10** | `/` · kalkulator-pajak · cek-dokumen · roadmap · virtual-office · tentang-kami · kontak · kebijakan-privasi · syarat-ketentuan · kanal-resmi |
-| **Total** | **4.580** | 4.377+132+16+14+13+9+9+10 = 4.580 ✅ |
+| Testimoni per kategori | **9** | 8 kategori + indeks |
+| Katalog divisi + paket | **33** | `/katalog/travel-haji-umrah`, `/paket` |
+| Halaman tunggal | **10** | `/` · kalkulator-pajak · cek-dokumen · roadmap · virtual-office · kanal-resmi · tentang-kami · kontak · kebijakan-privasi · syarat-ketentuan |
+| **Total** | **9.470** | 8.795+111+111+162+149+47+16+14+13+9+33+10 = 9.470 ✅ |
 
 ## Anatomi Generator Programatik
 
@@ -295,7 +304,7 @@ flowchart LR
 | Kelas | Ambang | Keputusan |
 |---|---|---|
 | **A** | Sangat dalam (≥ ambang tinggi) | Index, sitemap |
-| **B** | Dalam (floor 250, min 500) | Index, sitemap — **4.239/4.239 halaman kini di sini** |
+| **B** | Dalam (floor 250, min 500) | Index, sitemap — **9.038/9.038 halaman kini di sini** |
 | **C** | Di bawah min | Index tapi **pantau 60 hari di GSC Coverage** |
 | **D** | Kurus | `noindex,follow`, dikeluarkan dari sitemap otomatis |
 | **E** | Tidak layak | Dihapus dari build |
@@ -438,7 +447,7 @@ bun run dev
 # → http://localhost:3000
 
 # 4. Verifikasi
-curl -s localhost:3000/sitemap.xml | grep -c "<url>"      # → 4580
+curl -s localhost:3000/sitemap.xml | grep -c "<url>"      # → 9470
 curl -s -o /dev/null -w "%{http_code}" localhost:3000/layanan/nib-dki-jakarta   # → 200
 bun run lint                                               # → 0 error
 bun run seo:audit                                          # → 0 temuan
@@ -484,7 +493,7 @@ bun run seo:audit                                          # → 0 temuan
 
 ```bash
 # Jumlah URL sitemap live
-curl -s localhost:3000/sitemap.xml | grep -c "<url>"          # 4580
+curl -s localhost:3000/sitemap.xml | grep -c "<url>"          # 9470
 
 # Audit kualitas penuh (duplikat, thin, stale, schema, klasifikasi A–E)
 bun run seo:audit

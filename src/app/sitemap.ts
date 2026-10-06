@@ -1,12 +1,15 @@
 import type { MetadataRoute } from "next";
 import { ALL_SERVICE_PAGES, getHubSlugs } from "@/lib/catalog";
-import { KBLI_PAGES } from "@/lib/kbli-catalog";
+import { KBLI_PAGES, KBLI_CATEGORY_PAGES } from "@/lib/kbli-catalog";
 import { JOBS } from "@/lib/jobs-data";
 import { COMPARISONS } from "@/lib/comparisons";
 import { TESTIMONIAL_CATEGORIES } from "@/lib/testimonials-data";
 import { PERMIT_GUIDES } from "@/lib/seo-content";
 import { BLOG_ARTICLES } from "@/lib/blog-content";
 import { CATEGORIES } from "@/lib/katalog-lengkap";
+import {
+  ALL_SEO_PAGES,
+} from "@/lib/seo-pages";
 import { SITE_URL } from "@/lib/site";
 import { classifyPage } from "@/lib/seo-policy";
 
@@ -32,6 +35,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/kanal-resmi`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     // P0-02: blog kini URL nyata & crawlable
     { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    // Ekspansi Tier-2: indeks biaya / syarat / industri
+    { url: `${SITE_URL}/biaya`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE_URL}/syarat`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE_URL}/industri`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     // Katalog lengkap (31 divisi layanan) + paket bundel
     { url: `${SITE_URL}/katalog`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
     { url: `${SITE_URL}/paket`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
@@ -96,6 +103,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
+  // Halaman kategori KBLI (indeks per bidang)
+  const kbliCategorySitemap: MetadataRoute.Sitemap = KBLI_CATEGORY_PAGES.map((p) => ({
+    url: `${SITE_URL}/kbli/${p.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
   const hubPages: MetadataRoute.Sitemap = getHubSlugs()
     .filter((s) => !ALL_SERVICE_PAGES.some((p) => p.slug === s))
     .map((slug) => ({
@@ -113,5 +128,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: c.flagship ? 0.9 : 0.8,
   }));
 
-  return [...staticPages, ...panduanPages, ...blogPages, ...testimoniPages, ...servicePages, ...kbliPages, ...hubPages, ...jobPages, ...comparisonPages, ...katalogPages];
+  // Ekspansi Tier-2/3: biaya (110) + syarat (110) + industri (16) + matriks layanan×industri (145+)
+  const seoExpansionPages: MetadataRoute.Sitemap = ALL_SEO_PAGES.map((p) => ({
+    url: p.kind === "svc-industry"
+      ? `${SITE_URL}/industri/${p.slug}`
+      : p.kind === "industri"
+        ? `${SITE_URL}/industri/${p.slug}`
+        : `${SITE_URL}/${p.kind}/${p.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: p.kind === "industri" ? 0.85 : p.kind === "svc-industry" ? 0.75 : 0.8,
+  }));
+
+  return [...staticPages, ...panduanPages, ...blogPages, ...testimoniPages, ...servicePages, ...kbliPages, ...kbliCategorySitemap, ...hubPages, ...jobPages, ...comparisonPages, ...katalogPages, ...seoExpansionPages];
 }

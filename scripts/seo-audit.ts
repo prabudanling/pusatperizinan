@@ -15,12 +15,14 @@
 // ============================================================
 
 import { ALL_SERVICE_PAGES, getHubSlugs } from "../src/lib/catalog/generators";
-import { KBLI_PAGES } from "../src/lib/kbli-catalog";
+import { KBLI_PAGES, KBLI_CATEGORY_PAGES } from "../src/lib/kbli-catalog";
 import { JOBS } from "../src/lib/jobs-data";
 import { COMPARISONS } from "../src/lib/comparisons";
 import { TESTIMONIAL_CATEGORIES } from "../src/lib/testimonials-data";
 import { BLOG_ARTICLES } from "../src/lib/blog-content";
 import { PERMIT_GUIDES } from "../src/lib/seo-content";
+import { ALL_SEO_PAGES } from "../src/lib/seo-pages";
+import type { SeoPage } from "../src/lib/seo-pages";
 import { classifyPage, type QualityTier } from "../src/lib/seo-policy";
 import { priceToIdr, TRUST_METRICS } from "../src/lib/site";
 
@@ -71,6 +73,34 @@ for (const p of ALL_SERVICE_PAGES) {
     source: `catalog:${p.kind}`,
   });
 }
+
+/** Teks konten lengkap halaman ekspansi (untuk peta similarity) */
+function seoPageContent(p: SeoPage): string {
+  return [
+    ...p.intro,
+    ...p.sections.map((s) => `${s.heading} ${(s.paras ?? []).join(" ")} ${(s.bullets ?? []).join(" ")}`),
+    ...p.faq.map((f) => `${f.q} ${f.a}`),
+  ].join(" ");
+}
+
+function seoPageUrl(p: SeoPage): string {
+  return p.kind === "biaya"
+    ? `https://pusatperizinan.com/biaya/${p.slug}`
+    : p.kind === "syarat"
+      ? `https://pusatperizinan.com/syarat/${p.slug}`
+      : `https://pusatperizinan.com/industri/${p.slug}`;
+}
+
+for (const p of ALL_SEO_PAGES) {
+  rows.push({
+    url: seoPageUrl(p),
+    title: p.title,
+    h1: p.h1,
+    metaDesc: p.metaDesc,
+    slug: p.slug,
+    source: `seo:${p.kind}`,
+  });
+}
 for (const slug of getHubSlugs()) {
   if (!ALL_SERVICE_PAGES.some((p) => p.slug === slug)) {
     rows.push({ url: `https://pusatperizinan.com/layanan/${slug}`, title: "", h1: "", metaDesc: "", slug, source: "catalog:hub-extra" });
@@ -78,6 +108,9 @@ for (const slug of getHubSlugs()) {
 }
 for (const p of KBLI_PAGES) {
   rows.push({ url: `https://pusatperizinan.com/kbli/${p.slug}`, title: p.title ?? "", h1: "", metaDesc: p.metaDesc ?? "", slug: p.slug, source: "kbli" });
+}
+for (const c of KBLI_CATEGORY_PAGES) {
+  rows.push({ url: `https://pusatperizinan.com/kbli/${c.slug}`, title: c.title ?? "", h1: "", metaDesc: c.metaDesc ?? "", slug: c.slug, source: "kbli-kategori" });
 }
 for (const j of JOBS) {
   rows.push({ url: `https://pusatperizinan.com/lowongan-kerja/${j.slug}`, title: j.title ?? "", h1: "", metaDesc: j.desc ?? "", slug: j.slug, source: "jobs" });
@@ -117,7 +150,7 @@ const dupeMetas = findDupes((r) => norm(r.metaDesc));
 const dupeSlugs = findDupes((r) => r.url.replace(r.slug, "") + r.slug);
 
 // ------------------------------------------------------------
-// 3. Kualitas halaman katalog (klasifikasi A–E)
+// 3. Kualitas halaman katalog + ekspansi (klasifikasi A–E)
 // ------------------------------------------------------------
 const tierCount: Record<QualityTier, number> = { A: 0, B: 0, C: 0, D: 0, E: 0 };
 const tierByKind: Record<string, Record<QualityTier, number>> = {};
@@ -131,6 +164,24 @@ for (const p of ALL_SERVICE_PAGES) {
   tierByKind[kind][d.tier]++;
   if (!d.index) {
     noindexList.push({ url: `https://pusatperizinan.com/layanan/${p.slug}`, title: p.title, h1: "", metaDesc: "", slug: p.slug, source: `catalog:${p.kind}` });
+  }
+}
+
+// Halaman ekspansi (biaya/syarat/industri/matriks) — dipetakan ke bentuk PageLike
+for (const p of ALL_SEO_PAGES) {
+  const prose = [...p.intro, ...p.sections.map((s) => `${s.heading} ${(s.paras ?? []).join(" ")} ${(s.bullets ?? []).join(" ")}`)].join(" ");
+  const d = classifyPage({
+    slug: p.slug,
+    kind: p.kind,
+    intro: prose,
+    faq: p.faq,
+    features: p.sections.map((s) => s.heading),
+  });
+  tierCount[d.tier]++;
+  tierByKind[`seo:${p.kind}`] ??= { A: 0, B: 0, C: 0, D: 0, E: 0 };
+  tierByKind[`seo:${p.kind}`][d.tier]++;
+  if (!d.index) {
+    noindexList.push({ url: seoPageUrl(p), title: p.title, h1: "", metaDesc: "", slug: p.slug, source: `seo:${p.kind}` });
   }
 }
 
@@ -148,14 +199,27 @@ for (const r of rows) {
   else byKindMap.set(kind, [r]);
 }
 
-// gunakan intro body untuk halaman katalog (representatif konten)
-const introBySlug = new Map<string, string>();
-for (const p of ALL_SERVICE_PAGES) introBySlug.set(p.slug, `${p.intro ?? ""} ${p.longDesc ?? ""}`);
+// gunakan konten lengkap per URL (katalog + ekspansi + comparison + kbli-kategori)
+const contentByUrl = new Map<string, string>();
+for (const p of ALL_SERVICE_PAGES) contentByUrl.set(`https://pusatperizinan.com/layanan/${p.slug}`, `${p.intro ?? ""} ${p.longDesc ?? ""}`);
+for (const p of ALL_SEO_PAGES) contentByUrl.set(seoPageUrl(p), seoPageContent(p));
+for (const c of COMPARISONS) {
+  contentByUrl.set(
+    `https://pusatperizinan.com/bandingkan/${c.slug}`,
+    [c.intro.join(" "), c.aspects.map((a) => `${a.aspect} ${a.a} ${a.b}`).join(" "), c.chooseA.join(" "), c.chooseB.join(" "), c.verdict, c.faq.map((f) => `${f.q} ${f.a}`).join(" ")].join(" ")
+  );
+}
+for (const c of KBLI_CATEGORY_PAGES) {
+  contentByUrl.set(
+    `https://pusatperizinan.com/kbli/${c.slug}`,
+    [c.intro.join(" "), c.longDesc.join(" "), c.faq.map((f) => `${f.q} ${f.a}`).join(" ")].join(" ")
+  );
+}
 
 for (const [, list] of byKindMap) {
   if (list.length < 2) continue;
   const sample = list.slice(0, SIMILAR_SAMPLE);
-  const vecs = sample.map((r) => ({ r, s: tokenSet((introBySlug.get(r.slug) ?? r.title + " " + r.metaDesc)) }));
+  const vecs = sample.map((r) => ({ r, s: tokenSet(contentByUrl.get(r.url) ?? r.title + " " + r.metaDesc) }));
   for (let i = 0; i < vecs.length; i++) {
     for (let j = i + 1; j < Math.min(vecs.length, i + 25); j++) {
       const score = jaccard(vecs[i].s, vecs[j].s);
