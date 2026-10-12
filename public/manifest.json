@@ -1,0 +1,24 @@
+{
+  "name": "PusatPerizinan.com — Konsultan Perizinan Usaha #1 Indonesia",
+  "short_name": "PusatPerizinan",
+  "description": "Jasa pengurusan perizinan usaha tercepat Indonesia: NIB, PT, CV, Halal, BPOM, PBG/SLF, AMDAL, PMA. Garansi 100%.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#059669",
+  "lang": "id",
+  "icons": [
+    {
+      "src": "/logo-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo-icon-white.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

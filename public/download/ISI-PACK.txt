@@ -1,0 +1,49 @@
+════════════════════════════════════════════════════════════
+ PUSATPERIZINAN.COM — ISI PAKET DEPLOY (STATIC / UPLOAD-ONLY)
+ Dibangun khusus untuk shared hosting TANPA Node.js (idwebhost)
+════════════════════════════════════════════════════════════
+
+Konten paket : 50 file (HTML + CSS + JavaScript murni)
+Node.js      : TIDAK DIBUTUHKAN ✅
+PHP          : TIDAK DIBUTUHKAN ✅ (hosting Anda cukup punya Apache/LiteSpeed)
+Database     : TIDAK ADA — semua konten sudah "dibakar" ke HTML saat build
+Terminal/SSH : TIDAK DIPERLUKAN ✅
+
+STRUKTUR UTAMA
+──────────────
+  index.html              → halaman utama (lengkap: 30 bahasa, SEO, WA)
+  404.html                → halaman error 404 branded
+  _next/                  → aset CSS + JS + font (nama file ber-hash)
+  .htaccess               → routing, 404, kompresi GZIP, cache browser
+  robots.txt              → instruksi mesin pencari
+  sitemap.xml             → peta situs SEO
+  manifest.json, logo.png  → PWA & ikon
+  logo-icon.png            → emblem persegi (favicon/header)
+  download/               → salinan paket ini (boleh dihapus di hosting)
+  DEPLOY-IDWEBHOST.md     → panduan lengkap langkah upload
+  ISI-PACK.txt            → file yang sedang Anda baca
+
+LANGKAH UPLOAD (± 5 MENIT)
+──────────────────────────
+  1. Login cPanel idwebhost → buka "File Manager"
+  2. Masuk folder public_html (atau folder subdomain tujuan)
+  3. Upload file pusatperizinan-static-hosting.tar.gz
+  4. Klik kanan file → "Extract" → tujuan public_html → OK
+  5. Settings File Manager → centang "Show Hidden Files"
+     → pastikan .htaccess ikut ter-extract di public_html
+  6. Hapus file .tar.gz dari public_html (opsional, agar rapi)
+  7. Buka https://domain-anda.com → SELESAI 🎉
+
+CATATAN PENTING
+───────────────
+  • Form kontak & AI chat otomatis fallback ke WhatsApp resmi
+    0812-6999-9910 — lead TETAP masuk tanpa server sekalipun.
+  • Update konten: konten ter-bake saat build. Minta rebuild di
+    sandbox, lalu upload ulang paket baru (extract menimpa).
+  • SSL gratis: cPanel → SSL/TLS Status → Run AutoSSL.
+    Lalu aktifkan redirect HTTPS di .htaccess (hapus tanda #).
+
+════════════════════════════════════════════════════════════
+ Dibangun otomatis oleh deploy-pack.mjs — PT Pusat Perizinan
+ Digital Nusantara · pusatperizinan.com
+════════════════════════════════════════════════════════════
