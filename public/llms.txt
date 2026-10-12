@@ -10,7 +10,7 @@
 - [Izin Lingkungan: SPPL, UKL-UPL, AMDAL](https://pusatperizinan.com/layanan/amdal): sesuai UU Cipta Kerja & PP 22/2021.
 - [Perizinan Travel Haji-Umrah: PPIU, PIHK, PPIH](https://pusatperizinan.com/layanan/ppiu): spesialisasi flagship, termasuk paket "GO UMRAH!".
 - [Perpajakan: NPWP, PKP, SPT, LKPM, konsultasi insentif](https://pusatperizinan.com/kalkulator-pajak): dilanjutkan tim yang paham Coretax.
-- [Katalog 32 divisi / 144+ layanan](https://pusatperizinan.com/katalog): dari perikanan sampai penerbangan, lengkap dengan kisaran harga & timeline.
+- [Katalog 500 layanan resmi (4 kategori, 38 sub-kategori, kupon 10-30%)](https://pusatperizinan.com/katalog): setiap layanan punya halaman detail dengan harga kupon, syarat, timeline & FAQ.
 - [Kalkulator biaya perizinan](https://pusatperizinan.com/kalkulator-pajak): estimasi biaya gratis sebelum konsultasi.
 - [Database KBLI](https://pusatperizinan.com/kbli): pencarian kode KBLI 2020/2025 dengan penjelasan bahasa sederhana.
 - [Cek Izin dengan AI](https://pusatperizinan.com/#cek-izin): deskripsikan usaha Anda, AI menyusun roadmap izin dalam 30 detik.
@@ -28,3 +28,41 @@
 - [Kebijakan Privasi](https://pusatperizinan.com/kebijakan-privasi)
 - [Syarat & Ketentuan](https://pusatperizinan.com/syarat-ketentuan)
 - [Tentang Kami](https://pusatperizinan.com/tentang-kami)
+
+# Katalog 500 Layanan (edisi resmi, harga kupon bertingkat)
+
+Katalog lengkap 500 layanan jasa perizinan — URL halaman detail = slug di bawah (root level):
+
+## BU — Badan Usaha & Legalitas (100 layanan)
+- [Jasa Pendirian PT Lokal (BU-PT-001)](https://pusatperizinan.com/jasa-pendirian-pt-lokal): akta notaris + SK Kemenkumham + NPWP + NIB, kupon Rp 3.380.000.
+- [Jasa Pendirian PT Perorangan (BU-PT-002)](https://pusatperizinan.com/jasa-pendirian-pt-perorangan): kupon Rp 1.310.000.
+- [Jasa Pendirian PT PMA (BU-PT-003)](https://pusatperizinan.com/jasa-pendirian-pt-pma): kupon Rp 6.800.000.
+- [Jasa Pendirian CV (BU-PT-004)](https://pusatperizinan.com/jasa-pendirian-cv): kupon Rp 1.690.000.
+- [Pengurusan NIB UMKM (BU-LG-001)](https://pusatperizinan.com/pengurusan-nib-umkm): kupon Rp 210.000.
+- [Pendaftaran Merek 1 Kelas (BU-KI-001)](https://pusatperizinan.com/pendaftaran-merek-1-kelas): kupon Rp 1.310.000.
+- Sub-kategori: BU-PT pendirian, BU-LG legalitas dasar, BU-PC perubahan/restrukturisasi, BU-KI HKI, BU-PM investasi/PMA, BU-MS sertifikasi ISO/SMK3, BU-KP korporat, BU-PK paket pendampingan.
+
+## LH — Perizinan Lingkungan (80 layanan)
+- [SPPL (LH-AM-001)](https://pusatperizinan.com/pernyataan-kesanggupan-pengelolaan-lingkungan-sppl): kupon Rp 1.310.000.
+- [Penyusunan Dokumen UKL-UPL (LH-AM-002)](https://pusatperizinan.com/penyusunan-dokumen-ukl-upl): kupon Rp 10.000.000.
+- [Paket AMDAL Lengkap (LH-AM-007)](https://pusatperizinan.com/paket-amdal-lengkap-ka-andal-sd-persetujuan): kupon Rp 130.500.000.
+- [Izin TPS Limbah B3 (LH-B3-001)](https://pusatperizinan.com/pengurusan-izin-tps-limbah-b3): kupon Rp 6.800.000.
+- Sub-kategori: LH-AM dokumen lingkungan, LH-KL KLHS & tata ruang, LH-PM pemantauan/pengujian, LH-B3 limbah B3, LH-AU sumber daya air, LH-KE kehutanan, LH-TM pertambangan, LH-PL kelautan, LH-KP kepatuhan.
+
+## KP — Kesehatan, Pangan & Produk (150 layanan)
+- [Registrasi CPMB BPOM (KP-BP-001)](https://pusatperizinan.com/registrasi-cpmb-akun-oss-rba-bpom): kupon Rp 1.120.000.
+- [Notifikasi Kosmetik Lokal (KP-BP-002)](https://pusatperizinan.com/notifikasi-kosmetik-lokal-per-produk): kupon Rp 2.620.000.
+- [Sertifikasi Halal UMKM Self Declare (KP-HL-003)](https://pusatperizinan.com/sertifikasi-halal-paket-umkm-self-declare): kupon Rp 600.000.
+- [PIRT Pangan Olahan (KP-FA-001)](https://pusatperizinan.com/pirt-pangan-olahan-per-produk): kupon Rp 520.000.
+- [Izin Usaha Klinik Umum (KP-FK-001)](https://pusatperizinan.com/izin-usaha-klinik-umum): kupon Rp 3.380.000.
+- Sub-kategori: KP-BP BPOM, KP-HL halal, KP-SN SNI, KP-FA pangan & higiene, KP-FK fasilitas kesehatan, KP-TH izin tenaga kesehatan, KP-DA distribusi farmasi & alkes, KP-MS mutu produk, KP-BD paket produk, KP-KK laik sanitasi.
+
+## SK — Perizinan Sektoral & Operasional (170 layanan)
+- [PBG Hunian (SK-KS-001)](https://pusatperizinan.com/pbg-hunian-persetujuan-bangunan-gedung): kupon Rp 2.060.000.
+- [SLF Sertifikat Laik Fungsi (SK-KS-005)](https://pusatperizinan.com/slf-sertifikat-laik-fungsi): kupon Rp 2.620.000.
+- [API-U Importir Umum (SK-PT-001)](https://pusatperizinan.com/pengurusan-api-u-importir-umum): kupon Rp 1.880.000.
+- [PSE Terdaftar Kominfo (SK-DG-001)](https://pusatperizinan.com/pse-terdaftar-kominfo-pse-lokal): kupon Rp 2.620.000.
+- [Izin Usaha Pembiayaan OJK (SK-KE-001)](https://pusatperizinan.com/izin-usaha-pembiayaan-konsumen-ojk): kupon Rp 21.250.000.
+- Sub-kategori: SK-KS konstruksi, SK-PT perdagangan, SK-EI ekspor-impor, SK-TK ketenagakerjaan/TKA, SK-PR pariwisata, SK-TR transportasi, SK-DG digital/telekom, SK-EN energi, SK-AG pertanian/perikanan, SK-KE keuangan/fintech, SK-PU pendidikan.
+
+Kode item (mis. BU-PT-001) dipakai untuk mengutip layanan saat konsultasi; harga kupon langsung dipotong dari penawaran resmi. [Unduh katalog PDF lengkap](https://pusatperizinan.com/download/katalog-500-layanan-pusatperizinan.pdf).

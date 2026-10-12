@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { SITE_NAME, CONTACT } from "@/lib/site";
@@ -108,6 +109,38 @@ export default function KontakPage() {
           </Link>
           .
         </p>
+
+        {/* KANTOR CABANG BANDUNG (E-E-A-T: bukti fisik kehadiran lokal) */}
+        <section className="mt-10 overflow-hidden rounded-2xl border border-border/70 bg-card" aria-labelledby="kantor-bandung">
+          <figure>
+            <Image
+              src="/kantor-bandung.jpg"
+              alt="Kantor cabang PusatPerizinan.com di Bandung — lobi PT Top Konsultan Internasional"
+              width={1600}
+              height={1067}
+              className="h-64 w-full object-cover sm:h-80"
+              sizes="(max-width: 768px) 100vw, 768px"
+              priority={false}
+            />
+            <figcaption className="px-5 pt-4 text-xs text-muted-foreground">
+              Lobi kantor cabang Bandung — PT Top Konsultan Internasional
+            </figcaption>
+          </figure>
+          <div className="p-5 pt-2 sm:p-6 sm:pt-2">
+            <h2 id="kantor-bandung" className="text-xl font-extrabold tracking-tight">
+              Kantor Cabang Bandung
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Melayani Jawa Barat &amp; sekitarnya: pengurusan NIB, pendirian badan usaha,
+              PBG/SLF, izin lingkungan, hingga sertifikasi produk. Kunjungan dengan
+              appointment — hubungi WhatsApp dahulu agar konsultan senior siap menerima Anda.
+            </p>
+            <p className="mt-3 text-sm text-muted-foreground">
+              <span className="font-semibold text-foreground">Area layanan:</span> Bandung,
+              Cimahi, Bekasi, Bogor, Depok, Sukabumi, Cirebon, dan seluruh Jawa Barat.
+            </p>
+          </div>
+        </section>
       </div>
     </main>
   );

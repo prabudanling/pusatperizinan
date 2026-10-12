@@ -8,6 +8,7 @@ import { PERMIT_GUIDES } from "@/lib/seo-content";
 import { BLOG_ARTICLES } from "@/lib/blog-content";
 import { safeGetPublishedPosts } from "@/lib/blog-cms";
 import { CATEGORIES } from "@/lib/katalog-lengkap";
+import { ALL_LAYANAN_SLUGS } from "@/lib/layanan-500";
 import {
   ALL_SEO_PAGES,
 } from "@/lib/seo-pages";
@@ -145,6 +146,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }));
 
+  // KATALOG 500 LAYANAN — 500 halaman detail root-level (URL dataset resmi)
+  const layanan500Pages: MetadataRoute.Sitemap = ALL_LAYANAN_SLUGS.map((slug) => ({
+    url: `${SITE_URL}/${slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.9,
+  }));
+
   // Divisi katalog lengkap (31) — satu halaman per divisi layanan
   const katalogPages: MetadataRoute.Sitemap = CATEGORIES.map((c) => ({
     url: `${SITE_URL}/katalog/${c.slug}`,
@@ -165,5 +174,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: p.kind === "industri" ? 0.85 : p.kind === "svc-industry" ? 0.75 : 0.8,
   }));
 
-  return [...staticPages, ...panduanPages, ...blogPages, ...cmsBlogPages, ...testimoniPages, ...servicePages, ...kbliPages, ...kbliCategorySitemap, ...hubPages, ...jobPages, ...comparisonPages, ...katalogPages, ...seoExpansionPages];
+  return [...staticPages, ...panduanPages, ...blogPages, ...cmsBlogPages, ...testimoniPages, ...servicePages, ...kbliPages, ...kbliCategorySitemap, ...hubPages, ...jobPages, ...comparisonPages, ...katalogPages, ...layanan500Pages, ...seoExpansionPages];
 }

@@ -40,3 +40,25 @@ Stage Summary:
 - Website terverifikasi berfungsi penuh end-to-end: render → interaksi form → API → Prisma → SQLite → Admin dashboard
 - Tugas instalasi pusatperizinan.com SELESAI dan berjalan di preview
 
+
+---
+Task ID: 3
+Agent: Z.ai Code (main orchestrator)
+Task: Maksimalkan SEO + integrasi Katalog 500 Layanan + rebranding logo & foto kantor
+
+Work Log:
+- Analisis Dataset_500_Layanan_Pusatperizinan.json: 500 layanan, 4 kategori (BU 100, LH 80, KP 150, SK 170), 38 sub-kategori, kode item + harga kupon bertingkat 10-30%, slug URL unik tanpa tabrakan dengan rute existing
+- Aset: logo baru (PP laurel hijau-emas) → public/logo.png + crop emblem → public/logo-icon.png; foto kantor Bandung dikompres 6,4MB→229KB (sharp, 1600w) → public/kantor-bandung.jpg; PDF katalog → public/download/katalog-500-layanan-pusatperizinan.pdf
+- Modul data src/lib/layanan-500.ts: types, map by slug/kode, struktur kategori-sub dinamis, statistik agregat, konten SEO templat per kategori (cakupan, syarat, timeline, FAQ 6 item unik per layanan, teks WA pra-isi)
+- Rute baru src/app/[slug]/page.tsx: 500 halaman detail statis root-level (generateStaticParams, dynamicParams=false → slug asing 404), metadata unik per layanan, JSON-LD Service+Offer+BreadcrumbList+FAQPage, hero kode item + kartu harga sticky (normal coret/kupon/hemat/timeline), alur 4 langkah, syarat, garansi, layanan terkait, FAQ, CTA WA
+- /katalog di-rewrite: hero 500/4/38 dinamis + overview 4 kategori + Katalog500Browser (client: search nama/kode, filter kategori & sub, load-more 36/halaman, deep-link hash #kat-BU/#BU-PT via useSyncExternalStore — lint-bersih) + unduh PDF + katalog klasik 31 divisi sebagai internal-linking + JSON-LD OfferCatalog 500 item
+- Sitemap: +500 URL → total 10.201 URL; llms.txt diperbarui dengan seksi Katalog 500 (per kategori + contoh URL + unduhan PDF); robots.txt sudah GEO-ready (Dibiarkan AI bots)
+- Fix SEO: judul dobel "| PusatPerizinan.com" (suffix layout) dihapus dari title detail & katalog; deskripsi "Jasa Jasa" diperbaiki
+- /kontak: seksi "Kantor Cabang Bandung" dengan foto + area layanan Jabar (E-E-A-T lokal)
+- Verifikasi: lint bersih, semua rute 200, slug asing 404, pencarian "halal" → 19 hasil, JSON-LD valid (9 script), judul & meta unik, screenshot desktop & mobile OK, nol error runtime
+
+Stage Summary:
+- 500 halaman layanan SEO-ready live di URL dataset resmi (mis. /jasa-pendirian-pt-lokal)
+- Katalog 500 layanan interaktif + PDF lead magnet
+- Rebranding logo baru aktif (header + favicon), foto kantor Bandung di /kontak
+- Total aset SEO: 10.201 URL di sitemap, structured data lengkap, llms.txt GEO
