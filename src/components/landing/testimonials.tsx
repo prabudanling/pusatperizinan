@@ -81,6 +81,7 @@ export function Testimonials() {
           {featured.map((t, i) => (
             <motion.div
               key={t.id}
+              className="min-w-0"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -92,7 +93,7 @@ export function Testimonials() {
                     <Stars rating={t.rating} />
                     <Quote className="h-5 w-5 text-primary/20" aria-hidden="true" />
                   </div>
-                  <p className="mt-4 text-sm text-foreground/85 leading-relaxed flex-1">
+                  <p className="mt-4 text-sm text-foreground/85 leading-relaxed flex-1 break-words [overflow-wrap:anywhere]">
                     &ldquo;{t.content.length > 240 ? `${t.content.slice(0, 240).trimEnd()}…` : t.content}&rdquo;
                   </p>
                   <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">

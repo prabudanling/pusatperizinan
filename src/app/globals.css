@@ -121,6 +121,11 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Jaring pengaman horizontal-overflow (audit CWV): konten programatik
+       (testimoni pengguna, dsb.) dapat membawa token tak-terputus yang
+       memaksa lebar layout. `clip` tidak membuat scroll container sehingga
+       position:sticky & scroll-behavior tetap bekerja (beda dari `hidden`). */
+    overflow-x: clip;
   }
   html {
     scroll-behavior: smooth;
@@ -197,7 +202,11 @@
   animation: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar (webkit + fallback Firefox) */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.596 0.145 163.225 / 0.35) transparent;
+}
 .scrollbar-thin::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -238,4 +247,118 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* ============================================================
+   MOTION SYSTEM — Task 6-a (Sistem Animasi Compositor-Only)
+   Semua keyframes HANYA menganimasikan transform & opacity
+   → berjalan di compositor thread, nol layout thrashing.
+   ============================================================ */
+
+/* Entrance CSS murni — untuk server components (stats-bar, dll.) */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ambient aurora — drift halus GPU-friendly (transform-only) */
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-3%, 3%, 0) scale(0.96);
+  }
+}
+
+/* Kilau menyapu tombol CTA (dipicu hover via .btn-shine) */
+@keyframes shine-sweep {
+  from {
+    transform: translateX(-150%) skewX(-12deg);
+  }
+  to {
+    transform: translateX(250%) skewX(-12deg);
+  }
+}
+
+/* Utility entrance: fade-up dengan signature easing */
+.animate-fade-up {
+  animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Delay berantai untuk koreografi berurutan (stagger ~0.1s) */
+.reveal-1 { animation-delay: 0.1s; }
+.reveal-2 { animation-delay: 0.2s; }
+.reveal-3 { animation-delay: 0.3s; }
+.reveal-4 { animation-delay: 0.4s; }
+.reveal-5 { animation-delay: 0.5s; }
+.reveal-6 { animation-delay: 0.6s; }
+
+/* Card lift — hover premium transform-only (pasangkan dengan
+   kelas shadow eksisting, mis. hover:shadow-xl) */
+.card-lift {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* Button shine — sapuan kilau saat hover tombol CTA utama */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  width: 40%;
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: translateX(-150%) skewX(-12deg);
+  pointer-events: none;
+}
+.btn-shine:hover::after {
+  animation: shine-sweep 0.8s ease;
+}
+
+/* ============================================================
+   AKSESIBILITAS (WCAG 2.2)
+   ============================================================ */
+
+/* Fokus keyboard selalu terlihat jelas (2.4.11 Focus Not Obscured /
+   2.4.13 Focus Appearance) — fallback brand emerald bila var glow tak ada */
+:focus-visible {
+  outline: 2px solid var(--primary, #059669);
+  outline-offset: 2px;
+  border-radius: inherit;
+}
+
+/* Hormati preferensi pengguna: matikan semua animasi & transisi CSS.
+   (Animasi framer-motion ditangani MotionConfig reducedMotion="user") */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

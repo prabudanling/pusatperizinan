@@ -19,6 +19,8 @@ import {
   LAYANAN_STATS,
 } from "@/lib/layanan-500";
 import { SITE_URL, SITE_NAME, CONTACT } from "@/lib/site";
+import { langAlternates, stableLastmod, formatLastmodId } from "@/lib/seo";
+import { geoMetaForSlug } from "@/lib/geo";
 
 // ============================================================
 // PUSATPERIZINAN.COM — HALAMAN DETAIL 500 LAYANAN (root level)
@@ -26,12 +28,15 @@ import { SITE_URL, SITE_NAME, CONTACT } from "@/lib/site";
 // URL persis mengikuti dataset resmi, mis. /jasa-pendirian-pt-lokal.
 // Programmatic SEO: tiap halaman unik (judul, harga, kode item,
 // cakupan, syarat, timeline, FAQ, JSON-LD Service+Offer+FAQ+Breadcrumb).
-// dynamicParams=false → slug di luar dataset → 404 (tidak duplikat).
+// DEV-GUARD (OOM fix): dev → render on-demand (handler notFound() untuk
+// slug asing); prod → dynamicParams tidak relevan karena generateStaticParams
+// pre-build seluruh dataset dan slug di luar dataset tetap 404.
 // ============================================================
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export function generateStaticParams(): { slug: string }[] {
+  if (process.env.NODE_ENV !== "production") return [];
   return ALL_LAYANAN_SLUGS.map((slug) => ({ slug }));
 }
 
@@ -45,10 +50,14 @@ export async function generateMetadata({
   if (!s) return {};
   const title = `${s.nama} — Harga Kupon ${fmtIdr(s.harga_diskon)} (Hemat ${Math.round(s.diskon * 100)}%)`;
   const description = `${s.nama} (${s.kode}) — ${s.deskripsi.slice(0, 130)}... Harga normal ${fmtIdr(s.harga)}, kupon ${fmtIdr(s.harga_diskon)}. Estimasi ${timelineOf(s).split("(")[0].trim()}. Garansi proses, melayani 38 provinsi.`;
+  const geo = geoMetaForSlug(slug);
   return {
     title,
     description,
-    alternates: { canonical: `${SITE_URL}/${slug}` },
+    // M04: canonical absolut + hreflang id-ID/x-default
+    alternates: langAlternates(`/${slug}`),
+    // M05: meta geo dinamis mengikuti provinsi di slug (tanpa lokasi → tidak ada other)
+    ...(geo ? { other: geo } : {}),
     openGraph: {
       title,
       description,
@@ -145,6 +154,7 @@ export default async function LayananDetailPage({
     },
   ];
 
+  const updatedAt = formatLastmodId(stableLastmod(`/${slug}`));
   return (
     <div className="min-h-screen bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -183,6 +193,9 @@ export default async function LayananDetailPage({
               )}
             </div>
             <h1 className="mt-4 text-3xl font-bold leading-tight md:text-4xl">{s.nama}</h1>
+            <p className="mt-2 text-xs font-medium text-emerald-200/70" aria-label="Tanggal pembaruan halaman">
+              Diperbarui {updatedAt}
+            </p>
             <p className="mt-4 max-w-2xl text-emerald-100/90 leading-relaxed md:text-lg">{s.deskripsi}</p>
             <ul className="mt-6 grid gap-2 text-sm text-emerald-100/85 sm:grid-cols-2">
               {cakupanOf(s).map((c) => (

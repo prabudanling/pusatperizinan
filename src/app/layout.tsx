@@ -4,6 +4,8 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SeoJsonLd } from "@/components/landing/seo-jsonld";
 import { Analytics } from "@/components/landing/analytics";
+import { MotionProvider } from "@/components/motion/motion-provider";
+import VitalsReporter from "@/components/seo/vitals-reporter";
 import { LanguageProvider } from "@/lib/i18n/language-provider";
 import { SITE_URL } from "@/lib/site";
 
@@ -79,11 +81,16 @@ export const metadata: Metadata = {
   publisher: "PT Digital Bisnis Manajemen",
   alternates: {
     canonical: "/",
+    // M04 (audit): hreflang id-ID + x-default — situs satu bahasa (i18n via
+    // client-side ?lang=), sinyal ini menegaskan bahasa kanonikal ke mesin
+    // pencari tanpa risiko duplikat. Halaman dengan generateMetadata sendiri
+    // memakai langAlternates() dari src/lib/seo.ts (pola yang sama).
+    languages: {
+      "id-ID": SITE_URL,
+      "x-default": SITE_URL,
+    },
     // RSS feed blog — jalur penemuan konten tambahan (reader, agregator, GNews)
     types: { "application/rss+xml": "/feed.xml" },
-    // CATATAN AUDIT: blok hreflang ?lang=xx dihapus — ?lang= diproses client-side
-    // sehingga tidak menyajikan konten berbeda per URL (berisiko sinyal duplikat).
-    // hreflang hanya dikembalikan bila versi bahasa per-URL yang sesungguhnya dibuat.
   },
   category: "Business Legal Services",
   robots: {
@@ -153,9 +160,14 @@ export default function RootLayout({
             canonical GANDA di semua 2.830 halaman (hardcode homepage vs canonical
             per-halaman dari generateMetadata). Homepage kini memakai canonical
             dari alternates.canonical di atas. */}
-        {/* P0-06: token placeholder DIHAPUS — pasang token asli sesuai
-            docs/SEARCH-CONSOLE-ANALYTICS.md lalu unpublish placeholder. */}
-        {/* TODO(deploy): <meta name="google-site-verification" content="TOKEN_ASLI" /> */}
+        {/* M25 (audit): verifikasi Search Console via env — set
+            NEXT_PUBLIC_GSC_VERIFICATION=<token> tanpa perlu ubah kode. */}
+        {process.env.NEXT_PUBLIC_GSC_VERIFICATION ? (
+          <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GSC_VERIFICATION} />
+        ) : null}
+        {/* M05 (audit): geo default kantor pusat SCBD — halaman berlokasi
+            (/layanan/<layanan>-<provinsi>, dst.) menimpa dengan geoMetaForSlug()
+            dari src/lib/geo.ts via metadata.other di generateMetadata masing-masing. */}
         <meta name="geo.region" content="ID-JK" />
         <meta name="geo.placename" content="Jakarta Selatan" />
         <meta name="geo.position" content="-6.2249;106.809" />
@@ -164,12 +176,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
-        <LanguageProvider>
-          {children}
-          <SeoJsonLd />
-          <Analytics />
-          <Toaster />
-        </LanguageProvider>
+        {/* MotionProvider: MotionConfig reducedMotion="user" — seluruh animasi
+            framer-motion situs otomatis dinonaktifkan bagi pengguna
+            prefers-reduced-motion (WCAG 2.2). */}
+        <MotionProvider>
+          <LanguageProvider>
+            {children}
+            <SeoJsonLd />
+            <Analytics />
+            <VitalsReporter />
+            <Toaster />
+          </LanguageProvider>
+        </MotionProvider>
       </body>
     </html>
   );

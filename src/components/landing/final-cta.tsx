@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
+import { Reveal, STAGGER } from "@/components/motion/reveal";
 import {
   Select,
   SelectContent,
@@ -78,12 +79,7 @@ export function FinalCta() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left copy */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <Reveal>
             <span className="inline-block rounded-full bg-primary text-primary-foreground text-xs font-bold px-4 py-1.5 shadow-md shadow-primary/25">
               {t("ctaBadge")}
             </span>
@@ -116,7 +112,7 @@ export function FinalCta() {
 
             {/* Direct contact buttons */}
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="rounded-full font-bold shadow-lg shadow-primary/25">
+              <Button asChild size="lg" className="btn-shine rounded-full font-bold shadow-lg shadow-primary/25">
                 <a
                   href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
                     "Halo PusatPerizinan! Saya ingin konsultasi gratis untuk usaha saya."
@@ -135,15 +131,10 @@ export function FinalCta() {
                 </a>
               </Button>
             </div>
-          </motion.div>
+          </Reveal>
 
-          {/* Right form card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-          >
+          {/* Right form card — menyusul copy dengan jeda 2×STAGGER */}
+          <Reveal delay={2 * STAGGER}>
             <Card className="shadow-2xl shadow-primary/10 border-primary/20">
               <CardContent className="p-6 md:p-8">
                 {done ? (
@@ -249,7 +240,7 @@ export function FinalCta() {
                 )}
               </CardContent>
             </Card>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>

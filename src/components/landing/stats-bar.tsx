@@ -78,7 +78,12 @@ export function StatsBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-x divide-border/60">
           {items.map((item, i) => (
-            <div key={i} className="flex flex-col items-center gap-1.5 py-6 px-3">
+            <div
+              key={i}
+              /* Entrance CSS murni (fade-up + delay berantai) — tanpa JS,
+                 hormat prefers-reduced-motion via media query global */
+              className={`animate-fade-up reveal-${i + 1} flex flex-col items-center gap-1.5 py-6 px-3`}
+            >
               <item.icon className="h-5 w-5 text-primary mb-0.5" aria-hidden="true" />
               <span className="text-2xl font-extrabold tracking-tight text-foreground tabular-nums">
                 {item.value}

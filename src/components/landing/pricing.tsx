@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Check, Sparkles, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { Reveal, RevealScale, STAGGER } from "@/components/motion/reveal";
 import { PRICING } from "@/lib/landing-data";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/i18n/language-provider";
@@ -28,12 +28,9 @@ export function Pricing() {
 
         <div className="mt-14 grid lg:grid-cols-3 gap-6 items-stretch max-w-5xl mx-auto">
           {PRICING.map((tier, i) => (
-            <motion.div
+            <RevealScale
               key={tier.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              delay={i * STAGGER}
               className={cn(tier.highlight && "lg:-mt-4 lg:mb-[-1rem]")}
             >
               <Card
@@ -104,23 +101,18 @@ export function Pricing() {
                   </Button>
                 </CardContent>
               </Card>
-            </motion.div>
+            </RevealScale>
           ))}
         </div>
 
         {/* Guarantee strip */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-12 mx-auto max-w-3xl rounded-2xl border border-primary/25 bg-gradient-to-r from-primary/5 via-transparent to-gold/5 p-5 flex flex-col sm:flex-row items-center justify-center gap-3 text-center"
-        >
+        <Reveal delay={0.15} className="mt-12 mx-auto max-w-3xl rounded-2xl border border-primary/25 bg-gradient-to-r from-primary/5 via-transparent to-gold/5 p-5 flex flex-col sm:flex-row items-center justify-center gap-3 text-center">
           <ShieldCheck className="h-8 w-8 text-primary shrink-0" />
           <p className="text-sm md:text-[15px] font-medium text-foreground/85">
             <strong className="text-primary">Garansi PusatPerizinan:</strong> Izin gagal terbit karena kesalahan proses kami?{" "}
             <strong>Dana 100% kembali</strong> — tertulis resmi di kontrak kerja sama.
           </p>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

@@ -4,6 +4,7 @@ import { ArrowRight, GitCompareArrows, PhoneCall, Sparkles, TrendingUp } from "l
 import { Badge } from "@/components/ui/badge";
 import { COMPARISONS } from "@/lib/comparisons";
 import { WHATSAPP_NUMBER } from "@/lib/landing-data";
+import { langAlternates } from "@/lib/seo";
 
 export function generateStaticParams() {
   return [{}];
@@ -25,7 +26,8 @@ export async function generateMetadata(): Promise<Metadata> {
       "firma vs cv",
       "pilih badan usaha",
     ],
-    alternates: { canonical: "/bandingkan" },
+    // M04: canonical absolut + hreflang id-ID/x-default
+    alternates: langAlternates("/bandingkan"),
     openGraph: {
       title: "Perbandingan Badan Usaha — PusatPerizinan.com",
       description:

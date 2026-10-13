@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Clock, ArrowRight, Flame, ChevronDown, Wallet } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { RevealScale, STAGGER } from "@/components/motion/reveal";
 import { SERVICES } from "@/lib/landing-data";
 import { PACKAGES } from "@/lib/pricing";
 import { useLanguage } from "@/lib/i18n/language-provider";
@@ -37,12 +37,12 @@ export function Services() {
         {/* Services grid */}
         <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {visibleServices.map((service, i) => (
-            <motion.div
+            <RevealScale
               key={service.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.45, delay: (i % 3) * 0.08 }}
+              /* Stagger per-baris (grid 3 kolom): baris berikutnya memasuki
+                 viewport lewat pemicu whileInView masing-masing, jadi delay
+                 tetap pendek walau semua 36 layanan dibuka */
+              delay={(i % 3) * STAGGER}
             >
               <Card
                 id={`layanan-${service.id}`}
@@ -110,7 +110,7 @@ export function Services() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </RevealScale>
           ))}
         </div>
 

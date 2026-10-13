@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { MessagesSquare, FileText, Cog, PartyPopper } from "lucide-react";
+import { Reveal, STAGGER } from "@/components/motion/reveal";
 import { PROCESS_STEPS } from "@/lib/landing-data";
 import { useLanguage } from "@/lib/i18n/language-provider";
 
@@ -32,12 +32,9 @@ export function Process() {
             {PROCESS_STEPS.map((step, i) => {
               const Icon = STEP_ICONS[i];
               return (
-                <motion.div
+                <Reveal
                   key={step.step}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.5, delay: i * 0.12 }}
+                  delay={i * STAGGER}
                   className="relative text-center"
                 >
                   <div className="relative inline-flex">
@@ -52,7 +49,7 @@ export function Process() {
                   <p className="mt-2 text-sm text-muted-foreground leading-relaxed max-w-[280px] mx-auto">
                     {step.desc}
                   </p>
-                </motion.div>
+                </Reveal>
               );
             })}
           </div>

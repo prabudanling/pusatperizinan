@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { KBLI_PAGES, KBLI_CATEGORIES, KBLI_TOTAL } from "@/lib/kbli-catalog";
 import { WHATSAPP_NUMBER } from "@/lib/landing-data";
 import { KbliBrowser } from "./kbli-browser";
+import { langAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -18,7 +19,8 @@ export async function generateMetadata(): Promise<Metadata> {
       "kbli dan izinnya",
       "kbli pajak",
     ],
-    alternates: { canonical: "/kbli" },
+    // M04: canonical absolut + hreflang id-ID/x-default
+    alternates: langAlternates("/kbli"),
     openGraph: {
       title: "Database KBLI 2025 — PusatPerizinan.com",
       description: `${KBLI_TOTAL}+ KBLI dengan izin, risiko & pajak lengkap per kode. Cari bidang usaha Anda sekarang.`,

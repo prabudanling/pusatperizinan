@@ -1,16 +1,26 @@
-"use client";
-
 // ============================================================
-// PUSATPERIZINAN.COM — JSON-LD Structured Data
-// Client component (usePathname) untuk SEO maksimal.
-// FAQPage hanya dirender di beranda — halaman FAQ section-nya
-// memang terlihat; halaman lain (mis. /faq) punya FAQPage
-// sendiri agar tidak ada dua FAQPage bertentangan per URL.
+// PUSATPERIZINAN.COM — JSON-LD Structured Data (SITEWIDE)
+// ============================================================
+// M01 REFACTOR: "use client" DIHAPUS — komponen ini kini server
+// component biasa yang dipasang di root layout. Manfaat:
+//   • Nol JS client untuk structured data (JSON-LD hidup di HTML).
+//   • Data 76 testimoni (TESTIMONIALS) TIDAK lagi masuk bundle JS
+//     di semua halaman — blok Review sitewide dihapus; halaman
+//     /testimoni/* sudah punya skema Review sendiri (tanpa duplikasi).
+//   • FAQPage homepage dipindah ke src/app/page.tsx (server) agar
+//     hanya dirender di URL yang memang menampilkan section FAQ.
+//
+// Hasil akhir (6 blok JSON-LD, semua di-serialize aman-escape):
+//   1. Organization/ProfessionalService (+hasOfferCatalog, satu
+//      aggregateRating tunggal)
+//   2. WebSite + SearchAction
+//   3. ItemList panduan perizinan
+//   4. ItemList sektor usaha
+//   5. Blog + BlogPosting
+//   6. BreadcrumbList
 // ============================================================
 
-import { usePathname } from "next/navigation";
-import { SERVICES, FAQS } from "@/lib/landing-data";
-import { TESTIMONIALS } from "@/lib/testimonials-data";
+import { SERVICES } from "@/lib/landing-data";
 import { TAX_ALL } from "@/lib/tax-services";
 import { PMI_B2B_SERVICES, PMI_B2C_SERVICES, PMI_COUNTRIES } from "@/lib/pmi-services";
 import { FOUNDER, TEAM } from "@/lib/team-data";
@@ -19,20 +29,21 @@ import { BLOG_ARTICLES } from "@/lib/blog-content";
 import { LANGUAGES } from "@/lib/i18n/languages";
 import { SITE_URL, CONTACT, TRUST_METRICS, priceToIdr } from "@/lib/site";
 
-
+/** Escape "<" agar JSON-LD tidak bisa membuka tag/script baru di HTML. */
+function safeJson(data: object): string {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}
 
 function JsonLd({ data }: { data: object }) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: safeJson(data) }}
     />
   );
 }
 
 export function SeoJsonLd() {
-  const pathname = usePathname();
-
   // 1. Organization + ProfessionalService (local SEO)
   const orgSchema = {
     "@context": "https://schema.org",
@@ -98,6 +109,7 @@ export function SeoJsonLd() {
       alternateName: l.code,
     })),
     sameAs: [],
+    // Satu-satunya aggregateRating sitewide — review detail hanya di /testimoni/*
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: TRUST_METRICS.rating,
@@ -167,22 +179,7 @@ export function SeoJsonLd() {
     },
   };
 
-  // 3. FAQPage (harus cocok dengan konten FAQ section yang terlihat)
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "@id": `${SITE_URL}/#faq`,
-    // CATATAN AUDIT: hanya FAQ yang terlihat di homepage.
-    // FAQ panduan tidak lagi dimuat di sini — masing-masing kini
-    // punya FAQPage schema sendiri di /panduan/[id] (integritas schema).
-    mainEntity: FAQS.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
-
-  // 4. ItemList panduan izin (knowledge hub)
+  // 3. ItemList panduan izin (knowledge hub)
   const guideSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -204,7 +201,7 @@ export function SeoJsonLd() {
     })),
   };
 
-  // 5. ItemList sektor
+  // 4. ItemList sektor
   const sectorSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -221,32 +218,7 @@ export function SeoJsonLd() {
     })),
   };
 
-  // 6. Reviews (testimoni terverifikasi — lengkap dengan tanggal & publisher)
-  const reviewsSchema = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    itemListElement: TESTIMONIALS.map((t, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      item: {
-        "@type": "Review",
-        name: `${t.name} — ${t.service}`,
-        reviewBody: t.content,
-        datePublished: t.date,
-        author: { "@type": "Person", name: t.name },
-        publisher: { "@type": "Organization", name: "PusatPerizinan.com", url: SITE_URL },
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: String(t.rating),
-          bestRating: "5",
-          worstRating: "1",
-        },
-        itemReviewed: { "@id": `${SITE_URL}/#organization` },
-      },
-    })),
-  };
-
-  // 7. Blog + BlogPosting (content hub — 13 artikel panduan)
+  // 5. Blog + BlogPosting (content hub — 13 artikel panduan)
   const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
@@ -271,7 +243,7 @@ export function SeoJsonLd() {
     })),
   };
 
-  // 8. BreadcrumbList
+  // 6. BreadcrumbList
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -292,10 +264,8 @@ export function SeoJsonLd() {
     <>
       <JsonLd data={orgSchema} />
       <JsonLd data={websiteSchema} />
-      {pathname === "/" && <JsonLd data={faqSchema} />}
       <JsonLd data={guideSchema} />
       <JsonLd data={sectorSchema} />
-      <JsonLd data={reviewsSchema} />
       <JsonLd data={blogSchema} />
       <JsonLd data={breadcrumbSchema} />
     </>

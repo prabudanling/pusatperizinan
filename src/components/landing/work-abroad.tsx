@@ -218,21 +218,21 @@ export function WorkAbroad() {
             <p className="mt-3 text-muted-foreground">{t("pmiServicesSub")}</p>
           </div>
           <div className="mt-8 flex justify-center">
-            <Tabs value={audience} onValueChange={(v) => setAudience(v as "individu" | "perusahaan")}>
-              <TabsList className="rounded-full h-12 p-1.5 bg-accent border shadow-sm">
+            <Tabs value={audience} onValueChange={(v) => setAudience(v as "individu" | "perusahaan")} className="min-w-0 max-w-full">
+              <TabsList className="min-w-0 max-w-full rounded-full h-12 p-1.5 bg-accent border shadow-sm">
                 <TabsTrigger
                   value="individu"
-                  className="rounded-full px-5 md:px-7 py-2 text-sm font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                  className="min-w-0 rounded-full px-3.5 sm:px-5 md:px-7 py-2 text-[13px] sm:text-sm font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
                 >
-                  <UserRound className="h-4 w-4 mr-2" aria-hidden="true" />
-                  {t("pmiTabIndividu")}
+                  <UserRound className="h-4 w-4 mr-1.5 sm:mr-2 shrink-0" aria-hidden="true" />
+                  <span className="min-w-0 truncate">{t("pmiTabIndividu")}</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="perusahaan"
-                  className="rounded-full px-5 md:px-7 py-2 text-sm font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                  className="min-w-0 rounded-full px-3.5 sm:px-5 md:px-7 py-2 text-[13px] sm:text-sm font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
                 >
-                  <Building2 className="h-4 w-4 mr-2" aria-hidden="true" />
-                  {t("pmiTabPerusahaan")}
+                  <Building2 className="h-4 w-4 mr-1.5 sm:mr-2 shrink-0" aria-hidden="true" />
+                  <span className="min-w-0 truncate">{t("pmiTabPerusahaan")}</span>
                 </TabsTrigger>
               </TabsList>
             </Tabs>

@@ -17,6 +17,7 @@ import { PROVINCES } from "@/lib/coverage-data";
 import { PMI_COUNTRIES } from "@/lib/pmi-services";
 import { WHATSAPP_NUMBER } from "@/lib/landing-data";
 import { CatalogBrowser } from "./catalog-browser";
+import { langAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -30,7 +31,8 @@ export async function generateMetadata(): Promise<Metadata> {
       "kerja luar negeri",
       "konsultan bisnis indonesia",
     ],
-    alternates: { canonical: "/layanan" },
+    // M04: canonical absolut + hreflang id-ID/x-default
+    alternates: langAlternates("/layanan"),
     openGraph: {
       title: "Katalog Layanan PusatPerizinan.com",
       description:

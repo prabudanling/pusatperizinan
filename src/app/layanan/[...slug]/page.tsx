@@ -46,6 +46,8 @@ import { TestimonialGrid } from "@/components/testimonials/testimonial-card";
 import { HubPage } from "../hub-page";
 import { classifyPage } from "@/lib/seo-policy";
 import { SITE_URL } from "@/lib/site";
+import { langAlternates, pageLikeOf } from "@/lib/seo";
+import { geoMetaForSlug } from "@/lib/geo";
 
 // ============================================================
 // STATIC EXPORT READY — catch-all [...slug]
@@ -54,9 +56,14 @@ import { SITE_URL } from "@/lib/site";
 //            /layanan/kategori/pajak, /layanan/wilayah/bali
 // ============================================================
 
-export const dynamicParams = false;
+// DEV-GUARD (OOM fix): enumerasi 8.873+ path di dev memicu lonjakan memori
+// (OOM-killer di sandbox 4GB). Dev → [] (render on-demand, tetap aman karena
+// handler memanggil notFound() untuk slug di luar dataset); prod → pre-build
+// penuh persis seperti sebelumnya.
+export const dynamicParams = true;
 
 export function generateStaticParams(): { slug: string[] }[] {
+  if (process.env.NODE_ENV !== "production") return [];
   const paths = [...getAllSlugs(), ...getHubSlugs()];
   return paths.map((path) => ({ slug: path.split("/") }));
 }
@@ -70,11 +77,17 @@ export async function generateMetadata({
   const page = getAnyPage(slug.join("/"));
   if (!page) return {};
 
+  // M05: meta geo dinamis — provinsi/kota diekstrak dari slug halaman
+  // (base/region/city/hub wilayah); halaman tanpa lokasi → geo undefined.
+  const geo = geoMetaForSlug(page.slug);
+
   return {
     title: page.title,
     description: page.metaDesc,
     keywords: page.keywords,
-    alternates: { canonical: `/layanan/${page.slug}` },
+    // M04: canonical absolut + hreflang id-ID/x-default
+    alternates: langAlternates(`/layanan/${page.slug}`),
+    ...(geo ? { other: geo } : {}),
     openGraph: {
       title: page.title,
       description: page.metaDesc,
@@ -89,7 +102,7 @@ export async function generateMetadata({
       description: page.metaDesc,
     },
     // P0-03: halaman tipis (tier D/E) dinilai noindex,follow
-    robots: { index: classifyPage(page).index, follow: true },
+    robots: { index: classifyPage(pageLikeOf(page)).index, follow: true },
   };
 }
 

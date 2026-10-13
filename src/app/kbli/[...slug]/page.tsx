@@ -29,10 +29,14 @@ import { getKbliBySlug, getAllKbliSlugs, KBLI_PAGES, KBLI_CATEGORY_PAGES, getKbl
 import type { KbliCategoryPage } from "@/lib/kbli-catalog";
 import { WHATSAPP_NUMBER } from "@/lib/landing-data";
 import { SITE_URL } from "@/lib/site";
+import { langAlternates, stableLastmod, formatLastmodId } from "@/lib/seo";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export function generateStaticParams(): { slug: string[] }[] {
+  // DEV-GUARD (OOM fix): dev → [] (render on-demand; handler notFound() untuk
+  // slug asing); prod → pre-build penuh 148 kode + 17 kategori.
+  if (process.env.NODE_ENV !== "production") return [];
   return [
     ...getAllKbliSlugs().map((s) => ({ slug: [s] })),
     ...KBLI_CATEGORY_PAGES.map((c) => ({ slug: c.slug.split("/") })),
@@ -52,7 +56,8 @@ export async function generateMetadata({
       title: cat.title,
       description: cat.metaDesc,
       keywords: cat.keywords,
-      alternates: { canonical: `/kbli/${cat.slug}` },
+      // M04: canonical absolut + hreflang id-ID/x-default
+      alternates: langAlternates(`/kbli/${cat.slug}`),
       openGraph: { title: cat.title, description: cat.metaDesc, url: `/kbli/${cat.slug}`, type: "article" },
       robots: { index: true, follow: true },
     };
@@ -63,7 +68,8 @@ export async function generateMetadata({
     title: page.title,
     description: page.metaDesc,
     keywords: page.keywords,
-    alternates: { canonical: `/kbli/${page.slug}` },
+    // M04: canonical absolut + hreflang id-ID/x-default
+    alternates: langAlternates(`/kbli/${page.slug}`),
     openGraph: {
       title: page.title,
       description: page.metaDesc,
@@ -167,6 +173,7 @@ function KbliCategoryJsonLd({ page }: { page: KbliCategoryPage }) {
 
 function KbliCategoryView({ page }: { page: KbliCategoryPage }) {
   const waText = `Halo, saya mencari KBLI bidang ${page.name} untuk usaha saya: `;
+  const updatedAt = formatLastmodId(stableLastmod(`/kbli/${page.slug}`));
   return (
     <main className="min-h-screen bg-background">
       <KbliCategoryJsonLd page={page} />
@@ -206,6 +213,9 @@ function KbliCategoryView({ page }: { page: KbliCategoryPage }) {
           <Badge variant="outline" className="border-primary/30 text-primary">Bidang {page.letter}</Badge>
         </div>
         <h1 className="mt-3 text-2xl md:text-4xl font-extrabold tracking-tight">{page.h1}</h1>
+        <p className="mt-2 text-xs font-medium text-muted-foreground" aria-label="Tanggal pembaruan halaman">
+          Diperbarui {updatedAt}
+        </p>
         <div className="mt-3 space-y-3 text-sm md:text-base text-muted-foreground leading-relaxed">
           {page.intro.map((p, i) => (<p key={i}>{p}</p>))}
           {page.longDesc.map((p, i) => (<p key={`l-${i}`}>{p}</p>))}
@@ -297,6 +307,8 @@ export default async function KbliDetailPage({
   if (!page) notFound();
 
   const serviceName = page.h1.replace(/^KBLI \d+ — /, "");
+  // M16: badge freshness deterministik (hash slug — sama dengan lastmod sitemap)
+  const updatedAt = formatLastmodId(stableLastmod(`/kbli/${page.slug}`));
 
   return (
     <main className="min-h-screen bg-background">
@@ -343,6 +355,9 @@ export default async function KbliDetailPage({
           <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-balance">
             KBLI {page.code} — {serviceName}
           </h1>
+          <p className="mt-2 text-xs font-medium text-muted-foreground" aria-label="Tanggal pembaruan halaman">
+            Diperbarui {updatedAt}
+          </p>
           <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
             {page.desc}
           </p>

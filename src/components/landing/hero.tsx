@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { EASE, STAGGER } from "@/components/motion/reveal";
 import {
   ShieldCheck,
   Clock,
@@ -42,6 +43,7 @@ interface HeroFormState {
 export function Hero() {
   const { toast } = useToast();
   const { t } = useLanguage();
+  const reduceMotion = useReducedMotion();
   const [form, setForm] = useState<HeroFormState>({
     name: "",
     whatsapp: "",
@@ -92,26 +94,53 @@ export function Hero() {
     }
   };
 
+  /* Koreografi entrance hero — bahasa gerak seragam (durasi 0.65s,
+     signature ease, stagger 0.1s, rise 24px). Bila pengguna memilih
+     reduced-motion, elemen dirender langsung pada state akhir. */
+  const enter = (delay: number, y = 24) =>
+    reduceMotion
+      ? { initial: false as const, animate: { opacity: 1, y: 0 } }
+      : {
+          initial: { opacity: 0, y, scale: 1 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.65, delay, ease: EASE },
+        };
+
   return (
-    <section id="beranda" className="hero-gradient pattern-grid pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="beranda" className="hero-gradient pattern-grid relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24">
+      {/* Ambient aurora — zamarud & emas, drift super-halus (transform-only,
+          22s & 28s agar tidak pernah sinkron; delay negatif = fase acak) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-emerald-400/25 opacity-25 blur-3xl"
+        style={{ animation: "aurora-drift 22s ease-in-out infinite alternate" }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-48 -right-40 h-[520px] w-[520px] rounded-full bg-amber-300/20 opacity-20 blur-3xl"
+        style={{ animation: "aurora-drift 28s ease-in-out -11s infinite alternate" }}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          {/* Left: Copy */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-xl"
-          >
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-semibold text-primary mb-6">
+          {/* Left: Copy — koreografi berurutan badge → judul → paragraf →
+              value props → bukti sosial */}
+          <div className="max-w-xl">
+            <motion.div
+              {...enter(0)}
+              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-semibold text-primary mb-6"
+            >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
               </span>
               {t("heroBadge")}
-            </div>
+            </motion.div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold tracking-tight leading-[1.1] text-foreground">
+            <motion.h1
+              {...enter(0.1)}
+              className="text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold tracking-tight leading-[1.1] text-foreground"
+            >
               {t("heroTitle1")} <span className="text-gradient-brand">{t("heroHigh1")}</span>,
               <br />
               {t("heroTitle2")} <span className="relative inline-block">{t("heroHigh2")}
@@ -119,11 +148,14 @@ export function Hero() {
                   <path d="M2 8C30 2 90 2 118 8" stroke="oklch(0.769 0.16 70.08)" strokeWidth="3.5" strokeLinecap="round"/>
                 </svg>
               </span>
-            </h1>
+            </motion.h1>
 
-            <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+            <motion.p
+              {...enter(0.2)}
+              className="mt-6 text-lg text-muted-foreground leading-relaxed"
+            >
               {t("heroSubtitle")}
-            </p>
+            </motion.p>
 
             <ul className="mt-8 space-y-3.5">
               {[
@@ -133,9 +165,7 @@ export function Hero() {
               ].map((item, i) => (
                 <motion.li
                   key={i}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 + i * 0.15 }}
+                  {...enter(0.3 + i * STAGGER, 20)}
                   className="flex items-start gap-3"
                 >
                   <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
@@ -146,8 +176,8 @@ export function Hero() {
               ))}
             </ul>
 
-            {/* Mini social proof */}
-            <div className="mt-8 flex items-center gap-4">
+            {/* Mini social proof — baris penutup koreografi */}
+            <motion.div {...enter(0.55)} className="mt-8 flex items-center gap-4">
               <div className="flex -space-x-2.5">
                 {["RK", "BS", "AW", "HG"].map((initials, i) => (
                   <div
@@ -170,18 +200,19 @@ export function Hero() {
                 </div>
                 <p className="text-xs text-muted-foreground">{t("heroReviews")}</p>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
-          {/* Right: Lead Form */}
+          {/* Right: Lead Form — kartu masuk bersamaan dengan value props,
+              scale 0.97→1 untuk kedalaman sinematik */}
           <motion.div
-            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 24, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.65, delay: 0.3, ease: EASE }}
             className="relative"
           >
             {/* Floating decorative cards */}
-            <div className="absolute -top-6 -left-4 md:-left-10 glass-card rounded-xl shadow-lg px-4 py-3 animate-float hidden sm:flex items-center gap-2.5 z-10">
+            <div className="card-lift absolute -top-6 -left-4 md:-left-10 glass-card rounded-xl shadow-lg px-4 py-3 animate-float hidden sm:flex items-center gap-2.5 z-10">
               <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
                 <FileCheck className="h-4.5 w-4.5 text-primary" />
               </div>
@@ -192,7 +223,7 @@ export function Hero() {
               <CheckCircle2 className="h-4 w-4 text-primary" />
             </div>
 
-            <div className="absolute -bottom-5 -right-2 md:-right-6 glass-card rounded-xl shadow-lg px-4 py-3 animate-float-delayed hidden sm:flex items-center gap-2.5 z-10">
+            <div className="card-lift absolute -bottom-5 -right-2 md:-right-6 glass-card rounded-xl shadow-lg px-4 py-3 animate-float-delayed hidden sm:flex items-center gap-2.5 z-10">
               <div className="h-9 w-9 rounded-lg bg-gold/15 flex items-center justify-center">
                 <Leaf className="h-4.5 w-4.5 text-amber-600" />
               </div>
@@ -203,7 +234,7 @@ export function Hero() {
               <CheckCircle2 className="h-4 w-4 text-amber-600" />
             </div>
 
-            <div className="relative glass-card rounded-2xl shadow-xl shadow-primary/5 p-6 md:p-8">
+            <div className="card-lift relative glass-card rounded-2xl shadow-xl shadow-primary/5 p-6 md:p-8">
               {done ? (
                 <div className="text-center py-10">
                   <motion.div
@@ -321,7 +352,7 @@ export function Hero() {
                     <Button
                       type="submit"
                       disabled={submitting}
-                      className="w-full h-12 rounded-xl font-bold text-base shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-shadow"
+                      className="btn-shine w-full h-12 rounded-xl font-bold text-base shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-shadow"
                     >
                       {submitting ? (
                         <>

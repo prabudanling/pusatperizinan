@@ -17,6 +17,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { COMPARISONS, getComparison, getRelatedComparisons } from "@/lib/comparisons";
 import { WHATSAPP_NUMBER } from "@/lib/landing-data";
+import { langAlternates } from "@/lib/seo";
 
 export function generateStaticParams() {
   return COMPARISONS.map((c) => ({ slug: c.slug }));
@@ -30,7 +31,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: c.metaTitle,
     description: c.metaDesc,
     keywords: c.keywords,
-    alternates: { canonical: `/bandingkan/${c.slug}` },
+    // M04: canonical absolut + hreflang id-ID/x-default
+    alternates: langAlternates(`/bandingkan/${c.slug}`),
     openGraph: {
       title: c.metaTitle,
       description: c.metaDesc,

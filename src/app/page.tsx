@@ -26,6 +26,8 @@ import { Footer } from "@/components/landing/footer";
 import { ChatWidget } from "@/components/landing/chat-widget";
 import { AdminDeploy } from "@/components/landing/admin-deploy";
 import { CatalogTeaser } from "@/components/landing/catalog-teaser";
+import { FAQS } from "@/lib/landing-data";
+import { SITE_URL } from "@/lib/site";
 
 // ============================================================
 // PUSATPERIZINAN.COM — Landing Page Utama
@@ -36,9 +38,29 @@ import { CatalogTeaser } from "@/components/landing/catalog-teaser";
 // Lead Generation Engine + AI Consultant 24/7
 // ============================================================
 
+// M01: FAQPage JSON-LD kini di-emisi DI SINI (server, hanya beranda) —
+// data persis dari FAQS yang dirender section <Faq/> di bawah,
+// sehingga schema & konten terlihat selalu sinkron.
+const homeFaqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": `${SITE_URL}/#faq`,
+  mainEntity: FAQS.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homeFaqJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <Header />
       <main className="flex-1">
         <Hero />
