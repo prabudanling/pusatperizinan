@@ -58,6 +58,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Trust & legal pages (E-E-A-T)
     { url: `${SITE_URL}/tentang-kami`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/kontak`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    // Pusat FAQ — halaman support berstandar internasional (51 Q&A, JSON-LD FAQPage)
+    { url: `${SITE_URL}/faq`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE_URL}/kebijakan-privasi`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
     { url: `${SITE_URL}/syarat-ketentuan`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
   ];

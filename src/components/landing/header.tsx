@@ -30,7 +30,7 @@ export function Header() {
     { label: t("navGuides"), href: "#panduan" },
     { label: t("navBlog"), href: "/blog" },
     { label: t("navPricing"), href: "#harga" },
-    { label: t("navFaq"), href: "#faq" },
+    { label: t("navFaq"), href: "/faq" },
   ];
 
   return (

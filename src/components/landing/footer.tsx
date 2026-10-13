@@ -69,7 +69,7 @@ const COMPANY_LINKS = [
   { label: "Layanan BUMDes", href: "/bumdes" },
   { label: "PMA Investor (English)", href: "/pma-company-registration" },
   { label: "Testimoni", href: "#testimoni" },
-  { label: "FAQ", href: "#faq" },
+  { label: "FAQ", href: "/faq" },
   { label: "Cek Izin AI", href: "#cek-izin" },
   { label: "Peta Situs", href: "#peta-situs" },
 ];

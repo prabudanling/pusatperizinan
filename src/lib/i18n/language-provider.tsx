@@ -63,6 +63,10 @@ function detectInitialLang(): LangCode {
 export function LanguageProvider({ children }: { children: ReactNode }) {
   // Selalu mulai dari 'id' agar SSR & render pertama client identik (no hydration mismatch)
   const [lang, setLangState] = useState<LangCode>(DEFAULT_LANG);
+  // "ready" = deteksi bahasa awal sudah selesai. Persistensi ke localStorage
+  // HANYA berjalan setelah ready — kalau tidak, effect mount akan menimpa
+  // preferensi tersimpan dengan "id" sebelum deteksi sempat membacanya.
+  const [ready, setReady] = useState(false);
   const initializedRef = useRef(false);
 
   // Deteksi bahasa setelah mount (URL -> storage -> browser) via microtask
@@ -72,21 +76,24 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     initializedRef.current = true;
     queueMicrotask(() => {
       setLangState(detectInitialLang());
+      setReady(true);
     });
   }, []);
 
   // Sinkronkan <html lang/dir> + persist setiap kali bahasa berubah
+  // (persist di-skip sampai deteksi awal selesai — lihat catatan ready)
   useEffect(() => {
     const meta = LANG_MAP[lang];
     const root = document.documentElement;
     root.lang = lang;
     root.dir = meta?.rtl ? "rtl" : "ltr";
+    if (!ready) return;
     try {
       window.localStorage.setItem(STORAGE_KEY, lang);
     } catch {
       // abaikan
     }
-  }, [lang]);
+  }, [lang, ready]);
 
   const setLang = useCallback((code: LangCode) => {
     setLangState(code);

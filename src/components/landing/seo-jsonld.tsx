@@ -1,8 +1,14 @@
+"use client";
+
 // ============================================================
 // PUSATPERIZINAN.COM — JSON-LD Structured Data
-// Server component (tanpa "use client") untuk SEO maksimal
+// Client component (usePathname) untuk SEO maksimal.
+// FAQPage hanya dirender di beranda — halaman FAQ section-nya
+// memang terlihat; halaman lain (mis. /faq) punya FAQPage
+// sendiri agar tidak ada dua FAQPage bertentangan per URL.
 // ============================================================
 
+import { usePathname } from "next/navigation";
 import { SERVICES, FAQS } from "@/lib/landing-data";
 import { TESTIMONIALS } from "@/lib/testimonials-data";
 import { TAX_ALL } from "@/lib/tax-services";
@@ -25,6 +31,8 @@ function JsonLd({ data }: { data: object }) {
 }
 
 export function SeoJsonLd() {
+  const pathname = usePathname();
+
   // 1. Organization + ProfessionalService (local SEO)
   const orgSchema = {
     "@context": "https://schema.org",
@@ -284,7 +292,7 @@ export function SeoJsonLd() {
     <>
       <JsonLd data={orgSchema} />
       <JsonLd data={websiteSchema} />
-      <JsonLd data={faqSchema} />
+      {pathname === "/" && <JsonLd data={faqSchema} />}
       <JsonLd data={guideSchema} />
       <JsonLd data={sectorSchema} />
       <JsonLd data={reviewsSchema} />

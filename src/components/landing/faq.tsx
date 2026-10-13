@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -9,9 +11,15 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { FAQS } from "@/lib/landing-data";
 import { useLanguage } from "@/lib/i18n/language-provider";
+import { faqUiT } from "@/lib/faq-data";
 
 export function Faq() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  // Tombol "Lihat semua FAQ" memakai string i18n halaman /faq
+  // (FAQ_UI 30 bahasa) mengikuti bahasa aktif.
+  const viewAllHref = "/faq";
+  const viewAllLabel = faqUiT(lang, "allFaqCta");
+
   return (
     <section id="faq" className="py-20 md:py-28 scroll-mt-20">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,6 +51,17 @@ export function Faq() {
             </AccordionItem>
           ))}
         </Accordion>
+
+        {/* CTA ke halaman FAQ pusat (51 Q&A, pencarian, 10 kategori) */}
+        <div className="mt-10 text-center">
+          <Link
+            href={viewAllHref}
+            className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/5 px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
+          >
+            {viewAllLabel}
+            <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden />
+          </Link>
+        </div>
       </div>
     </section>
   );
