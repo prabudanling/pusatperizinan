@@ -188,7 +188,7 @@ export const TRANSLATIONS_D: Partial<Record<LangCode, Translation>> = {
       "На одном этаже с Индонезийской фондовой биржей • Обслуживаем всю Индонезию онлайн",
     footerRights:
       "© {year} PusatPerizinan.com — PT Digital Bisnis Manajemen. Все права защищены.",
-    footerMade: "Сделано с ❤️ ради развития МСП Индонезии",
+    footerMade: "Support system by PT Top Konsultan Internasional — McKinsey Partner Indonesia",
     // Chat
     chatTitle: "RIZKI — ИИ-консультант",
     chatStatus: "Онлайн • Отвечает за секунды",
@@ -384,7 +384,7 @@ export const TRANSLATIONS_D: Partial<Record<LangCode, Translation>> = {
       "To samo piętro co Giełda Papierów Wartościowych w Indonezji • Obsługujemy całą Indonezję online",
     footerRights:
       "© {year} PusatPerizinan.com — PT Digital Bisnis Manajemen. Wszelkie prawa zastrzeżone.",
-    footerMade: "Stworzone z ❤️ dla rozwoju MŚP w Indonezji",
+    footerMade: "Support system by PT Top Konsultan Internasional — McKinsey Partner Indonesia",
     // Chat
     chatTitle: "RIZKI — konsultant AI",
     chatStatus: "Online • Odpowiada w kilka sekund",
@@ -580,7 +580,7 @@ export const TRANSLATIONS_D: Partial<Record<LangCode, Translation>> = {
       "На одному поверсі з Індонезійською фондовою біржею • Обслуговуємо всю Індонезію онлайн",
     footerRights:
       "© {year} PusatPerizinan.com — PT Digital Bisnis Manajemen. Усі права захищено.",
-    footerMade: "Створено з ❤️ задля розвитку МСП Індонезії",
+    footerMade: "Support system by PT Top Konsultan Internasional — McKinsey Partner Indonesia",
     // Chat
     chatTitle: "RIZKI — ШІ-консультант",
     chatStatus: "Онлайн • Відповідає за секунди",
@@ -775,7 +775,7 @@ export const TRANSLATIONS_D: Partial<Record<LangCode, Translation>> = {
       "Endonezya Borsası ile aynı katta • Tüm Endonezya'ya online hizmet",
     footerRights:
       "© {year} PusatPerizinan.com — PT Digital Bisnis Manajemen. Tüm hakları saklıdır.",
-    footerMade: "Endonezya KOBİ'lerinin gelişimi için ❤️ ile yapıldı",
+    footerMade: "Support system by PT Top Konsultan Internasional — McKinsey Partner Indonesia",
     // Chat
     chatTitle: "RIZKI — Yapay Zekâ Danışmanı",
     chatStatus: "Çevrimiçi • Saniyeler içinde yanıt verir",
@@ -971,7 +971,7 @@ export const TRANSLATIONS_D: Partial<Record<LangCode, Translation>> = {
       "Ghorofa moja na Soko la Hisa la Indonesia • Tunahudumia Indonesia yote mtandaoni",
     footerRights:
       "© {year} PusatPerizinan.com — PT Digital Bisnis Manajemen. Haki zote zimehifadhiwa.",
-    footerMade: "Imetengenezwa kwa ❤️ kwa maendeleo ya VIWAMA Indonesia",
+    footerMade: "Support system by PT Top Konsultan Internasional — McKinsey Partner Indonesia",
     // Chat
     chatTitle: "RIZKI — Mshauri wa AI",
     chatStatus: "Mtandaoni • Hujibu kwa sekunde chache",
@@ -1167,7 +1167,7 @@ export const TRANSLATIONS_D: Partial<Record<LangCode, Translation>> = {
       "ਇੰਡੋਨੇਸ਼ੀਆ ਸਟਾਕ ਐਕਸਚੇਂਜ ਨਾਲ ਇੱਕੋ ਮੰਜ਼ਿਲ • ਪੂਰੇ ਇੰਡੋਨੇਸ਼ੀਆ ਦੀ ਔਨਲਾਈਨ ਸੇਵਾ",
     footerRights:
       "© {year} PusatPerizinan.com — PT Digital Bisnis Manajemen. ਸਾਰੇ ਹੱਕ ਰਾਖਵੇਂ ਹਨ.",
-    footerMade: "ਇੰਡੋਨੇਸ਼ੀਆ ਦੇ ਐਮਐਸਐਮਈ ਦੀ ਤਰੱਕੀ ਲਈ ❤️ ਨਾਲ ਬਣਾਇਆ ਗਿਆ",
+    footerMade: "Support system by PT Top Konsultan Internasional — McKinsey Partner Indonesia",
     // Chat
     chatTitle: "RIZKI — AI ਸਲਾਹਕਾਰ",
     chatStatus: "ਔਨਲਾਈਨ • ਸਕਿੰਟਾਂ ਵਿੱਚ ਜਵਾਬ",
@@ -1362,7 +1362,7 @@ export const TRANSLATIONS_D: Partial<Record<LangCode, Translation>> = {
       "Sewang lante karo Bursa Efek Indonesia • Nglayani kabeh Indonesia online",
     footerRights:
       "© {year} PusatPerizinan.com — PT Digital Bisnis Manajemen. Kabeh hak dilindhungi.",
-    footerMade: "Digawe nganggo ❤️ kanggo kemajuan UMKM Indonesia",
+    footerMade: "Support system by PT Top Konsultan Internasional — McKinsey Partner Indonesia",
     // Chat
     chatTitle: "RIZKI — Konsultan AI",
     chatStatus: "Online • Mangsuli mung sawetara detik",

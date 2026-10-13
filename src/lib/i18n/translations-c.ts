@@ -171,7 +171,7 @@ export const TRANSLATIONS_C: Partial<Record<LangCode, Translation>> = {
       "En el mismo piso que la Bolsa de Valores de Indonesia • Atendemos toda Indonesia en línea",
     footerRights:
       "© {year} PusatPerizinan.com — PT Digital Bisnis Manajemen. Todos los derechos reservados.",
-    footerMade: "Hecho con ❤️ para el progreso de las pymes de Indonesia",
+    footerMade: "Support system by PT Top Konsultan Internasional — McKinsey Partner Indonesia",
     // Chat
     chatTitle: "RIZKI — Consultor IA",
     chatStatus: "En línea • Responde en segundos",
@@ -355,7 +355,7 @@ export const TRANSLATIONS_C: Partial<Record<LangCode, Translation>> = {
       "Au même étage que la Bourse d'Indonésie • Nous servons toute l'Indonésie en ligne",
     footerRights:
       "© {year} PusatPerizinan.com — PT Digital Bisnis Manajemen. Tous droits réservés.",
-    footerMade: "Fait avec ❤️ pour le progrès des PME indonésiennes",
+    footerMade: "Support system by PT Top Konsultan Internasional — McKinsey Partner Indonesia",
     // Chat
     chatTitle: "RIZKI — Consultant IA",
     chatStatus: "En ligne • Répond en quelques secondes",
@@ -539,7 +539,7 @@ export const TRANSLATIONS_C: Partial<Record<LangCode, Translation>> = {
       "Im selben Stockwerk wie die Börse Indonesiens • Wir betreuen ganz Indonesien online",
     footerRights:
       "© {year} PusatPerizinan.com — PT Digital Bisnis Manajemen. Alle Rechte vorbehalten.",
-    footerMade: "Mit ❤️ für den Fortschritt der indonesischen KMU",
+    footerMade: "Support system by PT Top Konsultan Internasional — McKinsey Partner Indonesia",
     // Chat
     chatTitle: "RIZKI — KI-Berater",
     chatStatus: "Online • Antwortet in Sekunden",
@@ -723,7 +723,7 @@ export const TRANSLATIONS_C: Partial<Record<LangCode, Translation>> = {
       "Allo stesso piano della Borsa Valori Indonesiana • Serviamo tutta l'Indonesia online",
     footerRights:
       "© {year} PusatPerizinan.com — PT Digital Bisnis Manajemen. Tutti i diritti riservati.",
-    footerMade: "Fatto con ❤️ per il progresso delle PMI indonesiane",
+    footerMade: "Support system by PT Top Konsultan Internasional — McKinsey Partner Indonesia",
     // Chat
     chatTitle: "RIZKI — Consulente IA",
     chatStatus: "Online • Risponde in pochi secondi",
@@ -907,7 +907,7 @@ export const TRANSLATIONS_C: Partial<Record<LangCode, Translation>> = {
       "Op dezelfde verdieping als de Indonesische beurs • We bedienen heel Indonesië online",
     footerRights:
       "© {year} PusatPerizinan.com — PT Digital Bisnis Manajemen. Alle rechten voorbehouden.",
-    footerMade: "Gemaakt met ❤️ voor de vooruitgang van Indonesische mkb-bedrijven",
+    footerMade: "Support system by PT Top Konsultan Internasional — McKinsey Partner Indonesia",
     // Chat
     chatTitle: "RIZKI — AI-Consultant",
     chatStatus: "Online • Antwoord binnen enkele seconden",
@@ -1091,7 +1091,7 @@ export const TRANSLATIONS_C: Partial<Record<LangCode, Translation>> = {
       "No mesmo andar da Bolsa de Valores da Indonésia • Atendemos toda a Indonésia online",
     footerRights:
       "© {year} PusatPerizinan.com — PT Digital Bisnis Manajemen. Todos os direitos reservados.",
-    footerMade: "Feito com ❤️ para o crescimento das PMEs da Indonésia",
+    footerMade: "Support system by PT Top Konsultan Internasional — McKinsey Partner Indonesia",
     // Chat
     chatTitle: "RIZKI — Consultor de IA",
     chatStatus: "Online • Responde em segundos",
@@ -1275,7 +1275,7 @@ export const TRANSLATIONS_C: Partial<Record<LangCode, Translation>> = {
       "Στον ίδιο όροφο με το Χρηματιστήριο της Ινδονησίας • Εξυπηρετούμε όλη την Ινδονησία online",
     footerRights:
       "© {year} PusatPerizinan.com — PT Digital Bisnis Manajemen. Με επιφύλαξη παντός δικαιώματος.",
-    footerMade: "Φτιάχτηκε με ❤️ για την πρόοδο των ΜΜΕ της Ινδονησίας",
+    footerMade: "Support system by PT Top Konsultan Internasional — McKinsey Partner Indonesia",
     // Chat
     chatTitle: "RIZKI — AI Σύμβουλος",
     chatStatus: "Σε σύνδεση • Απαντά σε δευτερόλεπτα",

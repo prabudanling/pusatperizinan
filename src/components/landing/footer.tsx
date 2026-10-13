@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShieldCheck, MapPin, Mail, PhoneCall } from "lucide-react";
+import { ShieldCheck, MapPin, Mail, PhoneCall, Globe } from "lucide-react";
 import { WHATSAPP_DISPLAY } from "@/lib/landing-data";
 import { useLanguage } from "@/lib/i18n/language-provider";
 import { LanguageSwitcher } from "@/components/landing/language-switcher";
@@ -317,22 +317,31 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-7 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 pr-2 sm:pr-24 text-center sm:text-left">
-          <p className="text-xs text-emerald-100/50">
-            {t("footerRights").replace("{year}", String(new Date().getFullYear()))}
-          </p>
-          <nav aria-label="Tautan legal" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 sm:pr-10">
-            <Link href="/tentang-kami" className="text-xs text-emerald-100/50 hover:text-emerald-300 transition-colors">Tentang Kami</Link>
-            <span aria-hidden>·</span>
-            <Link href="/kontak" className="text-xs text-emerald-100/50 hover:text-emerald-300 transition-colors">Kontak</Link>
-            <span aria-hidden>·</span>
-            <Link href="/kebijakan-privasi" className="text-xs text-emerald-100/50 hover:text-emerald-300 transition-colors">Privasi</Link>
-            <span aria-hidden>·</span>
-            <Link href="/syarat-ketentuan" className="text-xs text-emerald-100/50 hover:text-emerald-300 transition-colors">Syarat &amp; Ketentuan</Link>
-          </nav>
-          <p className="text-xs text-emerald-100/50 sm:pr-10">
-            {t("footerMade")}
-          </p>
+        {/* Bottom bar — international standard */}
+        <div className="mt-12 pt-7 border-t border-white/10 space-y-5 pr-2 sm:pr-24">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <p className="text-xs text-emerald-100/50">
+              {t("footerRights").replace("{year}", String(new Date().getFullYear()))}
+            </p>
+            <nav aria-label="Tautan legal" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+              <Link href="/tentang-kami" className="text-xs text-emerald-100/50 hover:text-emerald-300 transition-colors">Tentang Kami</Link>
+              <span aria-hidden>·</span>
+              <Link href="/kontak" className="text-xs text-emerald-100/50 hover:text-emerald-300 transition-colors">Kontak</Link>
+              <span aria-hidden>·</span>
+              <Link href="/kebijakan-privasi" className="text-xs text-emerald-100/50 hover:text-emerald-300 transition-colors">Privasi</Link>
+              <span aria-hidden>·</span>
+              <Link href="/syarat-ketentuan" className="text-xs text-emerald-100/50 hover:text-emerald-300 transition-colors">Syarat &amp; Ketentuan</Link>
+            </nav>
+          </div>
+          {/* Support system credit — PT Top Konsultan Internasional */}
+          <div className="flex justify-center">
+            <div className="inline-flex max-w-full items-center justify-center gap-2.5 rounded-full border border-emerald-400/20 bg-white/[0.04] px-5 py-2.5 text-center shadow-[0_0_24px_-8px_rgba(16,185,129,0.35)]">
+              <Globe className="h-4 w-4 shrink-0 text-emerald-400" aria-hidden="true" />
+              <p className="text-xs leading-relaxed tracking-wide text-emerald-100/85">
+                {t("footerMade")}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
