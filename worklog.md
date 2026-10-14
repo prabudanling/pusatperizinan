@@ -321,3 +321,20 @@ Stage Summary:
 - Folder /download & panel admin kini single-source-of-truth: pack-info.json schema v2 otomatis dari rebuild — pengguna selalu melihat & mengunduh artefak TERBARU lengkap dengan ukuran, tanggal WIB, dan badge kesegaran
 - Paket hosting statis 8,97 MB siap upload cPanel berisi seluruh kemajuan Task 4-9; sitemap/robots/feed otomatis sinkron dengan isi paket (SEO benar di hosting statis)
 - 3 perbaikan permanen menguntungkan semua mode deployment: /checkout pre-renderable, /blog/[slug] bebas-cookies saat build statis, pipeline export kini sehat & teruji
+
+---
+Task ID: 11
+Agent: Z.ai Code (main orchestrator)
+Task: Buat README.md "terlengkap di dunia" untuk PusatPerizinan.com — dokumentasi komprehensif berbasis kode aktual (bukan template)
+
+Work Log:
+- Eksplorasi mendalam sebelum menulis: worklog Task 1-10 (history), package.json (67 deps), prisma/schema.prisma (12 model), next.config.ts (3 mode output + rewrite sitemap), Caddyfile (XTransformPort), site.ts (NAP + trust metrics), layout.tsx (metadata SEO + MotionProvider + LanguageProvider), page.tsx (23 section landing), pricing.ts (8 paket, server-side source of truth), languages.ts (30 bahasa + 4 RTL), admin-auth.ts (HMAC-SHA256 cookie 12 jam), admin-deploy.tsx (panel ?admin=1, pack-info.json no-store), components.json (shadcn New York)
+- Inventarisasi API via grep "export async function" — semua metode HTTP terverifikasi presisi (30+ endpoint: publik lead/AI 9, payment 6, admin 11, infra 2)
+- Verifikasi angka dengan node/ls/wc — 3 klaim draft dikoreksi berdasarkan data nyata: 50+→48 komponen UI, 11→13 komponen admin, 30→32 komponen landing, 63→67 dependencies, virtual office "17 kota"→"48 lokasi/30 kota" (dari komentar virtual-office-data.ts), "8+ paket"→"8 paket"
+- Tulis README.md 959 baris / 52KB / 67 heading / 27 section: tentang proyek, fitur lengkap (23 section + 5 AI tools + CMS + checkout), tech stack, quick start (OOM-safe), struktur direktori teranotasi, arsitektur 3 mode deployment (2 diagram mermaid), peta rute lengkap, API reference penuh dengan metode verifikasi, database 12 model (ERD mermaid + tabel + perintah), i18n 30 bahasa (tabel wilayah + kedalaman terjemahan per konten), SEO/GEO (arsitektur sitemap 12 seksi, inventaris JSON-LD, llms.txt), design system (EASE/Reveal/utilitas CSS/WCAG 2.2 dua lapis), navigasi 5 grup + aturan interaksi, Mission Control 13 modul, panel deploy + /download (schema v2, mode LIGHT/FULL), pembayaran (sequence diagram mermaid, anti-manipulasi harga), notifikasi Telegram/WA, env variables (nilai disamarkan), scripts & perintah, gateway XTransformPort, kualitas & WCAG, troubleshooting 4 isu nyata + 6 pitfall (dari pelajaran lapangan Task 1-10), riwayat Task 1-10 (tabel), roadmap Kelompok A/B, FAQ developer (7 <details>), kontribusi (larangan keras), kredit
+- Anchor TOC 27 link diverifikasi konsisten dengan GitHub slugify (em dash → --, angka paren dihapus)
+
+Stage Summary:
+- README.md (root) siap: 959 baris dokumentasi world-class yang 100% mencerminkan kode aktual — semua angka (10.201 URL, 500 layanan, 30 bahasa, 12 model, 48 UI, 32 landing, 13 admin, 67 deps, 8 paket, 48/30 virtual office) terverifikasi dari sumber kode, bukan tebakan
+- Nilai dokumenter unik: troubleshooting berisi 4 insiden nyata + solusi permanen (sitemap 500, OOM, breakpoint gap, race localStorage) yang tidak ada di README biasa; aturan "larangan keras" menjaga single-source-of-truth (SITE_URL, TRUST_METRICS, pricing server-side)
+- Semua secret ditulis aman: .env disamarkan; hanya fallback yang sudah publik di kode yang dicatat dengan catatan "UBAH di produksi"
