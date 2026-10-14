@@ -137,6 +137,11 @@ function buildStaticPages(): SitemapEntry[] {
     entry("/", "weekly", 1.0),
     entry("/layanan", "weekly", 0.95),
     entry("/kbli", "daily", 0.95),
+    // Halaman CTA resmi (tujuan funnel sitewide — setiap CTA punya halaman asli)
+    entry("/konsultasi", "weekly", 0.95),
+    entry("/cek-izin", "monthly", 0.9),
+    entry("/kalkulator", "monthly", 0.9),
+    entry("/panduan", "weekly", 0.9),
     entry("/kalkulator-pajak", "monthly", 0.9),
     entry("/roadmap", "monthly", 0.9),
     entry("/cek-dokumen", "monthly", 0.9),

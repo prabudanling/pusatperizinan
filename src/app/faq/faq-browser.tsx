@@ -395,7 +395,7 @@ export function FaqBrowser() {
                 variant="outline"
                 className="w-full rounded-full border-primary/40 px-6 font-semibold text-primary hover:bg-primary/10 sm:w-auto"
               >
-                <a href="/#konsultasi">
+                <a href="/konsultasi">
                   <Sparkles className="h-4 w-4" aria-hidden />
                   {t("contactBtnConsult")}
                 </a>

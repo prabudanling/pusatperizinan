@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { SECTORS } from "@/lib/landing-data";
 import { Send, CheckCircle2 } from "lucide-react";
 
 interface LeadFormProps {
@@ -34,15 +35,27 @@ export function LeadForm({ source, needs, cta = "Kirim — Respons < 15 Menit", 
     if (loading) return;
     setLoading(true);
     try {
+      // Kontrak API /api/leads (anti-400):
+      //  - businessType WAJIB salah satu nilai SECTORS (landing-data) —
+      //    bila pilihan `needs` halaman bukan sektor resmi, kirim "Lainnya"
+      //    dan bawa pilihan user ke businessDesc agar tetap terlihat admin.
+      //  - package hanya menerima "UMKM|Bisnis|Enterprise|Belum tahu" —
+      //    pilihan needs BUKAN paket; jangan pernah dikirim sebagai package.
+      //  (Sebelumnya `package: form.need` & `businessType: form.need` membuat
+      //   SEMUA halaman LeadForm dengan needs (bumdes, mitra, korporat, PMA,
+      //   kalender-kepatuhan) gagal 400 "Jenis usaha tidak valid".)
+      const need = form.need.trim();
+      const sector = SECTORS.includes(need) ? need : "Lainnya";
+      const desc = need ? `[${need}] ${form.message}`.trim() : form.message;
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.name,
           whatsapp: form.whatsapp,
-          businessType: form.need || "Lainnya",
-          businessDesc: form.message,
-          package: form.need || "Belum tahu",
+          businessType: sector,
+          businessDesc: desc,
+          package: "Belum tahu",
           source,
         }),
       });
@@ -128,7 +141,11 @@ export function LeadForm({ source, needs, cta = "Kirim — Respons < 15 Menit", 
         />
       </div>
 
-      <Button type="submit" size="lg" className="w-full text-base" disabled={loading}>
+      {/* whitespace-normal: teks CTA panjang wajib boleh wrap di mobile —
+          tanpa ini min-content button (nowrap bawaan shadcn Button) memaksa
+          grid track melebar → overflow horizontal 390px di semua halaman
+          ber-LeadForm dengan CTA panjang (konsultasi, bumdes, PMA, dsb.) */}
+      <Button type="submit" size="lg" className="w-full text-base whitespace-normal leading-snug" disabled={loading}>
         <Send className="mr-2 h-4 w-4" aria-hidden />
         {loading ? "Mengirim…" : cta}
       </Button>

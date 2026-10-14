@@ -97,7 +97,10 @@ export function Pricing() {
                     )}
                     variant={tier.highlight ? "default" : "outline"}
                   >
-                    <a href="#konsultasi">{tier.cta}</a>
+                    {/* CTA per tier mengarah ke halaman sesuai NAMANYA:
+                        "Mulai dari Sini"/"Konsultasi Enterprise" → /konsultasi,
+                        "Pilih Paket Bisnis" → /paket */}
+                    <a href={tier.cta.includes("Paket") ? "/paket" : "/konsultasi"}>{tier.cta}</a>
                   </Button>
                 </CardContent>
               </Card>

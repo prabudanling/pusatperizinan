@@ -228,7 +228,7 @@ export function Header() {
       label: L("Informasi", "Resources"),
       items: [
         { icon: Newspaper, label: L("Blog & Artikel", "Blog & Articles"), href: "/blog", desc: L("Kabar regulasi terbaru", "Latest regulatory updates") },
-        { icon: FileText, label: L("Panduan Perizinan", "Permit Guides"), href: "/#panduan", desc: L("Panduan praktik per jenis izin", "Practical guides per permit type") },
+        { icon: FileText, label: L("Panduan Perizinan", "Permit Guides"), href: "/panduan", desc: L("Panduan praktik per jenis izin", "Practical guides per permit type") },
         { icon: Database, label: L("Kode KBLI", "KBLI Code Database"), href: "/kbli", desc: L("Cari kode lapangan usaha", "Find your business field code") },
         { icon: Compass, label: L("Syarat & Prosedur", "Requirements & Procedures"), href: "/syarat", desc: L("Dokumen yang perlu disiapkan", "Documents you need to prepare") },
         { icon: CalendarCheck, label: L("Kalender Kepatuhan", "Compliance Calendar"), href: "/kalender-kepatuhan", desc: L("Jatuh tempo lapor & pajak", "Filing & tax deadlines") },
@@ -240,8 +240,8 @@ export function Header() {
       id: "alat",
       label: L("Alat", "Tools"),
       items: [
-        { icon: Bot, label: L("Cek Izin AI", "AI License Check"), href: "/#cek-izin", desc: L("Analisis kebutuhan izin 60 detik", "60-second permit needs analysis") },
-        { icon: Calculator, label: L("Kalkulator Biaya", "Cost Calculator"), href: "/#kalkulator", desc: L("Hitung estimasi anggaran izin", "Estimate your permit budget") },
+        { icon: Bot, label: L("Cek Izin AI", "AI License Check"), href: "/cek-izin", desc: L("Analisis kebutuhan izin 60 detik", "60-second permit needs analysis") },
+        { icon: Calculator, label: L("Kalkulator Biaya", "Cost Calculator"), href: "/kalkulator", desc: L("Hitung estimasi anggaran izin", "Estimate your permit budget") },
         { icon: Receipt, label: L("Kalkulator Pajak", "Tax Calculator"), href: "/kalkulator-pajak", desc: "PPh 21, PPN & PPh final" },
         { icon: FileSearch, label: L("Cek Dokumen", "Document Check"), href: "/cek-dokumen", desc: L("Validasi kelengkapan berkas", "Validate document completeness") },
         { icon: Route, label: "AI Roadmap Digitalisasi", href: "/roadmap", desc: L("Peta jalan digital usaha Anda", "Your business digital roadmap") },
@@ -281,7 +281,7 @@ export function Header() {
           </a>
         </Button>
         <a
-          href="/#cek-izin"
+          href="/cek-izin"
           className="group/link inline-flex items-center justify-center gap-1 text-[13px] font-semibold text-primary hover:text-primary/80 transition-colors"
         >
           {L("Coba Cek Izin AI", "Try AI License Check")}
@@ -467,7 +467,7 @@ export function Header() {
               </a>
             </Button>
             <Button asChild size="sm" className="rounded-full px-5 font-semibold shadow-md shadow-primary/25">
-              <a href="/#konsultasi">
+              <a href="/konsultasi">
                 <Sparkles className="h-4 w-4" />
                 {t("ctaFree")}
               </a>
@@ -550,7 +550,7 @@ export function Header() {
                   </a>
                 </Button>
                 <Button asChild className="rounded-full font-semibold">
-                  <a href="/#konsultasi" onClick={() => setMobileOpen(false)}>
+                  <a href="/konsultasi" onClick={() => setMobileOpen(false)}>
                     <Sparkles className="h-4 w-4" />
                     {t("ctaFree")}
                   </a>

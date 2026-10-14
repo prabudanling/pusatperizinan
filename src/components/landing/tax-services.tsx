@@ -129,7 +129,7 @@ export function TaxServices() {
         <div className="mt-10 text-center">
           <p className="text-sm text-muted-foreground">
             {t("taxNote")}{" "}
-            <a href="#konsultasi" className="font-semibold text-primary hover:underline">
+            <a href="/konsultasi" className="font-semibold text-primary hover:underline">
               {t("taxNoteCta")}
             </a>
           </p>

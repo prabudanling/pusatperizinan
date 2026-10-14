@@ -151,7 +151,7 @@ export function FinalCta() {
                     <p className="mt-3 text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
                       {t("ctaSuccessBody")}
                     </p>
-                    <a href="#cek-izin" className="mt-3 inline-block text-sm font-semibold text-primary hover:underline">
+                    <a href="/cek-izin" className="mt-3 inline-block text-sm font-semibold text-primary hover:underline">
                       {t("navCheckAI")} →
                     </a>
                   </div>

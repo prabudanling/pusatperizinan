@@ -57,7 +57,7 @@ export function Process() {
 
         <div className="mt-14 text-center">
           <a
-            href="#konsultasi"
+            href="/konsultasi"
             className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-8 py-3.5 font-bold shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all"
           >
             Mulai Langkah 1 — Gratis

@@ -218,7 +218,7 @@ export default async function LayananCatalogPage() {
               <PhoneCall className="h-5 w-5" aria-hidden /> Konsultasi Gratis Sekarang
             </a>
             <Link
-              href="/#cek-izin"
+              href="/cek-izin"
               className="inline-flex items-center gap-2 rounded-xl border-2 border-primary/30 bg-card px-6 py-3.5 font-semibold shadow-sm transition-all hover:border-primary min-h-[44px]"
             >
               <Search className="h-5 w-5 text-primary" aria-hidden /> Cek Izin dengan AI

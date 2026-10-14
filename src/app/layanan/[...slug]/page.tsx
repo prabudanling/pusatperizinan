@@ -274,7 +274,7 @@ function LeadForm({ page }: { page: NonNullable<ReturnType<typeof getServicePage
           Chat WhatsApp Sekarang
         </a>
         <a
-          href="/#konsultasi"
+          href="/konsultasi"
           className="flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 font-semibold text-primary-foreground shadow-md transition-all hover:shadow-lg hover:brightness-110 min-h-[44px]"
         >
           <FileText className="h-5 w-5" aria-hidden />

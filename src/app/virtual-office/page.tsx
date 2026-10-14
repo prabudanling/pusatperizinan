@@ -583,7 +583,7 @@ export default function VirtualOfficePage() {
               Chat WhatsApp Sekarang
             </a>
             <a
-              href="/#konsultasi"
+              href="/konsultasi"
               className="flex items-center justify-center gap-2 rounded-xl bg-emerald-50/10 border border-emerald-100/30 px-6 py-3.5 font-semibold transition-all hover:bg-emerald-50/20 min-h-[44px]"
             >
               Form Konsultasi Lengkap

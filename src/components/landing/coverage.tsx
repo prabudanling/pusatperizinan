@@ -147,7 +147,7 @@ export function CoverageSection() {
             layani semua — cukup sebutkan lokasi Anda saat konsultasi.
           </p>
           <a
-            href="#konsultasi"
+            href="/konsultasi"
             className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-md shadow-primary/25 hover:shadow-primary/40 transition-shadow"
           >
             Konsultasi Kota Saya

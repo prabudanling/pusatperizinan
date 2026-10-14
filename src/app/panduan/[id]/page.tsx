@@ -110,7 +110,7 @@ export default async function PanduanPage({
           <ol className="flex flex-wrap items-center gap-1.5">
             <li><Link href="/" className="hover:text-primary">Beranda</Link></li>
             <li aria-hidden>/</li>
-            <li><Link href="/#panduan" className="hover:text-primary">Panduan</Link></li>
+            <li><Link href="/panduan" className="hover:text-primary">Panduan</Link></li>
             <li aria-hidden>/</li>
             <li aria-current="page" className="font-semibold text-foreground">{guide.name}</li>
           </ol>

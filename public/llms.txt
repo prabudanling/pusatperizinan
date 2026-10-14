@@ -11,9 +11,11 @@
 - [Perizinan Travel Haji-Umrah: PPIU, PIHK, PPIH](https://pusatperizinan.com/layanan/ppiu): spesialisasi flagship, termasuk paket "GO UMRAH!".
 - [Perpajakan: NPWP, PKP, SPT, LKPM, konsultasi insentif](https://pusatperizinan.com/kalkulator-pajak): dilanjutkan tim yang paham Coretax.
 - [Katalog 500 layanan resmi (4 kategori, 38 sub-kategori, kupon 10-30%)](https://pusatperizinan.com/katalog): setiap layanan punya halaman detail dengan harga kupon, syarat, timeline & FAQ.
-- [Kalkulator biaya perizinan](https://pusatperizinan.com/kalkulator-pajak): estimasi biaya gratis sebelum konsultasi.
+- [Kalkulator biaya perizinan](https://pusatperizinan.com/kalkulator): estimasi anggaran izin gratis — jasa konsultan vs biaya resmi negara, transparan per item.
 - [Database KBLI](https://pusatperizinan.com/kbli): pencarian kode KBLI 2020/2025 dengan penjelasan bahasa sederhana.
-- [Cek Izin dengan AI](https://pusatperizinan.com/#cek-izin): deskripsikan usaha Anda, AI menyusun roadmap izin dalam 30 detik.
+- [Cek Izin dengan AI](https://pusatperizinan.com/cek-izin): deskripsikan usaha Anda, AI menyusun peta izin wajib, KBLI teraman & urutan pengerjaan dalam 60 detik.
+- [Konsultasi gratis 30 menit](https://pusatperizinan.com/konsultasi): sesi 1-on-1 konsultan senior — peta izin, estimasi biaya & timeline, dijadwalkan ≤ 24 jam.
+- [Panduan perizinan (16 panduan resmi)](https://pusatperizinan.com/panduan): syarat, biaya, timeline & langkah resmi per jenis izin — NIB, PT, halal, BPOM, PBG/SLF, PMA, umroh, IATA, dst.
 - [Blog & panduan perizinan](https://pusatperizinan.com/blog): 13+ artikel mendalam ditulis konsultan senior.
 
 # Fakta kunci

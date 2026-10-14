@@ -292,7 +292,7 @@ export function CostCalculator() {
                         {sending ? "Mengirim…" : "Kirim Estimasi ke WhatsApp"}
                       </button>
                       <a
-                        href="#konsultasi"
+                        href="/konsultasi"
                         className="w-full inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold hover:border-primary/40 hover:text-primary transition-colors"
                       >
                         <Wallet className="h-4 w-4" />

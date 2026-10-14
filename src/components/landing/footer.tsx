@@ -213,12 +213,12 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#cek-izin" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                <a href="/cek-izin" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
                   ✨ Cek Izin AI
                 </a>
               </li>
               <li>
-                <a href="#kalkulator" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
+                <a href="/kalkulator" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-colors">
                   💰 Kalkulator Biaya Layanan
                 </a>
               </li>
@@ -229,7 +229,7 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 mt-10">
           {/* Brand */}
           <div className="lg:pr-6">
-            <a href="#beranda" className="flex items-center gap-2.5">
+            <a href="/#beranda" className="flex items-center gap-2.5">
               <img src="/logo-icon-white.png" alt="Logo PusatPerizinan.com" className="h-10 w-10" />
               <span className="font-bold text-lg text-white">
                 Pusat<span className="text-emerald-400">Perizinan</span>

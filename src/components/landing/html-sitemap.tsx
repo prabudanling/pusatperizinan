@@ -141,7 +141,7 @@ export function HtmlSitemap() {
               {PERMIT_GUIDES.map((g) => (
                 <li key={g.id}>
                   <a
-                    href="#panduan"
+                    href={`/panduan/${g.id}`}
                     title={g.short}
                     onClick={() => openGuide(g.id)}
                     className="text-[13px] text-foreground/75 hover:text-primary transition-colors"

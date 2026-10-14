@@ -142,7 +142,7 @@ export function Services() {
         <div className="mt-10 text-center">
           <p className="text-sm text-muted-foreground">
             Butuh izin yang tidak tercantum?{" "}
-            <a href="#konsultasi" className="font-semibold text-primary hover:underline">
+            <a href="/konsultasi" className="font-semibold text-primary hover:underline">
               Konsultasikan gratis
             </a>{" "}
             — kami menangani 60+ jenis perizinan lainnya.

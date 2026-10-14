@@ -215,7 +215,7 @@ export function KnowledgeHub() {
                         </div>
                         <div className="flex flex-wrap gap-2">
                           <a
-                            href="#konsultasi"
+                            href="/konsultasi"
                             className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-md shadow-primary/25 hover:shadow-primary/40 transition-shadow"
                           >
                             Urus {guide.name.split(" ")[0]} sekarang
@@ -386,7 +386,7 @@ export function KnowledgeHub() {
                 KBLI usaha Anda tidak ada di daftar? Ada 5.700+ kode lain — kami petakan yang paling menguntungkan.
               </p>
               <a
-                href="#konsultasi"
+                href="/konsultasi"
                 className="shrink-0 rounded-full bg-primary px-5 py-2.5 text-xs font-bold text-primary-foreground shadow-md shadow-primary/25 hover:shadow-primary/40 transition-shadow"
               >
                 Konsultasi KBLI Gratis
