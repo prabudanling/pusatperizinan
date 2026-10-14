@@ -7,6 +7,7 @@
 // ============================================================
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { BadgeCheck, Crown, ShieldCheck } from "lucide-react";
 import { FOUNDER, TEAM, type LocalizedText, type TeamMember } from "@/lib/team-data";
 import { useLanguage } from "@/lib/i18n/language-provider";
@@ -113,6 +114,71 @@ export function TeamSection() {
           {TEAM.map((m, i) => (
             <MemberCard key={m.name} member={m} index={i + 1} />
           ))}
+        </div>
+
+        {/* ===== KANTOR RESMI — bukti fisik kehadiran (trust signal) ===== */}
+        <div className="mt-14">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400">
+              {lang === "en" ? "Our Offices" : "Kantor Resmi Kami"}
+            </p>
+            <h3 className="mt-3 text-2xl md:text-3xl font-extrabold tracking-tight">
+              {lang === "en" ? (
+                <>
+                  A Real Office, <span className="text-gradient-brand">Not Just a Website</span>
+                </>
+              ) : (
+                <>
+                  Kantor Nyata, <span className="text-gradient-brand">Bukan Sekadar Situs</span>
+                </>
+              )}
+            </h3>
+            <p className="mt-3 text-sm md:text-base text-muted-foreground leading-relaxed">
+              {lang === "en"
+                ? "Head office at Indonesia Stock Exchange Building, SCBD Jakarta — with a branch office in Bandung. Visit us by appointment."
+                : "Kantor pusat di Indonesia Stock Exchange Building, SCBD Jakarta — dengan kantor cabang di Bandung. Kunjungi kami dengan appointment."}
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {[
+              {
+                src: "/kantor/kantor-resepsionis.jpg",
+                alt: lang === "en"
+                  ? "Reception area of PusatPerizinan.com office — front desk, green plant wall and PP logo on the branding wall"
+                  : "Resepsionis kantor PusatPerizinan.com — meja reception, dinding tanaman hijau, dan logo PP",
+                chip: lang === "en" ? "Head Office — Jakarta SCBD" : "Kantor Pusat — Jakarta SCBD",
+              },
+              {
+                src: "/kantor/kantor-jakarta.jpg",
+                alt: lang === "en"
+                  ? "PusatPerizinan.com signage on the office building facade in Jakarta"
+                  : "Papan nama PusatPerizinan.com pada gedung kantor Jakarta",
+                chip: lang === "en" ? "Building Signage — Jakarta" : "Signage Gedung — Jakarta",
+              },
+            ].map((img, i) => (
+              <motion.figure
+                key={img.src}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.55, delay: i * 0.1 }}
+                className="group relative overflow-hidden rounded-2xl border border-border/70 shadow-sm"
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  width={2000}
+                  height={1333}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 576px"
+                  className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-64"
+                />
+                <figcaption className="absolute left-4 top-4 rounded-full bg-black/55 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
+                  {img.chip}
+                </figcaption>
+              </motion.figure>
+            ))}
+          </div>
         </div>
 
         <p className="mt-8 text-center text-xs text-muted-foreground">

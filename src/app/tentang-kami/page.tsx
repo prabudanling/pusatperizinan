@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Award, Building2, CheckCircle2, Globe2, MapPin, ShieldCheck, Target } from "lucide-react";
+import { ArrowRight, Award, Building2, Camera, CheckCircle2, Globe2, MapPin, ShieldCheck, Target } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { FOUNDER, TEAM } from "@/lib/team-data";
@@ -75,6 +76,62 @@ export default function TentangKamiPage() {
             </p>
           </div>
         </div>
+
+        {/* ===== KANTOR KAMI — bukti fisik kantor (E-E-A-T) ===== */}
+        <section aria-labelledby="kantor-kami-title" className="mt-12">
+          <h2 id="kantor-kami-title" className="text-2xl font-bold tracking-tight flex items-center gap-2">
+            <Camera className="h-5 w-5 text-primary" aria-hidden />
+            Kantor Kami
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Kantor Jakarta (SCBD) dan cabang Bandung — kunjungan dengan
+            appointment, silakan hubungi WhatsApp lebih dahulu.
+          </p>
+
+          <div className="mt-5 grid gap-4 md:grid-cols-12">
+            <figure className="animate-fade-up reveal-1 group relative overflow-hidden rounded-2xl border border-border/70 md:col-span-7">
+              <Image
+                src="/kantor/kantor-resepsionis.jpg"
+                alt="Resepsionis kantor PusatPerizinan.com — meja reception, dinding tanaman hijau, dan logo PP di dinding branding"
+                width={2000}
+                height={1333}
+                className="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-80"
+                sizes="(max-width: 768px) 100vw, 58vw"
+              />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pb-3 pt-10 text-xs font-medium text-white">
+                Resepsionis kantor — PT Top Konsultan Internasional
+              </figcaption>
+            </figure>
+
+            <figure className="animate-fade-up reveal-2 group relative overflow-hidden rounded-2xl border border-border/70 md:col-span-5">
+              <Image
+                src="/kantor/kantor-branding-wall.jpg"
+                alt="Dinding branding PusatPerizinan.com — logo PP metalik pada dinding gelap ruang kantor"
+                width={2000}
+                height={1333}
+                className="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-80"
+                sizes="(max-width: 768px) 100vw, 40vw"
+              />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pb-3 pt-10 text-xs font-medium text-white">
+                Branding wall — kantor pusat
+              </figcaption>
+            </figure>
+
+            <figure className="animate-fade-up reveal-3 group relative overflow-hidden rounded-2xl border border-border/70 md:col-span-12">
+              <Image
+                src="/kantor/kantor-bandung-fasade.jpg"
+                alt="Fasade masuk kantor PusatPerizinan.com Bandung — papan nama logo PP pada dinding batu alam"
+                width={2000}
+                height={1333}
+                className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-72"
+                sizes="(max-width: 768px) 100vw, 100vw"
+              />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pb-3 pt-10 text-xs font-medium text-white">
+                Fasade kantor cabang Bandung
+              </figcaption>
+            </figure>
+          </div>
+        </section>
 
         {/* Founder */}
         <section aria-label="Founder" className="mt-12">

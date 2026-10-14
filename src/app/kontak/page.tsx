@@ -92,6 +92,11 @@ const kontakJsonLd = {
       url: SITE_URL,
       telephone: CONTACT.phoneIntl,
       email: CONTACT.email,
+      image: [
+        absUrl("/kantor/kantor-jakarta.jpg"),
+        absUrl("/kantor/kantor-bandung-lobi.jpg"),
+        absUrl("/kantor/kantor-resepsionis.jpg"),
+      ],
       address: {
         "@type": "PostalAddress",
         streetAddress: CONTACT.address.street,
@@ -409,44 +414,90 @@ export default function KontakPage() {
           </div>
         </section>
 
-        {/* ===== KANTOR CABANG BANDUNG (E-E-A-T: bukti fisik kehadiran lokal) ===== */}
+        {/* ===== KANTOR KAMI — bukti fisik kehadiran lokal (E-E-A-T) ===== */}
         <section
           aria-labelledby="kantor-bandung"
           className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16 lg:px-8"
         >
-          <div className="overflow-hidden rounded-2xl border border-border/70 bg-card">
-            <figure>
-              <Image
-                src="/kantor-bandung.jpg"
-                alt="Kantor cabang PusatPerizinan.com di Bandung — lobi PT Top Konsultan Internasional"
-                width={1600}
-                height={1067}
-                className="h-64 w-full object-cover sm:h-80"
-                sizes="(max-width: 1024px) 100vw, 1152px"
-              />
-              <figcaption className="px-5 pt-4 text-xs text-muted-foreground">
-                Lobi kantor cabang Bandung — PT Top Konsultan Internasional
-              </figcaption>
-            </figure>
-            <div className="p-5 pt-2 sm:p-6 sm:pt-2">
-              <h2
-                id="kantor-bandung"
-                className="text-xl font-extrabold tracking-tight"
-              >
-                Kantor Cabang Bandung
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Melayani Jawa Barat &amp; sekitarnya: pengurusan NIB, pendirian badan
-                usaha, PBG/SLF, izin lingkungan, hingga sertifikasi produk. Kunjungan
-                dengan appointment — hubungi WhatsApp dahulu agar konsultan senior
-                siap menerima Anda.
-              </p>
-              <p className="mt-3 text-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">Area layanan:</span>{" "}
-                Bandung, Cimahi, Bekasi, Bogor, Depok, Sukabumi, Cirebon, dan seluruh
-                Jawa Barat.
-              </p>
-            </div>
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">
+              Kantor Kami
+            </p>
+            <h2 className="mt-3 text-2xl font-extrabold tracking-tight sm:text-3xl">
+              Kantor Nyata, Bukan Alamat Virtual
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Kunjungan dengan appointment — hubungi WhatsApp dahulu agar
+              konsultan senior siap menerima Anda.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-6 lg:grid-cols-2">
+            {/* JAKARTA — kantor pusat SCBD */}
+            <article className="animate-fade-up reveal-1 overflow-hidden rounded-2xl border border-border/70 bg-card">
+              <figure className="group relative overflow-hidden">
+                <Image
+                  src="/kantor/kantor-jakarta.jpg"
+                  alt="Papan nama PusatPerizinan.com pada gedung kantor Jakarta"
+                  width={2000}
+                  height={1333}
+                  className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-64"
+                  sizes="(max-width: 1024px) 100vw, 576px"
+                />
+                <figcaption className="absolute left-4 top-4 rounded-full bg-black/55 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
+                  Kantor Pusat — Jakarta
+                </figcaption>
+              </figure>
+              <div className="p-5 sm:p-6">
+                <h3 className="text-lg font-extrabold tracking-tight">
+                  Jakarta — SCBD
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {CONTACT.address.street}, {CONTACT.address.city}{" "}
+                  {CONTACT.address.postalCode}. Berada di kawasan Indonesia
+                  Stock Exchange Building — melayani seluruh Indonesia secara
+                  online dan tatap muka.
+                </p>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  <span className="font-semibold text-foreground">Jam operasional:</span>{" "}
+                  {CONTACT.hours}
+                </p>
+              </div>
+            </article>
+
+            {/* BANDUNG — kantor cabang */}
+            <article className="animate-fade-up reveal-2 overflow-hidden rounded-2xl border border-border/70 bg-card">
+              <figure className="group relative overflow-hidden">
+                <Image
+                  src="/kantor/kantor-bandung-lobi.jpg"
+                  alt="Lobi kantor cabang PusatPerizinan.com di Bandung — meja resepsionis kayu dengan pemandangan kota"
+                  width={2000}
+                  height={1333}
+                  className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-64"
+                  sizes="(max-width: 1024px) 100vw, 576px"
+                />
+                <figcaption className="absolute left-4 top-4 rounded-full bg-black/55 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
+                  Kantor Cabang — Bandung
+                </figcaption>
+              </figure>
+              <div className="p-5 sm:p-6">
+                <h3
+                  id="kantor-bandung"
+                  className="text-lg font-extrabold tracking-tight"
+                >
+                  Kantor Cabang Bandung
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  Melayani Jawa Barat &amp; sekitarnya: pengurusan NIB, pendirian badan
+                  usaha, PBG/SLF, izin lingkungan, hingga sertifikasi produk.
+                </p>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  <span className="font-semibold text-foreground">Area layanan:</span>{" "}
+                  Bandung, Cimahi, Bekasi, Bogor, Depok, Sukabumi, Cirebon, dan seluruh
+                  Jawa Barat.
+                </p>
+              </div>
+            </article>
           </div>
         </section>
 

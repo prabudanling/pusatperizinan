@@ -238,3 +238,23 @@ Stage Summary:
 - Situs kembali 100% sehat: konflik route-tree sitemap diperbaiki permanen dengan arsitektur yang valid di dev (Turbopack), standalone (passenger) dan export (idwebhost) — URL publik tidak berubah (/sitemap.xml index + 12 seksi /sitemap/<id>.xml)
 - Verifikasi ulang penuh: semua fitur desain world-class (Task 6) & footer internasional (Task 5) terkonfirmasi hidup; lint/tsc/dev.log bersih; nol error console; nol overflow nyata
 - Sisa pekerjaan teridentifikasi dan dipresentasikan ke user sebagai TO-DO LIST TERAKHIR: item M07-M15 & M18-M24 (GSC produksi, backlink, konten marketing) memerlukan akses produksi di luar sandbox; opsi iterasi lanjutan dalam sandbox didokumentasikan
+
+---
+Task ID: 8
+Agent: Z.ai Code (main orchestrator)
+Task: Tempatkan 5 foto kantor resmi (upload user) di posisi strategis website — trust & profesionalisme standar internasional (god mode tier max)
+
+Work Log:
+- Terima 5 foto kantor dari user di upload/ (total ~42MB, 4000-5600px): resepsionis, signage gedung Jakarta, fasade Bandung, branding wall, lobi kayu Bandung
+- Optimasi sharp: resize 2000px lebar, JPEG q82 mozjpeg + auto-rotate → public/kantor/*.jpg total 1,27MB (kantor-resepsionis 204KB, kantor-jakarta 287KB, kantor-bandung-fasade 273KB, kantor-branding-wall 156KB, kantor-bandung-lobi 334KB) — Core Web Vitals aman, /_next/image menyajikan 60KB untuk width 1080
+- /tentang-kami/page.tsx: tambah section "Kantor Kami" (server component, entrance CSS murni animate-fade-up reveal-1..3 — compositor-only sesuai motion system Task 6) — grid editorial asimetris md:grid-cols-12: resepsionis (span-7) + branding wall (span-5) + fasade Bandung banner full-width; figcaption overlay gradient, hover scale 1.03 (transform-only), alt deskriptif penuh, sizes responsif
+- /kontak/page.tsx: (1) JSON-LD ProfessionalService ditambah image[] 3 foto (absUrl) — memperkaya rich result local SEO; (2) section "Kantor Cabang Bandung" lama di-transform menjadi "Kantor Nyata, Bukan Alamat Virtual" — grid 2 kartu: Jakarta SCBD (foto signage + alamat CONTACT + jam operasional) & Bandung (foto lobi kayu city view + area layanan); chip lokasi glassmorphic, animate-fade-up reveal
+- components/landing/team.tsx: strip "Kantor Resmi Kami / A Real Office, Not Just a Website" di bawah grid tim — pola i18n inline lang==="en" konsisten dengan file (nol perubahan file terjemahan, fallback id otomatis untuk 28 bahasa lain); motion.figure whileInView once -60px delay stagger 0.1s (konsisten kartu tim); next/image sizes responsif
+- Bug yang diperbaiki saat implementasi: literal "\n" tak sengaja masuk JSX heading /kontak → diganti newline asli + kapitalisasi "Alamat Virtual"; <img> di team.tsx diganti next/image agar dapat optimasi WebP/AVIF otomatis
+- Verifikasi: lint 0 error; tsc 0 error file deliverable; browser E2E — /tentang-kami galeri 3 foto + 3 caption terrender, /kontak 2 kartu kantor + heading benar, landing strip 2 foto via /_next/image optimizer 200, i18n EN terverifikasi live ("OUR OFFICES / A Real Office..."); mobile 390x844 stack rapi tanpa horizontal scroll (canScrollH false); console bersih; dev server sempat OOM-kill (screenshot + sharp + dev bersamaan) → restart NODE_OPTIONS 2560 sehat
+- Catatan: public/kantor-bandung.jpg lama tidak lagi direferensikan (diganti foto asli), file dibiarkan sebagai arsip
+
+Stage Summary:
+- 5 foto kantor resmi hidup di 3 titik konversi: /tentang-kami (galeri E-E-A-T "Kantor Kami"), /kontak (2 kartu kantor + JSON-LD image), landing TeamSection (strip trust "Kantor Resmi Kami" bilingual)
+- Trust signal kepercayaan naik: klien kini melihat bukti fisik kantor SCBD Jakarta & Bandung di semua halaman kunci funnel
+- Performa terjaga: 42MB → 1,27MB, lazy-load, optimizer Next.js, animasi tetap compositor-only
