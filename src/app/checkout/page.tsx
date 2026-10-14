@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import { CheckoutClient } from "@/components/payment/checkout-client";
+import { Suspense } from "react";
+import { CheckoutFromQuery } from "@/components/payment/checkout-client";
 
 // ============================================================
 // PUSATPERIZINAN.COM — CHECKOUT (Bayar Langsung)
 // /checkout?paket=nib — halaman transaksi, noindex (thin content).
+// Static-export friendly: `?paket=` dibaca CLIENT-side via
+// useSearchParams (CheckoutFromQuery + Suspense), sehingga halaman
+// bisa di-prerender untuk hosting statis TANPA mengubah perilaku
+// runtime (dev & standalone tetap identik).
 // ============================================================
 
 export const metadata: Metadata = {
@@ -13,11 +18,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function CheckoutPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ paket?: string }>;
-}) {
-  const { paket } = await searchParams;
-  return <CheckoutClient initialPaket={paket || ""} />;
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={null}>
+      <CheckoutFromQuery />
+    </Suspense>
+  );
 }

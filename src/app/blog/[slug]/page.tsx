@@ -103,8 +103,11 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const store = await cookies();
-  const authed = verifyToken(store.get(ADMIN_COOKIE)?.value);
+  // Static export: tanpa cookies() (request dinamis dilarang saat prerender)
+  // — draf admin tidak relevan di hosting statis; dev/standalone tetap utuh.
+  const authed = process.env.BUILD_STATIC === "1"
+    ? false
+    : verifyToken((await cookies()).get(ADMIN_COOKIE)?.value);
   const found = await resolveArticle(slug, authed);
   if (!found) return {};
 
@@ -153,8 +156,11 @@ export default async function BlogArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const store = await cookies();
-  const authed = verifyToken(store.get(ADMIN_COOKIE)?.value);
+  // Static export: tanpa cookies() (request dinamis dilarang saat prerender)
+  // — draf admin tidak relevan di hosting statis; dev/standalone tetap utuh.
+  const authed = process.env.BUILD_STATIC === "1"
+    ? false
+    : verifyToken((await cookies()).get(ADMIN_COOKIE)?.value);
   const found = await resolveArticle(slug, authed);
   if (!found) notFound();
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   ShieldCheck, Clock, BadgeCheck, Loader2, ChevronRight,
   Wallet, Landmark, QrCode, Store, Sparkles, Lock,
@@ -41,6 +42,16 @@ interface CreateResponse {
 }
 
 const CATEGORY_ORDER: PaketLayanan["category"][] = ["konsultasi", "izin", "legalitas", "sertifikasi"];
+
+/**
+ * Bridge client untuk ?paket=xxx — memungkinkan /checkout di-prerender
+ * statis (output:"export"): halaman server tidak lagi `await searchParams`.
+ * Wajib dibungkus <Suspense> di halaman (kontrak useSearchParams).
+ */
+export function CheckoutFromQuery() {
+  const sp = useSearchParams();
+  return <CheckoutClient initialPaket={sp.get("paket") ?? ""} />;
+}
 
 export function CheckoutClient({ initialPaket }: { initialPaket: string }) {
   const [cfg, setCfg] = useState<CfgResponse | null>(null);

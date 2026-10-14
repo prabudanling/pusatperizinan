@@ -5,12 +5,15 @@
 // berisi HTML + CSS + JavaScript MURNI + .htaccess + panduan.
 // Tanpa Node.js, tanpa server.js, tanpa .env, tanpa prisma runtime —
 // user cukup UPLOAD & EXTRACT ke public_html idwebhost.
-// Prasyarat : folder out/ ada (jalankan `npm run build:static` dulu)
+//
+// Prasyarat : folder out/ ada (jalankan scripts/build-static.mjs dulu;
+//             PACK_LIGHT=1 disarankan agar paket ringan)
 // Hasil     : public/download/pusatperizinan-static-hosting.tar.gz
-//             + pack-info.json + ISI-PACK.txt + DEPLOY-IDWEBHOST.md
+//             + pack-info.json (schema v2: mode + files[] semua artefak)
+//             + ISI-PACK.txt + DEPLOY-IDWEBHOST.md
 //             (salinan juga ditempel ke out/download/ agar situs
 //              statis yang live pun bisa menyajikannya)
-// Jalankan  : node scripts/deploy-pack.mjs   (alias: npm run pack)
+// Jalankan  : node scripts/deploy-pack.mjs
 // ============================================================
 import { existsSync, mkdirSync, rmSync, cpSync, writeFileSync, readdirSync, statSync, readFileSync, renameSync } from "node:fs";
 import { createHash } from "node:crypto";
@@ -30,18 +33,36 @@ console.log("──────────────────────�
 // ---------- 0. Prasyarat ----------
 if (!existsSync(OUT)) {
   console.error("❌ Folder out/ tidak ditemukan.");
-  console.error("   Jalankan dulu:  npm run build:static");
+  console.error("   Jalankan dulu:  PACK_LIGHT=1 node scripts/build-static.mjs");
   process.exit(1);
 }
 
-// ---------- 1. Siapkan staging (out/ minus folder download/) ----------
+// Deteksi mode build dari marker yang ditulis build-static.mjs (deterministik)
+let MODE = "light";
+const modeMarker = path.join(OUT, ".pack-mode");
+if (existsSync(modeMarker)) {
+  MODE = readFileSync(modeMarker, "utf8").trim() === "full" ? "full" : "light";
+} else {
+  // Fallback (out/ lama tanpa marker): rute long-tail ada = full
+  MODE = existsSync(path.join(OUT, "layanan", "nib.html")) ? "full" : "light";
+}
+const MODE_LABEL = MODE === "full"
+  ? "FULL — semua halaman termasuk long-tail SEO (± 9.500 halaman)"
+  : "LIGHT — halaman inti + direktori + artikel blog (ringan, cepat di-upload cPanel)";
+
+console.log(`🎛️  Mode terdeteksi: ${MODE.toUpperCase()}`);
+
+// ---------- 1. Siapkan staging (out/ minus folder download/ & marker) ----------
 rmSync(STAGING, { recursive: true, force: true });
 mkdirSync(STAGING, { recursive: true });
 cpSync(OUT, STAGING, {
   recursive: true,
-  filter: (src) => !src.includes(`${path.sep}download${path.sep}`) && !src.endsWith(`${path.sep}download`),
+  filter: (src) =>
+    !src.includes(`${path.sep}download${path.sep}`) &&
+    !src.endsWith(`${path.sep}download`) &&
+    path.basename(src) !== ".pack-mode",
 });
-console.log("📁 Staging disiapkan dari out/ (folder download/ dikecualikan)");
+console.log("📁 Staging disiapkan dari out/ (folder download/ & marker dikecualikan)");
 
 // ---------- 2. Tempel .htaccess + panduan deploy ----------
 const htaccessSrc = path.join(ROOT, ".htaccess");
@@ -63,7 +84,16 @@ function walkCount(dir) {
   }
   return count;
 }
+function walkHtml(dir, acc = []) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walkHtml(full, acc);
+    else if (entry.name.endsWith(".html")) acc.push(full);
+  }
+  return acc;
+}
 const fileCount = walkCount(STAGING);
+const htmlCount = walkHtml(STAGING).length;
 
 // ---------- 4. ISI-PACK.txt (checklist di dalam paket) ----------
 const isiPack = `════════════════════════════════════════════════════════════
@@ -71,7 +101,8 @@ const isiPack = `═════════════════════
  Dibangun khusus untuk shared hosting TANPA Node.js (idwebhost)
 ════════════════════════════════════════════════════════════
 
-Konten paket : ${fileCount} file (HTML + CSS + JavaScript murni)
+Konten paket : ${fileCount} file — ${htmlCount} halaman HTML siap-baca
+Mode build   : ${MODE_LABEL}
 Node.js      : TIDAK DIBUTUHKAN ✅
 PHP          : TIDAK DIBUTUHKAN ✅ (hosting Anda cukup punya Apache/LiteSpeed)
 Database     : TIDAK ADA — semua konten sudah "dibakar" ke HTML saat build
@@ -79,15 +110,19 @@ Terminal/SSH : TIDAK DIPERLUKAN ✅
 
 STRUKTUR UTAMA
 ──────────────
-  index.html              → halaman utama (lengkap: 30 bahasa, SEO, WA)
+  index.html              → halaman utama (menu 5 kelompok, galeri kantor,
+                            30 bahasa, SEO JSON-LD, WhatsApp)
   404.html                → halaman error 404 branded
   _next/                  → aset CSS + JS + font (nama file ber-hash)
   .htaccess               → routing, 404, kompresi GZIP, cache browser
   robots.txt              → instruksi mesin pencari
-  sitemap.xml             → peta situs SEO
-  manifest.json, logo.png  → PWA & ikon
-  logo-icon.png            → emblem persegi (favicon/header)
-  download/               → salinan paket ini (boleh dihapus di hosting)
+  sitemap.xml             → INDEKS sitemap (menunjuk seksi per bagian)
+  sitemap/                → sitemap per seksi (hanya URL yang ada di paket)
+  feed.xml                → RSS blog (otomatis dipangkas sesuai isi paket)
+  kantor/                 → foto kantor resmi Jakarta SCBD & Bandung
+  layanan/, kbli/, blog/, katalog/, paket/, dsb. → halaman direktori inti
+  manifest.json, logo.png → PWA & ikon
+  logo-icon.png           → emblem persegi (favicon/header)
   DEPLOY-IDWEBHOST.md     → panduan lengkap langkah upload
   ISI-PACK.txt            → file yang sedang Anda baca
 
@@ -106,6 +141,10 @@ CATATAN PENTING
 ───────────────
   • Form kontak & AI chat otomatis fallback ke WhatsApp resmi
     0812-6999-9910 — lead TETAP masuk tanpa server sekalipun.
+  • Mode LIGHT: halaman long-tail SEO (ribuan halaman layanan
+    per wilayah/kbli) tidak ikut dalam paket — link tersebut
+    diarahkan ke halaman 404 branded. Untuk situs penuh, jalankan
+    build tanpa PACK_LIGHT (butuh server Node.js).
   • Update konten: konten ter-bake saat build. Minta rebuild di
     sandbox, lalu upload ulang paket baru (extract menimpa).
   • SSL gratis: cPanel → SSL/TLS Status → Run AutoSSL.
@@ -143,33 +182,67 @@ const sizeBytes = statSync(finalPath).size;
 const md5 = createHash("md5").update(readFileSync(finalPath)).digest("hex");
 const builtAt = new Date().toISOString();
 
+// ---------- 8. pack-info.json schema v2 (mode + files[] semua artefak) ----------
+const ARTIFACTS = [
+  { name: PACK_NAME, kind: "pack", label: "Paket deploy utama (upload & extract)" },
+  { name: "DEPLOY-IDWEBHOST.md", kind: "doc", label: "Panduan deploy cPanel (± 5 menit)" },
+  { name: "ISI-PACK.txt", kind: "doc", label: "Checklist isi paket" },
+  { name: "katalog-500-layanan-pusatperizinan.pdf", kind: "doc", label: "Katalog 500+ layanan (PDF)" },
+  { name: "pack-info.json", kind: "meta", label: "Manifest paket (ukuran, MD5, tanggal)" },
+];
+const files = ARTIFACTS
+  .filter((a) => existsSync(path.join(DOWNLOAD, a.name)))
+  .map((a) => {
+    const fp = path.join(DOWNLOAD, a.name);
+    const bytes = statSync(fp).size;
+    return {
+      ...a,
+      bytes,
+      sizeLabel: `${(bytes / (1024 * 1024)).toFixed(2)} MB`,
+      mtime: statSync(fp).mtime.toISOString(),
+    };
+  });
+
 const packInfo = {
+  schema: 2,
   file: PACK_NAME,
   sizeBytes,
   sizeLabel: `${(sizeBytes / (1024 * 1024)).toFixed(2)} MB`,
   md5,
   fileCount,
+  htmlCount,
+  mode: MODE,
+  modeLabel: MODE_LABEL,
   builtAt,
   target: "idwebhost shared hosting (cPanel) — tanpa Node.js",
   note: "Upload & extract ke public_html. Lihat DEPLOY-IDWEBHOST.md.",
+  files,
 };
 writeFileSync(path.join(DOWNLOAD, "pack-info.json"), JSON.stringify(packInfo, null, 2), "utf8");
 cpSync(docSrc, path.join(DOWNLOAD, "DEPLOY-IDWEBHOST.md"), { force: true });
 writeFileSync(path.join(DOWNLOAD, "ISI-PACK.txt"), isiPack, "utf8");
 
-// ---------- 8. Tempel salinan ke out/download/ agar situs statis live pun bisa menyajikan ----------
+// ---------- 9. Tempel salinan ke out/download/ agar situs statis live pun bisa menyajikan ----------
 const outDownload = path.join(OUT, "download");
 mkdirSync(outDownload, { recursive: true });
 cpSync(finalPath, path.join(outDownload, PACK_NAME));
 cpSync(path.join(DOWNLOAD, "pack-info.json"), path.join(outDownload, "pack-info.json"));
 cpSync(path.join(DOWNLOAD, "ISI-PACK.txt"), path.join(outDownload, "ISI-PACK.txt"));
 cpSync(path.join(DOWNLOAD, "DEPLOY-IDWEBHOST.md"), path.join(outDownload, "DEPLOY-IDWEBHOST.md"));
+for (const a of ARTIFACTS) {
+  const src = path.join(DOWNLOAD, a.name);
+  if (a.kind === "doc" && existsSync(src)) {
+    cpSync(src, path.join(outDownload, a.name));
+  }
+}
 
-// ---------- 9. Bersih-bersih ----------
+// ---------- 10. Bersih-bersih ----------
 rmSync(STAGING, { recursive: true, force: true });
 
 console.log("──────────────────────────────────────────────────────────────────");
 console.log(`✅ PACK SIAP: public/download/${PACK_NAME}`);
-console.log(`   Ukuran : ${packInfo.sizeLabel} · File: ${fileCount} · MD5: ${md5}`);
+console.log(`   Mode   : ${MODE.toUpperCase()} · Halaman HTML: ${htmlCount} · File: ${fileCount}`);
+console.log(`   Ukuran : ${packInfo.sizeLabel} · MD5: ${md5}`);
 console.log(`   Dibangun: ${builtAt}`);
+console.log(`   Artefak /download/: ${files.length} file terdaftar di pack-info.json`);
 console.log(`   Salinan juga ditempel ke out/download/ (untuk situs statis live)`);

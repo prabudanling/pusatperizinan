@@ -295,3 +295,29 @@ Stage Summary:
 - 2 bug struktural lama ikut termitigasi: anchor mati di non-beranda (→ /#xxx) dan celah breakpoint 1024–1280 tanpa menu (→ hamburger xl:hidden)
 - Beranda kini menampilkan 5 foto kantor resmi di section trust "Kantor Nyata, Bukan Alamat Virtual" — profil perusahaan berstandar internasional, didukung JSON-LD image untuk SEO
 - Duplikasi konten dihapus (strip TeamSection) — setiap foto tampil tepat 1x di beranda, halaman /tentang-kami & /kontak tetap punya galeri masing-masing
+
+---
+Task ID: 10
+Agent: Z.ai Code (main orchestrator)
+Task: Benahi folder /download + panel AdminDeploy (?admin=1) agar semua artefak unduhan selalu TERBARU (rebuild paket hosting statis dengan seluruh perubahan Task 4-9)
+
+Work Log:
+- DIAGNOSA: pack lama (8 Okt 2025) hanya 59 file — berisi homepage+404 saja, dibangun SEBELUM semua Task 4-9 (i18n 30 bahasa, footer credit, design system, sitemap 12 seksi, galeri kantor, menu 5 kelompok) → pengguna mengunduh situs KADALUARSA. Sumber build juga hilang dari root: .htaccess & DEPLOY-IDWEBHOST.md (deploy-pack.mjs/error prasyarat)
+- RESTORE SUMBER: .htaccess ditulis ulang (DirectoryIndex, ErrorDocument 404 branded, mod_deflate GZIP, mod_expires cache aset-immutable + HTML no-cache, HTTPS redirect commented, blokir dotfiles); DEPLOY-IDWEBHOST.md dikembalikan dari salinan public/download/
+- REGRESI EXPORT DITEMUKAN & DIPERBAIKI (4 rintangan beruntun, semua lulus):
+  (1) `dynamicParams: true` dilarang output:"export" → build-static.mjs kini men-patch SEMENTARA 5 file (sitemap/[id], [slug], blog/[slug], layanan/[...slug], kbli/[...slug]) menjadi false saat export, dipulihkan otomatis di finally (Next.js mensyaratkan literal statis — ekspresi env tidak valid, sed permanen dibatalkan)
+  (2) /payment/[orderNo] & /admin (force-dynamic runtime) → digeser saat PACK_LIGHT (bukan bagian hosting statis)
+  (3) /checkout `await searchParams` → refactor PERMANEN yang lebih baik: CheckoutFromQuery (client, useSearchParams) + Suspense di page shell — /checkout kini bisa pre-render di SEMUA mode tanpa mengubah perilaku (E2E /checkout?paket=nib tetap memilih paket NIB)
+  (4) /blog force-dynamic (CMS) → patch sementara force-static saat export; /blog/[slug] memanggil cookies() (preview draf admin) → refactor permanen: authed di-skip saat BUILD_STATIC (draft tak relevan di hosting statis, dev/standalone tetap utuh)
+- MODE PACK_LIGHT (build-static.mjs): geser 12 folder rute long-tail (± 9.500 halaman) ke .routes-static-hold agar paket ringan-untuk-cPanel: [slug], layanan/[...slug], kbli/[...slug], panduan/, industri/[slug], biaya/[slug], syarat/[slug], bandingkan/[slug], testimoni/[kategori], katalog/[kategori], lowongan-kerja/[slug], payment/, admin/ — INDEX semua direktori TETAP IKUT (layanan, kbli, blog, katalog, dsb.); blog/[slug] sengaja TIDAK digeser (15 artikel + CMS ter-bake ikut agar menu Blog hidup); marker out/.pack-mode ditulis untuk deteksi mode deterministik
+- POST-PROSES SEO BARU (build-static.mjs): kumpulkan halaman HTML yang benar-benar ada di out/ → prune setiap sitemap seksi (buang URL yang tidak ter-generate; seksi kosong dihapus), tulis out/sitemap.xml INDEKS (menutup regresi: mode export tidak punya rewrite /sitemap.xml→/api), sinkronkan baris Sitemap: robots.txt, pangkas RSS feed.xml ke artikel yang ada
+- deploy-pack.mjs: pack-info.json SCHEMA v2 (schema, htmlCount, mode+modeLabel, files[] 5 artefak dengan bytes/sizeLabel/mtime per-file), ISI-PACK.txt regenerasi otomatis (jumlah file+halaman nyata, struktur sitemap/kantor/feed, catatan mode LIGHT), salinan ke out/download/
+- HASIL REBUILD: public/download/pusatperizinan-static-hosting.tar.gz = 8,97 MB · 435 file · 44 halaman HTML · MD5 8117449a… · mode LIGHT — berisi SEMUA fitur terbaru (terverifikasi via ekstraksi tar: menu "Paket & Biaya", foto kantor/kantor-*, footer credit Top Konsultan, sitemap.xml 2 seksi, robots sinkron, checkout/faq/kbli/layanan/blog artikel)
+- PANEL ADMIN (admin-deploy.tsx) upgrade: ringkasan paket (ukuran+jumlah halaman, badge mode LIGHT/FULL berwarna, MD5, dibangun dd MMM yyyy HH:mm WIB + badge kesegaran "TERBARU"/"x hari lalu"/">30 hari — pertimbangkan rebuild"), CTA unduh utama, section "SEMUA FILE UNDUHAN (n)" dari files[] — ikon per jenis (pack/doc/meta), nama+ukuran+tanggal WIB, titik hijau <24 jam, tombol unduh per-file; container panel kini max-h + scroll
+- VERIFIKASI: node --check kedua script; lint 0 error; tsc 0 error deliverable (error BlogArticle pre-existing); semua 5 URL /download/* 200 dengan byte benar; E2E browser /?admin=1 → password → panel LIGHT+TERBARU+5 file+6 link unduh; /checkout?paket=nib OK; dev.log 0 error; INTEGRITAS SUMBER terverifikasi pasca-build (api/payment/admin dipulihkan, dynamicParams/force-dynamic kembali, tidak ada folder hold tersisa)
+- CATATAN: build PENUH (± 9.500 hal) tetap didukung — jalankan tanpa PACK_LIGHT; katalog PDF (12 Okt) dibiarkan karena generatornya tidak ada di repo dan isinya masih valid
+
+Stage Summary:
+- Folder /download & panel admin kini single-source-of-truth: pack-info.json schema v2 otomatis dari rebuild — pengguna selalu melihat & mengunduh artefak TERBARU lengkap dengan ukuran, tanggal WIB, dan badge kesegaran
+- Paket hosting statis 8,97 MB siap upload cPanel berisi seluruh kemajuan Task 4-9; sitemap/robots/feed otomatis sinkron dengan isi paket (SEO benar di hosting statis)
+- 3 perbaikan permanen menguntungkan semua mode deployment: /checkout pre-renderable, /blog/[slug] bebas-cookies saat build statis, pipeline export kini sehat & teruji

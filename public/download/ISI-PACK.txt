@@ -3,7 +3,8 @@
  Dibangun khusus untuk shared hosting TANPA Node.js (idwebhost)
 ════════════════════════════════════════════════════════════
 
-Konten paket : 50 file (HTML + CSS + JavaScript murni)
+Konten paket : 435 file — 44 halaman HTML siap-baca
+Mode build   : LIGHT — halaman inti + direktori + artikel blog (ringan, cepat di-upload cPanel)
 Node.js      : TIDAK DIBUTUHKAN ✅
 PHP          : TIDAK DIBUTUHKAN ✅ (hosting Anda cukup punya Apache/LiteSpeed)
 Database     : TIDAK ADA — semua konten sudah "dibakar" ke HTML saat build
@@ -11,15 +12,19 @@ Terminal/SSH : TIDAK DIPERLUKAN ✅
 
 STRUKTUR UTAMA
 ──────────────
-  index.html              → halaman utama (lengkap: 30 bahasa, SEO, WA)
+  index.html              → halaman utama (menu 5 kelompok, galeri kantor,
+                            30 bahasa, SEO JSON-LD, WhatsApp)
   404.html                → halaman error 404 branded
   _next/                  → aset CSS + JS + font (nama file ber-hash)
   .htaccess               → routing, 404, kompresi GZIP, cache browser
   robots.txt              → instruksi mesin pencari
-  sitemap.xml             → peta situs SEO
-  manifest.json, logo.png  → PWA & ikon
-  logo-icon.png            → emblem persegi (favicon/header)
-  download/               → salinan paket ini (boleh dihapus di hosting)
+  sitemap.xml             → INDEKS sitemap (menunjuk seksi per bagian)
+  sitemap/                → sitemap per seksi (hanya URL yang ada di paket)
+  feed.xml                → RSS blog (otomatis dipangkas sesuai isi paket)
+  kantor/                 → foto kantor resmi Jakarta SCBD & Bandung
+  layanan/, kbli/, blog/, katalog/, paket/, dsb. → halaman direktori inti
+  manifest.json, logo.png → PWA & ikon
+  logo-icon.png           → emblem persegi (favicon/header)
   DEPLOY-IDWEBHOST.md     → panduan lengkap langkah upload
   ISI-PACK.txt            → file yang sedang Anda baca
 
@@ -38,6 +43,10 @@ CATATAN PENTING
 ───────────────
   • Form kontak & AI chat otomatis fallback ke WhatsApp resmi
     0812-6999-9910 — lead TETAP masuk tanpa server sekalipun.
+  • Mode LIGHT: halaman long-tail SEO (ribuan halaman layanan
+    per wilayah/kbli) tidak ikut dalam paket — link tersebut
+    diarahkan ke halaman 404 branded. Untuk situs penuh, jalankan
+    build tanpa PACK_LIGHT (butuh server Node.js).
   • Update konten: konten ter-bake saat build. Minta rebuild di
     sandbox, lalu upload ulang paket baru (extract menimpa).
   • SSL gratis: cPanel → SSL/TLS Status → Run AutoSSL.
