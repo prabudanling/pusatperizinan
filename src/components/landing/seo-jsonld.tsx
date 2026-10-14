@@ -53,7 +53,15 @@ export function SeoJsonLd() {
     alternateName: "PT Digital Bisnis Manajemen",
     url: SITE_URL,
     logo: `${SITE_URL}/logo.png`,
-    image: `${SITE_URL}/logo.png`,
+    // Foto kantor resmi (bukti fisik E-E-A-T) + logo
+    image: [
+      `${SITE_URL}/logo.png`,
+      `${SITE_URL}/kantor/kantor-resepsionis.jpg`,
+      `${SITE_URL}/kantor/kantor-jakarta.jpg`,
+      `${SITE_URL}/kantor/kantor-branding-wall.jpg`,
+      `${SITE_URL}/kantor/kantor-bandung-lobi.jpg`,
+      `${SITE_URL}/kantor/kantor-bandung-fasade.jpg`,
+    ],
     description:
       "Konsultan perizinan usaha, perpajakan & penempatan pekerja migran #1 Indonesia. Jasa pengurusan NIB, pendirian PT/CV/PMA, OSS-RBA, sertifikasi halal, izin BPOM, PBG/SLF, AMDAL, pajak pribadi & badan (NPWP, SPT, PKP, Coretax), penempatan PMI ke 17 negara (Jepang, Korea, Saudi, dsb), izin PPTKIS/P3MI, izin umroh (PPIU) & haji (PPIH), registrasi IATA, izin usaha Arab Saudi (MISA), RKAB & perizinan tambang — melayani 38 provinsi & 514 kabupaten/kota dengan garansi 100% uang kembali.",
     telephone: CONTACT.phoneIntl,

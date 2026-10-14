@@ -258,3 +258,40 @@ Stage Summary:
 - 5 foto kantor resmi hidup di 3 titik konversi: /tentang-kami (galeri E-E-A-T "Kantor Kami"), /kontak (2 kartu kantor + JSON-LD image), landing TeamSection (strip trust "Kantor Resmi Kami" bilingual)
 - Trust signal kepercayaan naik: klien kini melihat bukti fisik kantor SCBD Jakarta & Bandung di semua halaman kunci funnel
 - Performa terjaga: 42MB → 1,27MB, lazy-load, optimizer Next.js, animasi tetap compositor-only
+
+---
+Task ID: 9
+Agent: Z.ai Code (main orchestrator)
+Task: Rapikan & kelompokkan menu navigasi sitewide (5 grup dropdown) + galeri foto kantor di beranda (god mode tier max)
+
+Work Log:
+- AUDIT IA LAMA: header punya 11 link datar (navServices, Katalog, Paket, Pajak, Kerja Luar Negeri, Cek Izin AI, Kalkulator, Panduan, Blog, Harga, FAQ) — terlalu ramai, tanpa hierarki; ada 2 bug struktural: (1) anchor "#xxx" mati di semua halaman selain beranda, (2) celah breakpoint 1024–1280px: nav `hidden xl:flex` tapi hamburger `lg:hidden` → di 1024–1280 TIDAK ADA akses menu sama sekali
+- Inventarisasi 26 halaman nyata (verifikasi page.tsx ada: layanan, katalog, paket, paket-usaha, biaya, bandingkan, blog, kbli, syarat, kalender-kepatuhan, kanal-resmi, roadmap, kalkulator-pajak, cek-dokumen, virtual-office, solusi-korporat, pma-company-registration, bumdes, industri, tentang-kami, testimoni, lowongan-kerja, mitra, kontak, faq; /panduan ternyata [id] route → pakai /#panduan) + 13 anchor section beranda
+- ARSITEKTUR MENU BARU (header.tsx rewrite total) — 5 kelompok, 35 link terpetakan:
+    1. Layanan → MEGA DROPDOWN 3 kolom (Perizinan & Legalitas / Bisnis & Korporasi / Spesialisasi) + rail konsultasi ("Butuh arahan?" + CTA WhatsApp + link Cek Izin AI), w-[min(860px,calc(100vw-2rem))]
+    2. Paket & Biaya → dropdown (Paket & Harga, Bandingkan, Paket Usaha, Rincian Biaya)
+    3. Informasi → dropdown (Blog, Panduan, KBLI, Syarat, Kalender Kepatuhan, Kanal Resmi, FAQ)
+    4. Alat → dropdown (Cek Izin AI, Kalkulator Biaya, Kalkulator Pajak, Cek Dokumen, AI Roadmap)
+    5. Perusahaan → dropdown (Tentang Kami, Kontak, Testimoni, Mitra, Karier)
+  • Semua item: icon lucide + label + desc mikro-copy; trigger aria-expanded/haspopup/controls
+  • Anchor beranda diganti path absolut "/#xxx" → berfungsi dari halaman mana pun (terverifikasi /kontak → Tools → Cost Calculator → land di /#kalkulator scrollY 13804, section top 126px)
+  • FIX celah breakpoint: hamburger `xl:hidden`, mobile menu container `xl:hidden` (1024–1280 kini pakai hamburger); nomor telepon CTA desktop turun ke 2xl agar muat
+  • Interaksi dropdown: hover-intent 40ms + close-grace 140ms, klik idempotent saat dibuka via hover (bug ditemukan saat E2E: klik toggle-close menu yang baru dibuka hover → fix openedByHover ref), toggle penuh untuk touch (klik ke-2 menutup), klik di luar nav menutup (listener dokumen, krusial untuk sentuh), Escape menutup, onBlur keluar-nav menutup, hashchange menutup
+  • Animasi panel: AnimatePresence opacity/y/scale 0.18s ease [0.22,1,0.36,1] — compositor-only, hormat reduced-motion via MotionProvider global
+  • i18n: reuse kunci t() yang ada (navServices, navFaq, ctaFree, dst.) + label baru bilingual inline L(id,en) — 28 bahasa fallback ke Indonesia (pola konsisten Task 8)
+  • Mobile: Accordion shadcn (animated, accessible) 5 grup + LanguageSwitcher + telepon + 2 CTA; item rapi dengan icon
+- GALERI KANTOR DI BERANDA (office-gallery.tsx BARU, section id="kantor", disisipkan antara WhyUs dan Process — puncak zona trust):
+  • Header: eyebrow "OUR OFFICES", H2 "Real Offices in Jakarta & Bandung, Not a Virtual Address" (gradient span), subheading SCBD + Bandung
+  • Grid editorial asimetris md:grid-cols-12: resepsionis span-7 + branding-wall span-5, signage span-5 + lobi Bandung span-7, fasade Bandung banner full-width span-12 — 5 foto resmi /kantor/*
+  • Chip lokasi glassmorphic (MapPin), hover scale 1.03 transform-only, height fix + object-cover (CLS aman), next/image sizes responsif, whileInView once margin -60px delay stagger 0.08 — konsisten motion system Task 6
+  • Footer section: link /tentang-kami + catatan "kunjungan dengan appointment"
+- CLEANUP TeamSection: strip 2 foto "Kantor Resmi Kami" + baris copyright liar (footerRights) DIHAPUS — duplikasi dengan galeri baru & redundan dengan Footer; import Image & t yang yatim ikut dibersihkan
+- SEO: Organization/ProfessionalService JSON-LD (seo-jsonld.tsx) image string → array 6 gambar (logo + 5 foto kantor) — bukti fisik E-E-A-T untuk rich result; terverifikasi ter-render di homepage HTML
+- DEV SERVER: sempat mati (OOM-kill) saat verifikasi → restart NODE_OPTIONS="--max-old-space-size=2560", sehat
+- VERIFIKASI E2E (agent-browser): lint 0 error; tsc 0 error di 5 file deliverable (error lain pre-existing milik file agen lain, terdokumentasi); mega dropdown 3 kolom + rail terrender sempurna (panel 387→1247 @1440, right 1167 @1280 — tidak pernah overflow); 5 dropdown item-navigation OK (/blog); anchor lintas-halaman OK; galeri 5 foto loaded semua via /_next/image w=3840, span grid benar (701/495/495/701/1214px); mobile 390x844: hamburger+accordion OK, scrollW 391 vs 390 = rounding artifact (scrollTo(80,0)→scrollX 0, false overflow); mobile galeri stack rapi; console & page errors BERSIH; dev.log bersih; JSON-LD image array terverifikasi
+
+Stage Summary:
+- Menu sitewide kini arsitektur profesional 5 kelompok (mega dropdown + 4 dropdown + mobile accordion) — 35 halaman terpetakan rapi, tidak ada lagi 11 link datar yang membingungkan
+- 2 bug struktural lama ikut termitigasi: anchor mati di non-beranda (→ /#xxx) dan celah breakpoint 1024–1280 tanpa menu (→ hamburger xl:hidden)
+- Beranda kini menampilkan 5 foto kantor resmi di section trust "Kantor Nyata, Bukan Alamat Virtual" — profil perusahaan berstandar internasional, didukung JSON-LD image untuk SEO
+- Duplikasi konten dihapus (strip TeamSection) — setiap foto tampil tepat 1x di beranda, halaman /tentang-kami & /kontak tetap punya galeri masing-masing

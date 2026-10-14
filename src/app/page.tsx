@@ -15,6 +15,7 @@ import { HtmlSitemap } from "@/components/landing/html-sitemap";
 import { CoverageSection } from "@/components/landing/coverage";
 import { CostCalculator } from "@/components/landing/cost-calculator";
 import { WhyUs } from "@/components/landing/why-us";
+import { OfficeGallery } from "@/components/landing/office-gallery";
 import { Process } from "@/components/landing/process";
 import { Pricing } from "@/components/landing/pricing";
 import { Testimonials } from "@/components/landing/testimonials";
@@ -79,6 +80,7 @@ export default function Home() {
         <EmailCourse />
         <CoverageSection />
         <WhyUs />
+        <OfficeGallery />
         <Process />
         <Pricing />
         <Testimonials />
