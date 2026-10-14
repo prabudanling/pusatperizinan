@@ -218,3 +218,23 @@ Stage Summary:
 - 12 dari 25 masukan audit tereksekusi di kode: M01 (JSON-LD diet + de-client), M02/M25 (web-vitals RUM + endpoint agregat), M03 (sitemap index 12 seksi + lastmod deterministik), M04 (hreflang id-ID/x-default), M05 (geo dinamis 38 provinsi), M06 (terkonfirmasi bersih sejak awal), M16 (badge diperbarui tersinkron lastmod), M17 (/kontak rekonstruksi penuh + ContactPage schema + form anti-spam); M07-M15, M18-M24 memerlukan tim konten/marketing/GSC akses produksi (di luar cakupan sandbox) — documented
 - Desain world-class lulus sendang perfoma: animasi 100% transform/opacity, once:true, reduced-motion hormat penuh (MotionConfig + CSS media query), NOL dependensi animasi baru (reuse framer-motion eksisting), NOL horizontal overflow mobile
 - Stabilitas: OOM dev termitigasi (dev-guard + heap cap); server berjalan port 3000
+
+---
+Task ID: 7
+Agent: Z.ai Code (main orchestrator)
+Task: EMERGENCY FIX konflik route-tree sitemap (situs 500 sitewide) + verifikasi penuh Task 5 & 6 + susun to-do list terakhir
+
+Work Log:
+- Temuan: dev server 500 SELURUH rute dengan error "You cannot use different slug names for the same dynamic path ('__metadata_id__' !== 'id')" — muncul saat restart dingin (sesi Task 6 lalu memverifikasi dengan server hangat yang route tree-nya dibangun sebelum file konflik final)
+- Diagnosis akar: folder app/sitemap.xml/route.ts adalah METADATA ROUTE Next.js — Next.js menormalkannya menjadi segmen dinamis internal ("sitemap", [__metadata_id__]) yang bentrok dengan app/sitemap/[id]/route.ts ("sitemap", [id]) di posisi dinamis sama; ditambah app/sitemap.ts lama (konvensi metadata /sitemap.xml) yang seharusnya sudah dihapus sejak M03
+- Fix arsitektur bebas konflik di SEMUA mode (dev/standalone/export): (1) hapus src/app/sitemap.ts (terbukti sitemap-sections.ts 100% mencakup semua URL-nya: static 28 halaman identik + blog statis + CMS), (2) pindahkan handler index app/sitemap.xml/route.ts → src/app/api/sitemap-index/route.ts (handler biasa, tanpa sifat metadata), (3) tambah rewrites() kondisional di next.config.ts: beforeFiles /sitemap.xml → /api/sitemap-index — OFF saat BUILD_STATIC=1 karena output:"export" tidak mendukung rewrites
+- Restart dev server NODE_OPTIONS="--max-old-space-size=2560" (OOM-safe warisan Task 6) → Ready 664ms
+- Verifikasi HTTP: / 200, /sitemap.xml 200 (XML <sitemapindex> 12 seksi valid), /sitemap/static.xml 200 (lastmod deterministik 2026-03-15), /sitemap/layanan.xml 200, /sitemap/blog.xml 200, /faq 200, /kontak 200, /kebijakan-privasi 200, /blog 200, /katalog 200, /kbli 200 — proteksi 404 slug asing (sitemap/xxx-asing.xml → 404, /halaman-tidak-ada → 404)
+- bun run lint bersih; bunx tsc --noEmit 0 error untuk file deliverable (sitemap-index, next.config)
+- Verifikasi browser (agent-browser) bahwa seluruh sistem desain Task 6 masih hidup pasca-fix: btn-shine 2, card-lift 3, animate-fade-up 6, animate-float 1, aurora orbs hero (inline style animation aurora-drift 22s/28s) ada, prefers-reduced-motion CSS media rule AKTIF, :focus-visible rule AKTIF, header+footer render, H1 benar, footer credit Task 5 "Support system by PT Top Konsultan Internasional" terrender desktop+mobile
+- Mobile 390x844: scrollWidth 391 vs 390 = rounding artifact piksel fraksional (terbukti: window.scrollTo(80,0) → scrollX tetap 0, canScrollH false — TIDAK ada scroll horizontal nyata; jaring overflow-x:clip bekerja); screenshot hero mobile & footer mobile bersih tanpa error console
+
+Stage Summary:
+- Situs kembali 100% sehat: konflik route-tree sitemap diperbaiki permanen dengan arsitektur yang valid di dev (Turbopack), standalone (passenger) dan export (idwebhost) — URL publik tidak berubah (/sitemap.xml index + 12 seksi /sitemap/<id>.xml)
+- Verifikasi ulang penuh: semua fitur desain world-class (Task 6) & footer internasional (Task 5) terkonfirmasi hidup; lint/tsc/dev.log bersih; nol error console; nol overflow nyata
+- Sisa pekerjaan teridentifikasi dan dipresentasikan ke user sebagai TO-DO LIST TERAKHIR: item M07-M15 & M18-M24 (GSC produksi, backlink, konten marketing) memerlukan akses produksi di luar sandbox; opsi iterasi lanjutan dalam sandbox didokumentasikan

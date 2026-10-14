@@ -2,7 +2,7 @@ import { SITE_URL } from "@/lib/site";
 import { SITEMAP_SECTION_IDS } from "@/lib/sitemap-sections";
 
 // ============================================================
-// PUSATPERIZINAN.COM — SITEMAP INDEX (/sitemap.xml)
+// PUSATPERIZINAN.COM — SITEMAP INDEX (disajikan di /sitemap.xml)
 // ============================================================
 // M03: sitemap 10.201 URL dipecah 12 seksi /sitemap/<id>.xml
 // (lihat src/app/sitemap/[id]/route.ts + src/lib/sitemap-sections.ts).
@@ -10,6 +10,19 @@ import { SITEMAP_SECTION_IDS } from "@/lib/sitemap-sections";
 // (sitemapindex) — satu pintu masuk untuk Search Console.
 // lastmod sengaja TIDAK diisi: tanggal file indeks bukan sinyal
 // konten yang jujur (pelajaran dari audit lastmod palsu).
+//
+// CATATAN ARSITEKTUR (fix konflik route-tree):
+// Sebelumnya handler ini hidup di app/sitemap.xml/route.ts. Next.js
+// memperlakukan folder bernama "sitemap.xml" sebagai METADATA ROUTE
+// yang dinormalisasi menjadi segmen dinamis internal
+// ("sitemap", [__metadata_id__]) — bentrokan slug dengan
+// app/sitemap/[id]/route.ts ("sitemap", [id]) membuat SELURUH
+// route tree gagal dikompilasi (HTTP 500 sitewide:
+// "You cannot use different slug names for the same dynamic path").
+// Solusi: handler biasa di /api/sitemap-index + rewrite
+// /sitemap.xml → /api/sitemap-index (lihat next.config.ts —
+// rewrite dikondisikan OFF pada BUILD_STATIC=1/output:export
+// karena fitur rewrite tidak didukung mode export).
 // ============================================================
 
 export const dynamic = "force-static";
