@@ -42,7 +42,7 @@ const LIGHT_ROUTES = [
   "src/app/[slug]",                 // ± 500 halaman jasa slug
   "src/app/layanan/[...slug]",      // ± 8.700 halaman layanan + hub
   "src/app/kbli/[...slug]",         // 148 kode + 17 kategori
-  "src/app/panduan",                // panduan/[id] (tanpa index statis)
+  "src/app/panduan/[id]",           // 16 detail panduan (HUB /panduan TETAP ikut — nav header menunjuknya sejak Task 12)
   "src/app/industri/[slug]",        // industri per sektor (+ [service])
   "src/app/biaya/[slug]",
   "src/app/syarat/[slug]",

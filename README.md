@@ -15,7 +15,7 @@
 ![Prisma](https://img.shields.io/badge/Prisma%206-SQLite-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
 ![React](https://img.shields.io/badge/React%2019-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 
-![Pages](https://img.shields.io/badge/URL%20Sitemap-10.201-059669?style=flat-square)
+![Pages](https://img.shields.io/badge/URL%20Sitemap-10.206-059669?style=flat-square)
 ![Layanan](https://img.shields.io/badge/Katalog-500%20Layanan-059669?style=flat-square)
 ![Bahasa](https://img.shields.io/badge/UI-30%20Bahasa-059669?style=flat-square)
 ![AI](https://img.shields.io/badge/AI%20Tools-5%20Aktif-059669?style=flat-square)
@@ -55,7 +55,7 @@
 - [20. Gateway & Layanan Mini](#20-gateway--layanan-mini)
 - [21. Kualitas, Testing & Verifikasi](#21-kualitas-testing--verifikasi)
 - [22. Troubleshooting — Pelajaran Lapangan](#22-troubleshooting--pelajaran-lapangan)
-- [23. Riwayat Pengembangan (Task 1–10)](#23-riwayat-pengembangan-task-110)
+- [23. Riwayat Pengembangan (Task 1–12)](#23-riwayat-pengembangan-task-112)
 - [24. Roadmap](#24-roadmap)
 - [25. FAQ Developer](#25-faq-developer)
 - [26. Kontribusi](#26-kontribusi)
@@ -70,7 +70,7 @@
 | Dimensi | Isi |
 |---|---|
 | 🎯 **Bisnis** | Jasa pengurusan NIB, pendirian PT/CV/PMA, sertifikasi halal, izin BPOM/PIRT, PBG/SLF, AMDAL, izin umroh (PPIU/PPIH), IATA, MISA Arab Saudi, RKAB tambang, pajak & kepatuhan |
-| 📄 **Konten** | **10.201 URL** terindeks sitemap: 500 halaman layanan detail, 36 KBLI, 15+ artikel blog, matriks industri, halaman biaya/syarat/perbandingan, panduan |
+| 📄 **Konten** | **10.206 URL** terindeks sitemap: 500 halaman layanan detail, 36 KBLI, 15+ artikel blog, matriks industri, halaman biaya/syarat/perbandingan, 16 panduan + hub, 4 halaman dedikasi CTA (konsultasi/cek-izin/kalkulator/panduan) |
 | 🤖 **AI** | 5 tool AI aktif: Cek Izin AI, AI Consultant "RIZKI" 24/7, Cek Dokumen (vision), AI Roadmap 12 bulan, kalkulator pajak |
 | 🌍 **Internasional** | UI **30 bahasa** (termasuk RTL penuh: Arab, Farsi, Urdu, Ibrani) + `llms.txt` siap GEO/AI-search |
 | 💰 **Monetisasi** | Checkout otomatis (Midtrans/Tripay) dengan harga server-side anti-manipulasi + mode demo |
@@ -339,6 +339,7 @@ Poin arsitektur penting:
 | `/syarat` (+`/[slug]`) · `/panduan/[id]` | Syarat per layanan + panduan |
 | `/industri` · `/industri/[slug]` · `/industri/[slug]/[service]` | Matriks industri → layanan |
 | `/roadmap` · `/kalkulator-pajak` · `/cek-dokumen` | Halaman 3 tool AI |
+| `/konsultasi` · `/cek-izin` · `/kalkulator` · `/panduan` (+`/[id]`) | ★ **Halaman dedikasi CTA (Task 12)** — form konsultasi, cek izin (tool), kalkulator biaya (tool), hub 16 panduan |
 | `/virtual-office` · `/solusi-korporat` · `/pma-company-registration` · `/bumdes` | Solusi spesialis |
 | `/tentang-kami` · `/kontak` · `/testimoni` (+`/[kategori]`) · `/lowongan-kerja` (+`/[slug]`) · `/mitra` | Profil & sosial |
 | `/kanal-resmi` · `/kalender-kepatuhan` | Kanal pemerintah + kalender pajak/laporan |
@@ -369,7 +370,7 @@ Semua endpoint berada di `src/app/api/**/route.ts`. AI endpoints **wajib server-
 | Metode | Endpoint | Fungsi |
 |---|---|---|
 | `GET` | `/api` | Health check (`{ message }`) |
-| `POST` | `/api/leads` | Simpan lead baru (WA dinormalisasi ke `62xxx`, deteksi `source`) · `GET` untuk statistik ringkas |
+| `POST` | `/api/leads` | Simpan lead baru (WA dinormalisasi ke `62xxx`, deteksi `source`) · Validasi ketat: `businessType` ∈ SECTORS, `package` ∈ PACKAGES (UMKM/Bisnis/Enterprise/Belum tahu) — client wajib kirim nilai resmi (fix Task 12) · `GET` untuk statistik ringkas |
 | `POST` | `/api/subscribe` | Pendaftar kursus email 7 hari |
 | `GET` | `/api/stats` | Statistik agregat (leads, konsultasi, dll.) untuk social proof |
 | `POST` | `/api/vitals` · `GET` | RUM Core Web Vitals (LCP/CLS/INP) — laporan `GET /api/vitals` |
@@ -504,11 +505,11 @@ bun run db:reset      # reset penuh
 
 ## 11. Mesin SEO & GEO
 
-### Sitemap — arsitektur 12 seksi (10.201 URL)
+### Sitemap — arsitektur 12 seksi (10.206 URL)
 
 ```text
 /sitemap.xml  (rewrite → /api/sitemap-index, <sitemapindex>)
-   ├── /sitemap/static.xml      28 halaman statis + FAQ + CMS
+   ├── /sitemap/static.xml      32 halaman statis + FAQ + CMS (+4 halaman CTA Task 12)
    ├── /sitemap/layanan.xml     hub + 500 detail + long-tail
    ├── /sitemap/katalog.xml     katalog & kategori
    ├── /sitemap/kbli.xml        klasifikasi KBLI
@@ -848,7 +849,7 @@ Bonus pitfall kecil yang sudah dimitigasi/dipahami:
 
 ---
 
-## 23. Riwayat Pengembangan (Task 1–10)
+## 23. Riwayat Pengembangan (Task 1–12)
 
 Log lengkap & transparan tersimpan di [`worklog.md`](./worklog.md).
 
@@ -864,6 +865,8 @@ Log lengkap & transparan tersimpan di [`worklog.md`](./worklog.md).
 | **8** | 5 foto kantor resmi masuk situs | `/tentang-kami`, `/kontak`, TeamSection; 42MB→1,27MB (sharp); JSON-LD image |
 | **9** | Menu 5 grup + galeri kantor di beranda | Mega dropdown + 4 dropdown + mobile accordion; 2 bug struktural (anchor, breakpoint) dimitigasi; JSON-LD 6 gambar |
 | **10** | Benahi `/download` + panel AdminDeploy | Paket statis terbaru (LIGHT, MD5, badge kesegaran); manifest schema v2; 4 rintangan export diperbaiki; `/checkout` kini pre-renderable permanen |
+| **11** | README "terlengkap di dunia" | README.md 959 baris / 27 section: arsitektur, API, DB, i18n, deploy, troubleshooting insiden nyata, roadmap |
+| **12** | Setiap CTA punya halaman asli (full SEO) | 4 halaman baru `/konsultasi` `/cek-izin` `/kalkulator` `/panduan` + JSON-LD spesifik; 19 CTA sitewide diarahkan; 2 bug produksi dimitigasi (kontrak LeadForm 400 di 6 halaman, overflow mobile nowrap-button); paket LIGHT kini menyertakan hub `/panduan` |
 
 ---
 

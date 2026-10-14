@@ -361,3 +361,22 @@ Stage Summary:
 - SETIAP CTA kini mendarat di HALAMAN ASLI yang terindeks: /konsultasi (form + Service schema), /cek-izin (tool + SoftwareApplication), /kalkulator (tool + WebApplication), /panduan (hub 16 ItemList) — target keyword baru: "konsultasi perizinan gratis", "cek izin usaha", "kalkulator biaya perizinan", "panduan perizinan"
 - 2 bug produksi ditemukan & dimitigasi permanen berkat pengujian end-to-end: kontrak LeadForm 400 (menyembuhkan 6 halaman program yang datanya selama ini tak pernah masuk CRM!) dan overflow mobile nowrap-button (menyembuhkan semua halaman CTA panjang)
 - Sitemap statis +4 URL, llms.txt tersinkron + fix rujukan lama; nol duplikasi JSON-LD; seluruh alur funnel terverifikasi browser: halaman mana pun → CTA → halaman CTA → form → SQLite → admin source tag
+
+---
+Task ID: 12-b
+Agent: Z.ai Code (main orchestrator)
+Task: Sinkronisasi pasca-Task 12 — user melaporkan "masih tetap yang lama": README & worklog belum memuat Task 12, dan paket /download masih build lama (builtAt 02:48 sebelum halaman baru dibuat 04:38–04:48)
+
+Work Log:
+- AUDIT GAP: todo & kode Task 12 sudah selesai (4 halaman ada, sitemap live berisi 4 URL baru, worklog Task 12 lengkap) — yang TERSISA: (1) README.md nol penyebutan 4 rute baru; (2) paket statis /download belum berisi halaman baru; (3) BUG LINTAS-TASK ditemukan di scripts/build-static.mjs: LIGHT_ROUTES menggeser SELURUH src/app/panduan (ditulis Task 10 saat hub /panduan belum ada, komentar "tanpa index statis") → hub baru akan 404 di hosting cPanel padahal nav header menunjuknya
+- FIX build-static.mjs: entri "src/app/panduan" → "src/app/panduan/[id]" (hub /panduan kini IKUT paket; 16 detail tetap digeser; komentar diperbarui)
+- REBUILD: BUILD_STATIC=1 PACK_LIGHT=1 node scripts/build-static.mjs → 48 halaman terdeteksi (44 lama + konsultasi/cek-izin/kalkulator/panduan-hub), sitemap pack static.xml 32→32 (4 URL baru ikut, seksi lain di-prune otomatis, indeks 2 seksi), robots sinkron, feed 13 item, SEMUA sumber dipulihkan (api, 2 dynamicParams, 1 force-dynamic, 12 folder hold) → node scripts/deploy-pack.mjs → tar 9,31 MB · 474 file · 48 HTML · MD5 ae803056… · builtAt 14 Okt 2026 15.28 WIB
+- VERIFIKASI TAR: tar -tzf memuat konsultasi.html, cek-izin.html, kalkulator.html, panduan.html (+ .txt RSC); curl dev: 4 halaman 200
+- README.md DISINKRONKAN (8 edit): badge URL 10.201→10.206 (dihitung live dari 12 seksi: 46+14+137+12+31+148+8873+500+16+389+32+8); TOC §23 → Task 1–12 (+anchor); baris Konten §2 → 10.206 + sebutan 4 halaman CTA; Peta Rute §7 +1 baris ★ halaman dedikasi CTA; heading & tabel Riwayat +2 baris (Task 11, Task 12); diagram §11 static.xml 28→32; API Reference /api/leads + kontrak validasi businessType ∈ SECTORS / package ∈ PACKAGES (fix Task 12)
+- E2E AGENT-BROWSER: /?admin=1 → password → panel "9.31 MB · 48 hal. · LIGHT · MD5 ae803056… · Dibangun 14 Okt 2026, 15.28 WIB · badge TERBARU · SEMUA FILE UNDUHAN (5) · titik hijau <24 jam"; /konsultasi render penuh (title unik, breadcrumb, hero GRATIS 30 MENIT, LeadForm); console & dev.log bersih (0 error); browser ditutup
+
+Stage Summary:
+- Keluhan "masih yang lama" akar masalahnya = paket /download tua + README belum sinkron; keduanya kini 100% mutakhir dan terverifikasi browser
+- Bug lintas-task Task 10×12 dicegah sebelum produksi: paket LIGHT kini menyertakan hub /panduan (nav header tidak akan 404 di cPanel)
+- README kini mencerminkan Task 1–12, sitemap 10.206 URL (dihitung live, bukan asal tambah 4), kontrak API leads didokumentasikan
+- Paket hosting statis siap upload: 9,31 MB · 48 halaman · MD5 ae803056bdf2c67c19a67c8d1bf13fbf
