@@ -164,7 +164,7 @@ function buildStaticPages(): SitemapEntry[] {
     entry("/kalender-kepatuhan", "weekly", 0.9),
     entry("/paket-usaha", "weekly", 0.9),
     entry("/pma-company-registration", "weekly", 0.9),
-    entry("/mitra", "monthly", 0.8),
+    entry("/mitra", "weekly", 0.9), // Program Kemitraan Cabang — funnel bisnis utama
     entry("/solusi-korporat", "monthly", 0.8),
     entry("/bumdes", "monthly", 0.8),
     // Trust & legal pages (E-E-A-T)

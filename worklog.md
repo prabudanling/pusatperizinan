@@ -380,3 +380,25 @@ Stage Summary:
 - Bug lintas-task Task 10×12 dicegah sebelum produksi: paket LIGHT kini menyertakan hub /panduan (nav header tidak akan 404 di cPanel)
 - README kini mencerminkan Task 1–12, sitemap 10.206 URL (dihitung live, bukan asal tambah 4), kontrak API leads didokumentasikan
 - Paket hosting statis siap upload: 9,31 MB · 48 halaman · MD5 ae803056bdf2c67c19a67c8d1bf13fbf
+
+---
+Task ID: 13
+Agent: Z.ai Code (main orchestrator)
+Task: Buka Program Kemitraan pusatperizinan.com — "program terbaik yang pernah ada": mitra buka cabang di kantor mereka, SELURUH layanan & proses diolah di pusat; lalu sebar maksimal di Google (full SEO)
+
+Work Log:
+- DESAIN (dewan pakar): model hub-and-spoke "Anda buka kantor, pusat yang mengurus segalanya" — cabang = wajah merek (sambut klien, terima berkas, jaga relasi); pusat SCBD = mesin produksi (OSS-RBA/kementerian/notaris, tim AI 24/7, QA, penagihan, garansi tertulis). 3 tier: Gerai Mitra Rp0/komisi 25% (maks 2 mitra/kota) · Cabang Resmi Rp25 jt sekali/35% + EKSKLUSIF 1 kota + signage + 2 staf akademi · Master Franchise Rp100 jt/45% + overriding 5% + EKSKLUSIF 1 provinsi
+- KONSOLIDASI SEO: /mitra yang ada (110 baris, model referral tipis, tanpa Header/JSON-LD) dibangun ulang TOTAL di URL yang sama — menang melawan kanibalisasi keyword, authority lama (header+footer sitewide) langsung mengalir ke halaman baru
+- HALAMAN /mitra BARU (±700 baris, server component): metadata (title/desc/keywords 10/canonical/OG) → hero + trust strip (4.9/5·890·1.247·3.890·38/514) → konsep 2 kolom "kantor cabang vs pusat" → 6 keuntungan → 3 tier (kartu, paling-dipilih badge) → tabel komisi 8 kelompok layanan (termasuk RECURRING virtual office & pajak) → 5 langkah → syarat ramping → 10 FAQ (details/summary, targeting PAA) → LeadForm source="mitra" → cross-link 4 alat
+- KOMPONEN BARU partner-profit-simulator.tsx (client): 3 input (tier kota A/B/C dengan rata kontrak blended 4,5/3,5/2,8 jt · tier kemitraan 25/35/45% · slider target deal 1–60) → komisi bulan/tahun + estimasi balik modal/GRATIS; aria-live, Intl id-ID, disclaimer edukatif; TERVERIFIKASI reaktif via browser (12,25 jt → 15,75 jt saat kota A; → 11,25 jt saat tier Gerai)
+- JSON-LD @graph: BreadcrumbList + WebPage + Service(provider org, areaServed Indonesia, 3 Offer dengan harga tier) + FAQPage(10) — FAQPage tepat 1 per halaman (nol duplikasi sitewide)
+- SEBAR DI SEARCH ENGINE: sitemap /mitra 0.8 monthly → 0.9 weekly (total tetap 10.206); llms.txt +baris kemitraan di seksi utama; llms-full.txt baris mitra diperbarui; header mega menu desc → "Buka cabang resmi di kota Anda — pusat yang mengurus"; footer label "Mitra Daerah" → "Program Kemitraan"
+- 🐛 REGRESI TERTEMBANG: footer masih memuat 10 anchor RELATIF (#keunggulan #cara-kerja #blog #kursus #kalkulator #jangkauan #harga #testimoni #cek-izin #peta-situs) — MATI di semua halaman non-beranda (kelas bug yang sama yang diklaim dibersihkan Task 12; ternyata satu kolom terlewat). Diperbaiki semuanya: 4 ke halaman asli (/blog /kalkulator /paket /testimoni /cek-izin), 5 ke /#anchor absolut, 1 ke /#peta-situs → footer kini 100% bebas anchor relatif
+- E2E (agent-browser): /mitra 200 + title "Program Kemitraan Cabang Resmi — Franchise Jasa Perizinan No.1" + H1 benar; 13 script JSON-LD (FAQPage=1); 3 tier + 10 FAQ + simulator + form terender; simulator reaktif; form submit → success card → SQLite verifikasi (source=mitra, businessType="Lainnya" kontrak anti-400, desc bawa [tag] pilihan); CTA footer dari /faq → /mitra navigasi; mobile 390 sw=iw nol overflow (pageH 16.424 > vh 844 footer terdorong); console bersih; lint 0 error; tsc file baru 0 error
+- PAKET DEPLOY: rebuild BUILD_STATIC PACK_LIGHT → 48 halaman (○ /mitra statis ikut), 476 file, 9,43 MB, MD5 5ececbf3…, builtAt 16 Okt 2026; tar terverifikasi memuat mitra.html + konsultasi.html; dev server OOM pasca-build → restart OOM-safe 2560 sehat (/ → 200, /mitra → 200)
+
+Stage Summary:
+- Program Kemitraan Cabang RESMI dibuka di /mitra: proposal lengkap (model, 3 tier, komisi transparan, simulasi profit, akademi, garansi, FAQ) — funnel rekrutmen mitra siap menerima pendaftaran (lead source="mitra" masuk CRM Mission Control)
+- Keputusan arsitektur penting: kemitraan dikonsolidasi di /mitra (satu URL kuat), bukan domain baru /kemitraan — SEO master call untuk menghindari kanibalisasi
+- Footer 100% bebas anchor relatif (10 link mati ditambahkan ke pemulihan)
+- Paket /download kembali TERBARU dengan /mitra baru; README Task 1–13 & worklog tersinkron

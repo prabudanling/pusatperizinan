@@ -54,7 +54,7 @@ export function GET() {
     `- Kalender Kepatuhan (jadwal LKPM/SPT/JAMSOSTEK): ${SITE_URL}/kalender-kepatuhan`,
     `- Paket Usaha per industri: ${SITE_URL}/paket-usaha`,
     `- Company registration Indonesia (EN): ${SITE_URL}/pma-company-registration`,
-    `- Program mitra daerah: ${SITE_URL}/mitra`,
+    `- Program Kemitraan Cabang Resmi (buka cabang, pusat mengurus; komisi 25-45%): ${SITE_URL}/mitra`,
     `- Solusi korporat B2B: ${SITE_URL}/solusi-korporat`,
     `- Layanan BUMDes: ${SITE_URL}/bumdes`,
     `- Cek izin dengan AI: ${SITE_URL}/#cek-izin`,

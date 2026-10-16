@@ -55,7 +55,7 @@
 - [20. Gateway & Layanan Mini](#20-gateway--layanan-mini)
 - [21. Kualitas, Testing & Verifikasi](#21-kualitas-testing--verifikasi)
 - [22. Troubleshooting — Pelajaran Lapangan](#22-troubleshooting--pelajaran-lapangan)
-- [23. Riwayat Pengembangan (Task 1–12)](#23-riwayat-pengembangan-task-112)
+- [23. Riwayat Pengembangan (Task 1–13)](#23-riwayat-pengembangan-task-113)
 - [24. Roadmap](#24-roadmap)
 - [25. FAQ Developer](#25-faq-developer)
 - [26. Kontribusi](#26-kontribusi)
@@ -341,7 +341,8 @@ Poin arsitektur penting:
 | `/roadmap` · `/kalkulator-pajak` · `/cek-dokumen` | Halaman 3 tool AI |
 | `/konsultasi` · `/cek-izin` · `/kalkulator` · `/panduan` (+`/[id]`) | ★ **Halaman dedikasi CTA (Task 12)** — form konsultasi, cek izin (tool), kalkulator biaya (tool), hub 16 panduan |
 | `/virtual-office` · `/solusi-korporat` · `/pma-company-registration` · `/bumdes` | Solusi spesialis |
-| `/tentang-kami` · `/kontak` · `/testimoni` (+`/[kategori]`) · `/lowongan-kerja` (+`/[slug]`) · `/mitra` | Profil & sosial |
+| `/mitra` | ★ **Program Kemitraan Cabang Resmi** (Task 13) — 3 tier (Gerai/Cabang Resmi/Master Franchise), simulasi profit interaktif, 10 FAQ, JSON-LD Service+Offer+FAQPage |
+| `/tentang-kami` · `/kontak` · `/testimoni` (+`/[kategori]`) · `/lowongan-kerja` (+`/[slug]`) | Profil & sosial |
 | `/kanal-resmi` · `/kalender-kepatuhan` | Kanal pemerintah + kalender pajak/laporan |
 | `/kebijakan-privasi` · `/syarat-ketentuan` | Legal (privasi v2.0, 30 bahasa) |
 | `/checkout` · `/payment/[orderNo]` | Funnel pembayaran |
@@ -849,7 +850,7 @@ Bonus pitfall kecil yang sudah dimitigasi/dipahami:
 
 ---
 
-## 23. Riwayat Pengembangan (Task 1–12)
+## 23. Riwayat Pengembangan (Task 1–13)
 
 Log lengkap & transparan tersimpan di [`worklog.md`](./worklog.md).
 
@@ -867,6 +868,7 @@ Log lengkap & transparan tersimpan di [`worklog.md`](./worklog.md).
 | **10** | Benahi `/download` + panel AdminDeploy | Paket statis terbaru (LIGHT, MD5, badge kesegaran); manifest schema v2; 4 rintangan export diperbaiki; `/checkout` kini pre-renderable permanen |
 | **11** | README "terlengkap di dunia" | README.md 959 baris / 27 section: arsitektur, API, DB, i18n, deploy, troubleshooting insiden nyata, roadmap |
 | **12** | Setiap CTA punya halaman asli (full SEO) | 4 halaman baru `/konsultasi` `/cek-izin` `/kalkulator` `/panduan` + JSON-LD spesifik; 19 CTA sitewide diarahkan; 2 bug produksi dimitigasi (kontrak LeadForm 400 di 6 halaman, overflow mobile nowrap-button); paket LIGHT kini menyertakan hub `/panduan` |
+| **13** | **Buka Program Kemitraan Cabang** | `/mitra` dibangun ulang total: model hub-and-spoke (cabang sambut klien, pusat mengolah di SCBD), 3 tier komisi 25/35/45%, simulasi profit interaktif, tabel komisi per layanan, akademi 7 hari, 10 FAQ; JSON-LD Service+3 Offer+FAQPage; sitemap 0.9 weekly; 10 anchor mati footer diperbaiki |
 
 ---
 

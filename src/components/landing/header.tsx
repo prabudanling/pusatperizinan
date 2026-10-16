@@ -254,7 +254,7 @@ export function Header() {
         { icon: Info, label: L("Tentang Kami", "About Us"), href: "/tentang-kami", desc: L("Profil, legalitas & kantor kami", "Profile, licenses & our offices") },
         { icon: MapPin, label: L("Kontak", "Contact"), href: "/kontak", desc: L("WhatsApp, telepon, email & SCBD", "WhatsApp, phone, email & SCBD") },
         { icon: Quote, label: L("Testimoni Klien", "Client Testimonials"), href: "/testimoni", desc: L("Cerita 2.500+ klien", "Stories from 2,500+ clients") },
-        { icon: HeartHandshake, label: L("Jadi Mitra", "Become a Partner"), href: "/mitra", desc: L("Kemitraan konsultan daerah", "Regional consultant partnerships") },
+        { icon: HeartHandshake, label: L("Jadi Mitra", "Become a Partner"), href: "/mitra", desc: L("Buka cabang resmi di kota Anda — pusat yang mengurus", "Open an official branch — HQ runs everything") },
         { icon: Briefcase, label: L("Karier", "Careers"), href: "/lowongan-kerja", desc: L("Gabung tim ahli kami", "Join our expert team") },
       ],
     },

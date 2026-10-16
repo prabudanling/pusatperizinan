@@ -3,7 +3,7 @@
  Dibangun khusus untuk shared hosting TANPA Node.js (idwebhost)
 ════════════════════════════════════════════════════════════
 
-Konten paket : 474 file — 48 halaman HTML siap-baca
+Konten paket : 476 file — 48 halaman HTML siap-baca
 Mode build   : LIGHT — halaman inti + direktori + artikel blog (ringan, cepat di-upload cPanel)
 Node.js      : TIDAK DIBUTUHKAN ✅
 PHP          : TIDAK DIBUTUHKAN ✅ (hosting Anda cukup punya Apache/LiteSpeed)
