@@ -8,6 +8,7 @@ import { BLOG_ARTICLES } from "@/lib/blog-content";
 import { safeGetPublishedPosts } from "@/lib/blog-cms";
 import { CATEGORIES } from "@/lib/katalog-lengkap";
 import { ALL_LAYANAN_SLUGS } from "@/lib/layanan-500";
+import { KATALOG_V2_SLUGS } from "@/lib/katalog-v2";
 import { ALL_SEO_PAGES } from "@/lib/seo-pages";
 import { SITE_URL } from "@/lib/site";
 import { classifyPage } from "@/lib/seo-policy";
@@ -47,6 +48,7 @@ export const SITEMAP_SECTION_IDS = [
   "bandingkan",
   "katalog",
   "layanan500",
+  "layanan-pp",
   "seo-expansion",
 ] as const;
 
@@ -100,6 +102,9 @@ export function buildSection(id: SitemapSectionId): Promise<SitemapEntry[]> | Si
     case "layanan500":
       // KATALOG 500 LAYANAN — 500 halaman detail root-level (URL dataset resmi)
       return ALL_LAYANAN_SLUGS.map((slug) => entry(`/${slug}`, "monthly", 0.9));
+    case "layanan-pp":
+      // KATALOG PREMIUM v2 — 500 halaman detail PP-XXX di /layanan/{slug}-pp-*
+      return KATALOG_V2_SLUGS.map((slug) => entry(`/layanan/${slug}`, "monthly", 0.85));
     case "seo-expansion":
       // Ekspansi Tier-2/3: biaya (110) + syarat (110) + industri (16) + matriks layanan×industri (145+)
       return ALL_SEO_PAGES.map((p) =>

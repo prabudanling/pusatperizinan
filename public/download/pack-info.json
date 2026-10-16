@@ -1,14 +1,14 @@
 {
   "schema": 2,
   "file": "pusatperizinan-static-hosting.tar.gz",
-  "sizeBytes": 9892152,
-  "sizeLabel": "9.43 MB",
-  "md5": "5ececbf38379e45157a73cf998a7f71e",
+  "sizeBytes": 9918296,
+  "sizeLabel": "9.46 MB",
+  "md5": "2961baba742fd886dc1b97921ef4f4a4",
   "fileCount": 476,
   "htmlCount": 48,
   "mode": "light",
   "modeLabel": "LIGHT — halaman inti + direktori + artikel blog (ringan, cepat di-upload cPanel)",
-  "builtAt": "2026-10-16T14:10:52.023Z",
+  "builtAt": "2026-10-16T14:27:47.364Z",
   "target": "idwebhost shared hosting (cPanel) — tanpa Node.js",
   "note": "Upload & extract ke public_html. Lihat DEPLOY-IDWEBHOST.md.",
   "files": [
@@ -16,9 +16,9 @@
       "name": "pusatperizinan-static-hosting.tar.gz",
       "kind": "pack",
       "label": "Paket deploy utama (upload & extract)",
-      "bytes": 9892152,
-      "sizeLabel": "9.43 MB",
-      "mtime": "2026-10-16T14:10:51.797Z"
+      "bytes": 9918296,
+      "sizeLabel": "9.46 MB",
+      "mtime": "2026-10-16T14:27:47.113Z"
     },
     {
       "name": "DEPLOY-IDWEBHOST.md",
@@ -26,7 +26,7 @@
       "label": "Panduan deploy cPanel (± 5 menit)",
       "bytes": 6290,
       "sizeLabel": "0.01 MB",
-      "mtime": "2026-10-14T08:28:24.000Z"
+      "mtime": "2026-10-16T14:10:52.024Z"
     },
     {
       "name": "ISI-PACK.txt",
@@ -34,7 +34,7 @@
       "label": "Checklist isi paket",
       "bytes": 3647,
       "sizeLabel": "0.00 MB",
-      "mtime": "2026-10-14T08:28:24.000Z"
+      "mtime": "2026-10-16T14:10:52.024Z"
     },
     {
       "name": "katalog-500-layanan-pusatperizinan.pdf",
@@ -50,7 +50,7 @@
       "label": "Manifest paket (ukuran, MD5, tanggal)",
       "bytes": 1619,
       "sizeLabel": "0.00 MB",
-      "mtime": "2026-10-14T08:28:24.000Z"
+      "mtime": "2026-10-16T14:10:52.024Z"
     }
   ]
 }

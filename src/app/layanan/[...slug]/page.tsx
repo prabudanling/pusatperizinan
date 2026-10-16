@@ -48,6 +48,8 @@ import { classifyPage } from "@/lib/seo-policy";
 import { SITE_URL } from "@/lib/site";
 import { langAlternates, pageLikeOf } from "@/lib/seo";
 import { geoMetaForSlug } from "@/lib/geo";
+import { resolveKatalogV2, KATALOG_V2_SLUGS } from "@/lib/katalog-v2";
+import { KatalogV2Detail } from "@/components/catalog/katalog-v2-detail";
 
 // ============================================================
 // STATIC EXPORT READY — catch-all [...slug]
@@ -64,7 +66,9 @@ export const dynamicParams = true;
 
 export function generateStaticParams(): { slug: string[] }[] {
   if (process.env.NODE_ENV !== "production") return [];
-  const paths = [...getAllSlugs(), ...getHubSlugs()];
+  // +500 halaman Katalog Premium v2 (PP-XXX) — pre-build di prod,
+  // on-demand di dev (DEV-GUARD sama seperti 8.873 path lama).
+  const paths = [...getAllSlugs(), ...getHubSlugs(), ...KATALOG_V2_SLUGS];
   return paths.map((path) => ({ slug: path.split("/") }));
 }
 
@@ -75,6 +79,19 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const page = getAnyPage(slug.join("/"));
+  // Katalog Premium v2 (PP-XXX): slug di luar dataset lama → coba dataset v2
+  const v2 = page ? undefined : resolveKatalogV2(slug.join("/"));
+  if (v2) {
+    const title = `${v2.name} — Harga ${new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(v2.discountPrice)} (${v2.code})`;
+    const description = `Pengurusan ${v2.name} (${v2.code}) mulai ${new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(v2.discountPrice)} — estimasi ${v2.estimate}, diterbitkan ${v2.authority}. Syarat lengkap, garansi 100%, pendampingan hingga terbit oleh PusatPerizinan.com.`;
+    return {
+      title,
+      description,
+      alternates: langAlternates(`/layanan/${v2.slug}`),
+      openGraph: { title, description, url: `/layanan/${v2.slug}`, type: "article", siteName: "PusatPerizinan.com", locale: "id_ID" },
+    };
+  }
+
   if (!page) return {};
 
   // M05: meta geo dinamis — provinsi/kota diekstrak dari slug halaman
@@ -479,6 +496,9 @@ export default async function ServiceDetailPage({
 }) {
   const { slug } = await params;
   const page = getAnyPage(slug.join("/"));
+  // Katalog Premium v2 (PP-XXX) — branch sebelum notFound()
+  const v2 = page ? undefined : resolveKatalogV2(slug.join("/"));
+  if (v2) return <KatalogV2Detail service={v2} />;
   if (!page) notFound();
 
   const isHub = page.kind === "hub";

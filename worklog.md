@@ -402,3 +402,24 @@ Stage Summary:
 - Keputusan arsitektur penting: kemitraan dikonsolidasi di /mitra (satu URL kuat), bukan domain baru /kemitraan — SEO master call untuk menghindari kanibalisasi
 - Footer 100% bebas anchor relatif (10 link mati ditambahkan ke pemulihan)
 - Paket /download kembali TERBARU dengan /mitra baru; README Task 1–13 & worklog tersinkron
+
+---
+Task ID: 14
+Agent: Z.ai Code (main orchestrator)
+Task: Integrasi file upload user Katalog_500_Layanan_PusatPerizinan.md (edisi "Terlengkap Se Asia", v1.0) — keluarkan ide terbaik dewan 46 pakar: integrasi aditif non-destruktif + SEO maksimal
+
+Work Log:
+- ANALISIS FILE: MD 8.616 baris — 500 layanan, 6 kategori BARU (PP-BU 100, PP-BP 85, PP-PE 80, PP-KL 80, PP-TL 80, PP-KS 75), kode item PP-XXX, harga normal/diskon/hemat, estimasi, lembaga penerbit, syarat, masa berlaku, catatan, deskripsi, tautan /layanan/{slug}-pp-*. DATASET BERBEDA dari katalog lama (BU-PT-001 dsb., 4 kategori) → keputusan dewan: INTEGRASI ADITIF (bukan replace) — nol URL lama rusak, situs tumbuh +500 halaman
+- PARSER scripts/parse-katalog-v2.mjs: regex blok detail `#### PP-XX-NNN — Nama`, field **Key:** value, ekstraksi slug tahan typo file sumber ("ttps://", markdown berantakan) via /layanan\/([a-z0-9-]+-pp-[a-z]{2}-\d{3})/, parse rupiah/diskon, validasi ketat (500 unique, 6 kategori, slug regex, harga ≤ normal) → src/lib/katalog-v2.ts (297 KB, AUTO-GENERATED, interface+helpers+stats). Hasil: 500/500, 0 warning, total hemat Rp3.545.002.002 (persis statistik file)
+- 500 HALAMAN DETAIL BARU di URL yang file itu sendiri deklarasikan: catch-all /layanan/[...slug]/page.tsx di-branch (3 titik: generateStaticParams prod +KATALOG_V2_SLUGS; generateMetadata v2-first dengan title berisi harga; Page render <KatalogV2Detail/> sebelum notFound) — dev on-demand (DEV-GUARD OOM tetap), prod pre-build
+- KOMPONEN KatalogV2Detail (server, Header/Footer sitewide): breadcrumb 4 tingkat, badge kode+kategori+diskon, H1=nama layanan, meta estimasi/masa berlaku/lembaga, kartu harga (diskon besar + normal strikethrough + hemat), checklist syarat (split koma), callout catatan, 6 layanan sejenis satu kategori, sidebar sticky CTA (WA prefilled kode+harga, konsultasi, kalkulator) + trust 4.9/890/3.890; JSON-LD BreadcrumbList + Product(sku=kode, Offer price IDR, AggregateRating 4.9/890) → memungkinkan rich result harga Google
+- BROWSER PREMIUM /katalog#premium (katalog-v2-browser.tsx client): search (nama/kode/lembaga), chip 6 kategori + "Semua (500)", filter tier (entry<2jt/mid/premium/enterprise), sort (populer/murah/mahal/hemat/nama), load-more 24/batch, aria-live hasil; seksi baru di /katalog dengan intro harga min-max + total hemat; metadata /katalog tidak diubah (konsisten 500 resmi) tapi H2 premium menambah 1.000 konteks
+- SEO SEBAR: sitemap-sections + seksi "layanan-pp" (500 URL × 0.85 monthly) → index 12→13 seksi, total 10.206→10.706 URL (dihitung live); llms.txt katalog line → 1.000 layanan + edisi Premium; llms-full.txt + seksi "Katalog Premium PP-XXX" (intro 6 kategori + 25 contoh kode+harga+URL)
+- FIX DALAM PROSES: (1) generator katalogV2Tier awalnya menyisipkan arrow function (TS2322) → ditulis ulang if-return; (2) import duplikat llms-full (MultiEdit non-atomik lintas call) → dibersihkan; (3) TS narrowing generateMetadata (page possibly undefined) → urutan branch v2-first lalu if(!page) return {}
+- VERIFIKASI: parser 500/500 + 0 warning; 6 kategori diuji live 200 (BU-001, BU-002, BP-001, PE-001, TL-001, KS-001); tsc 0 error file terkait; lint 0 error; E2E agent-browser: /katalog#premium 24 kartu batch-1, search "IUP" → 38 hasil aria-live benar, klik kartu → detail PP-BU-089 (title harga, H1 nama, JSON-LD BreadcrumbList+Product, syarat, WA), mobile 390 sw=iw nol overflow pageH 6.926>844 footer natural, 0 page error; sitemap layanan-pp.xml = 500 loc; pack rebuild LIGHT 48 hal/476 file/9,46 MB MD5 2961baba… (layanan-pp auto-prune dari sitemap pack — konsisten arsitektur hold long-tail; FULL build menyertakan semua); dev OOM pasca-build → restart OOM-safe sehat (/, /katalog, detail v2 = 200)
+- CATATAN ARSITEKTUR: 500 detail premium menumpang catch-all /layanan/[...slug] yang di-hold pada mode PACK_LIGHT (sama seperti 8.873 halaman long-tail lama) — paket LIGHT tetap 48 hal; katalog hub & browser ikut; mode FULL meng-export semuanya
+
+Stage Summary:
+- Upload user berubah menjadi 500 halaman terindeks + browser premium — situs kini 1.000 layanan dalam 2 katalog, 10.706 URL sitemap (13 seksi), semua URL lama utuh
+- Dataset terstruktur siap dipakai lanjutan (PDF generator, API publik, filter lanjutan) — single source of truth katalog-v2.ts dengan regenerasi satu perintah: node scripts/parse-katalog-v2.mjs
+- README Task 1–14, badge 1.000 layanan & 10.706 URL, diagram 13 seksi — semua tersinkron

@@ -15,8 +15,8 @@
 ![Prisma](https://img.shields.io/badge/Prisma%206-SQLite-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
 ![React](https://img.shields.io/badge/React%2019-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 
-![Pages](https://img.shields.io/badge/URL%20Sitemap-10.206-059669?style=flat-square)
-![Layanan](https://img.shields.io/badge/Katalog-500%20Layanan-059669?style=flat-square)
+![Pages](https://img.shields.io/badge/URL%20Sitemap-10.706-059669?style=flat-square)
+![Layanan](https://img.shields.io/badge/Katalog-1.000%20Layanan-059669?style=flat-square)
 ![Bahasa](https://img.shields.io/badge/UI-30%20Bahasa-059669?style=flat-square)
 ![AI](https://img.shields.io/badge/AI%20Tools-5%20Aktif-059669?style=flat-square)
 ![Models](https://img.shields.io/badge/Prisma-12%20Model-059669?style=flat-square)
@@ -55,7 +55,7 @@
 - [20. Gateway & Layanan Mini](#20-gateway--layanan-mini)
 - [21. Kualitas, Testing & Verifikasi](#21-kualitas-testing--verifikasi)
 - [22. Troubleshooting — Pelajaran Lapangan](#22-troubleshooting--pelajaran-lapangan)
-- [23. Riwayat Pengembangan (Task 1–13)](#23-riwayat-pengembangan-task-113)
+- [23. Riwayat Pengembangan (Task 1–14)](#23-riwayat-pengembangan-task-114)
 - [24. Roadmap](#24-roadmap)
 - [25. FAQ Developer](#25-faq-developer)
 - [26. Kontribusi](#26-kontribusi)
@@ -70,7 +70,7 @@
 | Dimensi | Isi |
 |---|---|
 | 🎯 **Bisnis** | Jasa pengurusan NIB, pendirian PT/CV/PMA, sertifikasi halal, izin BPOM/PIRT, PBG/SLF, AMDAL, izin umroh (PPIU/PPIH), IATA, MISA Arab Saudi, RKAB tambang, pajak & kepatuhan |
-| 📄 **Konten** | **10.206 URL** terindeks sitemap: 500 halaman layanan detail, 36 KBLI, 15+ artikel blog, matriks industri, halaman biaya/syarat/perbandingan, 16 panduan + hub, 4 halaman dedikasi CTA (konsultasi/cek-izin/kalkulator/panduan) |
+| 📄 **Konten** | **10.706 URL** terindeks sitemap (13 seksi): 500 halaman layanan detail, 500 Katalog Premium PP-XXX, 36 KBLI, 15+ artikel blog, matriks industri, halaman biaya/syarat/perbandingan, 16 panduan + hub, 4 halaman dedikasi CTA (konsultasi/cek-izin/kalkulator/panduan) |
 | 🤖 **AI** | 5 tool AI aktif: Cek Izin AI, AI Consultant "RIZKI" 24/7, Cek Dokumen (vision), AI Roadmap 12 bulan, kalkulator pajak |
 | 🌍 **Internasional** | UI **30 bahasa** (termasuk RTL penuh: Arab, Farsi, Urdu, Ibrani) + `llms.txt` siap GEO/AI-search |
 | 💰 **Monetisasi** | Checkout otomatis (Midtrans/Tripay) dengan harga server-side anti-manipulasi + mode demo |
@@ -331,7 +331,7 @@ Poin arsitektur penting:
 |---|---|
 | `/` | Beranda — 23 section + panel deploy privat |
 | `/layanan` | Hub semua layanan (+ rail `[...slug]` halaman layanan lanjutan) |
-| `/katalog` | Katalog 500 layanan interaktif · `/katalog/[kategori]` kategori klasik 31 divisi |
+| `/katalog` | Katalog **1.000 layanan**: 500 resmi (4 kategori) + **500 Premium PP-XXX edisi Terlengkap Se-Asia** (6 kategori, search/filter/sort) · `/katalog/[kategori]` kategori klasik 31 divisi · detail premium: `/layanan/{slug}-pp-{cat}-{nnn}` |
 | `/kbli` | Pencarian KBLI · `/kbli/[...slug]` detail kode |
 | `/blog` · `/blog/[slug]` | Daftar + artikel (statis + CMS) |
 | `/faq` | 51 Q&A, 10 kategori, pencarian multi-bahasa |
@@ -506,11 +506,12 @@ bun run db:reset      # reset penuh
 
 ## 11. Mesin SEO & GEO
 
-### Sitemap — arsitektur 12 seksi (10.206 URL)
+### Sitemap — arsitektur 13 seksi (10.706 URL)
 
 ```text
 /sitemap.xml  (rewrite → /api/sitemap-index, <sitemapindex>)
    ├── /sitemap/static.xml      32 halaman statis + FAQ + CMS (+4 halaman CTA Task 12)
+   ├── /sitemap/layanan-pp.xml  500 halaman Katalog Premium PP-XXX (Task 14)
    ├── /sitemap/layanan.xml     hub + 500 detail + long-tail
    ├── /sitemap/katalog.xml     katalog & kategori
    ├── /sitemap/kbli.xml        klasifikasi KBLI
@@ -850,7 +851,7 @@ Bonus pitfall kecil yang sudah dimitigasi/dipahami:
 
 ---
 
-## 23. Riwayat Pengembangan (Task 1–13)
+## 23. Riwayat Pengembangan (Task 1–14)
 
 Log lengkap & transparan tersimpan di [`worklog.md`](./worklog.md).
 
@@ -869,6 +870,7 @@ Log lengkap & transparan tersimpan di [`worklog.md`](./worklog.md).
 | **11** | README "terlengkap di dunia" | README.md 959 baris / 27 section: arsitektur, API, DB, i18n, deploy, troubleshooting insiden nyata, roadmap |
 | **12** | Setiap CTA punya halaman asli (full SEO) | 4 halaman baru `/konsultasi` `/cek-izin` `/kalkulator` `/panduan` + JSON-LD spesifik; 19 CTA sitewide diarahkan; 2 bug produksi dimitigasi (kontrak LeadForm 400 di 6 halaman, overflow mobile nowrap-button); paket LIGHT kini menyertakan hub `/panduan` |
 | **13** | **Buka Program Kemitraan Cabang** | `/mitra` dibangun ulang total: model hub-and-spoke (cabang sambut klien, pusat mengolah di SCBD), 3 tier komisi 25/35/45%, simulasi profit interaktif, tabel komisi per layanan, akademi 7 hari, 10 FAQ; JSON-LD Service+3 Offer+FAQPage; sitemap 0.9 weekly; 10 anchor mati footer diperbaiki |
+| **14** | **Katalog Premium PP-XXX terintegrasi** (upload user) | Parser MD→TS (500 layanan, 0 warning); 500 halaman detail baru `/layanan/{slug}-pp-*` (JSON-LD Product+Offer+Breadcrumb, harga/syarat/lembaga); browser search+filter 6 kategori di `/katalog#premium`; sitemap 13 seksi **10.206→10.706 URL**; llms.txt & llms-full.txt update |
 
 ---
 

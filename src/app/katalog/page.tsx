@@ -14,6 +14,8 @@ import {
 } from "@/lib/katalog-lengkap";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 import Katalog500Browser from "./katalog-500-browser";
+import { KatalogV2Browser } from "./katalog-v2-browser";
+import { KATALOG_V2_STATS } from "@/lib/katalog-v2";
 
 // ============================================================
 // PUSATPERIZINAN.COM — /katalog (KATALOG 500 LAYANAN)
@@ -298,6 +300,28 @@ export default function KatalogPage() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* KATALOG PREMIUM v2 (PP-XXX) — edisi Terlengkap Se Asia */}
+      <section id="premium" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-14" aria-labelledby="premium-title">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="max-w-3xl">
+            <p className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">
+              EDISI PREMIUM · {KATALOG_V2_STATS.total} LAYANAN · {KATALOG_V2_STATS.categories} KATEGORI
+            </p>
+            <h2 id="premium-title" className="mt-3 text-2xl font-bold text-stone-900 md:text-3xl">
+              Katalog Premium — Layanan Perizinan Terlengkap Se-Asia (Kode PP-XXX)
+            </h2>
+            <p className="mt-2 text-stone-600">
+              Enam kategori tambahan di luar katalog utama: badan usaha, bangunan & properti,
+              pertambangan & energi, kehutanan & lingkungan, transportasi & logistik, kesehatan.
+              Harga diskon transparan {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(KATALOG_V2_STATS.priceMin)}–{new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(KATALOG_V2_STATS.priceMax)} — total potensi hemat {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(KATALOG_V2_STATS.totalSavings)}.
+            </p>
+          </div>
+        </div>
+        <div className="mt-6">
+          <KatalogV2Browser />
         </div>
       </section>
 

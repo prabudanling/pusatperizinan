@@ -2,6 +2,7 @@ import { SERVICES } from "@/lib/landing-data";
 import { TAX_ALL } from "@/lib/tax-services";
 import { PMI_B2B_SERVICES, PMI_B2C_SERVICES } from "@/lib/pmi-services";
 import { CATEGORIES, BUNDLES } from "@/lib/katalog-lengkap";
+import { KATALOG_V2, KATALOG_V2_STATS } from "@/lib/katalog-v2";
 import { PERMIT_GUIDES } from "@/lib/seo-content";
 import { BLOG_ARTICLES } from "@/lib/blog-content";
 import { SITE_URL, CONTACT } from "@/lib/site";
@@ -35,7 +36,18 @@ export function GET() {
     }
     lines.push("");
   }
-  lines.push("## Paket Bundel Unggulan", "");
+  lines.push(
+    "",
+    `## Katalog Premium PP-XXX (${KATALOG_V2_STATS.total} layanan, edisi Terlengkap Se-Asia)`,
+    "",
+    "Enam kategori: Badan Usaha (PP-BU), Bangunan & Properti (PP-BP), Pertambangan & Energi (PP-PE), Kehutanan & Lingkungan (PP-KL), Transportasi & Logistik (PP-TL), Kesehatan (PP-KS). Halaman detail = /layanan/{slug} berisi harga diskon, syarat, estimasi proses, masa berlaku & lembaga penerbit. Contoh:",
+    ""
+  );
+  for (const s of KATALOG_V2.slice(0, 25)) {
+    lines.push(`- [${s.code}] ${s.name} — Rp ${new Intl.NumberFormat("id-ID").format(s.discountPrice)} (diskon ${s.discountPct}%), ${s.estimate}, ${s.authority}: ${SITE_URL}/layanan/${s.slug}`);
+  }
+  lines.push(`- …dan ${KATALOG_V2_STATS.total - 25} layanan lainnya — daftar penuh via sitemap seksi layanan-pp`);
+  lines.push("", "## Paket Bundel Unggulan", "");
   for (const b of BUNDLES) {
     lines.push(`- ${b.name} — ${b.price ? `Rp ${new Intl.NumberFormat("id-ID").format(b.price)}` : "hubungi"} untuk ${b.audience}. Termasuk: ${b.includes.join("; ")}`);
   }
